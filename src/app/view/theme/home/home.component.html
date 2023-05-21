@@ -1,0 +1,192 @@
+
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" style="background-image: url(./assets/images/banner/home.jpg);"></div>
+
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="section__head">
+            <div class="flex-grow-1">
+                <span class="section__subtitle">Listen top charts</span>
+                <h3 class="mb-0">Top <span class="text-primary">Charts</span></h3>
+            </div>
+            <a routerLink="/app/songs" class="btn btn-link">View All</a>
+        </div>
+
+        <ng-template #charts let-data="data">
+            <app-cover-view [data]="data"></app-cover-view>
+        </ng-template>
+        <app-carousel [classes]="'swiper-carousel-button'" [slideTemplate]="charts" [slideData]="songs" [slides]="5" [navigation]="true"></app-carousel>
+    </div>
+    <!-- End:: section -->
+
+    <div class="row">
+
+        <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+        <div class="section col-xl-6">
+            <div class="section__head">
+                <div class="flex-grow-1">
+                    <h3 class="mb-0">Upcoming <span class="text-primary">Events</span></h3>
+                </div>
+                <a routerLink="/app/events" class="btn btn-link">Explore More</a>
+            </div>
+
+            <ng-template #event let-data="data">
+                <app-event-view [data]="data"></app-event-view>
+            </ng-template>
+            <app-carousel [slideTemplate]="event" [slideData]="events" [slides]="2" [pagination]="true"></app-carousel>
+        </div>
+        <!-- End:: section -->
+
+        <div class="col-xl-1"></div>
+
+        <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+        <div class="section col-xl-5">
+            <!-- Start:: mat tabs [[ Find at scss/components/nav.scss ]] -->
+            <div class="mat-tabs" appTabs>
+                <ul class="nav nav-tabs" id="songs_list" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="trending" data-bs-toggle="tab" data-bs-target="#trending_pane" type="button" role="tab" aria-controls="trending_pane" aria-selected="true">Trending</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="international" data-bs-toggle="tab" data-bs-target="#international_pane" type="button" role="tab" aria-controls="international_pane" aria-selected="false">International</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="recent" data-bs-toggle="tab" data-bs-target="#recent_pane" type="button" role="tab" aria-controls="recent_pane" aria-selected="false">Recent</button>
+                    </li>
+                </ul>
+            </div>
+            <!-- End:: mat tabs -->
+
+            <div class="tab-content mt-4" id="songs_list_content">
+                <div class="tab-pane fade show active" id="trending_pane" role="tabpanel" aria-labelledby="trending" tabindex="0">
+                    <!-- Start:: list [[ Find at scss/components/list.scss ]] -->
+                    <div class="list">
+                        <ng-container *ngFor="let song of songs | slice: 0 : 5">
+                            <app-list-view [data]="song"></app-list-view>
+                        </ng-container>
+                    </div>
+                    <!-- End:: list -->
+                </div>
+                <div class="tab-pane fade" id="international_pane" role="tabpanel" aria-labelledby="international" tabindex="0">
+                    <!-- Start:: list [[ Find at scss/components/list.scss ]] -->
+                    <div class="list">
+                        <ng-container *ngFor="let song of songs | slice: 5">
+                            <app-list-view [data]="song"></app-list-view>
+                        </ng-container>
+                    </div>
+                    <!-- End:: list -->
+                </div>
+                <div class="tab-pane fade" id="recent_pane" role="tabpanel" aria-labelledby="recent" tabindex="0">
+                    <!-- Start:: list [[ Find at scss/components/list.scss ]] -->
+                    <div class="list">
+                        <ng-container *ngFor="let song of songs | slice: 0 : 5">
+                            <app-list-view [data]="song"></app-list-view>
+                        </ng-container>
+                    </div>
+                    <!-- End:: list -->
+                </div>
+            </div>
+        </div>
+        <!-- End:: section -->
+
+    </div>
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="section__head">
+            <div class="flex-grow-1">
+                <span class="section__subtitle">New to listen</span>
+                <h3 class="mb-0">New <span class="text-primary">Releases</span></h3>
+            </div>
+            <a routerLink="/app/songs" class="btn btn-link">View All</a>
+        </div>
+
+        <ng-template #releases let-data="data">
+            <app-cover-view [data]="data"></app-cover-view>
+        </ng-template>
+        <app-carousel [classes]="'swiper-carousel-button'" [slideTemplate]="releases" [slideData]="songs" [slides]="5" [navigation]="true"></app-carousel>
+    </div>
+    <!-- End:: section -->
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="section__head">
+            <div class="flex-grow-1">
+                <span class="section__subtitle">Best to listen</span>
+                <h3 class="mb-0">Featured <span class="text-primary">Artists</span></h3>
+            </div>
+            <a routerLink="/app/artists" class="btn btn-link">View All</a>
+        </div>
+
+        <ng-template #releases let-data="data">
+            <app-cover-view [data]="data"></app-cover-view>
+        </ng-template>
+        <app-artist-carousel></app-artist-carousel>
+    </div>
+    <!-- End:: section -->
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="section__head">
+            <div class="flex-grow-1">
+                <span class="section__subtitle">Trending to listen</span>
+                <h3 class="mb-0">Top <span class="text-primary">Albums</span></h3>
+            </div>
+            <a routerLink="/app/albums" class="btn btn-link">View All</a>
+        </div>
+        
+        <!-- Start:: list [[ Find at scss/components/list.scss ]] -->
+        <div class="list list--lg list--order">
+            <div class="row">
+                <div class="col-xl-6" *ngFor="let album of albums">
+                    <ng-container *ngFor="let item of album">
+                        <app-list-view [data]="item" [viewQueueOptions]="false" [viewDownload]="true"
+                        [viewPlaylist]="false" [viewFavorite]="true" [viewPlayButton]="false"></app-list-view>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <!-- End:: list -->
+    </div>
+    <!-- End:: section -->
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="section__head">
+            <div class="flex-grow-1">
+                <span class="section__subtitle">Collection to listen</span>
+                <h3 class="mb-0">Best <span class="text-primary">Playlist</span></h3>
+            </div>
+            <a routerLink="/app/playlist" class="btn btn-link">View All</a>
+        </div>
+
+        <ng-template #collection let-data="data">
+            <app-cluster-view [data]="data" [viewData]="true"></app-cluster-view>
+        </ng-template>
+        <app-carousel [slideTemplate]="collection" [slideData]="playlist" [slides]="4" [navigation]="true"></app-carousel>
+    </div>
+    <!-- End:: section -->
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="section__head">
+            <div class="flex-grow-1">
+                <span class="section__subtitle">Listen live now</span>
+                <h3 class="mb-0">Live <span class="text-primary">Radios</span></h3>
+            </div>
+            <a routerLink="/app/stations" class="btn btn-link">View All</a>
+        </div>
+
+        <ng-template #live let-data="data">
+            <app-cover-view [data]="data" [viewPlaylist]="false"></app-cover-view>
+        </ng-template>
+        <app-carousel [slideTemplate]="live" [slideData]="radios" [slides]="5" [pagination]="true"></app-carousel>
+    </div>
+    <!-- End:: section -->
+
+</div>
+<!-- End:: under hero -->

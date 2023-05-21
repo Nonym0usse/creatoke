@@ -1,0 +1,92 @@
+<!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+<div class="section">
+    <div class="section__head">
+        <h3 class="mb-0">Comments</h3>
+    </div>
+    <div class="row">
+        <div class="col-xl-8">
+            <form class="row mb-5" [formGroup]="form">
+                <div class="col-12 mb-3 d-flex align-items-center">
+                    <span class="form-label mb-0">Ratings:</span>
+                    <div class="ps-2">
+                        <select class="form-select" style="min-width: 100px;" aria-label="Select ratings" formControlName="ratings">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <input type="text" class="form-control" placeholder="Full name" formControlName="name">
+                </div>
+                <div class="col-6 mb-3">
+                    <input type="text" class="form-control" placeholder="Email ID" formControlName="email">
+                </div>
+                <div class="col-12 mb-4">
+                    <textarea name="comment" id="comment" cols="30" rows="4" class="form-control" placeholder="Write your comment" formControlName="comment"></textarea>
+                </div>
+                <div class="col-12">
+                    <button type="button" class="btn btn-primary" style="min-width: 160px;" [disabled]="form.invalid">Submit</button>
+                </div>
+            </form>
+            <div class="avatar avatar--lg align-items-start">
+                <div class="avatar__image">
+                    <img src="./assets/images/users/thumb.jpg" alt="user">
+                </div>
+                <div class="avatar__content">
+                    <span class="avatar__title mb-1">Androws Kinny</span>
+                    <span class="avatar__subtitle mb-2">Apr 22, 2019</span>
+                    <div class="text-warning d-flex mb-1">
+                        <i class="ri-star-s-fill"></i>
+                        <i class="ri-star-s-fill"></i>
+                        <i class="ri-star-s-fill"></i>
+                        <i class="ri-star-s-fill"></i>
+                    </div>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laboriosam vel necessitatibus suscipit dicta quasi velit ratione nemo, voluptatum debitis cum sit quod dolor pariatur laudantium cumque.</p>
+                    <a href="javascript:void(0);" class="btn btn-link">
+                        <div class="btn__wrap">
+                            <i class="ri-reply-line fs-6"></i>
+                            <span>Reply</span>
+                        </div>
+                    </a>
+                    <div class="avatar avatar--lg align-items-start mt-4">
+                        <div class="avatar__image">
+                            <img src="./assets/images/users/thumb.jpg" alt="user">
+                        </div>
+                        <div class="avatar__content">
+                            <span class="avatar__title">Androws Kinny</span>
+                            <span class="avatar__subtitle mb-2">Apr 23, 2019</span>
+                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laboriosam vel necessitatibus suscipit dicta quasi velit ratione nemo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="avatar avatar--lg align-items-start mt-4">
+                <div class="avatar__image">
+                    <img src="./assets/images/users/thumb.jpg" alt="user">
+                </div>
+                <div class="avatar__content">
+                    <span class="avatar__title mb-1">Androws Kinny</span>
+                    <span class="avatar__subtitle mb-2">Apr 16, 2019</span>
+                    <div class="text-warning d-flex mb-1">
+                        <i class="ri-star-s-fill"></i>
+                        <i class="ri-star-s-fill"></i>
+                        <i class="ri-star-s-fill"></i>
+                        <i class="ri-star-s-fill"></i>
+                        <i class="ri-star-s-fill"></i>
+                    </div>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laboriosam vel necessitatibus suscipit dicta quasi velit ratione nemo, voluptatum debitis cum sit quod dolor pariatur laudantium cumque.</p>
+                    <a href="javascript:void(0);" class="btn btn-link">
+                        <div class="btn__wrap">
+                            <i class="ri-reply-line fs-6"></i>
+                            <span>Reply</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End:: section -->

@@ -1,0 +1,14 @@
+<ng-template #artist let-data="data">
+    <!-- Start:: avatar [[ Find at scss/components/avatar.scss ]] -->
+    <div class="avatar avatar--xxl d-block text-center">
+        <div class="avatar__image">
+            <a [routerLink]="['/app/artist/' + data.id + '/details']">
+                <img [src]="data.cover" [alt]="data.name">
+            </a>
+        </div>
+        <a [routerLink]="['/app/artist/' + data.id + '/details']" class="avatar__title mt-3">{{data.name}}</a>
+    </div>
+    <!-- End:: avatar -->
+</ng-template>
+
+<app-carousel [slideTemplate]="artist" [slideData]="artists" [slides]="6" [pagination]="true"></app-carousel>

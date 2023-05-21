@@ -1,0 +1,92 @@
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" style="background-image: url(./assets/images/banner/song.jpg);"></div>
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+  <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+  <div class="section">
+    <div class="row">
+      <div class="col-xl-7 col-md-10 mx-auto">
+        <div class="card">
+          <div class="card-header pb-0">
+            <!-- Start:: mat tabs [[ Find at scss/components/nav.scss ]] -->
+            <div class="mat-tabs" appTabs>
+              <ul class="nav nav-tabs" id="add_music" role="tablist">
+                <li class="nav-item" role="presentation">
+
+                  <button class="nav-link" id="cate" data-bs-toggle="tab"
+                          data-bs-target="#add-sous-category" type="button" role="tab" aria-controls="dd-sous-category"
+                          aria-selected="false">Ajouter une catégorie</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="music" data-bs-toggle="tab"
+                          data-bs-target="#music_pane" type="button" role="tab" aria-controls="music_pane"
+                          aria-selected="true">Ajouter une sous-catégorie</button>
+                </li>
+              </ul>
+            </div>
+            <!-- End:: mat tabs -->
+          </div>
+          <div class="card-body">
+            <div class="tab-content" id="add_music_content">
+              <div class="tab-pane fade show active" id="music_pane" role="tabpanel"
+                   aria-labelledby="music" tabindex="0">
+                <form action="#" class="row" [formGroup]="categoryForm">
+                  <div class="col-12 mb-4">
+                    <input type="text" formControlName="title_fr" class="form-control"
+                           placeholder="Titre de la catégorie en français">
+                  </div>
+                  <div class="col-12 mb-4">
+                    <input type="text" formControlName="title_en" class="form-control"
+                           placeholder="Titre de la catégorie en anglais">
+                  </div>
+                  <div class="card-footer text-center">
+                    <button class="btn btn-primary" style="min-width: 140px;" (click)="addCategory()"
+                            [disabled]="!categoryForm.valid">Ajouter catégorie</button>
+                    <button class="btn btn-outline-secondary ms-2">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="tab-pane fade" id="add-sous-category" role="tabpanel" aria-labelledby="ss-categorie"
+                   tabindex="0">
+                <form action="#" class="row" [formGroup]="subCategoryForm">
+                  <div class="col-12 mb-4">
+                    <input type="text" formControlName="title_fr" class="form-control"
+                           placeholder="Titre de la sous-catégorie en français">
+                  </div>
+                  <div class="col-12 mb-4">
+                    <input type="text" formControlName="title_en" class="form-control"
+                           placeholder="Titre de la sous-catégorie en anglais">
+                  </div>
+                  <div class="col-12 mb-4">
+                    <select class="form-select" formControlName="category" aria-label="Select category">
+                      <option value="" selected disabled hidden>Merci de choisir</option>
+                      <option value="a-chanter">Chansons à chanter</option>
+                      <option value="instrumentaux">Instrumentaux</option>
+                      <option value="youtubeurs">Youtubeurs</option>
+                    </select>
+                  </div>
+                  <div class="col-12 mb-4">
+                    <input type="file" class="form-control" (change)="onFileSelected($event)">
+                  </div>
+                  <div class="card-footer text-center">
+                    <button class="btn btn-primary" style="min-width: 140px;" (click)="addSubCategory()"
+                            [disabled]="!subCategoryForm.valid">Ajouter sous-catégorie</button>
+                    <button class="btn btn-outline-secondary ms-2">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End:: section -->
+
+</div>
+<!-- End:: under hero -->

@@ -1,0 +1,40 @@
+<!-- Start:: sidebar [[ Find at scss/framework/sidebar.scss ]] -->
+<aside id="sidebar" #sidebar>
+  <div class="sidebar-head d-flex align-items-center justify-content-between">
+    <app-brand></app-brand>
+
+    <a role="button" class="sidebar-toggler" aria-label="Sidebar toggler" (click)="toggler()">
+      <div class="d-none d-lg-block">
+        <i class="ri-menu-3-line sidebar-menu-1"></i>
+        <i class="ri-menu-line sidebar-menu-2"></i>
+      </div>
+      <i class="ri-menu-fold-line d-lg-none"></i>
+    </a>
+  </div>
+
+  <perfect-scrollbar class="sidebar-body">
+    <nav class="navbar d-block p-0">
+      <ul class="navbar-nav">
+        <li [ngClass]="nav.head ? 'nav-item nav-item--head' : 'nav-item'" *ngFor="let nav of navbar">
+          <ng-container *ngIf="nav.head; else navLink">
+            <span class="nav-item--head__text">{{nav.head}}</span>
+            <span class="nav-item--head__dots">...</span>
+          </ng-container>
+          <ng-template #navLink>
+            <a [routerLink]="nav.link" [routerLinkActive]="active" class="nav-link d-flex align-items-center" [innerHTML]="navLinkHTML(nav)"></a>
+          </ng-template>
+        </li>
+      </ul>
+    </nav>
+  </perfect-scrollbar>
+
+  <div class="sidebar-foot">
+    <a routerLink="/app/add-song" class="btn btn-primary d-flex">
+      <div class="btn__wrap">
+        <i class="ri-music-fill"></i>
+        <span>Add Music</span>
+      </div>
+    </a>
+  </div>
+</aside>
+<!-- End:: sidebar -->

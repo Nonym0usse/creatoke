@@ -1,0 +1,191 @@
+<!-- Start:: search form [[ Find at scss/framework/search.scss ]] -->
+<form id="search_form" class="me-3">
+    <label for="search_input">
+        <i class="ri-search-2-line"></i>
+    </label>
+    <input type="text" placeholder="Type anything to get result..." id="search_input" class="form-control form-control-sm" (click)="showSearchView()">
+</form>
+<!-- End:: search form -->
+
+<!-- Start:: search [[ Find at scss/framework/search.scss ]] -->
+<div id="search_results" class="search pb-3">
+    <div class="search__head">
+        <div class="search__head__filter">
+            <button type="button" class="btn btn-sm btn-light-primary active">Trending</button>
+            <button type="button" class="btn btn-sm btn-light-primary">Artists</button>
+            <button type="button" class="btn btn-sm btn-light-primary">Songs</button>
+            <button type="button" class="btn btn-sm btn-light-primary">Albums</button>
+        </div>
+    </div>
+    <perfect-scrollbar class="search__body">
+        <div class="mb-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <span class="search__title">Artists</span>
+                <a class="btn btn-link" (click)="routeToPage('/app/artists')">View All</a>
+            </div>
+            <div class="row g-4 list">
+                <div class="col-xl-3 col-md-4 col-sm-6">
+                    <div class="list__item">
+                        <a (click)="routeToPage('/app/artist/1/details')" class="list__cover">
+                            <img src="./assets/images/cover/large/5.jpg" alt="Jina Moore">
+                        </a>
+                        <div class="list__content">
+                            <a (click)="routeToPage('/app/artist/1/details')" class="list__title text-truncate">Jina Moore</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-4 col-sm-6">
+                    <div class="list__item">
+                        <a (click)="routeToPage('/app/artist/1/details')" class="list__cover">
+                            <img src="./assets/images/cover/large/6.jpg" alt="Rasomi Pelina">
+                        </a>
+                        <div class="list__content">
+                            <a (click)="routeToPage('/app/artist/1/details')" class="list__title text-truncate">Rasomi Pelina</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-4 col-sm-6">
+                    <div class="list__item">
+                        <a (click)="routeToPage('/app/artist/1/details')" class="list__cover">
+                            <img src="./assets/images/cover/large/7.jpg" alt="Pimila Holliwy">
+                        </a>
+                        <div class="list__content">
+                            <a (click)="routeToPage('/app/artist/1/details')" class="list__title text-truncate">Pimila Holliwy</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-4 col-sm-6">
+                    <div class="list__item">
+                        <a (click)="routeToPage('/app/artist/1/details')" class="list__cover">
+                            <img src="./assets/images/cover/large/8.jpg" alt="Karen Jennings">
+                        </a>
+                        <div class="list__content">
+                            <a (click)="routeToPage('/app/artist/1/details')" class="list__title text-truncate">Karen Jennings</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <span class="search__title">Songs</span>
+                <a class="btn btn-link" (click)="routeToPage('/app/songs')">View All</a>
+            </div>
+            <div class="row g-4 list">
+                <div class="col-xl-3 col-md-4 col-sm-6">
+                    <div class="list__item">
+                        <a (click)="routeToPage('/app/song/1/details')" class="list__cover">
+                            <img src="./assets/images/cover/small/6.jpg" alt="Hey not me">
+                        </a>
+                        <div class="list__content">
+                            <a (click)="routeToPage('/app/song/1/details')" class="list__title text-truncate">Hey not me</a>
+                            <p class="list__subtitle text-truncate">
+                                <a (click)="routeToPage('/app/artist/1/details')">Rasomi Pelina</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-4 col-sm-6">
+                    <div class="list__item">
+                        <a (click)="routeToPage('/app/song/1/details')" class="list__cover">
+                            <img src="./assets/images/cover/small/7.jpg" alt="Deep inside">
+                        </a>
+                        <div class="list__content">
+                            <a (click)="routeToPage('/app/song/1/details')" class="list__title text-truncate">Deep inside</a>
+                            <p class="list__subtitle text-truncate">
+                                <a (click)="routeToPage('/app/artist/1/details')">Pimila Holliwy</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-4 col-sm-6">
+                    <div class="list__item">
+                        <a (click)="routeToPage('/app/song/1/details')" class="list__cover">
+                            <img src="./assets/images/cover/small/8.jpg" alt="Sadness">
+                        </a>
+                        <div class="list__content">
+                            <a (click)="routeToPage('/app/song/1/details')" class="list__title text-truncate">Sadness</a>
+                            <p class="list__subtitle text-truncate">
+                                <a (click)="routeToPage('/app/artist/1/details')">Karen Jennings</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-4 col-sm-6">
+                    <div class="list__item">
+                        <a (click)="routeToPage('/app/song/1/details')" class="list__cover">
+                            <img src="./assets/images/cover/small/9.jpg" alt="Electric wave">
+                        </a>
+                        <div class="list__content">
+                            <a (click)="routeToPage('/app/song/1/details')" class="list__title text-truncate">Electric wave</a>
+                            <p class="list__subtitle text-truncate">
+                                <a (click)="routeToPage('/app/artist/1/details')">Lenisa Gory</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <span class="search__title">Albums</span>
+                <a class="btn btn-link" (click)="routeToPage('/app/albums')">View All</a>
+            </div>
+            <div class="row g-4 list">
+                <div class="col-xl-3 col-md-4 col-sm-6">
+                    <div class="list__item">
+                        <a (click)="routeToPage('/app/album/1/details')" class="list__cover">
+                            <img src="./assets/images/cover/small/1.jpg" alt="Mummy">
+                        </a>
+                        <div class="list__content">
+                            <a (click)="routeToPage('/app/album/1/details')" class="list__title text-truncate">Mummy</a>
+                            <p class="list__subtitle text-truncate">
+                                <a (click)="routeToPage('/app/artist/1/details')">Arebica Luna</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-4 col-sm-6">
+                    <div class="list__item">
+                        <a (click)="routeToPage('/app/album/1/details')" class="list__cover">
+                            <img src="./assets/images/cover/small/2.jpg" alt="Hot shot">
+                        </a>
+                        <div class="list__content">
+                            <a (click)="routeToPage('/app/album/1/details')" class="list__title text-truncate">Hot shot</a>
+                            <p class="list__subtitle text-truncate">
+                                <a (click)="routeToPage('/app/artist/1/details')">Gerrina Linda</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-4 col-sm-6">
+                    <div class="list__item">
+                        <a (click)="routeToPage('/app/album/1/details')" class="list__cover">
+                            <img src="./assets/images/cover/small/3.jpg" alt="Own way">
+                        </a>
+                        <div class="list__content">
+                            <a (click)="routeToPage('/app/album/1/details')" class="list__title text-truncate">Own way</a>
+                            <p class="list__subtitle text-truncate">
+                                <a (click)="routeToPage('/app/artist/1/details')">Zunira Willy & Nutty Nina</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-4 col-sm-6">
+                    <div class="list__item">
+                        <a (click)="routeToPage('/app/album/1/details')" class="list__cover">
+                            <img src="./assets/images/cover/small/4.jpg" alt="Say yes">
+                        </a>
+                        <div class="list__content">
+                            <a (click)="routeToPage('/app/album/1/details')" class="list__title text-truncate">Say yes</a>
+                            <p class="list__subtitle text-truncate">
+                                <a (click)="routeToPage('/app/artist/1/details')">Johnny Marro</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </perfect-scrollbar>
+</div>
+<!-- End:: search -->

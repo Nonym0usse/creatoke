@@ -1,0 +1,22 @@
+/* ---------------------------------------------------------------- *!
+ * Name: Listen App
+ * Version: 3.1.0
+ * ---------------------------------------------------------------- */
+
+// Theme mode
+$mode: default;
+
+// Import scss initialize
+@import "assets/scss/init";
+
+// Import core styles
+@import "assets/scss/base/core";
+
+// Import components
+@import "assets/scss/components/includes";
+
+// Import framework
+@import "assets/scss/framework/includes";
+
+// Import utilities
+@import "assets/scss/utilities/includes";

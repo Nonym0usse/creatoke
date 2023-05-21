@@ -1,0 +1,44 @@
+<!-- Start:: plan [[ Find at scss/framework/plan.scss ]] -->
+<div class="plan bg-light">
+    <div class="card plan__info overflow-hidden">
+        <div class="card-body d-flex flex-column p-0">
+            <div class="p-4">
+                <ng-container *ngIf="isUser; else registration">
+                    <h4 class="mb-3">Free <span class="text-primary">Trial</span></h4>
+                    <p class="fs-6">Your <b>Free Trial</b> subscription plan will terminate in 10 days, kindly select your plan.</p>
+                </ng-container>
+                <ng-template #registration>
+                    <h4 class="mb-3">Free <span class="text-primary">Trial</span></h4>
+                    <p class="fs-6">Get 30 days <b>Free Trial</b> subscription plan to experience awesome music.</p>
+                    <a routerLink="/register" class="d-inline-flex align-items-center">
+                        <span class="me-1">Register now</span>
+                        <i class="ri-arrow-right-line fs-6"></i>
+                    </a>
+                </ng-template>
+            </div>
+            <div class="px-3 text-center mt-auto">
+                <img src="./assets/images/misc/plan.png" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="plan__data">
+        <div class="card plan__col" *ngFor="let plan of plans">
+            <div class="card-body fw-medium">
+                <div class="d-flex align-items-center text-dark mb-4">
+                    <span [innerHTML]="plan.icon"></span>
+                    <h4 class="mb-0 ps-3" [innerHTML]="plan.name"></h4>
+                </div>
+                <p class="fs-6 opacity-50">What you'll get</p>
+                <div class="d-flex mb-3" *ngFor="let feature of plan.features">
+                    <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
+                    <span class="ps-2">{{feature.name}}</span>
+                </div>
+            </div>
+            <div class="card-footer pb-4 pb-sm-0">
+                <div class="text-dark mb-3"><span class="fs-4 fw-bold">${{plan.price}}</span>/year</div>
+                <button type="button" class="btn btn-primary w-100">Choose</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End:: plan -->

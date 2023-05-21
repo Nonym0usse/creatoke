@@ -1,0 +1,22 @@
+
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" style="background-image: url(./assets/images/banner/home.jpg);"></div>
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+  <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+  <div class="section">
+    <div class="section__head">
+      <h3 class="mb-0">{{title}}</h3>
+    </div>
+    <div class="row g-4">
+      <div class="col-xl-3 col-sm-6" *ngFor="let sub of subCategory">
+        <app-cluster-view [data]="sub" [viewData]="true"></app-cluster-view>
+      </div>
+    </div>
+  </div>
+  <!-- End:: section -->
+
+</div>
+<!-- End:: under hero -->

@@ -1,0 +1,46 @@
+<!-- Start:: cover [[ Find at scss/components/cover.scss ]] -->
+<div class="cover cover--round">
+    <!-- Conditioning for event image link -->
+    <ng-container *ngIf="isUser; else eventImage">
+        <a [routerLink]="['/app/event/' + data.id + '/details']" class="cover__image">
+            <img [src]="data.image" [alt]="data.name">
+        </a>
+    </ng-container>
+    <ng-template #eventImage>
+        <div class="cover__image">
+            <img [src]="data.image" [alt]="data.name">
+        </div>
+    </ng-template>
+
+    <div class="cover__foot mt-3 px-2">
+        <p class="cover__subtitle d-flex mb-2">
+            <i class="ri-map-pin-fill fs-6"></i>
+            <span class="ms-1 fw-semi-bold" [innerHTML]="data.address"></span>
+        </p>
+
+        <!-- Conditioning for event name link -->
+        <ng-container *ngIf="isUser; else eventName">
+            <a [routerLink]="['/app/event/' + data.id + '/details']" class="cover__title fs-6 mb-3">{{data.name}}</a>
+        </ng-container>
+        <ng-template #eventName>
+            <span class="cover__title fs-6 mb-3">{{data.name}}</span>
+        </ng-template>
+
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center" *ngIf="data.attendee">
+                <!-- Start:: avatar group [[ Find at scss/components/avatar.scss ]] -->
+                <div class="avatar-group">
+                    <div class="avatar" *ngFor="let attendee of data.attendee">
+                        <div class="avatar__image">
+                            <img [src]="attendee.cover" [alt]="attendee.name">
+                        </div>
+                    </div>
+                </div>
+                <!-- End:: avatar group -->
+                <div class="ps-1" *ngIf="data.totalAttendee">{{data.totalAttendee - 3 + '+'}}</div>
+            </div>
+            <a class="btn btn-sm btn-light-primary" (click)="joinEvent()">Join Event</a>
+        </div>
+    </div>
+</div>
+<!-- End:: cover -->

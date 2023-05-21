@@ -1,0 +1,31 @@
+
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" style="background-image: url(./assets/images/banner/home.jpg);"></div>
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="section__head">
+            <div class="flex-grow-1">
+                <span class="section__subtitle">Recently listened</span>
+                <h3 class="mb-0">History</h3>
+            </div>
+            <a class="btn btn-link">Clear All</a>
+        </div>
+
+        <!-- Start:: list [[ Find at scss/components/list.scss ]] -->
+        <div class="list list--order">
+            <div class="row">
+                <div class="col-xl-6" *ngFor="let song of songs">
+                    <app-list-view [data]="song"></app-list-view>
+                </div>
+            </div>                        
+        </div>
+        <!-- End:: list -->
+    </div>
+    <!-- End:: section -->
+
+</div>
+<!-- End:: under hero -->

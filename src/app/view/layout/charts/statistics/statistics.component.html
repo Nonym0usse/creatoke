@@ -1,0 +1,22 @@
+
+<div class="card h-100">
+    <div class="card-header">
+        <h5 class="mb-0">User Statistics</h5>
+    </div>
+    <div class="card-body">
+        <div style="height: 300px">
+            <canvas baseChart [type]="chartType" [data]="chartData" [options]="chartOptions" [legend]="chartLegend"></canvas>
+        </div>
+        <div class="text-center" *ngIf="topCountries.length">
+            <span class="fw-bold fs-6 d-block mt-3 mb-2 text-dark">Top Countries</span>
+            <div class="row">
+                <div class="col-4" [ngClass]="{ 'border-right': !isLast}" *ngFor="let country of topCountries; last as isLast">
+                    <div class="py-2 px-sm-3">
+                        <span class="d-block">{{country?.name}}</span>
+                        <p class="fw-bold">{{country?.data}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

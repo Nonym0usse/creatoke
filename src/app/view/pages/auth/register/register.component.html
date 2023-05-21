@@ -1,0 +1,55 @@
+<!-- Start:: wrapper [[ Find at scss/framework/wrapper.scss ]] -->
+<div id="wrapper">
+    <!-- Start:: auth [[ Find at scss/framework/auth.scss ]] -->
+    <div class="auth py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 col-lg-7 col-md-9 col-sm-11 mx-auto">
+                    <div class="card">
+                        <div class="card-body p-sm-5">
+                            <h4>Register with <span class="text-primary">Listen</span></h4>
+                            <p class="fs-6">It's time to join with Listen and gain full awesome music experience.</p>
+                            <form class="mt-5" [formGroup]="form">
+                                <div class="mb-5">
+                                    <button type="button" class="btn btn-default w-100" (click)="googleLogin()">
+                                        <span class="btn__wrap">
+                                            <i class="ri-google-fill"></i>
+                                            <span class="ms-2">Register with Google</span>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="auth__or mx-auto fw-medium"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label fw-medium">Email</label>
+                                    <input type="email" id="email" class="form-control" formControlName="username" appValidation>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="password" class="form-label fw-medium">Password</label>
+                                    <input type="password" id="password" class="form-control" formControlName="password" appValidation>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="c_password" class="form-label fw-medium">Confirm Password</label>
+                                    <input type="password" id="c_password" class="form-control" formControlName="confirmPassword" appValidation>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="form-check mb-0">
+                                        <input class="form-check-input" type="checkbox" id="agree" [checked]="agree" (change)="agree = !agree">
+                                        <label class="form-check-label" for="agree">I agree <a routerLink="/terms">Terms & Condition</a></label>
+                                    </div>
+                                </div>
+                                <div class="mb-5">
+                                    <input type="submit" class="btn btn-primary w-100" value="Register" [disabled]="form.invalid" (click)="register()">
+                                </div>
+                                <p>Do you have an Account? <br><a routerLink="/login" class="fw-medium">Login</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End:: auth -->
+</div>
+<!-- End:: wrapper -->

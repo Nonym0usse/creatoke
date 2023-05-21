@@ -1,0 +1,137 @@
+
+<!-- Start:: player [[ Find at scss/framework/player.scss ]] -->
+<div class="container">
+    <div class="player-container">
+        <div class="player-progress">
+            <progress class="amplitude-buffered-progress player-progress__bar" value="0"></progress>
+            <progress class="amplitude-song-played-progress player-progress__bar"></progress>
+            <input type="range" class="amplitude-song-slider player-progress__slider" aria-label="Progress slider">
+        </div>
+
+        <!-- Start:: cover [[ Find at scss/components/cover.scss ]] -->
+        <div class="cover d-flex align-items-center">
+            <div class="cover__image">
+                <img data-amplitude-song-info="cover_art_url" src="./assets/images/cover/small/1.jpg" alt="">
+            </div>
+            <div class="cover__content ps-3 d-none d-sm-block">
+                <a [routerLink]="'/app/song/' + song?.id + '/details'" class="cover__title text-truncate" data-amplitude-song-info="name"></a>
+                <p class="cover__subtitle text-truncate" *ngIf="song?.artists">
+                    <ng-container *ngFor="let artist of song?.artists; last as isLast">
+                        <a [routerLink]="'/app/artist/' + artist?.id + '/details'">{{artist?.name}}</a>{{!isLast ? ', ' : ''}}
+                    </ng-container>
+                </p>
+            </div>
+        </div>
+        <!-- End:: cover -->
+
+        <div class="player-control">
+            <button type="button" class="amplitude-repeat btn btn-icon me-4 d-none d-md-inline-flex"
+            aria-label="Repeat" [disabled]="playlist?.length < 2">
+                <i class="ri-repeat-2-fill fs-5"></i>
+            </button>
+            <button type="button" class="amplitude-prev btn btn-icon" aria-label="Backward" [disabled]="playlist?.length < 2">
+                <i class="ri-skip-back-mini-fill"></i>
+            </button>
+            <button type="button" class="amplitude-play-pause btn btn-icon btn-default rounded-pill" (click)="playPause()" aria-label="Play pause">
+                <i class="ri-play-fill icon-play"></i>
+                <i class="ri-pause-fill icon-pause"></i>
+            </button>
+            <button type="button" class="amplitude-next btn btn-icon" aria-label="Forward" [disabled]="playlist?.length < 2">
+                <i class="ri-skip-forward-mini-fill"></i>
+            </button>
+            <button type="button" class="amplitude-shuffle amplitude-shuffle-off btn btn-icon ms-4 d-none d-md-inline-flex"
+            aria-label="Shuffle" [disabled]="playlist?.length < 2">
+                <i class="ri-shuffle-fill fs-5"></i>
+            </button>
+        </div>
+
+        <div class="player-info">
+            <div class="me-4 d-none d-xl-block">
+                <span class="amplitude-current-minutes"></span>:<span class="amplitude-current-seconds"></span> /
+                <span class="amplitude-duration-minutes"></span>:<span class="amplitude-duration-seconds"></span>
+            </div>
+            <div class="player-volume dropdown d-none d-md-inline-flex" #volume>
+                <button class="btn btn-icon" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-label="Volume" aria-expanded="false">
+                    <i class="ri-volume-mute-fill fs-5 d-none"></i>
+                    <i class="ri-volume-down-fill fs-5"></i>
+                    <i class="ri-volume-up-fill fs-5 d-none"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <input type="range" class="amplitude-volume-slider" value="50" min="0" max="100" (input)="onVolumeChange($event)" aria-label="Volume slider">
+                </div>
+            </div>
+
+            <app-dropdown [data]="song" [classes]="'dropstart d-none d-md-block'" [dropdownLinkClasses]="'btn btn-icon'"
+            [viewQueueOptions]="false" [viewPlay]="false" [viewDownload]="true"></app-dropdown>
+
+            <!-- Start:: playlist [[ Find at scss/framework/playlist.scss ]] -->
+            <div class="playlist dropstart me-3">
+                <button class="btn btn-icon" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-label="Playlist" aria-expanded="false">
+                    <i class="ri-play-list-fill fs-5"></i>
+                </button>
+                <div class="dropdown-menu playlist__dropdown">
+                    <div class="playlist__head d-flex align-items-center justify-content-between">
+                        <h6 class="mb-0">Next Lineup</h6>
+                        <a href="javascript:void(0);" role="button" class="btn btn-link" (click)="clearPlaylist()">Clear</a>
+                    </div>
+                    <!-- Start:: list [[ Find at scss/components/list.scss ]] -->
+                    <perfect-scrollbar class="list playlist__body">
+                        <ng-container *ngIf="playlist?.length; else noSongView">
+                            <div class="list">
+                                <ng-container [ngTemplateOutlet]="songView" [ngTemplateOutletContext]="{item: item}"
+                                *ngFor="let item of playlist"></ng-container>
+                            </div>
+                        </ng-container>
+                    </perfect-scrollbar>
+                    <!-- End:: list -->
+                </div>
+            </div>
+            <!-- End:: playlist -->
+        </div>
+    </div>
+</div>
+<!-- End:: player -->
+
+
+<ng-template let-item="item" #songView>
+    <div class="list__item">
+        <div class="list__cover">
+            <img [src]="item?.image" [alt]="item?.title">
+            <a href="javascript:void(0);" class="btn btn-play btn-sm btn-default btn-icon rounded-pill"
+            (click)="play($event, item?.id)" [attr.data-play-id]="item?.id">
+                <i class="ri-play-fill icon-play"></i>
+                <i class="ri-pause-fill icon-pause"></i>
+            </a>
+        </div>
+        <div class="list__content">
+            <a [routerLink]="'/app/chansons/' + item?.id + '/view'" class="list__title text-truncate">{{item?.title}}</a>
+            <p class="list__subtitle text-truncate" *ngIf="item?.artists">
+                <ng-container *ngFor="let artist of item?.artists; last as isLast">
+                    <a [routerLink]="'/app/artist/' + artist?.id + '/details'">{{artist?.name}}</a>{{!isLast ? ', ' : ''}}
+                </ng-container>
+            </p>
+        </div>
+        <ul class="list__option">
+            <li class="list__icon-hover">
+                <a href="javascript:void(0);" role="button" class="d-inline-flex" (click)="removeSong(item?.id)">
+                    <i class="ri-close-line fs-6"></i>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" role="button" class="d-inline-flex"  data-favorite-id>
+                    <i class="ri-heart-line heart-empty"></i>
+                    <i class="ri-heart-fill heart-fill"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</ng-template>
+
+
+<!-- Empty playlist view -->
+<ng-template #noSongView>
+    <div class="col-sm-8 col-10 mx-auto mt-5 text-center">
+        <i class="ri-music-2-line mb-3"></i>
+        <p>No songs, album or playlist are added on lineup.</p>
+    </div>
+</ng-template>

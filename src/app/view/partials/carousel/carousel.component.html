@@ -1,0 +1,14 @@
+
+<!-- Start:: swiper carousel [[ Find at scss/components/swiper.scss ]] -->
+<swiper #swiper [virtual]="true" [config]="options">
+    <ng-template swiperSlide *ngFor="let item of slideData">
+        <ng-container [ngTemplateOutlet]="slideTemplate ? slideTemplate : null" [ngTemplateOutletContext]="{ data: item }"></ng-container>
+    </ng-template>
+</swiper>
+
+<!-- Swiper controls -->
+<ng-container *ngIf="navigation">
+    <div class="swiper-button-prev btn-default rounded-pill" (click)="slidePrev()"></div>
+    <div class="swiper-button-next btn-default rounded-pill" (click)="slideNext()"></div>
+</ng-container>
+<!-- End:: swiper carousel -->

@@ -1,0 +1,50 @@
+
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" style="background-image: url(./assets/images/banner/home.jpg);"></div>
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="section__head">
+            <h3 class="mb-0">Remix</h3>
+        </div>
+
+        <!-- Start:: list [[ Find at scss/components/list.scss ]] -->
+        <div class="list">
+            <div class="row">
+                <div class="col-xl-6" *ngFor="let song of genre?.songs">
+                    <app-list-view [data]="song"></app-list-view>
+                </div>
+            </div>
+        </div>
+        <!-- End:: list -->
+
+        <div class="mt-5 text-center">
+            <a href="javascript:void(0);" class="btn btn-primary">
+                <div class="btn__wrap">
+                    <i class="ri-loader-3-fill"></i>
+                    <span>Load more</span>
+                </div>
+            </a>
+        </div>
+
+    </div>
+    <!-- End:: section -->
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="section__head">
+            <h3 class="mb-0">Discover <span class="text-primary">Genres</span></h3>
+        </div>
+
+        <ng-template #genreView let-data="data">
+            <app-cluster-view [data]="data" [viewData]="false"></app-cluster-view>
+        </ng-template>
+        <app-carousel [slideTemplate]="genreView" [slideData]="genres" [slides]="4" [navigation]="true"></app-carousel>
+    </div>
+    <!-- End:: section -->
+
+</div>
+<!-- End:: under hero -->

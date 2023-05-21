@@ -1,0 +1,41 @@
+
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" style="background-image: url(./assets/images/banner/song.jpg);"></div>
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section" *ngIf="songs?.length">
+        <div class="section__head">
+            <h3 class="mb-0">Songs</h3>
+        </div>
+
+        <!-- Start:: list [[ Find at scss/components/list.scss ]] -->
+        <div class="list list--order">
+            <div class="row">
+                <div class="col-xl-6" *ngFor="let song of songs">
+                    <app-list-view [data]="song"></app-list-view>
+                </div>
+            </div>                        
+        </div>
+        <!-- End:: list -->
+    </div>
+    <!-- End:: section -->
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section" *ngIf="albums?.length">
+        <div class="section__head">
+            <h3 class="mb-0">Albums</h3>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-6 col-xl-2 col-md-3 col-sm-4" *ngFor="let album of albums">
+                <app-cover-view [data]="album" [coverLink]="true" [viewPlayButton]="false" [viewQueueOptions]="false"></app-cover-view>
+            </div>
+        </div>
+    </div>
+    <!-- End:: section -->
+
+</div>
+<!-- End:: under hero -->

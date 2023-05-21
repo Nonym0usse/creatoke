@@ -1,0 +1,46 @@
+<!-- Start:: cover [[ Find at scss/components/cover.scss ]] -->
+<div class="cover cover--round">
+    <div class="cover__head" *ngIf="viewDropdown || data.premium || data.favorite">
+        <ul class="cover__label d-flex" *ngIf="data.premium || data.favorite">
+            <li *ngIf="data.favorite">
+                <span class="badge rounded-pill bg-danger">
+                    <i class="ri-heart-fill"></i>
+                </span>
+            </li>
+            <li *ngIf="data.premium">
+                <span class="badge rounded-pill bg-info">
+                    <i class="ri-vip-crown-fill"></i>
+                </span>
+            </li>
+        </ul>
+        <!-- Dropdown options -->
+        <app-dropdown [classes]="'cover__options dropstart d-inline-flex ms-auto'" [data]="data" [viewPlay]="viewPlayButton"
+        [viewFavorite]="viewFavorite" [viewPlaylist]="viewPlaylist" [viewQueueOptions]="viewQueueOptions" *ngIf="viewDropdown"></app-dropdown>
+    </div>
+
+    <div class="cover__image">
+        <ng-container *ngIf="coverLink; else coverImage">
+            <a  [routerLink]="data.detailsRoute">
+                <img [src]="data.cover" [alt]="data.name">
+            </a>
+        </ng-container>
+        <ng-template #coverImage>
+            <img [src]="data.cover" [alt]="data.name">
+        </ng-template>
+        
+        <button type="button" class="btn btn-play btn-default btn-icon rounded-pill" (click)="play($event)" [attr.data-play-id]="data.id" *ngIf="viewPlayButton">
+            <i class="ri-play-fill icon-play"></i>
+            <i class="ri-pause-fill icon-pause"></i>
+        </button>
+    </div>
+    
+    <div class="cover__foot">
+        <a [routerLink]="data.detailsRoute" routerLinkActive="router-link-active"  class="cover__title text-truncate">{{data.name}}</a>
+        <p class="cover__subtitle text-truncate" *ngIf="data.artists">
+            <ng-container *ngFor="let artist of data.artists; last as isLast">
+                <a [routerLink]="'/app/artist/' + artist.id + '/details'">{{artist.name}}</a>{{!isLast ? ', ' : ''}}
+            </ng-container>
+        </p>
+    </div>
+</div>
+<!-- End:: cover -->

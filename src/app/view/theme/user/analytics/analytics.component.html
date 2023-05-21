@@ -1,0 +1,70 @@
+
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" style="background-image: url(./assets/images/banner/analytics.jpg);"></div>
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="mb-5 fs-6">
+            <h3>Hi <span class="text-primary">Admin</span>, Welcome to the Listen App</h3>
+            <p>Select your music to listen & download free and premium music.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-xl-5">
+                <div class="card bg-primary text-white">
+                    <div class="card-body fs-6">
+                        <div class="d-flex align-items-center mb-2">
+                            <h4 class="text-white mb-0">Total Earnings</h4>
+                            <button type="button" class="btn btn-icon text-white ms-auto">
+                                <i class="ri-settings-fill"></i>
+                            </button>
+                        </div>
+                        <p>Voluptatem ut, facilis ipsum, nostrum quia officia dolor mollitia temporibus hic aspernatur laborum.</p>
+                        <span class="display-4 d-block mb-3">$126,457</span> 
+                        <button type="button" class="btn btn-warning rounded-pill">Get Details</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7">
+                <div class="row h-100">
+                    <div class="col-sm-4">
+                        <app-total-users></app-total-users>
+                    </div>
+                    <div class="col-sm-4 mt-4 mt-sm-0">
+                        <app-total-songs></app-total-songs>
+                    </div>
+                    <div class="col-sm-4 mt-4 mt-sm-0">
+                        <app-purchases></app-purchases>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <app-statistics></app-statistics>
+            </div>    
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Referrals</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush" *ngIf="referrals?.length">
+                            <li class="list-group-item border-0 px-0 py-3" *ngFor="let referral of referrals">
+                                <p class="fs-4 mb-1 fw-semi-bold">{{referral?.data}}</p>
+                                <p class="mb-2 fw-medium">Visits from {{referral?.name}}</p>
+                                <div class="progress" style="height: .25rem">
+                                    <div class="progress-bar bg-{{referral?.class}}" role="progressbar" [style]="{'width': referral?.percentage + '%'}"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- End:: section -->
+
+</div>
+<!-- End:: under hero -->

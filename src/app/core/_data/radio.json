@@ -1,0 +1,55 @@
+{
+    "code": 200,
+    "data": [
+        {
+            "id": 1,
+            "name": "International",
+            "premium": true,
+            "favorite": true,
+            "radioCover": "./assets/images/cover/large/1.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Network",
+            "favorite": true,
+            "radioCover": "./assets/images/cover/large/2.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Alpha Gamma",
+            "premium": true,
+            "radioCover": "./assets/images/cover/large/3.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Leanne Hutton",
+            "premium": true,
+            "favorite": true,
+            "radioCover": "./assets/images/cover/large/4.jpg"
+        },
+        {
+            "id": 5,
+            "name": "K S N F",
+            "premium": true,
+            "radioCover": "./assets/images/cover/large/5.jpg"
+        },
+        {
+            "id": 6,
+            "name": "Clay Gandy",
+            "favorite": true,
+            "radioCover": "./assets/images/cover/large/6.jpg"
+        },
+        {
+            "id": 7,
+            "name": "Get Reehl",
+            "favorite": true,
+            "radioCover": "./assets/images/cover/large/7.jpg"
+        },
+        {
+            "id": 8,
+            "name": "Morning one",
+            "premium": true,
+            "radioCover": "./assets/images/cover/large/8.jpg"
+        }
+    ]
+}

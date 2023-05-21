@@ -1,0 +1,16 @@
+<div id="setting" #settings>
+    <a href="javascript:void(0);" id="setting_toggler" (click)="showSettings()">Settings</a>
+    <div class="setting__wrapper">
+        <div class="setting__head">Theme Settings</div>
+        <div class="setting__body" *ngIf="options?.length">
+            <div class="setting__body__item" *ngFor="let option of options">
+                <span class="setting__title">{{option?.title}}</span>
+                <div class="setting__options">
+                    <a href="javascript:void(0);" class="setting__option setting__option--{{color}}" [ngClass]="{'active':  option?.active === color}"
+                    *ngFor="let color of option?.colors" (click)="changeTheme(option?.name, color)"></a>
+                </div>
+            </div>
+            <p class="mt-4">Note: You can see the color change effect of the header, sidebar and player in the inner pages.</p>
+        </div>
+    </div>
+</div>

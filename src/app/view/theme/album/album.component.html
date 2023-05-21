@@ -1,0 +1,49 @@
+
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" style="background-image: url(./assets/images/banner/song.jpg);"></div>
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="section__head">
+            <h3 class="mb-0">Trending <span class="text-primary">Albums</span></h3>
+        </div>
+
+        <ng-template #albumView let-data="data">
+            <app-cover-view [data]="data" [coverLink]="true" [viewPlayButton]="false" [viewQueueOptions]="false"></app-cover-view>
+        </ng-template>
+        <app-carousel [classes]="'swiper-carousel-button'" [slideTemplate]="albumView" [slideData]="albums" [slides]="5" [navigation]="true"></app-carousel>
+    </div>
+    <!-- End:: section -->
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="section__head align-items-center">
+            <span class="d-block pe-3 fs-6 fw-semi-bold">10245 Albums in the list</span>
+            <div>
+                <select class="form-select" aria-label="Filter album">
+                    <option value="Popular">Popular</option>
+                    <option value="Most loved">Most loved</option>
+                    <option value="A to Z">A to Z</option>
+                    <option value="Z to A">Z to A</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Start:: list [[ Find at scss/components/list.scss ]] -->
+        <div class="list list--lg">
+            <div class="row">
+                <div class="col-xl-6" *ngFor="let album of albums">
+                    <app-list-view [data]="album" [viewQueueOptions]="false" [viewDownload]="true"
+                    [viewPlaylist]="false" [viewFavorite]="true" [viewPlayButton]="false"></app-list-view>
+                </div>
+            </div>
+        </div>
+        <!-- End:: list -->
+    </div>
+    <!-- End:: section -->
+
+</div>
+<!-- End:: under hero -->

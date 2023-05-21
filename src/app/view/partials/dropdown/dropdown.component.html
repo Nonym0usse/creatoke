@@ -1,0 +1,36 @@
+<a [ngClass]="dropdownLinkClasses" role="button" data-bs-toggle="dropdown" aria-label="Options" aria-expanded="false">
+    <i [ngClass]="iconVertical ? 'ri-more-2-fill' : 'ri-more-fill'"></i>
+</a>
+<ul class="dropdown-menu dropdown-menu-sm">
+    <li *ngIf="viewFavorite">
+        <a class="dropdown-item" role="button" data-favorite-id>Favorite</a>
+    </li>
+    <li *ngIf="viewPlaylist">
+        <a class="dropdown-item" role="button">Add to playlist</a>
+    </li>
+    <ng-container *ngIf="viewQueueOptions">
+        <li>
+            <a class="dropdown-item" role="button" (click)="addToQueue()">Add to queue</a>
+        </li>
+        <li>
+            <a class="dropdown-item" role="button" (click)="nextToPlay()">Next to play</a>
+        </li>
+    </ng-container>
+    <li *ngIf="viewDownload">
+        <a class="dropdown-item" role="button">Download</a>
+    </li>
+    <li>
+        <a class="dropdown-item" role="button">Share</a>
+    </li>
+    <li>
+        <div class="dropdown-divider"></div>
+    </li>
+    <li>
+        <ng-container *ngIf="viewPlay; else viewDetails">
+            <a class="dropdown-item" role="button" (click)="play($event)" [attr.data-play-id]="data?.id">Play</a>
+        </ng-container>
+        <ng-template #viewDetails>
+            <a [routerLink]="[data?.detailsRoute]" class="dropdown-item" role="button">View details</a>
+        </ng-template>
+    </li>
+</ul>

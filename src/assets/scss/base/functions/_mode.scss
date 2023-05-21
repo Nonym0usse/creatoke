@@ -1,0 +1,17 @@
+// Get theme mode
+//
+@function getMode() {
+    @if (variable-exists(mode)) {
+        @return $mode;
+    } @else {
+        @return default;
+    }
+}
+
+@function isDarkMode() {
+    @if (getMode() == dark) {
+        @return false;
+    } @else {
+        @return true;
+    }
+}

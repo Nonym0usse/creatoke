@@ -1,0 +1,72 @@
+{
+    "code": 200,
+    "data": [
+        {
+            "id": 1,
+            "name": "Licence <span class='text-primary'>exclusive</span>",
+            "icon": "<i class='ri-music-2-line fs-3'></i>",
+            "price": 10.99,
+            "subscribed": false,
+            "features": [
+                {
+                    "id": 1,
+                    "name": "Nous contacter"
+                },
+                {
+                    "id": 2,
+                    "name": "No Ads between songs"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Licence <span class='text-primary'>PRO</span> (mp3 + wav + stéréo)",
+            "icon": "<i class='ri-vip-crown-line fs-3'></i>",
+            "price": 99.99,
+            "subscribed": false,
+            "features": [
+                {
+                    "id": 1,
+                    "name": "Diffusion radio illimitée"
+                },
+                {
+                    "id": 2,
+                    "name": "Distribution de copies illimitées"
+                },
+                {
+                    "id": 3,
+                    "name": "Utiliser pour 2 vidéos"
+                }
+            ]
+        },
+      {
+        "id": 3,
+        "name": "Premium",
+        "icon": "<i class='ri-vip-crown-line fs-3'></i>",
+        "price": 99.99,
+        "subscribed": false,
+        "features": [
+          {
+            "id": 1,
+            "name": "Access all free songs and app features"
+          },
+          {
+            "id": 2,
+            "name": "No Ads between songs"
+          },
+          {
+            "id": 3,
+            "name": "Create playlist & access analytics"
+          },
+          {
+            "id": 4,
+            "name": "Listen paid song once & purchase"
+          },
+          {
+            "id": 5,
+            "name": "Download and listen offline"
+          }
+        ]
+      }
+    ]
+}

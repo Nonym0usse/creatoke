@@ -1,0 +1,25 @@
+
+<!-- Start:: wrapper [[ Find at scss/framework/wrapper.scss ]] -->
+<div id="wrapper">
+
+    <!-- App sidebar -->
+    <app-sidebar></app-sidebar>
+
+    <!-- App header -->
+    <app-header [headerView]="headerView.app"></app-header>
+
+    <!-- Start:: page content [[ Find at scss/framework/wrapper.scss ]] -->
+    <main id="page_content">
+        <!-- App content -->
+        <router-outlet></router-outlet>
+    </main>
+    <!-- End:: page content -->
+
+</div>
+<!-- End:: wrapper -->
+
+<!-- Audio player -->
+<app-player></app-player>
+
+<!-- Backdrop [[ Find at scss/framework/wrapper.scss ]] -->
+<div id="backdrop"></div>
