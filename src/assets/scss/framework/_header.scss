@@ -12,7 +12,7 @@
 
     .header-container {
         padding: $header-container-padding-y $header-container-padding-x;
-        background-color: $header-container-bg;
+        background-color: #131416;
         color: color-contrast($header-container-bg);
         border-radius: $header-container-border-radius;
         position: relative;
@@ -34,7 +34,7 @@
     .nav-link {
         color: $gray-900;
         @include hover-focus-active {
-            color: $primary;
+            color: #000;
         }
     }
 
@@ -72,7 +72,7 @@
         #header {
             margin-left: $toggle-sidebar-width;
         }
-    } 
+    }
 
     #main_header {
         .navbar {
