@@ -24,12 +24,12 @@ export class Constant {
         },
         {
             name: 'Youtubeurs',
-            icon: '<i class="ri-album-line fs-5"></i>',
+            icon: '<i class="ri-youtube-line fs-5"></i>',
             link: '/app/song/youtubeurs'
         },
         {
             name: 'Contact',
-            icon: '<i class="ri-mic-line fs-5"></i>',
+            icon: '<i class="ri-mail-send-line fs-5"></i>',
             link: '/app/contact'
         },
         {
@@ -42,15 +42,23 @@ export class Constant {
         },
         {
             name: 'Catégories',
-            icon: '<i class="ri-heart-line fs-5"></i>',
+            icon: '<i class="ri-stack-fill fs-5"></i>',
             link: '/app/category'
         },
         {
-            name: 'History',
-            icon: '<i class="ri-history-line fs-5"></i>',
-            link: '/app/history'
+            name: 'Gérer les chansons',
+            icon: '<i class="ri-edit-2-fill fs-5"></i>',
+            link: '/app/manage'
         }
     ];
+
+    public static AUTH_ERROR_MESSAGES_FR = {
+        'auth/invalid-email': 'Adresse e-mail invalide.',
+        'auth/user-disabled': 'L\'utilisateur est désactivé.',
+        'auth/user-not-found': 'L\'utilisateur n\'existe pas.',
+        'auth/wrong-password': 'Adresse e-mail ou mot de passe invalides.'
+    };
+
     // End: navbar array
 
 
@@ -117,84 +125,14 @@ export class Constant {
     public static languages = [
         {
             id: 1,
-            name: 'Hindi',
-            checked: false
-        },
-        {
-            id: 2,
-            name: 'Punjabi',
-            checked: false
-        },
-        {
-            id: 3,
-            name: 'Tamil',
-            checked: false
-        },
-        {
-            id: 4,
-            name: 'Bengali',
-            checked: false
-        },
-        {
-            id: 5,
-            name: 'Kannada',
-            checked: false
-        },
-        {
-            id: 6,
-            name: 'Gujarati',
-            checked: false
-        },
-        {
-            id: 7,
-            name: 'Urdu',
-            checked: false
-        },
-        {
-            id: 8,
-            name: 'English',
+            name: 'Français',
             checked: true
         },
         {
-            id: 9,
-            name: 'Telugu',
+            id: 2,
+            name: 'English',
             checked: false
-        },
-        {
-            id: 10,
-            name: 'Bhojpuri',
-            checked: false
-        },
-        {
-            id: 11,
-            name: 'Malayalam',
-            checked: false
-        },
-        {
-            id: 12,
-            name: 'Marathi',
-            checked: false
-        },
-        {
-            id: 13,
-            name: 'Haryanvi',
-            checked: false
-        },
-        {
-            id: 14,
-            name: 'Rajasthani',
-            checked: false
-        },
-        {
-            id: 15,
-            name: 'Assamese',
-            checked: false
-        },
-        {
-            id: 16,
-            name: 'Odia',
-            checked: false
-        },
+        }
     ];
     // End: languages array
 

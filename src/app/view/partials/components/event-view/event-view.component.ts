@@ -23,7 +23,7 @@ export class EventViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.isUser = this.authenticationService.isUser;
+    //this.isUser = this.authenticationService.isUser;
   }
 
   /**

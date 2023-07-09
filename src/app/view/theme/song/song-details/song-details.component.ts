@@ -47,12 +47,7 @@ export class SongDetailsComponent implements OnInit, OnDestroy {
    * @param id
    */
   getSongs(id: string): void {
-    this.songService.getSongs().subscribe(response => {
-      if (response && response.code === HttpStatus.SUCCESSFUL) {
-        this.songs = response.data;
-        this.song = this.songs.find((item: any) => item.id === parseInt(id)); // find song by id
-      }
-    });
+    
   }
 
   /**

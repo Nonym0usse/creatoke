@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 // Constant classes
 import { Constant } from './../../../core/constants/constant';
+import { SearchService } from 'src/app/core/services/api/search.service';
 
 @Component({
   selector: 'app-search',
@@ -14,12 +15,15 @@ export class SearchComponent implements OnInit {
   // Component classes
   @HostBinding('class') classes = 'flex-fill';
 
+  songs: any = []
   constructor(
     private elementRef: ElementRef,
-    private router: Router
+    private router: Router,
+    private searchService: SearchService
   ) { }
 
   ngOnInit(): void {
+    this.searchService.previewSongs().then((data) => this.songs = data);
   }
 
   /**

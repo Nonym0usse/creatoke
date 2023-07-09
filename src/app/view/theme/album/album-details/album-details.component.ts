@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 // Services
-import { AlbumService } from './../../../../core/services/api/album.service';
 import { PlayerService } from './../../../../core/services/design/player.service';
 
 // Constant classes
@@ -28,7 +27,6 @@ export class AlbumDetailsComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private albumService: AlbumService,
     private playerService: PlayerService
   ) { }
 
@@ -47,12 +45,7 @@ export class AlbumDetailsComponent implements OnInit {
    * @param id
    */
   getAlbums(id: string): void {
-    this.albumService.getAlbums().subscribe(response => {
-      if (response && response.code === HttpStatus.SUCCESSFUL) {
-        this.albums = response.data;
-        this.album = this.albums.find((item: any) => item.id === parseInt(id)); // find album by id
-      }
-    });
+    
   }
 
   /**

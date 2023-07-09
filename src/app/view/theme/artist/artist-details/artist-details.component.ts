@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 
 // Services
 import { ArtistService } from './../../../../core/services/api/artist.service';
-import { AlbumService } from './../../../../core/services/api/album.service';
 import { PlayerService } from './../../../../core/services/design/player.service';
 
 // Constant classes
@@ -33,7 +32,6 @@ export class ArtistDetailsComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private artistService: ArtistService,
-    private albumService: AlbumService,
     private playerService: PlayerService
   ) { }
 
@@ -65,11 +63,7 @@ export class ArtistDetailsComponent implements OnInit {
    * Get album data from default json.
    */
   getAlbums(): void {
-    this.albumService.getAlbums().subscribe(response => {
-      if (response && response.code === HttpStatus.SUCCESSFUL) {
-        this.albums = response.data;
-      }
-    });
+   
   }
 
   /**

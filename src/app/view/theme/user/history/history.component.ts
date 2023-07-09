@@ -22,18 +22,11 @@ export class HistoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getSongs();
   }
 
   /**
    * Get song data from default json.
    */
-  getSongs(): void {
-    this.songService.getSongs().subscribe(response => {
-      if (response && response.code === HttpStatus.SUCCESSFUL) {
-        this.songs = response.data;
-      }
-    });
-  }
+ 
 
 }

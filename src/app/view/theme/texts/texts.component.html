@@ -1,0 +1,40 @@
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" style="background-image: url(./assets/images/banner/song.jpg);"></div>
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="row">
+            <div class="col-xl-7 col-md-10 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="#" class="row" [formGroup]="mainDiapo">
+                            <div class="col-12 mb-4">
+                                <input type="email" class="form-control" formControlName="title_fr" placeholder="Titre en français...">
+                            </div>
+                            <div class="col-12 mb-4">
+                                <input type="email" class="form-control" formControlName="title_en" placeholder="Titre en français...">
+                            </div>
+                            <div class="col-12 mb-4">
+                                <textarea name="description" id="description" formControlName="text_fr" cols="30" rows="4"
+                                    class="form-control" placeholder="Text..."></textarea>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <textarea name="description" id="description" formControlName="text_en" cols="30" rows="4"
+                                    class="form-control" placeholder="Text..."></textarea>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <button type="submit" class="btn btn-primary" (click)="sendContact()">Envoyer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End:: section -->
+
+</div>
+<!-- End:: under hero -->

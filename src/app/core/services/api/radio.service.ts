@@ -7,7 +7,6 @@ import { BaseApiService } from '../global/base-api.service';
 
 // Constant classes
 import { ApiConstant } from '../../constants/api-constant';
-import { Radio } from '../../_modals/radio';
 
 
 @Injectable({
@@ -29,7 +28,6 @@ export class RadioService {
         if (response.data) {
           // Covert api response data into local data
           response.data = response.data.map((element: any) => {
-            return new Radio().toLocal(element);
           });
         }
         return response;

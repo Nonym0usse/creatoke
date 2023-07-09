@@ -1,0 +1,28 @@
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" style="background-image: url(./assets/images/banner/song.jpg);"></div>
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="col-xl-12 col-md-12 mx-auto">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Modifier</th>
+                        <th scope="col">Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let song of songs">
+                        <td>{{song.data.title}}</td>
+                        <td><button class="btn btn-light-primary" (click)="modify(song.id)">Modifier</button></td>
+                        <td><button class="btn btn-light-danger" (click)="delete(song.id)">Supprimer</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

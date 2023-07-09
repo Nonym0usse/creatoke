@@ -1,72 +1,38 @@
 import { Injectable } from '@angular/core';
-import {BaseApiService} from "../global/base-api.service";
-import {map, Observable} from "rxjs";
-import {ApiConstant} from "../../constants/api-constant";
-import {Category} from "../../_modals/category";
-import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
+import { BaseApiService } from "../global/base-api.service";
+import { map, Observable } from "rxjs";
+import { ApiConstant } from "../../constants/api-constant";
+import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/compat/firestore";
+import axios from 'axios';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class CategoryService {
-  //@ts-ignore
+    //@ts-ignore
 
-  constructor(private afs: AngularFirestore) {
-  }
+    constructor(private afs: AngularFirestore) {
+    }
 
-  createCategory(data){
-    return new Promise(resolve => this.afs.firestore.collection('category').add(data).then(() => resolve));
-  }
+    createCategory(data) {
+        return new Promise(resolve => this.afs.firestore.collection('category').add(data).then(() => resolve));
+    }
 
-  createSousCategorie(data){
-    return new Promise(resolve => this.afs.firestore.collection('sub-category').add(data).then(() => resolve));
-  }
+    createSousCategorie(data) {
+        return new Promise(resolve => this.afs.firestore.collection('sub-category').add(data).then(() => resolve));
+    }
 
-  getCategory(): Promise<any[]> {
-    return new Promise<any[]>((resolve, reject) => {
-      this.afs.collection('category').snapshotChanges().subscribe(actions => {
-        const data = actions.map(a => {
-          const id = a.payload.doc.id;
-          const docData = a.payload.doc.data();
-          // @ts-ignore
-          return { id, ...docData };
-        });
-        resolve(data);
-      }, error => {
-        reject(error);
-      });
-    });
-  }
+    getCategory(): Promise<any> {
+        return axios.get(ApiConstant.API + '/category/getAllCategory');
+    }
 
-  getSubCategoryByID(param): Promise<any[]> {
-    return new Promise<any[]>((resolve, reject) => {
-      this.afs.collection('sub-category', ref => ref.where('category', "==", param.category)).snapshotChanges().subscribe(actions => {
-        const data = actions.map(a => {
-          const id = a.payload.doc.id;
-          const docData = a.payload.doc.data();
-          // @ts-ignore
-          return { id, ...docData };
-        });
-        resolve(data);
-      }, error => {
-        reject(error);
-      });
-    });
-  }
 
-  getSubCategory(): Promise<any[]> {
-    return new Promise<any[]>((resolve, reject) => {
-      this.afs.collection('sub-category').snapshotChanges().subscribe(actions => {
-        const data = actions.map(a => {
-          const id = a.payload.doc.id;
-          const docData = a.payload.doc.data();
-          // @ts-ignore
-          return { id, ...docData };
-        });
-        resolve(data);
-      }, error => {
-        reject(error);
-      });
-    });
-  }
+    getSubCategory(): Promise<any> {
+        return axios.get(ApiConstant.API + '/category/getSubCategory');
+    }
+
+    getSubCategoryByID(param): Promise<any> {
+        return axios.get(ApiConstant.API + '/category/getSubCategoryByID/' + param.category);
+    }
+
 }

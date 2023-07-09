@@ -7,7 +7,6 @@ import { BaseApiService } from '../global/base-api.service';
 
 // Constant classes
 import { ApiConstant } from '../../constants/api-constant';
-import { Event } from '../../_modals/event';
 
 
 @Injectable({
@@ -29,7 +28,6 @@ export class EventService {
         if (response.data) {
           // Covert api response data into local data
           response.data = response.data.map((element: any) => {
-            return new Event().toLocal(element);
           });
         }
         return response;

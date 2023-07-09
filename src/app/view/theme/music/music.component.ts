@@ -22,7 +22,7 @@ export class MusicComponent implements OnInit {
   ngOnInit(): void {
     this.routerSubscription = this.activatedRoute.params.subscribe(param => {
       this.getParams(param['category']);
-      this.categoryService.getSubCategoryByID(param).then((data) => {this.subCategory = data; console.log(data)})
+      this.categoryService.getSubCategoryByID(param).then((data) => {this.subCategory = data.data; console.log(data)})
     });
   }
 

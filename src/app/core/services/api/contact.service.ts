@@ -1,35 +1,34 @@
 // Angular
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
-// Service
+// Services
 import { BaseApiService } from '../global/base-api.service';
 
 // Constant classes
 import { ApiConstant } from '../../constants/api-constant';
-import { Album } from '../../_modals/album';
-
 
 @Injectable({
   providedIn: 'root'
 })
-export class AlbumService {
+export class ContactService {
 
-  constructor(
-    private baseApiService: BaseApiService
+ constructor(
+    protected http: HttpClient
   ) { }
 
   /**
-   * Get album data
+   * Get playlist data
    * @returns {object}
    */
-  getAlbums(): Observable<any> {
-    return this.baseApiService.get(ApiConstant.ALBUMS).pipe(
+  sendEmail(body): Observable<any> {
+    return this.http.post('http://localhost:3000/contact/send-email', body).pipe(
       map((response: any) => {
         if (response.data) {
           // Covert api response data into local data
           response.data = response.data.map((element: any) => {
-            return new Album().toLocal(element);
+            return element;
           });
         }
         return response;

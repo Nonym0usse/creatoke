@@ -42,9 +42,9 @@ export class InterceptorService implements HttpInterceptor {
       headerJson['Content-type'] = 'application/json';
     }
 
-    if (this.authenticationService.isUser) {
-      headerJson.Authorization = 'Bearer ' + this.authenticationService.user;
-    }
+   /* if (this.authenticationService.isUser) {
+     // headerJson.Authorization = 'Bearer ' + this.authenticationService.user;
+    }*/
 
     const _request = request.clone({headers: new HttpHeaders(headerJson)});
 

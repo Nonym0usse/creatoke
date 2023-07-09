@@ -48,6 +48,7 @@ export class MusicViewComponent implements OnInit {
    */
   getSongs(id: string): void {
     this.songService.getSongByID(id).then(response => {
+        console.log(response)
       this.song = response;
     });
   }

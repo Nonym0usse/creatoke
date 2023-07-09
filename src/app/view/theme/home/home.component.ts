@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 // Services
 import { SongService } from './../../../core/services/api/song.service';
 import { EventService } from './../../../core/services/api/event.service';
-import { AlbumService } from './../../../core/services/api/album.service';
 import { PlaylistService } from './../../../core/services/api/playlist.service';
 import { RadioService } from './../../../core/services/api/radio.service';
 
@@ -43,7 +42,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private songService: SongService,
     private eventService: EventService,
-    private albumService: AlbumService,
     private playlistService: PlaylistService,
     private radioService: RadioService
   ) { }
@@ -60,11 +58,7 @@ export class HomeComponent implements OnInit {
    * Get song data from default json.
    */
   getSongs(): void {
-    this.songService.getSongs().subscribe(response => {
-      if (response && response.code === HttpStatus.SUCCESSFUL) {
-        this.songs = response.data;
-      }
-    });
+    
   }
 
   /**
@@ -88,15 +82,7 @@ export class HomeComponent implements OnInit {
    * Get album data from default json.
    */
   getAlbums(): void {
-    this.albumService.getAlbums().subscribe(response => {
-      if (response && response.code === HttpStatus.SUCCESSFUL) {
-        const data = response.data;
-        const divide = Math.ceil(data.length / 2);
-
-        this.albums.push(data.splice(0, divide));
-        this.albums.push(data.splice(-divide));
-      }
-    });
+   
   }
 
   /**

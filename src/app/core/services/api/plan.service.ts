@@ -7,7 +7,6 @@ import { BaseApiService } from './../global/base-api.service';
 
 // Constant classes
 import { ApiConstant } from '../../constants/api-constant';
-import { Plan } from '../../_modals/plan';
 
 
 @Injectable({
@@ -29,7 +28,6 @@ export class PlanService {
         if (response.data) {
           // Covert api response data into local data
           response.data = response.data.map((element: any) => {
-            return new Plan().toLocal(element);
           });
         }
         return response;

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 
 // Services
 import { SongService } from './../../../core/services/api/song.service';
-import { AlbumService } from './../../../core/services/api/album.service';
 
 // Constant classes
 import { HttpStatus } from './../../../core/constants/http-status';
@@ -23,7 +22,6 @@ export class SongComponent implements OnInit {
 
   constructor(
     private songService: SongService,
-    private albumService: AlbumService
   ) { }
 
   ngOnInit(): void {
@@ -35,22 +33,14 @@ export class SongComponent implements OnInit {
    * Get song data from default json.
    */
   getSongs(): void {
-    this.songService.getSongs().subscribe(response => {
-      if (response && response.code === HttpStatus.SUCCESSFUL) {
-        this.songs = response.data;
-      }
-    });
+    
   }
 
   /**
    * Get album data from default json.
    */
   getAlbums(): void {
-    this.albumService.getAlbums().subscribe(response => {
-      if (response && response.code === HttpStatus.SUCCESSFUL) {
-        this.albums = response.data;
-      }
-    });
+    
   }
 
 }

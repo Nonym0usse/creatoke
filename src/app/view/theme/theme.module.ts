@@ -28,6 +28,10 @@ import { CategoryComponent } from './category/category.component';
 import { MusicComponent } from './music/music.component';
 import { MusicDetailsComponent } from './music/music-details/music-details.component';
 import { MusicViewComponent } from './music/music-view/music-view.component';
+import { ContactComponent } from './contact/contact.component';
+import { TextsComponent } from './texts/texts.component';
+import { ManageComponent } from './music/manage/manage.component';
+import { ModifyComponent } from './music/modify/modify.component';
 
 
 //
@@ -87,8 +91,8 @@ const routes: Routes = [
         component: CategoryComponent
       },
       {
-        path: 'history',
-        component: HistoryComponent
+        path: 'contact',
+        component: ContactComponent
       },
       {
         path: 'profile',
@@ -99,8 +103,12 @@ const routes: Routes = [
         component: SettingsComponent
       },
       {
-        path: 'plan',
-        component: PlanComponent
+        path: 'manage',
+        component: ManageComponent
+      },
+      {
+        path: 'modify-song/:id',
+        component: ModifyComponent
       }
     ]
   }
@@ -129,6 +137,9 @@ const routes: Routes = [
     MusicComponent,
     MusicDetailsComponent,
     MusicViewComponent,
+    ContactComponent,
+    TextsComponent,
+    ManageComponent,
   ],
   imports: [
     // Angular

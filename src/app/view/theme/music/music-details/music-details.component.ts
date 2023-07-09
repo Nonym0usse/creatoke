@@ -41,8 +41,6 @@ export class MusicDetailsComponent implements OnInit {
    * @param id
    */
   getSongs(id: string): void {
-    this.songService.getSongByCategory(id).then((data) => {this.songs = data; console.log(data)});
+    this.songService.getSongByCategory(id).then((data) => {this.songs = data.data;});
   }
-
-
 }

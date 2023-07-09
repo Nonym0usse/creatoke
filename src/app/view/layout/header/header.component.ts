@@ -59,9 +59,9 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    if (this.authenticationService.isUser) {
-      this.user = this.authenticationService.user;
-    }
+    this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
+       this.user = this.authenticationService.user;
+    });
 
     // Timeout for header color subscription.
     setTimeout(() => {

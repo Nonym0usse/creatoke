@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
    * User registration
    */
   register(): void {
-    this.loginService.userLogin();
+   // this.loginService.userLogin('', '');
   }
 
   /**

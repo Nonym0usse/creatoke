@@ -28,7 +28,7 @@ export class PricingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPlans();
-    this.isUser = this.authenticationService.isUser;
+    //this.isUser = this.authenticationService.isUser;
   }
 
   /**

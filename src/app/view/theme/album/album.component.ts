@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 
 // Services
-import { AlbumService } from './../../../core/services/api/album.service';
 
 // Constant classes
 import { HttpStatus } from 'src/app/core/constants/http-status';
@@ -19,7 +18,6 @@ export class AlbumComponent implements OnInit {
   albums: any = [];
 
   constructor(
-    private albumService: AlbumService
   ) { }
 
   ngOnInit(): void {
@@ -30,11 +28,7 @@ export class AlbumComponent implements OnInit {
    * Get album data from default json.
    */
   getAlbums(): void {
-    this.albumService.getAlbums().subscribe(response => {
-      if (response && response.code === HttpStatus.SUCCESSFUL) {
-        this.albums = response.data;
-      }
-    });
+
   }
 
 }
