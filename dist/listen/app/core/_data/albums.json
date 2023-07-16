@@ -1,0 +1,3445 @@
+{
+    "code": 200,
+    "data": [
+        {
+            "id": 1,
+            "name": "Mummy",
+            "premium": true,
+            "favorite": true,
+            "albumRatings": 4.5, 
+            "albumThumb": "./assets/images/cover/small/1.jpg",
+            "albumCover": "./assets/images/cover/large/1.jpg",
+            "release": "04/14/2020",
+            "albumCompany": "Travers Music Company",
+            "favorites": "264",
+            "albumDownloads": "10,234",
+            "artists": [
+                {
+                    "id": 1,
+                    "name": "Arebica Luna"
+                }
+            ],
+            "songList": [
+                {
+                    "id": 1,
+                    "name": "I love you mummy",
+                    "premium": true,
+                    "artists": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],            
+                    "songUrl": "./assets/audio/ringtone-1.mp3",
+                    "songThumb": "./assets/images/cover/small/1.jpg",
+                    "songCover": "./assets/images/cover/large/1.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "01:14",
+                    "composers": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 2,
+                    "favorite": true,
+                    "name": "Shack your butty",
+                    "artists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/2.jpg",
+                    "songCover": "./assets/images/cover/large/2.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:24",
+                    "composers": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 3,
+                    "premium": true,
+                    "favorite": true,
+                    "name": "Do it your way(Female)",
+                    "artists": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/3.jpg",
+                    "songCover": "./assets/images/cover/large/3.jpg",
+                    "songRatings": 5,
+                    "songDuration": "01:41",
+                    "composers": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 4,
+                    "name": "Say yes",
+                    "artists": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-4.mp3",
+                    "songThumb": "./assets/images/cover/small/4.jpg",
+                    "songCover": "./assets/images/cover/large/4.jpg",
+                    "songRatings": 3.5,
+                    "songDuration": "02:20",
+                    "composers": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 5,
+                    "favorite": true,
+                    "name": "Where is your letter",
+                    "artists": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        },
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-5.mp3",
+                    "songThumb": "./assets/images/cover/small/5.jpg",
+                    "songCover": "./assets/images/cover/large/5.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        },
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 6,
+                    "premium": true,
+                    "name": "Deep inside",
+                    "artists": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-6.mp3",
+                    "songThumb": "./assets/images/cover/small/6.jpg",
+                    "songCover": "./assets/images/cover/large/6.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "03:47",
+                    "composers": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        },
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 7,
+                    "premium": true,
+                    "name": "Hey not me",
+                    "artists": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-7.mp3",
+                    "songThumb": "./assets/images/cover/small/7.jpg",
+                    "songCover": "./assets/images/cover/large/7.jpg",
+                    "songRatings": 5,
+                    "songDuration": "01:04",
+                    "composers": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 8,
+                    "premium": true,
+                    "name": "Alone in the sky",
+                    "artists": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-8.mp3",
+                    "songThumb": "./assets/images/cover/small/8.jpg",
+                    "songCover": "./assets/images/cover/large/8.jpg",
+                    "songRatings": 4,
+                    "songDuration": "04:12",
+                    "composers": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 9,
+                    "premium": true,
+                    "name": "Electric wave",
+                    "artists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/9.jpg",
+                    "songCover": "./assets/images/cover/large/9.jpg",
+                    "songRatings": 4,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 10,
+                    "premium": true,
+                    "name": "Nothing like your eyes",
+                    "artists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/10.jpg",
+                    "songCover": "./assets/images/cover/large/10.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:56",
+                    "composers": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Hot Shot",
+            "premium": true,
+            "albumRatings": 4,
+            "albumThumb": "./assets/images/cover/small/2.jpg",
+            "albumCover": "./assets/images/cover/large/2.jpg",
+            "release": "04/14/2020",
+            "albumCompany": "Travers Music Company",
+            "favorites": "264",
+            "albumDownloads": "10,234",
+            "artists": [
+                {
+                    "id": 2,
+                    "name": "Gerrina Linda"
+                }
+            ],
+            "songList": [
+                {
+                    "id": 1,
+                    "name": "I love you mummy",
+                    "premium": true,
+                    "artists": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],            
+                    "songUrl": "./assets/audio/ringtone-1.mp3",
+                    "songThumb": "./assets/images/cover/small/1.jpg",
+                    "songCover": "./assets/images/cover/large/1.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "01:14",
+                    "composers": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 2,
+                    "favorite": true,
+                    "name": "Shack your butty",
+                    "artists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/2.jpg",
+                    "songCover": "./assets/images/cover/large/2.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:24",
+                    "composers": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 3,
+                    "premium": true,
+                    "favorite": true,
+                    "name": "Do it your way(Female)",
+                    "artists": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/3.jpg",
+                    "songCover": "./assets/images/cover/large/3.jpg",
+                    "songRatings": 5,
+                    "songDuration": "01:41",
+                    "composers": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 4,
+                    "name": "Say yes",
+                    "artists": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-4.mp3",
+                    "songThumb": "./assets/images/cover/small/4.jpg",
+                    "songCover": "./assets/images/cover/large/4.jpg",
+                    "songRatings": 3.5,
+                    "songDuration": "02:20",
+                    "composers": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 5,
+                    "favorite": true,
+                    "name": "Where is your letter",
+                    "artists": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        },
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-5.mp3",
+                    "songThumb": "./assets/images/cover/small/5.jpg",
+                    "songCover": "./assets/images/cover/large/5.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        },
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 6,
+                    "premium": true,
+                    "name": "Deep inside",
+                    "artists": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-6.mp3",
+                    "songThumb": "./assets/images/cover/small/6.jpg",
+                    "songCover": "./assets/images/cover/large/6.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "03:47",
+                    "composers": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        },
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Own Way",
+            "premium": true,
+            "favorite": true,
+            "albumRatings": 5,
+            "albumThumb": "./assets/images/cover/small/3.jpg",
+            "albumCover": "./assets/images/cover/large/3.jpg",
+            "release": "04/14/2020",
+            "albumCompany": "Travers Music Company",
+            "favorites": "264",
+            "albumDownloads": "10,234",
+            "artists": [
+                {
+                    "id": 3,
+                    "name": "Zunira Willy"
+                },
+                {
+                    "id": 8,
+                    "name": "Nutty Nina"
+                }
+            ],
+            "songList": [
+                {
+                    "id": 1,
+                    "name": "I love you mummy",
+                    "premium": true,
+                    "artists": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],            
+                    "songUrl": "./assets/audio/ringtone-1.mp3",
+                    "songThumb": "./assets/images/cover/small/1.jpg",
+                    "songCover": "./assets/images/cover/large/1.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "01:14",
+                    "composers": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 2,
+                    "favorite": true,
+                    "name": "Shack your butty",
+                    "artists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/2.jpg",
+                    "songCover": "./assets/images/cover/large/2.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:24",
+                    "composers": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 3,
+                    "premium": true,
+                    "favorite": true,
+                    "name": "Do it your way(Female)",
+                    "artists": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/3.jpg",
+                    "songCover": "./assets/images/cover/large/3.jpg",
+                    "songRatings": 5,
+                    "songDuration": "01:41",
+                    "composers": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 9,
+                    "premium": true,
+                    "name": "Electric wave",
+                    "artists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/9.jpg",
+                    "songCover": "./assets/images/cover/large/9.jpg",
+                    "songRatings": 4,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 10,
+                    "premium": true,
+                    "name": "Nothing like your eyes",
+                    "artists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/10.jpg",
+                    "songCover": "./assets/images/cover/large/10.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:56",
+                    "composers": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Say yes",
+            "premium": true,
+            "favorite": true,
+            "albumRatings": 5,
+            "albumThumb": "./assets/images/cover/small/4.jpg",
+            "albumCover": "./assets/images/cover/large/4.jpg",
+            "release": "04/14/2020",
+            "albumCompany": "Travers Music Company",
+            "favorites": "264",
+            "albumDownloads": "10,234",
+            "artists": [
+                {
+                    "id": 4,
+                    "name": "Johnny Marro"
+                }
+            ],
+            "songList": [
+                {
+                    "id": 7,
+                    "premium": true,
+                    "name": "Hey not me",
+                    "artists": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-7.mp3",
+                    "songThumb": "./assets/images/cover/small/7.jpg",
+                    "songCover": "./assets/images/cover/large/7.jpg",
+                    "songRatings": 5,
+                    "songDuration": "01:04",
+                    "composers": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 8,
+                    "premium": true,
+                    "name": "Alone in the sky",
+                    "artists": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-8.mp3",
+                    "songThumb": "./assets/images/cover/small/8.jpg",
+                    "songCover": "./assets/images/cover/large/8.jpg",
+                    "songRatings": 4,
+                    "songDuration": "04:12",
+                    "composers": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 9,
+                    "premium": true,
+                    "name": "Electric wave",
+                    "artists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/9.jpg",
+                    "songCover": "./assets/images/cover/large/9.jpg",
+                    "songRatings": 4,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 10,
+                    "premium": true,
+                    "name": "Nothing like your eyes",
+                    "artists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/10.jpg",
+                    "songCover": "./assets/images/cover/large/10.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:56",
+                    "composers": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Letter",
+            "premium": true,
+            "favorite": true,
+            "albumRatings": 3.5,
+            "albumThumb": "./assets/images/cover/small/5.jpg",
+            "albumCover": "./assets/images/cover/large/5.jpg",
+            "release": "04/14/2020",
+            "albumCompany": "Travers Music Company",
+            "favorites": "264",
+            "albumDownloads": "10,234",
+            "artists": [
+                {
+                    "id": 5,
+                    "name": "Jina Moore"
+                },
+                {
+                    "id": 7,
+                    "name": "Lenisa Gory"
+                }
+            ],
+            "songList": [
+                {
+                    "id": 2,
+                    "favorite": true,
+                    "name": "Shack your butty",
+                    "artists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/2.jpg",
+                    "songCover": "./assets/images/cover/large/2.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:24",
+                    "composers": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 3,
+                    "premium": true,
+                    "favorite": true,
+                    "name": "Do it your way(Female)",
+                    "artists": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/3.jpg",
+                    "songCover": "./assets/images/cover/large/3.jpg",
+                    "songRatings": 5,
+                    "songDuration": "01:41",
+                    "composers": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 5,
+                    "favorite": true,
+                    "name": "Where is your letter",
+                    "artists": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        },
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-5.mp3",
+                    "songThumb": "./assets/images/cover/small/5.jpg",
+                    "songCover": "./assets/images/cover/large/5.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        },
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 6,
+                    "premium": true,
+                    "name": "Deep inside",
+                    "artists": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-6.mp3",
+                    "songThumb": "./assets/images/cover/small/6.jpg",
+                    "songCover": "./assets/images/cover/large/6.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "03:47",
+                    "composers": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        },
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 9,
+                    "premium": true,
+                    "name": "Electric wave",
+                    "artists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/9.jpg",
+                    "songCover": "./assets/images/cover/large/9.jpg",
+                    "songRatings": 4,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "name": "Inside",
+            "premium": true,
+            "albumRatings": 4,
+            "albumThumb": "./assets/images/cover/small/6.jpg",
+            "albumCover": "./assets/images/cover/large/6.jpg",
+            "release": "04/14/2020",
+            "albumCompany": "Travers Music Company",
+            "favorites": "264",
+            "albumDownloads": "10,234",
+            "artists": [
+                {
+                    "id": 9,
+                    "name": "Pimila Holliwy"
+                }
+            ],
+            "songList": [
+                {
+                    "id": 1,
+                    "name": "I love you mummy",
+                    "premium": true,
+                    "artists": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],            
+                    "songUrl": "./assets/audio/ringtone-1.mp3",
+                    "songThumb": "./assets/images/cover/small/1.jpg",
+                    "songCover": "./assets/images/cover/large/1.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "01:14",
+                    "composers": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 2,
+                    "favorite": true,
+                    "name": "Shack your butty",
+                    "artists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/2.jpg",
+                    "songCover": "./assets/images/cover/large/2.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:24",
+                    "composers": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 3,
+                    "premium": true,
+                    "favorite": true,
+                    "name": "Do it your way(Female)",
+                    "artists": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/3.jpg",
+                    "songCover": "./assets/images/cover/large/3.jpg",
+                    "songRatings": 5,
+                    "songDuration": "01:41",
+                    "composers": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 4,
+                    "name": "Say yes",
+                    "artists": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-4.mp3",
+                    "songThumb": "./assets/images/cover/small/4.jpg",
+                    "songCover": "./assets/images/cover/large/4.jpg",
+                    "songRatings": 3.5,
+                    "songDuration": "02:20",
+                    "composers": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 5,
+                    "favorite": true,
+                    "name": "Where is your letter",
+                    "artists": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        },
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-5.mp3",
+                    "songThumb": "./assets/images/cover/small/5.jpg",
+                    "songCover": "./assets/images/cover/large/5.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        },
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 6,
+                    "premium": true,
+                    "name": "Deep inside",
+                    "artists": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-6.mp3",
+                    "songThumb": "./assets/images/cover/small/6.jpg",
+                    "songCover": "./assets/images/cover/large/6.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "03:47",
+                    "composers": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        },
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 7,
+                    "premium": true,
+                    "name": "Hey not me",
+                    "artists": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-7.mp3",
+                    "songThumb": "./assets/images/cover/small/7.jpg",
+                    "songCover": "./assets/images/cover/large/7.jpg",
+                    "songRatings": 5,
+                    "songDuration": "01:04",
+                    "composers": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 8,
+                    "premium": true,
+                    "name": "Alone in the sky",
+                    "artists": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-8.mp3",
+                    "songThumb": "./assets/images/cover/small/8.jpg",
+                    "songCover": "./assets/images/cover/large/8.jpg",
+                    "songRatings": 4,
+                    "songDuration": "04:12",
+                    "composers": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "name": "Find Soul",
+            "premium": true,
+            "albumRatings": 4.5,
+            "albumThumb": "./assets/images/cover/small/7.jpg",
+            "albumCover": "./assets/images/cover/large/7.jpg",
+            "release": "04/14/2020",
+            "albumCompany": "Travers Music Company",
+            "favorites": "264",
+            "albumDownloads": "10,234",
+            "artists": [
+                {
+                    "id": 6,
+                    "name": "Rasomi Pelina"
+                }
+            ],
+            "songList": [
+                {
+                    "id": 1,
+                    "name": "I love you mummy",
+                    "premium": true,
+                    "artists": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],            
+                    "songUrl": "./assets/audio/ringtone-1.mp3",
+                    "songThumb": "./assets/images/cover/small/1.jpg",
+                    "songCover": "./assets/images/cover/large/1.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "01:14",
+                    "composers": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 2,
+                    "favorite": true,
+                    "name": "Shack your butty",
+                    "artists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/2.jpg",
+                    "songCover": "./assets/images/cover/large/2.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:24",
+                    "composers": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 3,
+                    "premium": true,
+                    "favorite": true,
+                    "name": "Do it your way(Female)",
+                    "artists": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/3.jpg",
+                    "songCover": "./assets/images/cover/large/3.jpg",
+                    "songRatings": 5,
+                    "songDuration": "01:41",
+                    "composers": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 9,
+                    "premium": true,
+                    "name": "Electric wave",
+                    "artists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/9.jpg",
+                    "songCover": "./assets/images/cover/large/9.jpg",
+                    "songRatings": 4,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 10,
+                    "premium": true,
+                    "name": "Nothing like your eyes",
+                    "artists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/10.jpg",
+                    "songCover": "./assets/images/cover/large/10.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:56",
+                    "composers": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "name": "Alone",
+            "premium": true,
+            "albumRatings": 5,
+            "albumThumb": "./assets/images/cover/small/8.jpg",
+            "albumCover": "./assets/images/cover/large/8.jpg",
+            "release": "04/14/2020",
+            "albumCompany": "Travers Music Company",
+            "favorites": "264",
+            "albumDownloads": "10,234",
+            "artists": [
+                {
+                    "id": 10,
+                    "name": "Luna Short"
+                }
+            ],
+            "songList": [
+                {
+                    "id": 1,
+                    "name": "I love you mummy",
+                    "premium": true,
+                    "artists": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],            
+                    "songUrl": "./assets/audio/ringtone-1.mp3",
+                    "songThumb": "./assets/images/cover/small/1.jpg",
+                    "songCover": "./assets/images/cover/large/1.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "01:14",
+                    "composers": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 2,
+                    "favorite": true,
+                    "name": "Shack your butty",
+                    "artists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/2.jpg",
+                    "songCover": "./assets/images/cover/large/2.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:24",
+                    "composers": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 3,
+                    "premium": true,
+                    "favorite": true,
+                    "name": "Do it your way(Female)",
+                    "artists": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/3.jpg",
+                    "songCover": "./assets/images/cover/large/3.jpg",
+                    "songRatings": 5,
+                    "songDuration": "01:41",
+                    "composers": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        },
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 3,
+                            "name": "Zunira Willy"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 4,
+                    "name": "Say yes",
+                    "artists": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-4.mp3",
+                    "songThumb": "./assets/images/cover/small/4.jpg",
+                    "songCover": "./assets/images/cover/large/4.jpg",
+                    "songRatings": 3.5,
+                    "songDuration": "02:20",
+                    "composers": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 5,
+                    "favorite": true,
+                    "name": "Where is your letter",
+                    "artists": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        },
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-5.mp3",
+                    "songThumb": "./assets/images/cover/small/5.jpg",
+                    "songCover": "./assets/images/cover/large/5.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        },
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 6,
+                    "premium": true,
+                    "name": "Deep inside",
+                    "artists": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-6.mp3",
+                    "songThumb": "./assets/images/cover/small/6.jpg",
+                    "songCover": "./assets/images/cover/large/6.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "03:47",
+                    "composers": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        },
+                        {
+                            "id": 1,
+                            "name": "Arebica Luna"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 9,
+                            "name": "Pimila Holliwy"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 7,
+                    "premium": true,
+                    "name": "Hey not me",
+                    "artists": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-7.mp3",
+                    "songThumb": "./assets/images/cover/small/7.jpg",
+                    "songCover": "./assets/images/cover/large/7.jpg",
+                    "songRatings": 5,
+                    "songDuration": "01:04",
+                    "composers": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 8,
+                    "premium": true,
+                    "name": "Alone in the sky",
+                    "artists": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-8.mp3",
+                    "songThumb": "./assets/images/cover/small/8.jpg",
+                    "songCover": "./assets/images/cover/large/8.jpg",
+                    "songRatings": 4,
+                    "songDuration": "04:12",
+                    "composers": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 9,
+                    "premium": true,
+                    "name": "Electric wave",
+                    "artists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/9.jpg",
+                    "songCover": "./assets/images/cover/large/9.jpg",
+                    "songRatings": 4,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 10,
+                    "premium": true,
+                    "name": "Nothing like your eyes",
+                    "artists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/10.jpg",
+                    "songCover": "./assets/images/cover/large/10.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:56",
+                    "composers": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "name": "Electric wave",
+            "premium": true,
+            "favorite": true,
+            "albumRatings": 4.5,
+            "albumThumb": "./assets/images/cover/small/9.jpg",
+            "albumCover": "./assets/images/cover/large/9.jpg",
+            "release": "04/14/2020",
+            "albumCompany": "Travers Music Company",
+            "favorites": "264",
+            "albumDownloads": "10,234",
+            "artists": [
+                {
+                    "id": 7,
+                    "name": "Lenisa Gory"
+                }
+            ],
+            "songList": [
+                {
+                    "id": 2,
+                    "favorite": true,
+                    "name": "Shack your butty",
+                    "artists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/2.jpg",
+                    "songCover": "./assets/images/cover/large/2.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:24",
+                    "composers": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 2,
+                            "name": "Gerrina Linda"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 4,
+                    "name": "Say yes",
+                    "artists": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-4.mp3",
+                    "songThumb": "./assets/images/cover/small/4.jpg",
+                    "songCover": "./assets/images/cover/large/4.jpg",
+                    "songRatings": 3.5,
+                    "songDuration": "02:20",
+                    "composers": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 4,
+                            "name": "Johnny Marro"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 5,
+                    "favorite": true,
+                    "name": "Where is your letter",
+                    "artists": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        },
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-5.mp3",
+                    "songThumb": "./assets/images/cover/small/5.jpg",
+                    "songCover": "./assets/images/cover/large/5.jpg",
+                    "songRatings": 4.5,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        },
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 5,
+                            "name": "Jina Moore"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 7,
+                    "premium": true,
+                    "name": "Hey not me",
+                    "artists": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-7.mp3",
+                    "songThumb": "./assets/images/cover/small/7.jpg",
+                    "songCover": "./assets/images/cover/large/7.jpg",
+                    "songRatings": 5,
+                    "songDuration": "01:04",
+                    "composers": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 9,
+                    "premium": true,
+                    "name": "Electric wave",
+                    "artists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/9.jpg",
+                    "songCover": "./assets/images/cover/large/9.jpg",
+                    "songRatings": 4,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "name": "Lover soul",
+            "premium": true,
+            "favorite": true,
+            "albumRatings": 4,
+            "albumThumb": "./assets/images/cover/small/10.jpg",
+            "albumCover": "./assets/images/cover/large/10.jpg",
+            "release": "04/14/2020",
+            "albumCompany": "Travers Music Company",
+            "favorites": "264",
+            "albumDownloads": "10,234",
+            "artists": [
+                {
+                    "id": 8,
+                    "name": "Nutty Nina"
+                }
+            ],
+            "songList": [
+                {
+                    "id": 7,
+                    "premium": true,
+                    "name": "Hey not me",
+                    "artists": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-7.mp3",
+                    "songThumb": "./assets/images/cover/small/7.jpg",
+                    "songCover": "./assets/images/cover/large/7.jpg",
+                    "songRatings": 5,
+                    "songDuration": "01:04",
+                    "composers": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 6,
+                            "name": "Rasomi Pelina"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 8,
+                    "premium": true,
+                    "name": "Alone in the sky",
+                    "artists": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-8.mp3",
+                    "songThumb": "./assets/images/cover/small/8.jpg",
+                    "songCover": "./assets/images/cover/large/8.jpg",
+                    "songRatings": 4,
+                    "songDuration": "04:12",
+                    "composers": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 10,
+                            "name": "Luna Short"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 9,
+                    "premium": true,
+                    "name": "Electric wave",
+                    "artists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-3.mp3",
+                    "songThumb": "./assets/images/cover/small/9.jpg",
+                    "songCover": "./assets/images/cover/large/9.jpg",
+                    "songRatings": 4,
+                    "songDuration": "02:36",
+                    "composers": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 7,
+                            "name": "Lenisa Gory"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                },
+                {
+                    "id": 10,
+                    "premium": true,
+                    "name": "Nothing like your eyes",
+                    "artists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "release": "04/14/2020",
+                    "company": "Travers Music Company",
+                    "played": "1264",
+                    "favorites": "264",
+                    "categories": [
+                        {
+                            "id": 1,
+                            "name": "Pop"
+                        },
+                        {
+                            "id": 2,
+                            "name": "DJ"
+                        }
+                    ],
+                    "songUrl": "./assets/audio/ringtone-2.mp3",
+                    "songThumb": "./assets/images/cover/small/10.jpg",
+                    "songCover": "./assets/images/cover/large/10.jpg",
+                    "songRatings": 4,
+                    "songDuration": "03:56",
+                    "composers": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "lyricists": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "directors": [
+                        {
+                            "id": 8,
+                            "name": "Nutty Nina"
+                        }
+                    ],
+                    "songDownloads": "10,234,014",
+                    "songLyrics": "<p>This one's for you Mrs Van De Kamp!</p><p>My love for you is like the most brave aubergine, <br>Your face reminds me of repugnant goats, <br>Together, we are like bread rolls and olive oil.</p><p>Oh darling Nigel, <br>My brave aubergine, <br>My repugnant onion, <br>The perfect companion to my bread rolls soul.</p><p>Poppies are red, <br>Kingfishers are blue, <br>I like drinking tequila, <br>But not as much as I love crashing with you!</p><p>Oh darling Nigel, <br>Your cheeks are like clean rakes on a summer day, <br>You're like the most super barman to ever walk Hull.</p><p>Your repugnant goat face, <br>Your olive oil soul, <br>Your clean cheeks, <br>Your super barman being...</p><p>How could I look at another when our brave aubergine love is so strong?</p><p>I love you Mrs Van De Kamp!</p>"
+                }
+            ]
+        }
+    ]
+}

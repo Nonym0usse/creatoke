@@ -27,7 +27,7 @@ export class SongService {
     }
 
     getSongByID(id): Promise<any> {
-        return axios.get(ApiConstant.API + '/admin/single-music');
+        return axios.get(ApiConstant.API + '/admin/single-music/' + id);
     }
 
     getAllSongs(): Promise<any> {
@@ -45,24 +45,8 @@ export class SongService {
     modifySong(data: any) {
         return axios.delete(ApiConstant.API + '/admin/update-music', data);
     }
+
+    highlightedSongs(): Promise<any> {
+        return axios.get(ApiConstant.API + '/admin/highlight-music');
+    }
 }
-
-
-/*
-return this.af.collection('musics', ref => ref.where('id', "==", Number(id))).get().toPromise()
-            // @ts-ignore
-            .then((querySnapshot: QuerySnapshot<any>) => {
-                if (querySnapshot.empty) {
-                    return null;
-                } else {
-                    const docData = querySnapshot.docs[0].data();
-                    const docId = querySnapshot.docs[0].id;
-                    return { id: docId, ...docData };
-                }
-            })
-            .catch((error) => {
-                console.error('Error getting document:', error);
-                return null;
-            });
-
-*/

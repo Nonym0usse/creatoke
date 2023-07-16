@@ -10,27 +10,27 @@ export class Constant {
         {
             name: 'Accueil',
             icon: '<i class="ri-home-4-line fs-5"></i>',
-            link: '/app/home'
+            link: '/home'
         },
         {
-            name: 'Chansons à chanter',
+            name: 'Chansons',
             icon: '<i class="ri-disc-line fs-5"></i>',
-            link: '/app/song/a-chanter'
+            link: '/song/a-chanter'
         },
         {
             name: 'Instrumentaux',
             icon: '<i class="ri-music-2-line fs-5"></i>',
-            link: '/app/song/instrumentaux'
+            link: '/song/instrumentaux'
         },
         {
             name: 'Youtubeurs',
             icon: '<i class="ri-youtube-line fs-5"></i>',
-            link: '/app/song/youtubeurs'
+            link: '/song/youtubeurs'
         },
         {
             name: 'Contact',
             icon: '<i class="ri-mail-send-line fs-5"></i>',
-            link: '/app/contact'
+            link: '/contact'
         },
         {
             head: 'Tableau de bord'
@@ -38,17 +38,17 @@ export class Constant {
         {
             name: 'Statistiques',
             icon: '<i class="ri-pie-chart-line fs-5"></i>',
-            link: '/app/analytics'
+            link: '/analytics'
         },
         {
             name: 'Catégories',
             icon: '<i class="ri-stack-fill fs-5"></i>',
-            link: '/app/category'
+            link: '/category'
         },
         {
             name: 'Gérer les chansons',
             icon: '<i class="ri-edit-2-fill fs-5"></i>',
-            link: '/app/manage'
+            link: '/manage'
         }
     ];
 

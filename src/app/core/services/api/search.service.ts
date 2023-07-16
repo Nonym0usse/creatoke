@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 // Constant classes
 import { AngularFirestore } from "@angular/fire/compat/firestore";
 import { Observable } from 'rxjs';
+import axios from 'axios';
+import { ApiConstant } from '../../constants/api-constant';
 
 
 @Injectable({
@@ -22,23 +24,7 @@ export class SearchService {
       });
     }
 
-    previewSongs(): Promise<any> {
-        return this.af.collection('musics', ref => ref.limit(6)).get().toPromise()
-            // @ts-ignore
-            .then((querySnapshot: QuerySnapshot<any>) => {
-                if (querySnapshot.empty) {
-                    return null;
-                } else {
-                    return querySnapshot.docs.map(doc => {
-                        const id = doc.id;
-                        const data = doc.data();
-                        return { id, data };
-                    });
-                }
-            })
-            .catch((error) => {
-                console.error('Error getting document:', error);
-                return null;
-            });
+    previewSongs(limit): Promise<any> {
+        return axios.get(ApiConstant.API + '/admin/preview-searching/' + limit);
     }
 }

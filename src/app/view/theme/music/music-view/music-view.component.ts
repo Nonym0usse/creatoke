@@ -31,8 +31,6 @@ export class MusicViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getPlans();
-
     this.routerSubscription = this.activatedRoute.params.subscribe(param => {
       this.getSongs(param['detail']);
     });
@@ -48,8 +46,9 @@ export class MusicViewComponent implements OnInit {
    */
   getSongs(id: string): void {
     this.songService.getSongByID(id).then(response => {
-        console.log(response)
-      this.song = response;
+        console.log('ok')
+
+      this.song = response.data;
     });
   }
 
@@ -59,14 +58,6 @@ export class MusicViewComponent implements OnInit {
    */
   play(event: any): void {
     this.playerService.songPlayPause(event, this.song);
-  }
-
-  getPlans(): void {
-    this.planService.getPlans().subscribe(response => {
-      if (response && response.code === HttpStatus.SUCCESSFUL) {
-        this.plans = response.data;
-      }
-    });
   }
 
 }

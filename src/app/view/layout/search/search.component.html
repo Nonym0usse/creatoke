@@ -23,13 +23,13 @@
             <div class="row g-4 list">
                 <div class="col-xl-3 col-md-4 col-sm-6" *ngFor="let song of songs">
                     <div class="list__item">
-                        <a (click)="routeToPage('/app/song/' + song.data.category + '/' + song.subcategory + '/' + song.data.id + '/view')" class="list__cover">
-                            <img [src]="song.data.image" alt="Hey not me">
+                        <a (click)="routeToPage('/app/song/' + song.category + '/' + song.subcategory + '/' + song.id + '/view')" class="list__cover">
+                            <img [src]="song.image" alt="Hey not me">
                         </a>
                         <div class="list__content">
-                            <a (click)="routeToPage('/app/song/' + song.data.category + '/' + song.data.subcategory + '/' + song.data.id + '/view')" class="list__title text-truncate">{{song.data.title}}</a>
+                            <a (click)="routeToPage('/app/song/' + song.category + '/' + song.subcategory + '/' + song.id + '/view')" class="list__title text-truncate">{{song.title}}</a>
                             <p class="list__subtitle text-truncate">
-                                <a (click)="routeToPage('/app/artist/1/details')">{{song.data.artist}}</a>
+                                <a (click)="routeToPage('/app/artist/1/details')">{{song.artist}}</a>
                             </p>
                         </div>
                     </div>

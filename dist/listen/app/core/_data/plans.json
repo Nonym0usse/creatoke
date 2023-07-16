@@ -1,0 +1,109 @@
+{
+    "code": 200,
+    "data": [
+        {
+            "id": 1,
+            "name": "Licence <span class='text-primary'>de base</span>",
+            "icon": "<i class='ri-music-2-line fs-3'></i>",
+            "price": 10.99,
+            "subscribed": false,
+            "features": [
+                {
+                    "id": 1,
+                    "name": "Cette licence ne concerne pas les droits intellectuels"
+                },
+                {
+                    "id": 2,
+                    "name": "Utilisation pour l'enregistrement"
+                },
+                {
+                    "id": 3,
+                    "name": "Performance live illimitée"
+                },
+                {
+                    "id": 4,
+                    "name": "Distribution jusqu'à 2500 copies physiques"
+                },
+                {
+                    "id": 5,
+                    "name": "Distribution jusqu’à 250 000 audio Streams"
+                },
+                {
+                    "id": 6,
+                    "name": "Diffusion sur 2 radios (non compris web radios)"
+                }
+
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Licence de <span class='text-primary'>base plus</span> (mp3 + wav)",
+            "icon": "<i class='ri-vip-crown-line fs-3'></i>",
+            "price": 99.99,
+            "subscribed": false,
+            "features": [
+                {
+                    "id": 1,
+                    "name": "Cette licence ne concerne pas les droits intellectuels"
+                },
+                {
+                    "id": 2,
+                    "name": "Utilisation pour l'enregistrement"
+                },
+                {
+                    "id": 3,
+                    "name": "Utiliser pour une seule vidéo"
+                },
+                {
+                    "id": 4,
+                    "name": "Performance live illimitée"
+                },
+                {
+                    "id": 5,
+                    "name": "Distribution jusqu'à 5000 copies physiques"
+                },
+                {
+                    "id": 6,
+                    "name": "Distribution jusqu'à 500 000 audio streams"
+                },
+                {
+                    "id": 7,
+                    "name": "Distribution sur 2 radios"
+                }
+            ]
+        },
+      {
+        "id": 3,
+        "name": "Licence PRO (mp3, wav + streams)",
+        "icon": "<i class='ri-vip-crown-line fs-3'></i>",
+        "price": 99.99,
+        "subscribed": false,
+        "features": [
+          {
+            "id": 1,
+            "name": "Cette licence ne concerne pas les droits intellectuels"
+          },
+          {
+            "id": 2,
+            "name": "Utilisation pour l'enregistrement"
+          },
+          {
+            "id": 3,
+            "name": "Utilisation pour une deux vidéo"
+          },
+          {
+            "id": 4,
+            "name": "Distribution de copies physiques illimitée"
+          },
+          {
+            "id": 5,
+            "name": "Distribution d’audio Streams illimitée"
+          },
+          {
+            "id": 6,
+            "name": "Diffusion radio illimitée"
+          }
+        ]
+      }
+    ]
+}

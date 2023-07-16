@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
    * Get song data from default json.
    */
   getSongs(): void {
-    
+    this.songService.highlightedSongs().then((data) => {this.songs = data.data;});
   }
 
   /**

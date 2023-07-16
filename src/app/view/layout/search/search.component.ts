@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.searchService.previewSongs().then((data) => this.songs = data);
+    this.searchService.previewSongs(6).then((data) => this.songs = data.data);
   }
 
   /**

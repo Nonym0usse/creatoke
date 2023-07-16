@@ -34,7 +34,7 @@ export class SongDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routerSubscription = this.activatedRoute.params.subscribe(param => {
-      this.getSongs(param['id']);
+      this.getSongsById(param['id']);
     });
   }
 
@@ -46,7 +46,7 @@ export class SongDetailsComponent implements OnInit, OnDestroy {
    * Get song data from default json.
    * @param id
    */
-  getSongs(id: string): void {
+  getSongsById(id: string): void {
     
   }
 

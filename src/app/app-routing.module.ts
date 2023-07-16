@@ -11,10 +11,6 @@ import { AuthGuard } from './core/services/global/auth-guard.service';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./view/pages/pages.module').then(m => m.PagesModule)
-  },
-  {
-    path: 'app',
     loadChildren: () => import('./view/theme/theme.module').then(m => m.ThemeModule),
     canActivate: [AuthGuard],
     canLoad: [AuthGuard]

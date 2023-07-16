@@ -30,7 +30,7 @@ export class MusicComponent implements OnInit {
   getParams(param){
     switch (param) {
       case "a-chanter":
-        this.title = "Chansons à chanter";
+        this.title = "Chansons";
         break
       case "instrumentaux":
         this.title = "Instrumentaux";
