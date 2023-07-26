@@ -14,6 +14,7 @@
       <div class="col-xl-3 col-sm-6" *ngFor="let sub of subCategory">
         <app-cluster-view [data]="sub" [viewData]="true"></app-cluster-view>
       </div>
+      <div class="alert alert-info" *ngIf="subCategory.length === 0">Aucune chanson dans cette catégorie.</div>
     </div>
   </div>
   <!-- End:: section -->

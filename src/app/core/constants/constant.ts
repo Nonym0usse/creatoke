@@ -49,6 +49,11 @@ export class Constant {
             name: 'Gérer les chansons',
             icon: '<i class="ri-edit-2-fill fs-5"></i>',
             link: '/manage'
+        },
+        {
+          name: 'Gérer les licences',
+          icon: '<i class="ri-money-euro-circle-line fs-5"></i>',
+          link: '/licence'
         }
     ];
 

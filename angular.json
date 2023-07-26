@@ -51,7 +51,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/@ckeditor/ckeditor5-build-classic/build/translations/fr.js"
             ]
           },
           "configurations": {
@@ -89,6 +90,11 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "disableHostCheck": true,
+            "port": 4200,
+            "publicHost": "http://localhost:4200"
+          },
           "configurations": {
             "production": {
               "browserTarget": "listen:build:production"
@@ -120,7 +126,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/ckeditor/ckeditor.js"
+            ]
           }
         }
       }

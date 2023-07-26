@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
    * Get album data from default json.
    */
   getAlbums(): void {
-   
+
   }
 
   /**

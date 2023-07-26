@@ -32,6 +32,10 @@ import { ContactComponent } from './contact/contact.component';
 import { TextsComponent } from './texts/texts.component';
 import { ManageComponent } from './music/manage/manage.component';
 import { ModifyComponent } from './music/modify/modify.component';
+import {RecaptchaModule} from "ng-recaptcha";
+import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
+import {NgxPayPalModule} from "ngx-paypal";
+import {LicenceComponent} from "./licence/licence.component";
 
 
 //
@@ -85,6 +89,10 @@ const routes: Routes = [
       {
         path: 'analytics',
         component: AnalyticsComponent
+      },
+      {
+        path: 'licence',
+        component: LicenceComponent
       },
       {
         path: 'category',
@@ -141,15 +149,18 @@ const routes: Routes = [
     TextsComponent,
     ManageComponent,
   ],
-  imports: [
-    // Angular
-    CommonModule,
+    imports: [
+        // Angular
+        CommonModule,
 
-    // Modules
-    LayoutModule,
+        // Modules
+        LayoutModule,
 
-    // Import router module
-    RouterModule.forChild(routes)
-  ]
+        // Import router module
+        RouterModule.forChild(routes),
+        RecaptchaModule,
+        CKEditorModule,
+        NgxPayPalModule,
+    ]
 })
 export class ThemeModule { }

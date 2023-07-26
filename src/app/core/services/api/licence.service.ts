@@ -1,5 +1,6 @@
 // Angular
 import { Injectable } from '@angular/core';
+import { Observable, map } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
 // Services
@@ -12,9 +13,9 @@ import axios from "axios";
 @Injectable({
   providedIn: 'root'
 })
-export class ContactService {
+export class LicenceService {
 
- constructor(
+  constructor(
     protected http: HttpClient
   ) { }
 
@@ -22,7 +23,11 @@ export class ContactService {
    * Get playlist data
    * @returns {object}
    */
-  sendEmail(body): Promise<any> {
-    return axios.post(ApiConstant.API + '/contact/send-email', body);
+  modifyLicence(body): Promise<any> {
+    return axios.put(ApiConstant.API + '/licence/update', body);
+  }
+
+  listLicence(): Promise<any> {
+    return axios.get(ApiConstant.API + '/licence/list-licence');
   }
 }

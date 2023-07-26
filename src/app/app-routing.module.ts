@@ -11,9 +11,7 @@ import { AuthGuard } from './core/services/global/auth-guard.service';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./view/theme/theme.module').then(m => m.ThemeModule),
-    canActivate: [AuthGuard],
-    canLoad: [AuthGuard]
+    loadChildren: () => import('./view/theme/theme.module').then(m => m.ThemeModule).catch((e) => console.log(e)),
   },
   {
     path: '**',

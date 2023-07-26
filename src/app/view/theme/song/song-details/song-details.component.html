@@ -36,20 +36,14 @@
                 </ul>
                 <!-- End:: info list -->
                 <div class="mb-4">
-                    <p class="mb-2">Singers:
+                    <p class="mb-2">Auteur:
                         <span class="text-dark fw-medium">
                             <ng-container *ngFor="let artist of song?.artists; last as isLast">
                                 <a [routerLink]="'/app/artist/' + artist.id + '/details'" style="color: inherit;">{{artist.name}}</a>{{!isLast ? ', ' : ''}}
                             </ng-container>
                         </span>
                     </p>
-                    <p class="mb-2">Compose by:
-                        <span class="text-dark fw-medium">
-                            <ng-container *ngFor="let composer of song?.composers; last as isLast">
-                                <a [routerLink]="'/app/artist/' + composer.id + '/details'" style="color: inherit;">{{composer.name}}</a>{{!isLast ? ', ' : ''}}
-                            </ng-container>
-                        </span>
-                    </p>
+
                     <p class="mb-2">Lyrics by:
                         <span class="text-dark fw-medium">
                             <ng-container *ngFor="let lyricist of song?.lyricists; last as isLast">

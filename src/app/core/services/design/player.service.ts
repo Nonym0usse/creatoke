@@ -8,6 +8,7 @@ import * as Amplitude from 'amplitudejs';
 // Constant classes
 import { Constant } from './../../constants/constant';
 import { Utils } from '../../utils/utils';
+import {SongService} from "../api/song.service";
 
 
 @Injectable({
@@ -36,7 +37,7 @@ export class PlayerService {
   // Playlist observer
   private playlist$ = new BehaviorSubject<any>(null);
 
-  constructor() { }
+  constructor(private songService: SongService) { }
 
   /**
    * Get songs from player
@@ -64,14 +65,25 @@ export class PlayerService {
    */
   get localSongs() {
     const songs = localStorage.getItem(Constant.SONG_KEY);
-    return JSON.parse(songs ? songs : '[]');
+    // @ts-ignore
+    const songList = JSON.parse(songs);
+    for (let i = 0; i < songList.length; i++) {
+      if (songList[i].full_creatoke === 'vide') {
+        songList[i].url = songList[i].full_music;
+      }else if(songList[i].full_music === 'vide'){
+        songList[i].url = songList[i].full_creatoke;
+      }
+    }
+    console.log(songList)
+    return songList;
   }
 
   /**
    * Set songs in local storage
    */
   set localSongs(songs: any) {
-    localStorage.setItem(Constant.SONG_KEY, JSON.stringify(songs));
+    localStorage.removeItem(Constant.SONG_KEY);
+    this.songService.getAllSongs().then((data) => localStorage.setItem(Constant.SONG_KEY, JSON.stringify(data.data)))
   }
 
   /**
@@ -228,7 +240,6 @@ export class PlayerService {
       this.volumeBackground();
     }
 
-    console.log('init', this.songs)
     // Init Amplitude plugin
     Amplitude.init({
       songs: this.songs,

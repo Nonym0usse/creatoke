@@ -52,11 +52,10 @@ const SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TabsDirective
   ],
   providers: [
-    AuthGuard,
-    { 
-      provide: HTTP_INTERCEPTORS, 
-      useClass: InterceptorService, 
-      multi: true 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
     },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

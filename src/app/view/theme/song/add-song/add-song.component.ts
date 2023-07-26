@@ -34,8 +34,6 @@ export class AddSongComponent implements OnInit {
             spotifyURL: [''],
             full_creatoke: [''],
             full_music: [''],
-            url: [''],
-            id: null
         });
     }
 
@@ -54,18 +52,31 @@ export class AddSongComponent implements OnInit {
         }
     }
     addMusic(): void {
-        const random = Math.floor((Math.random() * 100000) + 1);
+      const currentDate = new Date();
+      const random = Math.floor((Math.random() * 100000) + 1);
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const year = currentDate.getFullYear();
+        const formattedDate = `${day}-${month}-${year}`;
         this.uploadService.uploadSong(this.files).then((url) => {
             url.forEach((data) => {
                 this.musicForm.patchValue({ [data['name']]: data['url'] });
                 this.musicForm.patchValue({ id: random });
+                this.musicForm.patchValue({ created_at: formattedDate });
             })
+          for (const key in this.musicForm.value) {
+            if (this.musicForm.value.hasOwnProperty(key)) {
+              if (this.musicForm.value[key] === null || this.musicForm.value[key] === undefined || this.musicForm.value[key] === '') {
+                this.musicForm.value[key] = 'vide'; // Replace with the desired value
+              }
+            }
+          }
             this.songService.createSong(this.musicForm.value).catch((success) => console.log(success))
         });
     }
 
     updateForm(e) {
-        if(e.target.value == "a-chanter"){
+        if(e.target.value == "chanson"){
             this.isFormVisible = !this.isFormVisible;
             this.isFormVisible2 = this.isFormVisible2;
         }else{

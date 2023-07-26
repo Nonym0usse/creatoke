@@ -36,17 +36,10 @@
         </ul>
         <!-- End:: info list -->
         <div class="mb-4">
-          <p class="mb-2">Singers:
+          <p class="mb-2">Autheur:
             <span class="text-dark fw-medium">
               <a [routerLink]="'/app/artist/' + song.artist + '/details'" style="color: inherit;">{{song.artist}}</a>
             </span>
-          </p>
-          <p class="mb-2">Compose by:
-            <span class="text-dark fw-medium">
-                            <ng-container *ngFor="let composer of song?.composers; last as isLast">
-                                <a [routerLink]="'/app/artist/' + composer.id + '/details'" style="color: inherit;">{{composer.name}}</a>{{!isLast ? ', ' : ''}}
-                            </ng-container>
-                        </span>
           </p>
           <p class="mb-4">Description:
             <span class="text-dark fw-medium">
@@ -109,28 +102,68 @@
     </div>
 
     <div class="plan bg-light">
-      <div class="plan__data">
-        <div class="card plan__col" *ngFor="let plan of plans">
-          <div class="card-body fw-medium">
-            <div class="d-flex align-items-center text-dark mb-4">
-              <span [innerHTML]="plan.icon"></span>
-              <h4 class="mb-0 ps-3" [innerHTML]="plan.name"></h4>
-            </div>
-            <p class="fs-6 opacity-50">Ce qui est inclut</p>
-            <div class="d-flex mb-3" *ngFor="let feature of plan.features">
-              <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
-              <span class="ps-2">{{feature.name}}</span>
-            </div>
-          </div>
-          <div class="card-footer pb-4 pb-sm-0">
-            <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{plan.price}}€</span></div>
-            <button type="button" class="btn btn-primary w-100">Choisir</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End:: section -->
+       <div class="plan__data">
+         <div class="card plan__col">
+           <div class="card-body fw-medium">
+             <div class="d-flex align-items-center text-dark mb-4">
+               <span></span>
+               <h4 class="mb-0 ps-3">Licence classique</h4>
+             </div>
+             <p class="fs-6 opacity-50">Ce qui est inclut</p>
+             <div class="d-flex mb-3" *ngFor="let feature of licences">
+               <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
+               <span class="ps-2" [innerHTML]="feature.basic"></span>
+             </div>
+           </div>
+           <div class="card-footer pb-4 pb-sm-0">
+             <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song.price_base}}€</span></div>
+             <button type="button" class="btn btn-primary w-100" *ngIf="!showPaypalButtons"
+                     (click)="pay(song.price_base)">Choisir</button>
+             <ngx-paypal *ngIf="showPaypalButtons" [config]="payPalConfig"></ngx-paypal>
+           </div>
+         </div>
+         <div class="card plan__col">
+           <div class="card-body fw-medium">
+             <div class="d-flex align-items-center text-dark mb-4">
+               <span></span>
+               <h4 class="mb-0 ps-3">Licence basique</h4>
+             </div>
+             <p class="fs-6 opacity-50">Ce qui est inclut</p>
+             <div class="d-flex mb-3" *ngFor="let feature of licences">
+               <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
+               <span class="ps-2" [innerHTML]="feature.regular"></span>
+             </div>
+           </div>
+           <div class="card-footer pb-4 pb-sm-0">
+             <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song.price_base_plus}}€</span></div>
+             <button type="button" class="btn btn-primary w-100" *ngIf="!showPaypalButtons"
+                     (click)="pay(song.price_base_plus)">Choisir</button>
+             <ngx-paypal *ngIf="showPaypalButtons" [config]="payPalConfig"></ngx-paypal>
+           </div>
+         </div>
+         <div class="card plan__col">
+           <div class="card-body fw-medium">
+             <div class="d-flex align-items-center text-dark mb-4">
+               <span></span>
+               <h4 class="mb-0 ps-3">Licence premium</h4>
+             </div>
+             <p class="fs-6 opacity-50">Ce qui est inclut</p>
+             <div class="d-flex mb-3" *ngFor="let feature of licences">
+               <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
+               <span class="ps-2" [innerHTML]="feature.premium"></span>
+             </div>
+           </div>
+           <div class="card-footer pb-4 pb-sm-0">
+             <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song.price_pro}}€</span></div>
+             <button type="button" class="btn btn-primary w-100" *ngIf="!showPaypalButtons"
+                     (click)="pay(song.price_pro)">Choisir</button>
+             <ngx-paypal *ngIf="showPaypalButtons" [config]="payPalConfig"></ngx-paypal>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <!-- End:: section -->
 
   <!-- Comment view -->
   <app-comment ></app-comment>

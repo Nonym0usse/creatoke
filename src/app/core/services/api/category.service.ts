@@ -11,21 +11,20 @@ import axios from 'axios';
 export class CategoryService {
     //@ts-ignore
 
-    constructor(private afs: AngularFirestore) {
+    constructor() {
     }
 
     createCategory(data) {
-        return new Promise(resolve => this.afs.firestore.collection('category').add(data).then(() => resolve));
-    }
-
-    createSousCategorie(data) {
-        return new Promise(resolve => this.afs.firestore.collection('sub-category').add(data).then(() => resolve));
+      return axios.post(ApiConstant.API + '/category/create-category', data);
     }
 
     getCategory(): Promise<any> {
         return axios.get(ApiConstant.API + '/category/getAllCategory');
     }
 
+    deleteCategory(id): Promise<any>{
+      return axios.delete(ApiConstant.API + '/category/delete/' + id);
+    }
 
     getSubCategory(): Promise<any> {
         return axios.get(ApiConstant.API + '/category/getSubCategory');

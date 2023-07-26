@@ -18,11 +18,20 @@
                             <div class="col-12 mb-4">
                                 <input type="email" class="form-control" formControlName="email" placeholder="E-mail">
                             </div>
+                          <div class="col-12 mb-4">
+                            <input type="tel" class="form-control" formControlName="tel" placeholder="Téléphone">
+                          </div>
                             <div class="col-12 mb-4">
                                 <textarea name="description" id="description" formControlName="text" cols="30" rows="4"
                                     class="form-control" placeholder="Votre message..."></textarea>
                             </div>
-                            <div class="col-12 mb-4">
+                          <div class="col-12 mb-4">
+                          <re-captcha [(ngModel)]="token" [ngModelOptions]="{standalone: true}" [class.is-invalid]="contactForm?.get('recaptcha')?.invalid && (contactForm?.get('recaptcha')?.dirty || contactForm?.get('recaptcha')?.touched)"></re-captcha>
+                          <div *ngIf="contactForm?.get('recaptcha')?.invalid && (contactForm?.get('recaptcha')?.dirty || contactForm?.get('recaptcha')?.touched)" class="invalid-feedback">
+                            <div *ngIf="contactForm?.get('recaptcha')?.errors?.['required']">This field is required.</div>
+                          </div>
+                          </div>
+                          <div class="col-12 mb-4">
                                 <button (click)="sendEmail()" class="btn btn-primary">Envoyer</button>
                             </div>
                         </form>
