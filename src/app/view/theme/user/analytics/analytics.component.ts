@@ -11,6 +11,7 @@ import { ThemeService } from './../../../../core/services/design/theme.service';
 // Constant classes
 import { Constant } from './../../../../core/constants/constant';
 import { Utils } from './../../../../core/utils/utils';
+import {PaypalService} from "../../../../core/services/api/paypal.service";
 
 
 @Component({
@@ -22,19 +23,26 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
   // Holds referral data
   referrals: any = [];
 
+  turnover: number = 0;
+
   // Theme subscription
   themeSubscription: Subscription | undefined;
 
   constructor(
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private sellingService: PaypalService
   ) { }
 
   ngOnInit(): void {
+    this.sellingService.listSales().then((data) => {
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      this.turnover = this.sumPricesForCurrentYear(data.data, currentYear)
+    })
     this.themeSubscription = this.themeService.themeMode.subscribe((value) => {
       this.overrideChartDefaults();
     });
     // this.overrideChartDefaults();
-    this.getReferralsData();
   }
 
   ngOnDestroy(): void {
@@ -89,41 +97,15 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     Object.assign(defaults.plugins.tooltip, tooltip);
   }
 
-  /**
-   * Referral static data
-   */
-  getReferralsData(): void {
-    this.referrals = [
-      {
-        name: 'Facebook',
-        data: 3421,
-        class: 'primary'
-      },
-      {
-        name: 'Instagram',
-        data: 2401,
-        class: 'danger'
-      },
-      {
-        name: 'Twitter',
-        data: 975,
-        class: 'info'
-      },
-      {
-        name: 'Affiliates',
-        data: 1672,
-        class: 'success'
+   sumPricesForCurrentYear(array, currentYear) {
+    let sum = 0;
+
+    for (const item of array) {
+      if (item.year === currentYear) {
+        sum += item.price;
       }
-    ];
+    }
 
-    // Find percentage
-    let total = 0;
-    Array.from(this.referrals).forEach((referral: any) => {
-      total += referral.data;
-    });    
-    Array.from(this.referrals).forEach((referral: any) => {
-      referral.percentage = Math.round(referral.data/total * 100);
-    });
+    return sum;
   }
-
 }

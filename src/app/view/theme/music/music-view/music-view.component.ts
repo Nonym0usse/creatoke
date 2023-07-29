@@ -8,6 +8,7 @@ import {PlanService} from "../../../../core/services/api/plan.service";
 import {LicenceService} from "../../../../core/services/api/licence.service";
 import {ICreateOrderRequest} from "ngx-paypal";
 import {PaypalService} from "../../../../core/services/api/paypal.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-music-view',
@@ -21,10 +22,11 @@ export class MusicViewComponent implements OnInit {
   licences: any = [];
   public payPalConfig: any;
   //@ts-ignore
-  public showPaypalButtons: boolean | true;
-
+  display = "none";
   // Holds song data
   songs: any = [];
+  inputForm: FormGroup;
+  showLyrics: boolean = false;
 
   // Holds router subscription
   routerSubscription: Subscription | undefined;
@@ -34,8 +36,15 @@ export class MusicViewComponent implements OnInit {
     private songService: SongService,
     private playerService: PlayerService,
     private licenceService: LicenceService,
-    private paypalService: PaypalService
-  ) { }
+    private paypalService: PaypalService,
+    private formBuilder: FormBuilder
+  ) {
+    this.inputForm = this.formBuilder.group({
+      // Define your input form controls here
+      // Example:
+      inputField: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
     this.routerSubscription = this.activatedRoute.params.subscribe(param => {
@@ -45,8 +54,13 @@ export class MusicViewComponent implements OnInit {
 
   }
 
-  pay(price) {
-    this.showPaypalButtons = true;
+  showLyricsBtn(){
+    this.showLyrics = !this.showLyrics;
+  }
+
+
+  openModal(price, licence_type) {
+    this.display = "block";
     this.payPalConfig = {
       currency: "EUR",
       clientId: "AUmNR3MJCKhVgZvF9z2DByyfihtVVL0M9CB6FERS_LsEAKoTZXt4ctdT30PJIDn3o5x6SYQLe3mGFV_X",
@@ -76,13 +90,22 @@ export class MusicViewComponent implements OnInit {
         layout: "vertical"
       },
       onApprove: (data, actions) => {
-        console.log(
-          "onApprove - transaction was approved, but not authorized",
-          data,
-          actions
-        );
+        const now = new Date();
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const year = now.getFullYear();
+        const customData = {
+          price: price,
+          licence_type: licence_type === 'premium' ? this.licences[0].premium : licence_type === "regular" ? this.licences[0].regular : this.licences[0].basic,
+          current_year: year,
+          current_month: month,
+          email_client: this.inputForm.get('inputField')?.value,
+          titre_chanson: this.song.title,
+          image_chanson: this.song.image,
+          type_chanson: this.song.category == "chansons" ? this.song.full_creatoke : this.song.full_music,
+          id_song: this.song.id
+        }
         actions.order.get().then(details => {
-          this.paypalService.createSale({ ...this.song, ...this.licences });
+          this.paypalService.createSale(customData).then(() => alert("Merci pour votre achat. Vérifiez votre boite mail."));
         });
       },
       onClientAuthorization: data => {
@@ -127,6 +150,10 @@ export class MusicViewComponent implements OnInit {
    */
   play(event: any): void {
     this.playerService.songPlayPause(event, this.song);
+  }
+
+  onCloseHandled() {
+    this.display = "none";
   }
 
 }

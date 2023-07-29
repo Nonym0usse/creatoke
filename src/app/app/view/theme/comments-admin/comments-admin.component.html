@@ -1,0 +1,30 @@
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" style="background-image: url(./assets/images/banner/song.jpg);"></div>
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+  <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+  <div class="section">
+    <div class="col-xl-12 col-md-12 mx-auto">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Pseudo</th>
+          <th scope="col">Commentaire</th>
+          <th scope="col">Nb. étoiles</th>
+          <th scope="col">Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let com of comms">
+          <td>{{com.name}}</td>
+          <td>{{com.comment}}</td>
+          <td> <i class="ri-star-fill" style="color: gold" *ngFor="let i of getStarsArray(com.ratings)"></i></td>
+          <td><button class="btn btn-light-danger" (click)="delete(com.id)">Supprimer</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

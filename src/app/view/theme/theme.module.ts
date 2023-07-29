@@ -36,6 +36,8 @@ import {RecaptchaModule} from "ng-recaptcha";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {NgxPayPalModule} from "ngx-paypal";
 import {LicenceComponent} from "./licence/licence.component";
+import {CommentsAdminComponent} from "../../app/view/theme/comments-admin/comments-admin.component";
+import {BackgroundimageComponent} from "../../app/view/theme/backgroundimage/backgroundimage.component";
 
 
 //
@@ -93,6 +95,14 @@ const routes: Routes = [
       {
         path: 'licence',
         component: LicenceComponent
+      },
+      {
+        path: 'comments',
+        component: CommentsAdminComponent
+      },
+      {
+        path: 'background',
+        component: BackgroundimageComponent
       },
       {
         path: 'category',

@@ -13,7 +13,7 @@ export class ManageComponent implements OnInit {
     constructor(private musicService: SongService, private router: Router) { }
 
     ngOnInit(): void {
-        //this.musicService.getAllSongs().then((music) => this.songs = music).catch((err) => console.log(err));
+        this.musicService.getAllSongs().then((music) => this.songs = music.data).catch((err) => console.log(err));
     }
 
     modify(id: string) {

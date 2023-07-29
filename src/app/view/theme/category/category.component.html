@@ -20,7 +20,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" id="licence2" data-bs-toggle="tab" data-bs-target="#licence_deux" type="button"
-                          role="tab" aria-controls="licence_deux" aria-selected="false">Supprimer une licence
+                          role="tab" aria-controls="licence_deux" aria-selected="false">Supprimer une catégorie
                   </button>
                 </li>
               </ul>
@@ -52,7 +52,7 @@
                     <input type="file" class="form-control" (change)="onFileSelected($event)">
                   </div>
                   <div class="card-footer text-center">
-                    <button class="btn btn-primary" style="min-width: 140px;" (click)="addCategory()"
+                    <button class="btn btn-cutsom" style="min-width: 140px;" (click)="addCategory()"
                             [disabled]="!categoryForm.valid">Ajouter catégorie</button>
                     <button class="btn btn-outline-secondary ms-2">Cancel</button>
                   </div>

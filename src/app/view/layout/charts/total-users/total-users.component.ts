@@ -7,6 +7,7 @@ import { color } from 'chart.js/helpers/helpers.mjs';
 
 // Constant classes
 import { Utils } from './../../../../core/utils/utils';
+import {PaypalService} from "../../../../core/services/api/paypal.service";
 
 
 @Component({
@@ -17,7 +18,7 @@ export class TotalUsersComponent implements OnInit {
 
   // Holds chart type
   chartType: ChartType = 'line';
-
+  nbUsr: any = [];
   // Chart config object
   chartData: ChartConfiguration<ChartType>['data'] = {
     datasets: []
@@ -29,12 +30,18 @@ export class TotalUsersComponent implements OnInit {
   // Flag for chart legend
   chartLegend: boolean = false;
 
-  constructor() {
+  constructor(private sellingService: PaypalService) {
   }
 
   ngOnInit(): void {
     this.chartOptionsConfig();
     this.chartDataConfig();
+    this.sellingService.listSales().then((data) => {
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      this.nbUsr = this.countObjectsByMonth(data.data)
+      this.chartDataConfig();
+    })
   }
 
   /**
@@ -63,16 +70,16 @@ export class TotalUsersComponent implements OnInit {
       }
     };
   }
-  
+
   /**
    * Configuration for chart data
    */
   chartDataConfig(): void {
     this.chartData = {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+      labels: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Jui', 'Août', 'Sep', 'Nov', 'Déc'],
       datasets: [{
-        label: 'Users',
-        data: [65, 59, 42, 73, 56, 55, 40],
+        label: 'Utilisateurs',
+        data: this.nbUsr,
         backgroundColor: Utils.getCSSVarValue('red'),
         borderColor: Utils.getCSSVarValue('red'),
         borderWidth: 2,
@@ -85,6 +92,20 @@ export class TotalUsersComponent implements OnInit {
         pointHoverBorderColor: color(Utils.getCSSVarValue('red')).alpha(0.1).rgbString(),
       }]
     };
+  }
+
+   countObjectsByMonth(array) {
+    const currentYear = new Date().getFullYear();
+    const monthCounts = Array(12).fill(0);
+
+    for (const item of array) {
+      const { year, month } = item;
+      if (year === currentYear && month >= 1 && month <= 12) {
+        monthCounts[month - 1]++;
+      }
+    }
+
+    return monthCounts;
   }
 
 }

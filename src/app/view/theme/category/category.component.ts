@@ -15,7 +15,7 @@ export class CategoryComponent implements OnInit {
   //@ts-ignore
   files: File;
   categories: any = [];
-  constructor(private uploadService: UploadService, private fb: FormBuilder, private categoryService: CategoryService, private uploaderService: UploadService) {
+  constructor(private fb: FormBuilder, private categoryService: CategoryService, private uploaderService: UploadService) {
 
     this.categoryForm = this.fb.group({
       title_fr:  ['', Validators.required],

@@ -11,6 +11,7 @@ import { ThemeService } from './../../../../core/services/design/theme.service';
 // Constant classes
 import { Constant } from './../../../../core/constants/constant';
 import { Utils } from './../../../../core/utils/utils';
+import {PaypalService} from "../../../../core/services/api/paypal.service";
 
 
 @Component({
@@ -21,6 +22,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
 
   // Holds chart type
   chartType: ChartType = 'bar';
+  turnover: any = [];
 
   // Chart config object
   chartData: ChartConfiguration<ChartType>['data'] = {
@@ -40,17 +42,21 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   themeSubscription: Subscription | undefined;
 
   constructor(
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private sellingService: PaypalService
   ) {
   }
 
   ngOnInit(): void {
     this.themeSubscription = this.themeService.themeMode.subscribe((value) => {
-      this.chartOptionsConfig(); 
+      this.chartOptionsConfig();
     });
-    
-    this.chartDataConfig();
-    this.getTopCountries();
+    this.sellingService.listSales().then((data) => {
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      this.turnover = this.calculateMonthlySelling(data.data, currentYear)
+      this.chartDataConfig();
+    })
   }
 
   ngOnDestroy(): void {
@@ -65,10 +71,10 @@ export class StatisticsComponent implements OnInit, OnDestroy {
       responsive: true,
       maintainAspectRatio: false,
       elements: {
-        line: { tension: 0.4 }
+        line: {tension: 0.4}
       },
       scales: {
-        x: { 
+        x: {
           grid: {
             borderColor: Constant.DARK_MODE ? '#34343e' : '#EFF2F5'
           }
@@ -85,20 +91,20 @@ export class StatisticsComponent implements OnInit, OnDestroy {
         padding: 0
       },
       plugins: {
-        legend: { display: false }
+        legend: {display: false}
       }
     };
   }
-  
+
   /**
    * Configuration for chart data
    */
   chartDataConfig(): void {
     this.chartData = {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+      labels: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Jui', 'Août', 'Sep', 'Nov', 'Déc'],
       datasets: [{
-        label: 'Statistics',
-        data: [65, 59, 42, 73, 56, 55, 40],
+        label: 'C.A',
+        data: this.turnover,
         backgroundColor: Utils.getCSSVarValue('purple'),
         hoverBackgroundColor: Utils.getCSSVarValue('purple'),
         borderWidth: 0,
@@ -109,24 +115,17 @@ export class StatisticsComponent implements OnInit, OnDestroy {
     };
   }
 
-  /**
-   * Get static country data
-   */
-  getTopCountries(): void {
-    this.topCountries = [
-      {
-        name: 'USA',
-        data: '1,243'
-      },
-      {
-        name: 'UK',
-        data: '643'
-      },
-      {
-        name: 'Canada',
-        data: '351'
-      }
-    ];
-  }
 
+  calculateMonthlySelling(data, currentYear) {
+    const monthlySelling = new Array(12).fill(0); // Initialize the array with zeros for each month.
+
+    for (const item of data) {
+      if (item.year === currentYear) {
+        const monthIndex = item.month - 1; // Convert month (1 to 12) to array index (0 to 11)
+        monthlySelling[monthIndex] += item.price;
+      }
+    }
+
+    return monthlySelling;
+  }
 }

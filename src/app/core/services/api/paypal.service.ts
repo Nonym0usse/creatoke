@@ -13,4 +13,7 @@ export class PaypalService {
     return axios.post(ApiConstant.API + '/payment/create', data);
   }
 
+  listSales(){
+    return axios.get(ApiConstant.API + '/payment/list-sell');
+  }
 }

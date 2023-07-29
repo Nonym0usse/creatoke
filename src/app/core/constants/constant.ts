@@ -54,7 +54,17 @@ export class Constant {
           name: 'Gérer les licences',
           icon: '<i class="ri-money-euro-circle-line fs-5"></i>',
           link: '/licence'
-        }
+        },
+       {
+        name: 'Gérer les commentaires',
+        icon: '<i class="ri-user-line fs-5"></i>',
+        link: '/comments'
+      },
+      {
+        name: 'Image de fond',
+        icon: '<i class="ri-image-fill fs-5"></i>',
+        link: '/background'
+      }
     ];
 
     public static AUTH_ERROR_MESSAGES_FR = {

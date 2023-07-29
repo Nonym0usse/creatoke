@@ -1,0 +1,19 @@
+.custom{
+  border: 1px solid;
+  border-image: linear-gradient(90deg,#5438d1,#8938d1 60%);
+  border-image-slice: 1;
+  border-radius: 5px;
+}
+
+.btn-custom2{
+  background-color: linear-gradient(90deg,#5438d1,#8938d1 60%);
+}
+
+
+.modal-content{
+  background-color: rgba(0, 0, 0, 0.9)
+}
+
+.text-center{
+  text-align: center;
+}

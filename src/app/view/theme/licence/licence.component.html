@@ -20,7 +20,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" id="licence2" data-bs-toggle="tab" data-bs-target="#licence_deux" type="button"
-                          role="tab" aria-controls="licence_deux" aria-selected="false">Licence Premium
+                          role="tab" aria-controls="licence_deux" aria-selected="false">Licence +
                   </button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -47,7 +47,7 @@
               <div class="tab-pane fade" id="licence_deux" role="tabpanel" aria-labelledby="licence2" tabindex="0">
                <form action="#" class="row">
                   <div class="col-12 mb-4">
-                    <ckeditor [editor]="Editor2" [data]="data.plus" [config]="config" (change)="onChange2($event)"></ckeditor>
+                    <ckeditor [editor]="Editor2" [data]="data.regular" [config]="config" (change)="onChange2($event)"></ckeditor>
                   </div>
 
                 </form>
@@ -63,7 +63,7 @@
             </div>
           </div>
           <div class="card-footer text-center">
-            <button class="btn btn-primary" style="min-width: 140px;" (click)="submit()">Enregistrer</button>
+            <button class="btn btn-cutsom" style="min-width: 140px;" (click)="submit()">Enregistrer</button>
             <button class="btn btn-outline-secondary ms-2">Cancel</button>
           </div>
         </div>

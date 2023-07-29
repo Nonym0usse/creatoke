@@ -18,6 +18,14 @@ export class CategoryService {
       return axios.post(ApiConstant.API + '/category/create-category', data);
     }
 
+    createBackground(data){
+      return axios.post(ApiConstant.API + '/category/create-background', data);
+    }
+
+    getBackgroundImg(): Promise<any> {
+      return axios.get(ApiConstant.API + '/category/getBackgroundImg/');
+    }
+
     getCategory(): Promise<any> {
         return axios.get(ApiConstant.API + '/category/getAllCategory');
     }
