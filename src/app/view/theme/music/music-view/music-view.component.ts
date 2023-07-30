@@ -59,7 +59,7 @@ export class MusicViewComponent implements OnInit {
   }
 
 
-  openModal(price, licence_type) {
+  openModal(price, licence_type, title) {
     this.display = "block";
     this.payPalConfig = {
       currency: "EUR",
@@ -79,6 +79,17 @@ export class MusicViewComponent implements OnInit {
                   }
                 }
               },
+              items: [
+                {
+                  name: title,
+                  quantity: "1",
+                  category: "DIGITAL_GOODS",
+                  unit_amount: {
+                    currency_code: "EUR",
+                    value: price.toString()
+                  }
+                }
+              ]
             }
           ]
         },
