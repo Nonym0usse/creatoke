@@ -75,7 +75,7 @@ export class MusicViewComponent implements OnInit {
                 breakdown: {
                   item_total: {
                     currency_code: "EUR",
-                    value: price
+                    value: price.toString()
                   }
                 }
               },
