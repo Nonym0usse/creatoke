@@ -10,16 +10,21 @@ import { where } from "@angular/fire/firestore";
 import firebase from "firebase/compat";
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import axios from 'axios';
+import {AuthenticationService} from "../global/authentication.service";
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class SongService {
-    constructor(
-        private af: AngularFirestore,
-        private storage: AngularFireStorage,
-    ) { }
+  firebaseToken = "";
+
+  constructor(private authenticationService: AuthenticationService) {
+    // @ts-ignore
+    this.firebaseToken = localStorage.getItem('firebaseToken');
+    this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
+    });
+  }
 
     getSongByCategory(id): Promise<any> {
         console.log(id)
@@ -35,15 +40,27 @@ export class SongService {
     }
 
     createSong(data: any) {
-        return axios.post(ApiConstant.API + '/admin/create-music', data);
+        return axios.post(ApiConstant.API + '/admin/create-music', data,  {
+          headers: {
+            Authorization: `Bearer ${this.firebaseToken}`
+          }
+        });
     }
 
     deleteSong(id: string) {
-        return axios.delete(ApiConstant.API + '/admin/delete-music' + id);
+        return axios.delete(ApiConstant.API + '/admin/delete-music/' + id,  {
+          headers: {
+            Authorization: `Bearer ${this.firebaseToken}`
+          }
+        });
     }
 
     modifySong(data: any) {
-        return axios.delete(ApiConstant.API + '/admin/update-music', data);
+        return axios.put(ApiConstant.API + '/admin/update-music', data, {
+          headers: {
+            Authorization: `Bearer ${this.firebaseToken}`
+          }
+        });
     }
 
     highlightedSongs(): Promise<any> {

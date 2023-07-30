@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
 import axios from "axios";
 import {ApiConstant} from "../../constants/api-constant";
+import {AuthenticationService} from "../global/authentication.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
+  firebaseToken = "";
 
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService) {
+    // @ts-ignore
+    this.firebaseToken = localStorage.getItem('firebaseToken');
+    this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
+    });
+  }
 
   createComment(data) {
-    return axios.post(ApiConstant.API + '/comment/create', data);
+    return axios.post(ApiConstant.API + '/comment/create', data)
   }
 
   listComment(id){
@@ -22,6 +29,10 @@ export class CommentService {
   }
 
   deleteComment(id){
-    return axios.delete(ApiConstant.API + '/comment/delete/' + id);
+    return axios.delete(ApiConstant.API + '/comment/delete/' + id, {
+      headers: {
+        Authorization: `Bearer ${this.firebaseToken}`
+      }
+    });
   }
 }

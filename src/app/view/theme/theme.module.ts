@@ -38,7 +38,8 @@ import {NgxPayPalModule} from "ngx-paypal";
 import {LicenceComponent} from "./licence/licence.component";
 import {CommentsAdminComponent} from "../../app/view/theme/comments-admin/comments-admin.component";
 import {BackgroundimageComponent} from "../../app/view/theme/backgroundimage/backgroundimage.component";
-
+import {AuthGuard} from "../../core/services/global/auth-guard.service";
+import {LoginComponent} from "../pages/auth/login/login.component";
 
 //
 // Theme routes
@@ -70,7 +71,8 @@ const routes: Routes = [
       },
       {
         path: 'add-song',
-        component: AddSongComponent
+        component: AddSongComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'album',
@@ -78,7 +80,7 @@ const routes: Routes = [
       },
       {
         path: 'album/:id/details',
-        component: AlbumDetailsComponent
+        component: AlbumDetailsComponent,
       },
       {
         path: 'artist',
@@ -90,23 +92,28 @@ const routes: Routes = [
       },
       {
         path: 'analytics',
-        component: AnalyticsComponent
+        component: AnalyticsComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'licence',
-        component: LicenceComponent
+        component: LicenceComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'comments',
-        component: CommentsAdminComponent
+        component: CommentsAdminComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'background',
-        component: BackgroundimageComponent
+        component: BackgroundimageComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'category',
-        component: CategoryComponent
+        component: CategoryComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'contact',
@@ -122,11 +129,17 @@ const routes: Routes = [
       },
       {
         path: 'manage',
-        component: ManageComponent
+        component: ManageComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'modify-song/:id',
-        component: ModifyComponent
+        component: ModifyComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
       }
     ]
   }
@@ -140,6 +153,7 @@ const routes: Routes = [
     GenreDetailsComponent,
     SongComponent,
     SongDetailsComponent,
+    ModifyComponent,
     AlbumComponent,
     AlbumDetailsComponent,
     ArtistComponent,
@@ -150,6 +164,7 @@ const routes: Routes = [
     ProfileComponent,
     SettingsComponent,
     PlanComponent,
+    LoginComponent,
     AddSongComponent,
     CategoryComponent,
     MusicComponent,

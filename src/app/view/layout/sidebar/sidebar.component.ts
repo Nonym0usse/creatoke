@@ -8,6 +8,7 @@ import { ThemeService } from './../../../core/services/design/theme.service';
 
 // Constant classes
 import { Constant } from './../../../core/constants/constant';
+import {AuthenticationService} from "../../../core/services/global/authentication.service";
 
 
 @Component({
@@ -16,8 +17,11 @@ import { Constant } from './../../../core/constants/constant';
 })
 export class SidebarComponent implements OnInit, OnDestroy {
 
+
+  isAuthenticated: boolean = false;
+
   // Holds navbar object
-  navbar = Constant.navbar;
+  navbar: any;
 
   // Active class name
   active = Constant.ACTIVE;
@@ -33,12 +37,22 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   constructor(
     private togglerService: TogglerService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private authenticationService: AuthenticationService,
   ) { }
 
   ngOnInit(): void {
     this.sidebarSubscription = this.themeService.sidebar.subscribe((color) => {
       this.sidebar?.nativeElement.setAttribute(Constant.SIDEBAR, color);
+    });
+    this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
+      this.isAuthenticated = isAuthenticated
+      if(!isAuthenticated){
+        // @ts-ignore
+        this.navbar = Constant.navbar.filter(obj => !obj.auth);
+      }else{
+        this.navbar = Constant.navbar;
+      }
     });
   }
 
@@ -53,13 +67,14 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.togglerService.toggler();
   }
 
+
+
   /**
    * Set nav link inner HTML
    * @param obj
    * @returns {string}
    */
   navLinkHTML(obj: any): string {
-    return obj.icon + '<span class="ms-3">' + obj.name + '</span>';
+      return obj.icon + '<span class="ms-3">' + obj.name + '</span>';
   }
-
 }

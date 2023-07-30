@@ -11,17 +11,19 @@
         <!-- Start:: cover [[ Find at scss/components/cover.scss ]] -->
         <div class="cover d-flex align-items-center">
             <div class="cover__image">
-                <img data-amplitude-song-info="cover_art_url" src="./assets/images/cover/small/1.jpg" alt="">
+                <img data-amplitude-song-info="cover_art_url" src="{{song?.image}}" alt="">
             </div>
-            <div class="cover__content ps-3 d-none d-sm-block">
-                <a [routerLink]="'/app/song/' + song?.id + '/details'" class="cover__title text-truncate" data-amplitude-song-info="name"></a>
-                <p class="cover__subtitle text-truncate" *ngIf="song?.artists">
-                    <ng-container *ngFor="let artist of song?.artists; last as isLast">
-                        <a [routerLink]="'/app/artist/' + artist?.id + '/details'">{{artist?.name}}</a>{{!isLast ? ', ' : ''}}
-                    </ng-container>
-                </p>
-            </div>
+          <div class="cover__content ps-3 d-none d-sm-block">
+            <a class="cover__title text-truncate" data-amplitude-song-info="title"></a>
+            <p class="cover__subtitle text-truncate">
+              <ng-container>
+                <a>{{song?.artist}}</a>
+              </ng-container>
+            </p>
+          </div>
         </div>
+
+
         <!-- End:: cover -->
 
         <div class="player-control">

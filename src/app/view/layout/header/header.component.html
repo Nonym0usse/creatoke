@@ -47,7 +47,7 @@
                             <ng-container [ngTemplateOutlet]="languageDropdown"></ng-container>
                         </div>
 
-                        <div class="dropdown ms-3 ms-sm-4">
+                        <div class="dropdown ms-3 ms-sm-4" *ngIf="isAuthenticated">
                             <ng-container [ngTemplateOutlet]="userDropdown"></ng-container>
                         </div>
                     </div>
@@ -87,39 +87,41 @@
 </ng-template>
 
 <!-- Template for user dropdown -->
-<ng-template #userDropdown>
+<ng-container >
+  <ng-template #userDropdown>
     <a class="avatar header-text" role="button" id="user_menu" data-bs-toggle="dropdown" aria-expanded="false">
-        <div class="avatar__image">
-            <img src="https://firebasestorage.googleapis.com/v0/b/creatoke-a8611.appspot.com/o/users%2Fadmin%2FIMG_8469.JPG?alt=media&token=93738ee8-b4de-4910-bd0f-4135ac195f12" [alt]="user.name">
-        </div>
-        <span class="ps-2 d-none d-sm-block">{{user.name}}</span>
+      <div class="avatar__image">
+        <img src="{{imgProfile}}" [alt]="user.name">
+      </div>
+      <span class="ps-2 d-none d-sm-block">{{user.name}}</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-md dropdown-menu-end" aria-labelledby="user_menu">
-        <li>
-            <div class="py-2 px-3 avatar avatar--lg">
-                <div class="avatar__image">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/creatoke-a8611.appspot.com/o/users%2Fadmin%2FIMG_8469.JPG?alt=media&token=93738ee8-b4de-4910-bd0f-4135ac195f12" [alt]="user.email">
-                </div>
-                <div class="avatar__content">
-                    <span class="avatar__title">{{user.email}}</span>
-                    <span class="avatar__subtitle">ADMIN</span>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="dropdown-divider"></div>
-        </li>
-        <li *ngFor="let option of options">
-            <a class="dropdown-item d-flex align-items-center" [routerLink]="option.link" [innerHTML]="userOptionLinkHTML(option)"></a>
-        </li>
-        <li>
-            <div class="dropdown-divider"></div>
-        </li>
-        <li>
-            <a class="dropdown-item d-flex align-items-center text-danger" (click)="logout()">
-                <i class="ri-logout-circle-line fs-5"></i>
-                <span class="ps-2">Déconnexion</span>
-            </a>
-        </li>
+      <li>
+        <div class="py-2 px-3 avatar avatar--lg">
+          <div class="avatar__image">
+            <img src="https://firebasestorage.googleapis.com/v0/b/creatoke-a8611.appspot.com/o/users%2Fadmin%2FIMG_8469.JPG?alt=media&token=93738ee8-b4de-4910-bd0f-4135ac195f12" [alt]="user.email">
+          </div>
+          <div class="avatar__content">
+            <span class="avatar__title">{{user.email}}</span>
+            <span class="avatar__subtitle">ADMIN</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="dropdown-divider"></div>
+      </li>
+      <li *ngFor="let option of options">
+        <a class="dropdown-item d-flex align-items-center" [routerLink]="option.link" [innerHTML]="userOptionLinkHTML(option)"></a>
+      </li>
+      <li>
+        <div class="dropdown-divider"></div>
+      </li>
+      <li>
+        <a class="dropdown-item d-flex align-items-center text-danger" (click)="logout()">
+          <i class="ri-logout-circle-line fs-5"></i>
+          <span class="ps-2">Déconnexion</span>
+        </a>
+      </li>
     </ul>
-</ng-template>
+  </ng-template>
+</ng-container>

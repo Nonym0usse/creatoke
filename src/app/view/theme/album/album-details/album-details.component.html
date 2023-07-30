@@ -1,6 +1,6 @@
 
 <!-- Hero [[ Find at scss/framework/hero.scss ]] -->
-<div class="hero" style="background-image: url(./assets/images/banner/song.jpg);"></div>
+<div class="hero" style="background-image: url(./assets/images/banner/home.jpg);"></div>
 
 <!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="under-hero container">
@@ -33,7 +33,7 @@
                 </ul>
                 <!-- End:: info list -->
                 <div class="mb-4">
-                    <p class="mb-2">By: 
+                    <p class="mb-2">By:
                         <span class="text-dark fw-medium">
                             <ng-container *ngFor="let artist of album?.artists; last as isLast">
                                 <a [routerLink]="'/app/artist/' + artist.id + '/details'" style="color: inherit;">{{artist.name}}</a>{{!isLast ? ', ' : ''}}
@@ -99,7 +99,7 @@
                 </div>
             </a>
         </div>
-        
+
     </div>
     <!-- End:: section -->
 

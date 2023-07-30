@@ -6,6 +6,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable, map } from 'rxjs';
 import { Constant } from '../../constants/constant';
 import { User } from 'firebase/auth';
+import {Router} from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,7 @@ import { User } from 'firebase/auth';
 export class AuthenticationService {
     public user: any = {}
 
-    constructor(private afAuth: AngularFireAuth) {
+    constructor(private afAuth: AngularFireAuth, private router: Router) {
         this.afAuth.authState.subscribe((user: User | any) => {
             if (user) {
                 this.user = {email: user.email, uid: user.uid}
@@ -24,8 +25,12 @@ export class AuthenticationService {
      * Get user object
      */
     logIn(email: string, password: string): Promise<any> {
-        return this.afAuth.signInWithEmailAndPassword(email, password)
-            .catch((error: any) => {
+        return this.afAuth.signInWithEmailAndPassword(email, password).then(async (user) => {
+          const token = await user.user?.getIdToken();
+          // @ts-ignore
+          localStorage.setItem('firebaseToken', token);
+          this.router.navigate(['/']);
+        }).catch((error: any) => {
                 const errorCode = error.code;
                 const errorMessage = Constant.AUTH_ERROR_MESSAGES_FR[errorCode] || 'Erreur inconnue.';
                 throw new Error(errorMessage);
@@ -33,7 +38,8 @@ export class AuthenticationService {
     }
 
     logOut() {
-        return this.afAuth.signOut();
+        localStorage.removeItem('firebaseToken');
+        return this.afAuth.signOut().then(() => this.router.navigate(['/']))
     }
 
     /**

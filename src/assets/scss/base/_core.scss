@@ -69,6 +69,10 @@ a:hover {
   border-image-slice: 1;
 }
 
+.bg-custom{
+  background: linear-gradient(90deg,#5438d1,#8938d1 60%);
+}
+
 
 .bg-light {
     background-color: $gray-100 !important;

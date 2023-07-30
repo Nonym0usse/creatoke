@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('appHeader') appHeader: TemplateRef<any> | undefined;
 
   headerTemplate: TemplateRef<any> | undefined;
-
+  isAuthenticated: boolean = false;
   // Header element reference
   @ViewChild('header') header: ElementRef<any> | undefined;
 
@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Active class name
   active = Constant.ACTIVE;
-
+  imgProfile = "";
   // Header theme subscription
   headerSubscription: Subscription | undefined;
 
@@ -60,6 +60,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
+        this.isAuthenticated = isAuthenticated
+        this.imgProfile = "https://firebasestorage.googleapis.com/v0/b/creatoke-a8611.appspot.com/o/users%2Fadmin%2FIMG_8469.JPG?alt=media&token=93738ee8-b4de-4910-bd0f-4135ac195f12"
        this.user = this.authenticationService.user;
     });
 
@@ -74,7 +76,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.setHeaderView();
-    }, 0);    
+    }, 0);
   }
 
   ngOnDestroy(): void {
@@ -107,7 +109,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Set user option link inner HTML
-   * @param obj 
+   * @param obj
    * @returns {string}
    */
   userOptionLinkHTML(obj: any): string {
@@ -118,7 +120,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
    * User logout
    */
   logout() {
-    this.loginService.userLogout();
+    this.authenticationService.logOut();
   }
 
 }

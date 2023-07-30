@@ -80,16 +80,16 @@ export class TotalUsersComponent implements OnInit {
       datasets: [{
         label: 'Utilisateurs',
         data: this.nbUsr,
-        backgroundColor: Utils.getCSSVarValue('red'),
-        borderColor: Utils.getCSSVarValue('red'),
+        backgroundColor: Utils.getCSSVarValue('purple'),
+        borderColor: Utils.getCSSVarValue('purple'),
         borderWidth: 2,
         pointRadius: 0,
         pointHoverRadius: 5,
         pointHoverBorderWidth: 12,
-        pointBackgroundColor: color(Utils.getCSSVarValue('red')).alpha(0).rgbString(),
-        pointBorderColor: color(Utils.getCSSVarValue('red')).alpha(0).rgbString(),
-        pointHoverBackgroundColor: Utils.getCSSVarValue('red'),
-        pointHoverBorderColor: color(Utils.getCSSVarValue('red')).alpha(0.1).rgbString(),
+        pointBackgroundColor: color(Utils.getCSSVarValue('purple')).alpha(0).rgbString(),
+        pointBorderColor: color(Utils.getCSSVarValue('purple')).alpha(0).rgbString(),
+        pointHoverBackgroundColor: Utils.getCSSVarValue('purple'),
+        pointHoverBorderColor: color(Utils.getCSSVarValue('purple')).alpha(0.1).rgbString(),
       }]
     };
   }

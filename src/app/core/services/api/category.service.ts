@@ -1,25 +1,35 @@
 import { Injectable } from '@angular/core';
-import { BaseApiService } from "../global/base-api.service";
-import { map, Observable } from "rxjs";
 import { ApiConstant } from "../../constants/api-constant";
-import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/compat/firestore";
 import axios from 'axios';
+import {AuthenticationService} from "../global/authentication.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CategoryService {
     //@ts-ignore
-
-    constructor() {
+    firebaseToken = "";
+    constructor(private authenticationService: AuthenticationService) {
+      // @ts-ignore
+      this.firebaseToken = localStorage.getItem('firebaseToken');
+      this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
+      });
     }
 
     createCategory(data) {
-      return axios.post(ApiConstant.API + '/category/create-category', data);
+      return axios.post(ApiConstant.API + '/category/create-category', data,  {
+        headers: {
+          Authorization: `Bearer ${this.firebaseToken}`
+        }
+      });
     }
 
     createBackground(data){
-      return axios.post(ApiConstant.API + '/category/create-background', data);
+      return axios.post(ApiConstant.API + '/category/create-background', data, {
+        headers: {
+          Authorization: `Bearer ${this.firebaseToken}`
+        }
+      });
     }
 
     getBackgroundImg(): Promise<any> {
@@ -31,7 +41,11 @@ export class CategoryService {
     }
 
     deleteCategory(id): Promise<any>{
-      return axios.delete(ApiConstant.API + '/category/delete/' + id);
+      return axios.delete(ApiConstant.API + '/category/delete/' + id, {
+        headers: {
+          Authorization: `Bearer ${this.firebaseToken}`
+        }
+      });
     }
 
     getSubCategory(): Promise<any> {

@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     login(): void {
         this.authService.logIn(this.form.get('email')?.value, this.form.get('password')?.value).then((userCredential) => {
             if (userCredential) {
-                this.router.navigate(['/app']);
+                this.router.navigate(['/']);
             }
         }).catch((error) => {
              this.message = error.message;

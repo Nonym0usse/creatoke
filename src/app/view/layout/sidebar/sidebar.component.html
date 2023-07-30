@@ -28,7 +28,7 @@
     </nav>
   </perfect-scrollbar>
 
-  <div class="sidebar-foot">
+  <div class="sidebar-foot" *ngIf="isAuthenticated">
     <a routerLink="/add-song" class="btn btn-cutsom d-flex">
       <div class="btn__wrap">
         <i style="color: #F5F7FA" class="ri-music-fill"></i>

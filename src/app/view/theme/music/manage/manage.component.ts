@@ -21,6 +21,14 @@ export class ManageComponent implements OnInit {
     }
 
     delete(id: string) {
-        this.musicService.deleteSong(id);
+      this.musicService.deleteSong(id);
+      const objectsString = localStorage.getItem('songs'); // Replace 'yourLocalStorageKey' with the key you used to store the array
+      // @ts-ignore
+      let arrayOfObjects = JSON.parse(objectsString) || [];
+      const indexToDelete = arrayOfObjects.findIndex(obj => obj.id === id);
+      if (indexToDelete !== -1) {
+        arrayOfObjects.splice(indexToDelete, 1);
+      }
+      localStorage.setItem('songs', JSON.stringify(arrayOfObjects));
     }
 }

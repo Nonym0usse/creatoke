@@ -74,7 +74,7 @@ export class PlayerService {
         songList[i].url = songList[i].full_creatoke;
       }
     }
-    console.log(songList)
+    //console.log(songList)
     return songList;
   }
 

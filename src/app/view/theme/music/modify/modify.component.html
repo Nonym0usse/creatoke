@@ -1,1 +1,133 @@
-<p>modify works!</p>
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" style="background-image: url(./assets/images/banner/home.jpg);"></div>
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+  <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+  <div class="section">
+    <div class="row">
+      <div class="col-xl-12 col-md-10 mx-auto">
+        <div class="card">
+          <div class="card-header pb-0">
+            <!-- Start:: mat tabs [[ Find at scss/components/nav.scss ]] -->
+            <div class="mat-tabs" appTabs>
+              <ul class="nav nav-tabs" id="add_music" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="music" data-bs-toggle="tab"
+                          data-bs-target="#music_pane" type="button" role="tab" aria-controls="music_pane"
+                          aria-selected="true">Modifier une chanson</button>
+                </li>
+
+              </ul>
+            </div>
+            <!-- End:: mat tabs -->
+          </div>
+          <div class="card-body">
+            <div class="tab-content" id="add_music_content">
+              <div class="tab-pane fade show active" id="music_pane" role="tabpanel"
+                   aria-labelledby="music" tabindex="0">
+                <form action="#" class="row" [formGroup]="musicForm">
+                  <div class="col-12 mb-4">
+                    <input type="text" formControlName="title" class="form-control"
+                           placeholder="Titre de la chanson">
+                  </div>
+                  <div class="col-sm-12 mb-4">
+                    <select class="form-select" (change)="updateForm($event)" formControlName="category"
+                            aria-label="Select category">
+                      <option value="" selected disabled hidden>Merci de choisir</option>
+                      <option *ngFor="let sub of subcategory"  value="{{sub?.category}}">
+                        {{sub.title_fr}} ({{sub.category}})</option>
+                    </select>
+                  </div>
+                  <div class="col-12 mb-4" *ngIf="isFormVisible">
+                    <label for="song_file_1" class="form-label">Extrait de la chanson</label>
+                    <input type="file" id="song_file_1" class="form-control"
+                           (change)="onFileSelected($event, 'url')" multiple>
+                  </div>
+                  <div class="col-12 mb-4" *ngIf="isFormVisible">
+                    <label for="song_file_2" class="form-label">Creatoke</label>
+                    <input type="file" id="song_file_2" class="form-control"
+                           (change)="onFileSelected($event, 'full_creatoke')" multiple>
+                  </div>
+
+                  <div class="col-12 mb-4" *ngIf="isFormVisible2">
+                    <label for="song_file_3" class="form-label">Musique complète</label>
+                    <input type="file" id="song_file_3" class="form-control"
+                           (change)="onFileSelected($event, 'full_music')" multiple>
+                  </div>
+
+                  <div class="col-12 mb-4">
+                    <label for="img" class="form-label">Image ({{song.image}})</label>
+                    <input type="file" id="img" class="form-control"
+                           (change)="onFileSelected($event, 'image')" multiple>
+                  </div>
+
+                  <div class="col-sm-6 mb-4">
+                    <input type="text" class="form-control" formControlName="artist"
+                           placeholder="Artist">
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <input type="text" class="form-control" formControlName="youtubeURL"
+                           placeholder="Youtube URL">
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <input type="text" class="form-control" formControlName="spotifyURL"
+                           placeholder="Spotify URL">
+                  </div>
+
+                  <div class="col-12 mb-4">
+                                        <textarea name="description" id="description" formControlName="description"
+                                                  cols="30" rows="4" class="form-control"
+                                                  placeholder="Description"></textarea>
+                  </div>
+                  <div class="col-12 mb-4">
+                                        <textarea name="lyrics" id="lyrics" formControlName="lyrics" cols="30" rows="4"
+                                                  class="form-control" placeholder="Lyrics"></textarea>
+                  </div>
+
+
+                  <div class="col-12 mb-4">
+                    <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="ri-money-euro-circle-line"></i>
+                                            </span>
+                      <input type="number" formControlName="price_base" class="form-control"
+                             placeholder="Prix licence basique">
+                    </div>
+                  </div>
+                  <div class="col-12 mb-4">
+                    <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="ri-money-euro-circle-line"></i>
+                                            </span>
+                      <input type="number" formControlName="price_base_plus" class="form-control"
+                             placeholder="Prix licence basique plus">
+                    </div>
+                  </div>
+                  <div class="col-12 mb-4">
+                    <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="ri-money-euro-circle-line"></i>
+                                            </span>
+                      <input type="number" formControlName="price_pro" class="form-control"
+                             placeholder="Prix licence pro">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <button class="btn btn-primary" style="min-width: 140px;" (click)="addMusic()"
+                    [disabled]="!musicForm.valid">Enregistrer</button>
+            <button class="btn btn-outline-secondary ms-2">Annuler</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End:: section -->
+
+</div>
+<!-- End:: under hero -->
