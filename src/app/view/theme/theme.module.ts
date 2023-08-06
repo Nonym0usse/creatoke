@@ -36,10 +36,11 @@ import {RecaptchaModule} from "ng-recaptcha";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {NgxPayPalModule} from "ngx-paypal";
 import {LicenceComponent} from "./licence/licence.component";
-import {CommentsAdminComponent} from "../../app/view/theme/comments-admin/comments-admin.component";
-import {BackgroundimageComponent} from "../../app/view/theme/backgroundimage/backgroundimage.component";
 import {AuthGuard} from "../../core/services/global/auth-guard.service";
 import {LoginComponent} from "../pages/auth/login/login.component";
+import { EditextComponent } from './editext/editext.component';
+import {CommentsAdminComponent} from "./comments-admin/comments-admin.component";
+import {BackgroundimageComponent} from "./backgroundimage/backgroundimage.component";
 
 //
 // Theme routes
@@ -140,6 +141,14 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent,
+      },
+      {
+        path: 'image-background',
+        component: BackgroundimageComponent,
+      },
+      {
+        path: 'text-accueil',
+        component: EditextComponent
       }
     ]
   }
@@ -173,6 +182,7 @@ const routes: Routes = [
     ContactComponent,
     TextsComponent,
     ManageComponent,
+    EditextComponent,
   ],
     imports: [
         // Angular

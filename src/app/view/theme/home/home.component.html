@@ -20,5 +20,15 @@
         </ng-template>
         <app-carousel [classes]="'swiper-carousel-button'" [slideTemplate]="charts" [slideData]="songs" [slides]="5" [navigation]="true"></app-carousel>
     </div>
+  <div class="section">
+    <div class="section__head">
+      <div class="flex-grow-1">
+        <span class="section__subtitle">A propos de </span>
+        <h3 class="mb-0"><span class="text-custom">Créatoké</span></h3>
+      </div>
+    </div>
+
+    <div style="padding-bottom: 50px" [innerHTML]="text.text"></div>
+  </div>
     <!-- End:: section -->
 </div>

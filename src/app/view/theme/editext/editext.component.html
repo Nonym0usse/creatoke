@@ -1,0 +1,29 @@
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" style="background-image: url(./assets/images/banner/home.jpg);"></div>
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+  <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+  <div class="section">
+    <div class="row">
+      <div class="col-xl-12 col-md-10 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <form action="#" class="row" (ngSubmit)="onSubmit()">
+              <div class="col-12 mb-4">
+                <ckeditor [editor]="editor" [data]="text.text" [config]="config" (change)="onChange($event)"></ckeditor>
+              </div>
+              <div class="col-12 mb-4">
+                <button class="btn btn-cutsom">Enregistrer</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End:: section -->
+
+</div>
+<!-- End:: under hero -->

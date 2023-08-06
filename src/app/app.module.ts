@@ -19,13 +19,15 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 import { NgxPayPalModule } from 'ngx-paypal';
 import {LicenceComponent} from "./view/theme/licence/licence.component";
-import { CommentsAdminComponent } from './app/view/theme/comments-admin/comments-admin.component';
-import { BackgroundimageComponent } from './app/view/theme/backgroundimage/backgroundimage.component';
+import {CommentsAdminComponent} from "./view/theme/comments-admin/comments-admin.component";
+import {BackgroundimageComponent} from "./view/theme/backgroundimage/backgroundimage.component";
+import {LoaderComponent} from "./view/partials/loader/loader.component";
 
 @NgModule({
   declarations: [
     // Default component
     AppComponent,
+    LoaderComponent,
     LicenceComponent,
     CommentsAdminComponent,
     BackgroundimageComponent,

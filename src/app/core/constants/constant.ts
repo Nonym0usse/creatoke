@@ -72,6 +72,18 @@ export class Constant {
       link: '/comments',
       auth: true,
     },
+    {
+      name: 'Texte accueil',
+      icon: '<i class="ri-edit-2-fill fs-5"></i>',
+      link: '/text-accueil',
+      auth: true,
+    },
+    {
+      name: 'Gérer les images (non terminé)',
+      icon: '<i class="ri-image-2-fill fs-5"></i>',
+      link: '/image-background',
+      auth: true,
+    },
   ];
 
   public static AUTH_ERROR_MESSAGES_FR = {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CommentService} from "../../../../core/services/api/comment.service";
+import {CommentService} from "../../../core/services/api/comment.service";
 
 @Component({
   selector: 'app-comments-admin',

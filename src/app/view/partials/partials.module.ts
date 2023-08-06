@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from './../../core/core.module';
 
 // Components
-import { LoaderComponent } from './loader/loader.component';
 import { BrandComponent } from './brand/brand.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { EventViewComponent } from './components/event-view/event-view.component';
@@ -21,7 +20,6 @@ import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
-    LoaderComponent,
     BrandComponent,
     CarouselComponent,
     EventViewComponent,
@@ -42,7 +40,6 @@ import { SettingsComponent } from './settings/settings.component';
   ],
   exports: [
     // Components
-    LoaderComponent,
     BrandComponent,
     CarouselComponent,
     EventViewComponent,
