@@ -55,19 +55,19 @@ export class Constant {
       auth: true,
     },
     {
-      name: 'Gérer les chansons',
+      name: 'Chansons',
       icon: '<i class="ri-edit-2-fill fs-5"></i>',
       link: '/manage',
       auth: true,
     },
     {
-      name: 'Gérer les licences',
+      name: 'Licences',
       icon: '<i class="ri-money-euro-circle-line fs-5"></i>',
       link: '/licence',
       auth: true,
     },
     {
-      name: 'Gérer les commentaires',
+      name: 'Commentaires',
       icon: '<i class="ri-user-line fs-5"></i>',
       link: '/comments',
       auth: true,
@@ -79,7 +79,7 @@ export class Constant {
       auth: true,
     },
     {
-      name: 'Gérer les images (non terminé)',
+      name: 'Images (non terminé)',
       icon: '<i class="ri-image-2-fill fs-5"></i>',
       link: '/image-background',
       auth: true,

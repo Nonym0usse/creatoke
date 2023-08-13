@@ -16,7 +16,6 @@ import { Constant } from './core/constants/constant';
 export class AppComponent implements OnInit, AfterViewInit {
 
   constant = Constant;
-
   // Theme subscription
   themeSubscription: Subscription | undefined;
 

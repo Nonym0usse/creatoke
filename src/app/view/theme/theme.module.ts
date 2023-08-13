@@ -9,8 +9,6 @@ import { LayoutModule } from '../layout/layout.module';
 // Components
 import { ThemeComponent } from './theme.component';
 import { HomeComponent } from './home/home.component';
-import { GenreComponent } from './genre/genre.component';
-import { GenreDetailsComponent } from './genre/genre-details/genre-details.component';
 import { SongComponent } from './song/song.component';
 import { SongDetailsComponent } from './song/song-details/song-details.component';
 import { AddSongComponent } from './song/add-song/add-song.component';
@@ -19,11 +17,8 @@ import { AlbumDetailsComponent } from './album/album-details/album-details.compo
 import { ArtistComponent } from './artist/artist.component';
 import { ArtistDetailsComponent } from './artist/artist-details/artist-details.component';
 import { AnalyticsComponent } from './user/analytics/analytics.component';
-import { FavoriteComponent } from './user/favorite/favorite.component';
-import { HistoryComponent } from './user/history/history.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { SettingsComponent } from './user/settings/settings.component';
-import { PlanComponent } from './user/plan/plan.component';
 import { CategoryComponent } from './category/category.component';
 import { MusicComponent } from './music/music.component';
 import { MusicDetailsComponent } from './music/music-details/music-details.component';
@@ -158,8 +153,6 @@ const routes: Routes = [
   declarations: [
     ThemeComponent,
     HomeComponent,
-    GenreComponent,
-    GenreDetailsComponent,
     SongComponent,
     SongDetailsComponent,
     ModifyComponent,
@@ -168,11 +161,8 @@ const routes: Routes = [
     ArtistComponent,
     ArtistDetailsComponent,
     AnalyticsComponent,
-    FavoriteComponent,
-    HistoryComponent,
     ProfileComponent,
     SettingsComponent,
-    PlanComponent,
     LoginComponent,
     AddSongComponent,
     CategoryComponent,
