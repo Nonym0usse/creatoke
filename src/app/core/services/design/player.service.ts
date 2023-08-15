@@ -70,8 +70,6 @@ export class PlayerService {
     for (let i = 0; i < songList.length; i++) {
       if (songList[i].full_creatoke === 'vide') {
         songList[i].url = songList[i].full_music;
-      }else if(songList[i].full_music === 'vide'){
-        songList[i].url = songList[i].full_creatoke;
       }
     }
     //console.log(songList)

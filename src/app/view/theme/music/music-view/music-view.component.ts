@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SongService} from "../../../../core/services/api/song.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {PlayerService} from "../../../../core/services/design/player.service";
 import {Subscription} from "rxjs";
 import {HttpStatus} from "../../../../core/constants/http-status";
@@ -9,6 +9,7 @@ import {LicenceService} from "../../../../core/services/api/licence.service";
 import {ICreateOrderRequest} from "ngx-paypal";
 import {PaypalService} from "../../../../core/services/api/paypal.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-music-view',
@@ -27,18 +28,22 @@ export class MusicViewComponent implements OnInit {
   songs: any = [];
   inputForm: FormGroup;
   showLyrics: boolean = false;
-
+  isPlaying: boolean = false;
+  audioElement: any;
   // Holds router subscription
   routerSubscription: Subscription | undefined;
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private songService: SongService,
     private playerService: PlayerService,
     private licenceService: LicenceService,
     private paypalService: PaypalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private sanitizer: DomSanitizer
   ) {
+
     this.inputForm = this.formBuilder.group({
       // Define your input form controls here
       // Example:
@@ -52,6 +57,10 @@ export class MusicViewComponent implements OnInit {
     });
     this.getLicence();
 
+  }
+
+  sanitizeHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
   showLyricsBtn(){
@@ -137,6 +146,10 @@ export class MusicViewComponent implements OnInit {
     };
   }
 
+  contact(){
+    this.router.navigate(['/contact'])
+  }
+
   ngOnDestroy(): void {
     this.routerSubscription?.unsubscribe();
   }
@@ -148,6 +161,8 @@ export class MusicViewComponent implements OnInit {
   getSongs(id: string): void {
     this.songService.getSongByID(id).then(response => {
       this.song = response.data;
+
+      this.audioElement = new Audio(this.song.full_music);
     });
   }
 
@@ -163,8 +178,23 @@ export class MusicViewComponent implements OnInit {
     this.playerService.songPlayPause(event, this.song);
   }
 
+
   onCloseHandled() {
     this.display = "none";
+  }
+
+  toggleAudio() {
+    if (this.isPlaying) {
+      this.audioElement.pause();
+      this.isPlaying = false;
+    } else {
+      this.audioElement.play();
+      this.isPlaying = true;
+    }
+
+    this.audioElement.onended = () => {
+      this.isPlaying = false;
+    };
   }
 
 }

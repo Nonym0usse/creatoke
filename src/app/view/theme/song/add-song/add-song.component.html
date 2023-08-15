@@ -33,29 +33,31 @@
                                             placeholder="Titre de la chanson">
                                     </div>
                                     <div class="col-sm-12 mb-4">
-                                        <select class="form-select" (change)="updateForm($event)" formControlName="category"
+                                        <select class="form-select" formControlName="category"
                                             aria-label="Select category">
                                             <option value="" selected disabled hidden>Merci de choisir</option>
                                             <option *ngFor="let sub of subcategory"  value="{{sub?.category}}">
-                                                {{sub.title_fr}} ({{sub.category}})</option>
+                                                Publier dans la sous-catégorie "{{sub.title_fr}}" -> (dans la catégorie {{sub.category}})</option>
                                         </select>
                                     </div>
-                                    <div class="col-12 mb-4" *ngIf="isFormVisible">
-                                        <label for="song_file_1" class="form-label">Extrait de la chanson</label>
+                                    <div class="col-12 mb-4">
+                                        <label for="song_file_1" class="form-label">Extrait de la chanson (1er player)</label>
                                         <input type="file" id="song_file_1" class="form-control"
                                             (change)="onFileSelected($event, 'url')" multiple>
                                     </div>
-                                    <div class="col-12 mb-4" *ngIf="isFormVisible">
-                                        <label for="song_file_2" class="form-label">Creatoke</label>
-                                        <input type="file" id="song_file_2" class="form-control"
-                                            (change)="onFileSelected($event, 'full_creatoke')" multiple>
-                                    </div>
 
-                                    <div class="col-12 mb-4" *ngIf="isFormVisible2">
-                                        <label for="song_file_3" class="form-label">Musique complète</label>
+
+                                    <div class="col-12 mb-4">
+                                      <label for="song_file_3" class="form-label">Morceau complet <b style="color:red">OU</b> créatoké (2ème player)</label>
                                         <input type="file" id="song_file_3" class="form-control"
                                             (change)="onFileSelected($event, 'full_music')" multiple>
                                     </div>
+
+                                  <div class="col-12 mb-4">
+                                    <label for="song_file_5" class="form-label">Musique au format wav</label>
+                                    <input type="file" id="song_file_5" class="form-control"
+                                           (change)="onFileSelected($event, 'wav')" multiple>
+                                  </div>
 
                                     <div class="col-12 mb-4">
                                         <label for="img" class="form-label">Image</label>
@@ -101,19 +103,11 @@
                                             <span class="input-group-text">
                                                 <i class="ri-money-euro-circle-line"></i>
                                             </span>
-                                            <input type="number" formControlName="price_base_plus" class="form-control"
+                                            <input type="number" formControlName="price_premium" class="form-control"
                                                 placeholder="Prix licence basique plus">
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-4">
-                                        <div class="input-group">
-                                            <span class="input-group-text">
-                                                <i class="ri-money-euro-circle-line"></i>
-                                            </span>
-                                            <input type="number" formControlName="price_pro" class="form-control"
-                                                placeholder="Prix licence pro">
-                                        </div>
-                                    </div>
+
                                 </form>
                             </div>
                         </div>

@@ -25,3 +25,23 @@
 .large{
     width: 100%;
 }
+
+.chanson-player{
+  padding: 10px;
+  margin: 15px;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 10px;
+}
+
+.text-extrait{
+  padding-left: 10px;
+}
+
+.btn-player{
+  background: linear-gradient(90deg, #5438d1, #8938d1 60%);
+  z-index: 999 !important;
+}
+
+
+
+

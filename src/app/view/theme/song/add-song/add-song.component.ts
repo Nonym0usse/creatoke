@@ -14,8 +14,6 @@ export class AddSongComponent implements OnInit {
     musicForm: FormGroup;
     subcategory: any = [];
     files: any = [];
-    isFormVisible = false;
-    isFormVisible2 = false;
 
     constructor(private uploadService: UploadService, private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService) {
 
@@ -25,14 +23,14 @@ export class AddSongComponent implements OnInit {
             lyrics: [''],
             description: [''],
             price_base: [''],
-            price_base_plus: [''],
-            price_pro: [''],
+            price_premium: [''],
             image: [''],
             category: [''],
             created_at: [''],
             youtubeURL: [''],
             spotifyURL: [''],
-            full_creatoke: [''],
+            wav: [''],
+            url: [''],
             full_music: [''],
         });
     }
@@ -41,13 +39,13 @@ export class AddSongComponent implements OnInit {
         const file: File = event.target.files[0];
         if (fileName === 'url') {
             this.files.push({ name: 'url', file: file });
-        } else if (fileName === 'full_creatoke') {
-            this.files.push({ name: 'full_creatoke', file: file });
         } else if (fileName === 'full_music') {
             this.files.push({ name: 'full_music', file: file });
         } else if (fileName == "image") {
             this.files.push({ name: 'image', file: file });
-        } else {
+        } else if (fileName == "wav") {
+          this.files.push({ name: 'wav', file: file });
+        }else {
             this.files.push([]);
         }
     }
@@ -73,16 +71,6 @@ export class AddSongComponent implements OnInit {
           }
             this.songService.createSong(this.musicForm.value).catch((success) => console.log(success))
         });
-    }
-
-    updateForm(e) {
-        if(e.target.value == "chanson"){
-            this.isFormVisible = !this.isFormVisible;
-            this.isFormVisible2 = this.isFormVisible2;
-        }else{
-            this.isFormVisible2 = !this.isFormVisible2;
-            this.isFormVisible = this.isFormVisible;
-        }
     }
 
     ngOnInit(): void {
