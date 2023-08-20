@@ -78,6 +78,7 @@
         img {
             max-width: 100%;
             width: 100%;
+            height: 17vh
         }
         .btn-play {
             @include absolute(top 50% left 50%);
@@ -90,7 +91,7 @@
             padding: $cover-image-content-padding;
             background: $cover-image-content-bg;
             color: $cover-image-content-color;
-            .cover__title, 
+            .cover__title,
             .cover__subtitle {
                 color: inherit;
             }
@@ -112,7 +113,7 @@
     .cover__subtitle {
         display: block;
         color: $cover-subtitle-color;
-        font-size: $cover-subtitle-font-size; 
+        font-size: $cover-subtitle-font-size;
         font-weight: $cover-subtitle-font-weight;
         a {
             color: inherit;
