@@ -6,6 +6,7 @@ import { AngularFirestore } from "@angular/fire/compat/firestore";
 import { Observable } from 'rxjs';
 import axios from 'axios';
 import { ApiConstant } from '../../constants/api-constant';
+import {InterceptorService} from "../global/interceptor.service";
 
 
 @Injectable({
@@ -15,6 +16,7 @@ export class SearchService {
   searchResults: any[] = [];
     constructor(
         private af: AngularFirestore,
+        private axiosInterceptorService: InterceptorService
     ) { }
 
 
@@ -25,6 +27,6 @@ export class SearchService {
     }
 
     previewSongs(limit): Promise<any> {
-        return axios.get(ApiConstant.API + '/admin/preview-searching/' + limit);
+        return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/admin/preview-searching/' + limit);
     }
 }

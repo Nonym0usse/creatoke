@@ -53,7 +53,6 @@ export class CommentComponent implements OnInit {
   }
   createComment(){
     this.form.patchValue({created_at: this.getCurrentFormattedDate(), music_id: this.data.id})
-    console.log(this.form.value)
     this.commentService.createComment(this.form.value).then(() => alert('Commentaire ajouté.'))
   }
 

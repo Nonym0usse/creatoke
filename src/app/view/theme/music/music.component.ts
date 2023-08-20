@@ -14,6 +14,8 @@ export class MusicComponent implements OnInit {
   subCategory: any = [];
   routerSubscription: Subscription | undefined;
   title: string = "";
+  picturebackground: any;
+
   constructor(
     private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
@@ -24,12 +26,16 @@ export class MusicComponent implements OnInit {
       this.getParams(param['category']);
       this.categoryService.getSubCategoryByID(param).then((data) => {this.subCategory = data.data; console.log(data.data)})
     });
+    this.getBackground();
   }
 
+  async getBackground() {
+    this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
+  }
 
   getParams(param){
     switch (param) {
-      case "a-chanter":
+      case "chansons":
         this.title = "Chansons";
         break
       case "instrumentaux":

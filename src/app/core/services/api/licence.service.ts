@@ -10,6 +10,7 @@ import { BaseApiService } from '../global/base-api.service';
 import { ApiConstant } from '../../constants/api-constant';
 import axios from "axios";
 import {AuthenticationService} from "../global/authentication.service";
+import {InterceptorService} from "../global/interceptor.service";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class LicenceService {
 
   firebaseToken = "";
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService, private axiosInterceptorService: InterceptorService) {
     // @ts-ignore
     this.firebaseToken = localStorage.getItem('firebaseToken');
     this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
@@ -29,7 +30,7 @@ export class LicenceService {
    * @returns {object}
    */
   modifyLicence(body): Promise<any> {
-    return axios.put(ApiConstant.API + '/licence/update', body, {
+    return this.axiosInterceptorService.getAxiosInstance().put(ApiConstant.API + '/licence/update', body, {
       headers: {
         Authorization: `Bearer ${this.firebaseToken}`
       }
@@ -37,6 +38,6 @@ export class LicenceService {
   }
 
   listLicence(): Promise<any> {
-    return axios.get(ApiConstant.API + '/licence/list-licence');
+    return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/licence/list-licence');
   }
 }

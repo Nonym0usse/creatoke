@@ -14,6 +14,7 @@ export class AddSongComponent implements OnInit {
     musicForm: FormGroup;
     subcategory: any = [];
     files: any = [];
+    picturebackground: any;
 
     constructor(private uploadService: UploadService, private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService) {
 
@@ -26,9 +27,12 @@ export class AddSongComponent implements OnInit {
             price_premium: [''],
             image: [''],
             category: [''],
+            subcategory: [''],
             created_at: [''],
             youtubeURL: [''],
             spotifyURL: [''],
+            full_creatoke: [''],
+            mp3: [''],
             wav: [''],
             url: [''],
             full_music: [''],
@@ -45,10 +49,19 @@ export class AddSongComponent implements OnInit {
             this.files.push({ name: 'image', file: file });
         } else if (fileName == "wav") {
           this.files.push({ name: 'wav', file: file });
-        }else {
+        } else if (fileName == "mp3") {
+          this.files.push({ name: 'mp3', file: file });
+        } else if (fileName == "full_creatoke") {
+          this.files.push({ name: 'full_creatoke', file: file });
+        } else {
             this.files.push([]);
         }
     }
+
+    async getBackground() {
+      this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
+    }
+
     addMusic(): void {
       const currentDate = new Date();
       const random = Math.floor((Math.random() * 100000) + 1);
@@ -75,5 +88,6 @@ export class AddSongComponent implements OnInit {
 
     ngOnInit(): void {
         this.categoryService.getSubCategory().then((data) => { this.subcategory = data.data; });
+        this.getBackground();
     }
 }

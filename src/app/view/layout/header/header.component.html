@@ -43,9 +43,7 @@
                     <app-search></app-search>
 
                     <div class="d-flex align-items-center">
-                        <div class="dropdown">
-                            <ng-container [ngTemplateOutlet]="languageDropdown"></ng-container>
-                        </div>
+
 
                         <div class="dropdown ms-3 ms-sm-4" *ngIf="isAuthenticated">
                             <ng-container [ngTemplateOutlet]="userDropdown"></ng-container>
@@ -59,32 +57,7 @@
 </ng-template>
 
 
-<!-- Template for language dropdown -->
-<ng-template #languageDropdown>
-    <a class="header-text d-flex align-items-center" role="button" id="language_menu" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-        <i class="ri-earth-line fs-5"></i>
-        <span class="d-none d-md-block ms-1">Langue</span>
-    </a>
-    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end" aria-labelledby="language_menu">
-        <div class="py-2 px-4">
-            <span class="d-block fw-bold">What music do you like?</span>
-            <p>Select languages you want to listen.</p>
-        </div>
-        <div class="dropdown-divider"></div>
-        <div class="d-flex flex-wrap py-2">
-            <div class="py-2 px-4 w-50" *ngFor="let language of languages">
-                <div class="form-check mb-0">
-                    <input class="form-check-input" type="checkbox" id="lang_{{language.id}}" [checked]="language.checked" (change)="language.checked = !language.checked">
-                    <label class="form-check-label fw-semi-bold" for="lang_{{language.id}}">{{language.name}}</label>
-                </div>
-            </div>
-        </div>
-        <div class="dropdown-divider"></div>
-        <div class="py-2 px-4">
-            <button type="button" class="btn btn-primary w-100 justify-content-center">Update</button>
-        </div>
-    </div>
-</ng-template>
+
 
 <!-- Template for user dropdown -->
 <ng-container >
@@ -106,12 +79,6 @@
             <span class="avatar__subtitle">ADMIN</span>
           </div>
         </div>
-      </li>
-      <li>
-        <div class="dropdown-divider"></div>
-      </li>
-      <li *ngFor="let option of options">
-        <a class="dropdown-item d-flex align-items-center" [routerLink]="option.link" [innerHTML]="userOptionLinkHTML(option)"></a>
       </li>
       <li>
         <div class="dropdown-divider"></div>

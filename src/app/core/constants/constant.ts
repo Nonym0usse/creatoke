@@ -16,7 +16,7 @@ export class Constant {
     {
       name: 'Chansons',
       icon: '<i class="ri-disc-line fs-5"></i>',
-      link: '/song/a-chanter',
+      link: '/song/chansons',
       auth: false,
     },
     {
@@ -79,7 +79,7 @@ export class Constant {
       auth: true,
     },
     {
-      name: 'Images (non terminé)',
+      name: 'Image de fond',
       icon: '<i class="ri-image-2-fill fs-5"></i>',
       link: '/image-background',
       auth: true,

@@ -1,5 +1,5 @@
 <!-- Hero [[ Find at scss/framework/hero.scss ]] -->
-<div class="hero" style="background-image: url(./assets/images/banner/home.jpg);"></div>
+<div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
 <!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="under-hero container">
@@ -34,11 +34,7 @@
                 <form action="#" class="row" [formGroup]="categoryForm">
                   <div class="col-12 mb-4">
                     <input type="text" formControlName="title_fr" class="form-control"
-                           placeholder="Titre de la catégorie en français">
-                  </div>
-                  <div class="col-12 mb-4">
-                    <input type="text" formControlName="title_en" class="form-control"
-                           placeholder="Titre de la catégorie en anglais">
+                           placeholder="Titre de la sous-catégorie (ex: Chansons à chanter)">
                   </div>
                   <div class="col-12 mb-4">
                     <select class="form-select" formControlName="category" aria-label="Select category">

@@ -12,7 +12,6 @@ import { NgChartsModule } from 'ng2-charts';
 
 // Services
 import { AuthGuard } from './services/global/auth-guard.service';
-import { InterceptorService } from './services/global/interceptor.service';
 
 // Directives
 import { ValidationDirective } from './directives/validation.directive';
@@ -52,11 +51,6 @@ const SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TabsDirective
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: SCROLLBAR_CONFIG

@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate, CanLoad {
         private authenticationService: AuthenticationService
     ) { }
 
-    canActivate(): Observable<boolean> {
+  canActivate(): Observable<boolean> {
     return this.checkAuthStatus();
   }
 
@@ -25,6 +25,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   private checkAuthStatus(): Observable<boolean> {
+
     return this.authenticationService.isAuthenticated().pipe(
       tap((isAuthenticated) => {
         if (!isAuthenticated) {

@@ -1,5 +1,5 @@
 <!-- Hero [[ Find at scss/framework/hero.scss ]] -->
-<div class="hero" style="background-image: url(./assets/images/banner/home.jpg);"></div>
+<div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
 <!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="under-hero container">
@@ -33,30 +33,53 @@
                                             placeholder="Titre de la chanson">
                                     </div>
                                     <div class="col-sm-12 mb-4">
-                                        <select class="form-select" formControlName="category"
+                                      <label class="form-label">Dans quelle catégorie ?</label>
+                                      <select class="form-select" formControlName="category"
                                             aria-label="Select category">
                                             <option value="" selected disabled hidden>Merci de choisir</option>
-                                            <option *ngFor="let sub of subcategory"  value="{{sub?.category}}">
-                                                Publier dans la sous-catégorie "{{sub.title_fr}}" -> (dans la catégorie {{sub.category}})</option>
-                                        </select>
+                                            <option  value="chansons">Publier dans les chansons</option>
+                                            <option  value="instrumentaux">Publier dans les instrumentaux</option>
+                                            <option  value="youtubeurs">Publier dans les youtubeurs</option>
+                                      </select>
                                     </div>
+                                  <div class="col-sm-12 mb-4">
+                                    <label class="form-label">Dans quelle sous-catégorie ?</label>
+                                    <select class="form-select" formControlName="subcategory"
+                                            aria-label="Select sub-category">
+                                      <option value="" selected disabled hidden>Merci de choisir</option>
+                                      <option *ngFor="let sub of subcategory"  value="{{sub?.title_fr}}">
+                                        Publier dans la sous-catégorie "{{sub.title_fr}}" -> (dans la catégorie {{sub.category}})</option>
+                                    </select>
+                                  </div>
                                     <div class="col-12 mb-4">
-                                        <label for="song_file_1" class="form-label">Extrait de la chanson (1er player)</label>
+                                        <label for="song_file_1" class="form-label">Extrait de la chanson</label>
                                         <input type="file" id="song_file_1" class="form-control"
                                             (change)="onFileSelected($event, 'url')" multiple>
                                     </div>
 
 
                                     <div class="col-12 mb-4">
-                                      <label for="song_file_3" class="form-label">Morceau complet <b style="color:red">OU</b> créatoké (2ème player)</label>
+                                      <label for="song_file_3" class="form-label">Morceau complet</label>
                                         <input type="file" id="song_file_3" class="form-control"
                                             (change)="onFileSelected($event, 'full_music')" multiple>
                                     </div>
 
                                   <div class="col-12 mb-4">
+                                    <label for="song_file_4" class="form-label">Créatoké</label>
+                                    <input type="file" id="song_file_4" class="form-control"
+                                           (change)="onFileSelected($event, 'full_creatoke')" multiple>
+                                  </div>
+
+                                  <div class="col-12 mb-4">
                                     <label for="song_file_5" class="form-label">Musique au format wav</label>
                                     <input type="file" id="song_file_5" class="form-control"
                                            (change)="onFileSelected($event, 'wav')" multiple>
+                                  </div>
+
+                                  <div class="col-12 mb-4">
+                                    <label for="song_file_6" class="form-label">Musique au format mp3</label>
+                                    <input type="file" id="song_file_6" class="form-control"
+                                           (change)="onFileSelected($event, 'mp3')" multiple>
                                   </div>
 
                                     <div class="col-12 mb-4">
@@ -67,7 +90,7 @@
 
                                     <div class="col-sm-6 mb-4">
                                         <input type="text" class="form-control" formControlName="artist"
-                                            placeholder="Artist">
+                                            placeholder="Artiste">
                                     </div>
                                     <div class="col-sm-6 mb-4">
                                         <input type="text" class="form-control" formControlName="youtubeURL"

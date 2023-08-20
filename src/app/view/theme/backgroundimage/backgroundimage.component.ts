@@ -13,6 +13,8 @@ export class BackgroundimageComponent implements OnInit {
   //@ts-ignore
   files: File;
   isLoading = false
+  picturebackground: any;
+
   image = "";
   constructor(private uploaderService: UploadService, private fb: FormBuilder, private categoryService: CategoryService) {
     this.imageForm = this.fb.group({
@@ -22,6 +24,7 @@ export class BackgroundimageComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getBackgroundImg().then((url) => console.log(url.data[0]))
+    this.getBackground();
   }
 
   onFileSelected(event: any) {
@@ -42,5 +45,8 @@ export class BackgroundimageComponent implements OnInit {
         alert(error)
       })
     }
+  }
+  async getBackground() {
+    this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
   }
 }

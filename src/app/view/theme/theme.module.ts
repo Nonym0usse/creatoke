@@ -140,10 +140,12 @@ const routes: Routes = [
       {
         path: 'image-background',
         component: BackgroundimageComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'text-accueil',
-        component: EditextComponent
+        component: EditextComponent,
+        canActivate: [AuthGuard]
       }
     ]
   }

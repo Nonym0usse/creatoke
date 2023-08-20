@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiConstant } from "../../constants/api-constant";
 import axios from 'axios';
 import {AuthenticationService} from "../global/authentication.service";
+import {InterceptorService} from "../global/interceptor.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import {AuthenticationService} from "../global/authentication.service";
 export class CategoryService {
   //@ts-ignore
   firebaseToken = "";
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService, private axiosInterceptorService: InterceptorService) {
     // @ts-ignore
     this.firebaseToken = localStorage.getItem('firebaseToken');
     this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
@@ -17,15 +18,15 @@ export class CategoryService {
   }
 
   createCategory(data) {
-    return axios.post(ApiConstant.API + '/category/create-category', data,  {
+    return this.axiosInterceptorService.getAxiosInstance().post(ApiConstant.API + '/category/create-category', data,  {
       headers: {
         Authorization: `Bearer ${this.firebaseToken}`
       }
-    });
+    }).then(() => alert('Catégorie créée avec succès')).catch((e) => alert('Erreur.'));
   }
 
   createBackground(data){
-    return axios.put(ApiConstant.API + '/category/create-background', data, {
+    return this.axiosInterceptorService.getAxiosInstance().put(ApiConstant.API + '/category/create-background', data, {
       headers: {
         Authorization: `Bearer ${this.firebaseToken}`
       }
@@ -33,15 +34,15 @@ export class CategoryService {
   }
 
   getBackgroundImg(): Promise<any> {
-    return axios.get(ApiConstant.API + '/category/getBackgroundImg/');
+    return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/category/getBackgroundImg/');
   }
 
   getCategory(): Promise<any> {
-    return axios.get(ApiConstant.API + '/category/getAllCategory');
+    return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/category/getAllCategory');
   }
 
   deleteCategory(id): Promise<any>{
-    return axios.delete(ApiConstant.API + '/category/delete/' + id, {
+    return this.axiosInterceptorService.getAxiosInstance().delete(ApiConstant.API + '/category/delete/' + id, {
       headers: {
         Authorization: `Bearer ${this.firebaseToken}`
       }
@@ -49,19 +50,19 @@ export class CategoryService {
   }
 
   getSubCategory(): Promise<any> {
-    return axios.get(ApiConstant.API + '/category/getSubCategory');
+    return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/category/getSubCategory');
   }
 
   getSubCategoryByID(param): Promise<any> {
-    return axios.get(ApiConstant.API + '/category/getSubCategoryByID/' + param.category);
+    return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/category/getSubCategoryByID/' + param.category);
   }
 
   getLastText(){
-    return axios.get(ApiConstant.API + '/category/getlastText/');
+    return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/category/getlastText/');
   }
 
   modifyText(data){
-    return axios.put(ApiConstant.API + '/category/modify-text', data, {
+    return this.axiosInterceptorService.getAxiosInstance().put(ApiConstant.API + '/category/modify-text', data, {
       headers: {
         Authorization: `Bearer ${this.firebaseToken}`
       }

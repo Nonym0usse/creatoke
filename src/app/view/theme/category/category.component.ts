@@ -15,11 +15,12 @@ export class CategoryComponent implements OnInit {
   //@ts-ignore
   files: File;
   categories: any = [];
+  picturebackground: any;
+
   constructor(private fb: FormBuilder, private categoryService: CategoryService, private uploaderService: UploadService) {
 
     this.categoryForm = this.fb.group({
       title_fr:  ['', Validators.required],
-      title_en: ['', Validators.required],
       category: ['', Validators.required],
       picture: ['']
     });
@@ -28,6 +29,7 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategory();
+    this.getBackground();
   }
 
   onFileSelected(event: any) {
@@ -53,6 +55,10 @@ export class CategoryComponent implements OnInit {
         console.log(error)
       })
     }
+  }
+
+  async getBackground() {
+    this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
   }
 
   protected readonly ClassicEditor = ClassicEditor;

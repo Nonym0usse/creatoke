@@ -20,6 +20,7 @@ export class ModifyComponent implements OnInit {
   isFormVisible2 = false;
   routerSubscription: Subscription | undefined;
   song: any;
+  picturebackground: any;
 
   constructor(private uploadService: UploadService, private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private activatedRoute: ActivatedRoute) {
     this.musicForm = this.fb.group({
@@ -93,6 +94,7 @@ export class ModifyComponent implements OnInit {
       this.getSongs(param['id']);
     });
     this.categoryService.getSubCategory().then((data) => { this.subcategory = data.data; });
+    this.getBackground();
   }
 
   getSongs(id: string): void {
@@ -128,5 +130,8 @@ export class ModifyComponent implements OnInit {
       this.musicForm.get('full_music').setValue(this.song.full_music);
 
     });
+  }
+  async getBackground() {
+    this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
   }
 }

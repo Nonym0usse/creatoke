@@ -16,6 +16,7 @@ export class EditextComponent implements OnInit {
     id: "",
     text: ""
   };
+  picturebackground: any;
 
   public editorData: any;
 
@@ -27,6 +28,7 @@ export class EditextComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getLastText().then(r => this.text = {id: r.data[0]?.id, text: r.data[0]?.text});
+    this.getBackground();
   }
 
   public onChange( { editor }: ChangeEvent ) {
@@ -38,4 +40,9 @@ export class EditextComponent implements OnInit {
       alert('Erreur')
     })
   }
+
+  async getBackground() {
+    this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
+  }
+
 }

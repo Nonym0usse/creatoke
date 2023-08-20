@@ -48,7 +48,8 @@
             "styles": [
               "node_modules/swiper/swiper-bundle.min.css",
               "src/assets/vendors/vendors.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ckeditor/plugins/colorui/plugin.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",

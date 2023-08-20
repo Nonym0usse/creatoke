@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SongService } from 'src/app/core/services/api/song.service';
+import {CategoryService} from "../../../../core/services/api/category.service";
 
 @Component({
     selector: 'app-manage',
@@ -10,10 +11,13 @@ import { SongService } from 'src/app/core/services/api/song.service';
 export class ManageComponent implements OnInit {
 
     songs: any = [];
-    constructor(private musicService: SongService, private router: Router) { }
+    picturebackground: any;
+
+  constructor(private musicService: SongService, private router: Router, private categoryService: CategoryService) { }
 
     ngOnInit(): void {
         this.musicService.getAllSongs().then((music) => this.songs = music.data).catch((err) => console.log(err));
+        this.getBackground();
     }
 
     modify(id: string) {
@@ -30,5 +34,9 @@ export class ManageComponent implements OnInit {
         arrayOfObjects.splice(indexToDelete, 1);
       }
       localStorage.setItem('songs', JSON.stringify(arrayOfObjects));
+    }
+
+    async getBackground() {
+      this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
     }
 }

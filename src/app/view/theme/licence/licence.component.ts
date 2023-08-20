@@ -3,6 +3,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {LicenceService} from "../../../core/services/api/licence.service";
+import {CategoryService} from "../../../core/services/api/category.service";
 
 @Component({
   selector: 'app-licence',
@@ -22,14 +23,16 @@ export class LicenceComponent implements OnInit {
   public editorData: any;
   public editorData2: any;
   public editorData3: any;
+  picturebackground: any;
 
   public data: any;
   public id: string | undefined;
-  constructor(private licenceService: LicenceService) {
+  constructor(private licenceService: LicenceService, private categoryService: CategoryService) {
   }
 
   ngOnInit(): void {
     this.licenceService.listLicence().then(r => this.data = r.data[0]);
+    this.getBackground();
   }
 
   public onChange( { editor }: ChangeEvent ) {
@@ -55,6 +58,9 @@ export class LicenceComponent implements OnInit {
     const filteredEntries = entries.filter(([key, value]) => value !== '' && value !== undefined);
     const result = Object.fromEntries(filteredEntries);
     this.licenceService.modifyLicence(result).then(() => console.log('ok'))
+  }
+  async getBackground() {
+    this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
   }
 
 }

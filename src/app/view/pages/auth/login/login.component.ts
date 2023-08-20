@@ -42,8 +42,9 @@ export class LoginComponent implements OnInit {
      */
     login(): void {
         this.authService.logIn(this.form.get('email')?.value, this.form.get('password')?.value).then((userCredential) => {
+            console.log(userCredential)
             if (userCredential) {
-                this.router.navigate(['/']);
+              this.router.navigateByUrl('/');
             }
         }).catch((error) => {
              this.message = error.message;

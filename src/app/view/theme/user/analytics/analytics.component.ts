@@ -12,6 +12,7 @@ import { ThemeService } from './../../../../core/services/design/theme.service';
 import { Constant } from './../../../../core/constants/constant';
 import { Utils } from './../../../../core/utils/utils';
 import {PaypalService} from "../../../../core/services/api/paypal.service";
+import {CategoryService} from "../../../../core/services/api/category.service";
 
 
 @Component({
@@ -24,13 +25,15 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
   referrals: any = [];
 
   turnover: number = 0;
+  picturebackground: any;
 
   // Theme subscription
   themeSubscription: Subscription | undefined;
 
   constructor(
     private themeService: ThemeService,
-    private sellingService: PaypalService
+    private sellingService: PaypalService,
+    private categoryService: CategoryService
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +45,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     this.themeSubscription = this.themeService.themeMode.subscribe((value) => {
       this.overrideChartDefaults();
     });
+    this.getBackground();
     // this.overrideChartDefaults();
   }
 
@@ -107,5 +111,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     }
 
     return sum;
+  }
+  async getBackground() {
+    this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
   }
 }

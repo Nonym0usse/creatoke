@@ -16,12 +16,18 @@ export class LoginService {
     constructor(
         private router: Router,
         private authService: AuthenticationService
-    ) { }
+    ) {
+      this.authService.isAuthenticated().subscribe((isAuthenticated) => {
+        if(isAuthenticated){
+          this.router.navigate(['/']);
+        }
+      });
+    }
 
     /**
      * Set user data in local storage
      */
-   
+
 
     /**
      * Remove user data from local storage

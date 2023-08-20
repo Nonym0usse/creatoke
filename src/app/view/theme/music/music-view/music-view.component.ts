@@ -10,6 +10,7 @@ import {ICreateOrderRequest} from "ngx-paypal";
 import {PaypalService} from "../../../../core/services/api/paypal.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {CategoryService} from "../../../../core/services/api/category.service";
 
 @Component({
   selector: 'app-music-view',
@@ -24,12 +25,16 @@ export class MusicViewComponent implements OnInit {
   public payPalConfig: any;
   //@ts-ignore
   display = "none";
+  picturebackground: any;
   // Holds song data
   songs: any = [];
   inputForm: FormGroup;
   showLyrics: boolean = false;
   isPlaying: boolean = false;
+  isPlayingCreatoke: boolean = false;
+  isHidden: boolean = false;
   audioElement: any;
+  audioElementCreatoke: any;
   // Holds router subscription
   routerSubscription: Subscription | undefined;
 
@@ -41,7 +46,8 @@ export class MusicViewComponent implements OnInit {
     private licenceService: LicenceService,
     private paypalService: PaypalService,
     private formBuilder: FormBuilder,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private categoryService: CategoryService
   ) {
 
     this.inputForm = this.formBuilder.group({
@@ -56,7 +62,11 @@ export class MusicViewComponent implements OnInit {
       this.getSongs(param['detail']);
     });
     this.getLicence();
+    this.getBackground();
+  }
 
+  async getBackground() {
+    this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
   }
 
   sanitizeHtml(html: string): SafeHtml {
@@ -73,35 +83,30 @@ export class MusicViewComponent implements OnInit {
     this.payPalConfig = {
       currency: "EUR",
       clientId: "AUmNR3MJCKhVgZvF9z2DByyfihtVVL0M9CB6FERS_LsEAKoTZXt4ctdT30PJIDn3o5x6SYQLe3mGFV_X",
-      createOrder: data =>
-        <ICreateOrderRequest>{
-          intent: "CAPTURE",
-          purchase_units: [
-            {
-              amount: {
-                currency_code: "EUR",
-                value: price,
-                breakdown: {
-                  item_total: {
-                    currency_code: "EUR",
-                    value: price.toString()
-                  }
-                }
-              },
-              items: [
-                {
-                  name: title,
-                  quantity: "1",
-                  category: "DIGITAL_GOODS",
-                  unit_amount: {
-                    currency_code: "EUR",
-                    value: price.toString()
-                  }
-                }
-              ]
+      createOrderOnClient: (data) => < ICreateOrderRequest > {
+        intent: 'CAPTURE',
+        purchase_units: [{
+          amount: {
+            currency_code: 'EUR',
+            value: price.toString(),
+            breakdown: {
+              item_total: {
+                currency_code: 'EUR',
+                value: price.toString()
+              }
             }
-          ]
-        },
+          },
+          items: [{
+            name: title,
+            quantity: '1',
+            category: 'DIGITAL_GOODS',
+            unit_amount: {
+              currency_code: 'EUR',
+              value: price.toString(),
+            },
+          }]
+        }]
+      },
       advanced: {
         commit: "true"
       },
@@ -121,7 +126,11 @@ export class MusicViewComponent implements OnInit {
           email_client: this.inputForm.get('inputField')?.value,
           titre_chanson: this.song.title,
           image_chanson: this.song.image,
+          licence_name: licence_type,
           type_chanson: this.song.category == "chansons" ? this.song.full_creatoke : this.song.full_music,
+          mp3: this.song.mp3,
+          wav: this.song.wav,
+          category: this.song.category,
           id_song: this.song.id
         }
         actions.order.get().then(details => {
@@ -163,6 +172,7 @@ export class MusicViewComponent implements OnInit {
       this.song = response.data;
 
       this.audioElement = new Audio(this.song.full_music);
+      this.audioElementCreatoke = new Audio(this.song.full_creatoke);
     });
   }
 
@@ -194,6 +204,20 @@ export class MusicViewComponent implements OnInit {
 
     this.audioElement.onended = () => {
       this.isPlaying = false;
+    };
+  }
+
+  toggleAudioCreatoke() {
+    if (this.isPlayingCreatoke) {
+      this.audioElementCreatoke.pause();
+      this.isPlayingCreatoke = false;
+    } else {
+      this.audioElementCreatoke.play();
+      this.isPlayingCreatoke = true;
+    }
+
+    this.audioElementCreatoke.onended = () => {
+      this.isPlayingCreatoke = false;
     };
   }
 

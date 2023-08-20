@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CommentService} from "../../../core/services/api/comment.service";
+import {CategoryService} from "../../../core/services/api/category.service";
 
 @Component({
   selector: 'app-comments-admin',
@@ -8,10 +9,13 @@ import {CommentService} from "../../../core/services/api/comment.service";
 })
 export class CommentsAdminComponent implements OnInit {
 
-  constructor(private commentService: CommentService) { }
+  constructor(private commentService: CommentService, private categoryService: CategoryService) { }
   comms: any = [];
+  picturebackground: any;
+
   ngOnInit(): void {
     this.commentService.getAllComments().then((data) => this.comms = data.data);
+    this.getBackground();
   }
 
   delete(id){
@@ -22,6 +26,8 @@ export class CommentsAdminComponent implements OnInit {
   getStarsArray(ratings: number): number[] {
     return Array.from({ length: ratings }, (_, index) => index + 1);
   }
-
+  async getBackground() {
+    this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
+  }
 }
 

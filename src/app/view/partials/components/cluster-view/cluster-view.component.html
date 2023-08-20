@@ -1,11 +1,11 @@
 <!-- Start:: cover [[ Find at scss/components/cover.scss ]] -->
 <div class="cover cover--round">
     <div class="cover__image">
-        <a [routerLink]="[data.id]">
+        <a [routerLink]="[data.title_fr]">
             <img [src]="data.picture" [alt]="data.title_fr">
         </a>
         <div class="cover__image__content">
-            <a [routerLink]="[data.id]" class="cover__title mb-1 fs-6 text-truncate">{{data.title_fr }}</a>
+            <a [routerLink]="[data.title_fr]" class="cover__title mb-1 fs-6 text-truncate">{{data.title_fr }}</a>
         </div>
     </div>
 </div>

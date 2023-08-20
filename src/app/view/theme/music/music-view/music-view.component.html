@@ -1,6 +1,6 @@
 
 <!-- Hero [[ Find at scss/framework/hero.scss ]] -->
-<div class="hero" style="background-image: url(./assets/images/banner/home.jpg);"></div>
+<div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
 <!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="under-hero container">
@@ -45,6 +45,7 @@
             <span class="text-dark fw-medium" style="word-wrap: break-word;">
               {{song.description}}
             </span>
+
           </p>
 
         </div>
@@ -69,6 +70,17 @@
                     </ng-template>
                   </button>
                 <span class="text-extrait">Écouter le morceau</span>
+              </div>
+              <div class="chanson-player" *ngIf="song?.category == 'chansons'">
+                <button type="button" class="btn btn-icon btn-player rounded-pill"  (click)="toggleAudioCreatoke()">
+                  <ng-container *ngIf="isPlayingCreatoke; else pauseIcon">
+                    <i class="ri-pause-fill icon-pause"></i>
+                  </ng-container>
+                  <ng-template #pauseIcon>
+                    <i class="ri-play-fill icon-play"></i>
+                  </ng-template>
+                </button>
+                <span class="text-extrait">Écouter le créatoké</span>
               </div>
               <span class="ps-2 fw-semi-bold" *ngIf="song?.played">{{song?.played}}</span>
             </div>

@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 
 // Constant classes
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable, map } from 'rxjs';
+import {Observable, map, filter} from 'rxjs';
 import { Constant } from '../../constants/constant';
 import { User } from 'firebase/auth';
-import {Router} from "@angular/router";
+import {NavigationEnd, Router} from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -29,7 +29,9 @@ export class AuthenticationService {
           const token = await user.user?.getIdToken();
           // @ts-ignore
           localStorage.setItem('firebaseToken', token);
-          this.router.navigate(['/']);
+          this.router.navigate(['/']).then(() => {
+            window.location.reload();
+          });
         }).catch((error: any) => {
                 const errorCode = error.code;
                 const errorMessage = Constant.AUTH_ERROR_MESSAGES_FR[errorCode] || 'Erreur inconnue.';
@@ -50,4 +52,13 @@ export class AuthenticationService {
             map((user) => user !== null)
         );
     }
+  async getFirebaseIdToken(): Promise<string> {
+    const user = await this.afAuth.currentUser;
+    if (user) {
+      const token = await user.getIdToken();
+      return token;
+    } else {
+      throw new Error('User not authenticated.');
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ContactService} from '../../../core/services/api/contact.service'
+import {CategoryService} from "../../../core/services/api/category.service";
 
 @Component({
   selector: 'app-contact',
@@ -12,7 +13,9 @@ export class ContactComponent implements OnInit {
   recaptchaResponse: string = '';
   error: string | undefined;
   success: string | undefined;
-  constructor(private fb: FormBuilder, private contactService: ContactService) {
+  picturebackground: any;
+
+  constructor(private fb: FormBuilder, private contactService: ContactService, private categoryService: CategoryService) {
 
     this.contactForm = this.fb.group({
         email:  ['', [Validators.required, Validators.email]],
@@ -23,6 +26,11 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getBackground();
+  }
+
+  async getBackground() {
+    this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
   }
 
   onSubmit(){
