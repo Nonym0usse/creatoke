@@ -120,7 +120,7 @@ export class MusicViewComponent implements OnInit {
         const year = now.getFullYear();
         const customData = {
           price: price,
-          licence_type: licence_type === 'premium' ? this.licences[0].premium : licence_type === "regular" ? this.licences[0].regular : this.licences[0].basic,
+          licence_type: licence_type === 'premium' ? this.licences[0].premium : licence_type === "base_plus" ? this.licences[0].base_plus : this.licences[0].basic,
           current_year: year,
           current_month: month,
           email_client: this.inputForm.get('inputField')?.value,

@@ -37,7 +37,8 @@
                                       <select class="form-select" formControlName="category"
                                             aria-label="Select category">
                                             <option value="" selected disabled hidden>Merci de choisir</option>
-                                            <option  value="chansons">Publier dans les chansons</option>
+                                            <option  value="chansons">Publier dans les chansons à chanter</option>
+                                            <option  value="chansons-cherche-texte">Publier dans les chansons cherche texte</option>
                                             <option  value="instrumentaux">Publier dans les instrumentaux</option>
                                             <option  value="youtubeurs">Publier dans les youtubeurs</option>
                                       </select>
@@ -65,19 +66,19 @@
                                     </div>
 
                                   <div class="col-12 mb-4">
-                                    <label for="song_file_4" class="form-label">Créatoké</label>
+                                    <label for="song_file_4" class="form-label">Creatoke</label>
                                     <input type="file" id="song_file_4" class="form-control"
                                            (change)="onFileSelected($event, 'full_creatoke')" multiple>
                                   </div>
 
                                   <div class="col-12 mb-4">
-                                    <label for="song_file_5" class="form-label">Musique au format wav</label>
+                                    <label for="song_file_5" class="form-label">Creatoke au format wav</label>
                                     <input type="file" id="song_file_5" class="form-control"
                                            (change)="onFileSelected($event, 'wav')" multiple>
                                   </div>
 
                                   <div class="col-12 mb-4">
-                                    <label for="song_file_6" class="form-label">Musique au format mp3</label>
+                                    <label for="song_file_6" class="form-label">Creatoke au format mp3</label>
                                     <input type="file" id="song_file_6" class="form-control"
                                            (change)="onFileSelected($event, 'mp3')" multiple>
                                   </div>

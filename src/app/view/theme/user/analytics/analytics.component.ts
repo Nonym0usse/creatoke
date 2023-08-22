@@ -6,11 +6,11 @@ import { Subscription } from 'rxjs';
 import { Chart } from 'chart.js';
 
 // Services
-import { ThemeService } from './../../../../core/services/design/theme.service';
+import { ThemeService } from '../../../../core/services/design/theme.service';
 
 // Constant classes
-import { Constant } from './../../../../core/constants/constant';
-import { Utils } from './../../../../core/utils/utils';
+import { Constant } from '../../../../core/constants/constant';
+import { Utils } from '../../../../core/utils/utils';
 import {PaypalService} from "../../../../core/services/api/paypal.service";
 import {CategoryService} from "../../../../core/services/api/category.service";
 
@@ -24,7 +24,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
   // Holds referral data
   referrals: any = [];
 
-  turnover: number = 0;
+  turnover: any;
   picturebackground: any;
 
   // Theme subscription
@@ -40,7 +40,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     this.sellingService.listSales().then((data) => {
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
-      this.turnover = this.sumPricesForCurrentYear(data.data, currentYear)
+      this.turnover = this.sumPricesForCurrentYear(data.data, currentYear);
     })
     this.themeSubscription = this.themeService.themeMode.subscribe((value) => {
       this.overrideChartDefaults();
@@ -110,7 +110,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
       }
     }
 
-    return sum;
+    return sum.toFixed(2);
   }
   async getBackground() {
     this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });

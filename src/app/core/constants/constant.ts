@@ -14,7 +14,7 @@ export class Constant {
       auth: false,
     },
     {
-      name: 'Chansons',
+      name: 'Chansons à chanter',
       icon: '<i class="ri-disc-line fs-5"></i>',
       link: '/song/chansons',
       auth: false,
@@ -23,6 +23,12 @@ export class Constant {
       name: 'Instrumentaux',
       icon: '<i class="ri-music-2-line fs-5"></i>',
       link: '/song/instrumentaux',
+      auth: false,
+    },
+    {
+      name: 'Chansons cherche texte',
+      icon: '<i class="ri-disc-line fs-5"></i>',
+      link: '/song/chansons-cherche-texte',
       auth: false,
     },
     {

@@ -78,7 +78,11 @@ export class AddSongComponent implements OnInit {
           for (const key in this.musicForm.value) {
             if (this.musicForm.value.hasOwnProperty(key)) {
               if (this.musicForm.value[key] === null || this.musicForm.value[key] === undefined || this.musicForm.value[key] === '') {
-                this.musicForm.value[key] = 'vide'; // Replace with the desired value
+                  if(this.musicForm.value['image'] == null){
+                    this.musicForm.value['image'] = "https://placehold.co/600x400";
+                  }else{
+                    this.musicForm.value[key] = 'vide';
+                  } // Replace with the desired value
               }
             }
           }

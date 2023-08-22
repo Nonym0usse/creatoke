@@ -1,40 +1,38 @@
 <!-- Start:: search form [[ Find at scss/framework/search.scss ]] -->
 <form id="search_form" class="me-3">
-    <label for="search_input">
-        <i class="ri-search-2-line"></i>
-    </label>
-    <input type="text" placeholder="Rechercher sur le site..." id="search_input" class="form-control form-control-sm" (click)="showSearchView()">
+  <label for="search_input">
+    <i class="ri-search-2-line"></i>
+  </label>
+  <input type="text" placeholder="Rechercher sur le site..." id="search_input" class="form-control form-control-sm" (input)="onSearchTermChange($event)">
 </form>
 <!-- End:: search form -->
 
 <!-- Start:: search [[ Find at scss/framework/search.scss ]] -->
 <div id="search_results" class="search pb-3">
-    <div class="search__head">
-        <div class="search__head__filter">
-            <button type="button" class="btn btn-sm btn-light-primary">Morceaux</button>
+  <perfect-scrollbar class="search__body">
+    <div class="mb-4">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <span class="search__title">Résultats</span>
+      </div>
+      <div class="row g-4 list">
+        <div class="alert alert-custom" *ngIf="results.length == 0">
+          Aucun résultat
         </div>
+        <div class="col-xl-3 col-md-4 col-sm-6" *ngFor="let song of results">
+          <div class="list__item">
+            <a (click)="routeToPage('/song/' + song.category + '/' + song.subcategory + '/' + song.id + '/view')" class="list__cover">
+              <img [src]="song.image" alt="Hey not me">
+            </a>
+            <div class="list__content">
+              <a (click)="routeToPage('/song/' + song.category + '/' + song.subcategory + '/' + song.id + '/view')" class="list__title text-truncate">{{song.title}}</a>
+              <p class="list__subtitle text-truncate">
+                {{song.artist}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <perfect-scrollbar class="search__body">
-        <div class="mb-4">
-            <div class="d-flex align-items-center justify-content-between mb-3">
-                <span class="search__title">Musiques</span>
-            </div>
-            <div class="row g-4 list">
-                <div class="col-xl-3 col-md-4 col-sm-6" *ngFor="let song of songs">
-                    <div class="list__item">
-                        <a (click)="routeToPage('/app/song/' + song.category + '/' + song.subcategory + '/' + song.id + '/view')" class="list__cover">
-                            <img [src]="song.image" alt="Hey not me">
-                        </a>
-                        <div class="list__content">
-                            <a (click)="routeToPage('/app/song/' + song.category + '/' + song.subcategory + '/' + song.id + '/view')" class="list__title text-truncate">{{song.title}}</a>
-                            <p class="list__subtitle text-truncate">
-                                <a (click)="routeToPage('/app/artist/1/details')">{{song.artist}}</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </perfect-scrollbar>
+  </perfect-scrollbar>
 </div>
 <!-- End:: search -->

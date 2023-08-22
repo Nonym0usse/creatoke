@@ -10,23 +10,24 @@ import {InterceptorService} from "../global/interceptor.service";
 
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class SearchService {
-  searchResults: any[] = [];
-    constructor(
-        private af: AngularFirestore,
-        private axiosInterceptorService: InterceptorService
-    ) { }
+  constructor(
+    private af: AngularFirestore,
+    private axiosInterceptorService: InterceptorService
+  ) { }
 
-
-    searchSong(title: string) {
-        this.af.collection('musics', ref => ref.where('title', '==', title)).valueChanges().subscribe((results: any[]) => {
-        this.searchResults = results;
-      });
+  //@ts-ignore
+  searchSong(term: string): Observable<any> {
+    if(term !== ""){
+      console.log(':(', term)
+      //@ts-ignore
+      return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + `/admin/searching/${term}`);
     }
+  }
 
-    previewSongs(limit): Promise<any> {
-        return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/admin/preview-searching/' + limit);
-    }
+  previewSongs(limit): Promise<any> {
+    return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/admin/preview-searching/' + limit);
+  }
 }

@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 // Modules
 import { AppRoutingModule } from './app-routing.module';
 import { PartialsModule } from './view/partials/partials.module';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 // Default component
 import { AppComponent } from './app.component';
@@ -15,7 +16,6 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
-import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 import { NgxPayPalModule } from 'ngx-paypal';
 import {LicenceComponent} from "./view/theme/licence/licence.component";
@@ -47,7 +47,7 @@ import { RefreshTokenService } from './core/services/global/refresh-token.servic
     NgxPayPalModule,
     // Modules
     PartialsModule,
-    CKEditorModule
+    CKEditorModule,
   ],
   providers: [{
     provide: RECAPTCHA_SETTINGS,

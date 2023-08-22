@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {LicenceService} from "../../../core/services/api/licence.service";
 import {CategoryService} from "../../../core/services/api/category.service";
 
@@ -18,6 +17,7 @@ export class LicenceComponent implements OnInit {
 
   public config = {
     language: 'fr',
+
   };
   //@ts-ignore
   public editorData: any;
@@ -52,7 +52,7 @@ export class LicenceComponent implements OnInit {
       id: this.data.id,
       basic: this.editorData,
       premium: this.editorData2,
-      regular: this.editorData3,
+      base_plus: this.editorData3,
     }
     const entries = Object.entries(licenceData);
     const filteredEntries = entries.filter(([key, value]) => value !== '' && value !== undefined);

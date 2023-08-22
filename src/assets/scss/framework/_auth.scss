@@ -10,7 +10,6 @@
     @include before {
         @include fixed(top 0 left 0);
         @include size(50%, 100vh);
-        background-color: $primary;
         opacity: 0.05;
     }
 
