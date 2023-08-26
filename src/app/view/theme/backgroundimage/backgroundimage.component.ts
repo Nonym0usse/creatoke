@@ -34,7 +34,7 @@ export class BackgroundimageComponent implements OnInit {
   modifyImage(){
     this.isLoading = true;
     if(this.files !== undefined){
-      this.uploaderService.uploadFile(this.files).then(url => {
+      /*this.uploaderService.uploadFile(this.files).then(url => {
         this.imageForm.patchValue({ picture: url });
         this.categoryService.createBackground(this.imageForm.value).then((res) => {
           if(res.data == "OK"){
@@ -43,7 +43,7 @@ export class BackgroundimageComponent implements OnInit {
         }).catch((e) => alert(e))
       }).catch(error => {
         alert(error)
-      })
+      })*/
     }
   }
   async getBackground() {

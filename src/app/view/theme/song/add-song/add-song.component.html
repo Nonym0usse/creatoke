@@ -33,60 +33,88 @@
                                             placeholder="Titre de la chanson">
                                     </div>
                                     <div class="col-sm-12 mb-4">
-                                      <label class="form-label">Dans quelle catégorie ?</label>
-                                      <select class="form-select" formControlName="category"
+                                        <label class="form-label">Dans quelle catégorie ?</label>
+                                        <select class="form-select" formControlName="category"
                                             aria-label="Select category">
                                             <option value="" selected disabled hidden>Merci de choisir</option>
-                                            <option  value="chansons">Publier dans les chansons à chanter</option>
-                                            <option  value="chansons-cherche-texte">Publier dans les chansons cherche texte</option>
-                                            <option  value="instrumentaux">Publier dans les instrumentaux</option>
-                                            <option  value="youtubeurs">Publier dans les youtubeurs</option>
-                                      </select>
+                                            <option value="chansons">Publier dans les chansons à chanter</option>
+                                            <option value="chansons-cherche-auteur">Publier dans les chansons cherche
+                                                auteur</option>
+                                            <option value="instrumentaux">Publier dans les instrumentaux</option>
+                                            <option value="youtubeurs">Publier dans les youtubeurs</option>
+                                        </select>
                                     </div>
-                                  <div class="col-sm-12 mb-4">
-                                    <label class="form-label">Dans quelle sous-catégorie ?</label>
-                                    <select class="form-select" formControlName="subcategory"
+                                    <div class="col-sm-12 mb-4">
+                                        <label class="form-label">Dans quelle sous-catégorie ?</label>
+                                        <select class="form-select" formControlName="subcategory"
                                             aria-label="Select sub-category">
-                                      <option value="" selected disabled hidden>Merci de choisir</option>
-                                      <option *ngFor="let sub of subcategory"  value="{{sub?.title_fr}}">
-                                        Publier dans la sous-catégorie "{{sub.title_fr}}" -> (dans la catégorie {{sub.category}})</option>
-                                    </select>
-                                  </div>
+                                            <option value="" selected disabled hidden>Merci de choisir</option>
+                                            <option *ngFor="let sub of subcategory" value="{{sub?.title_fr}}">
+                                                Publier dans la sous-catégorie "{{sub.title_fr}}" -> (dans la catégorie
+                                                {{sub.category}})</option>
+                                        </select>
+                                    </div>
                                     <div class="col-12 mb-4">
-                                        <label for="song_file_1" class="form-label">Extrait de la chanson</label>
+                                        <label for="song_file_1" class="form-label">Chanson</label>
                                         <input type="file" id="song_file_1" class="form-control"
                                             (change)="onFileSelected($event, 'url')" multiple>
+                                        <div class="progress" [hidden]="urlProgress === 0">
+                                            <div class="progress-bar" role="progressbar" [style.width.%]="urlProgress"
+                                                [attr.aria-valuenow]="urlProgress" aria-valuemin="0"
+                                                aria-valuemax="100">
+                                                {{ urlProgress }}%
+                                            </div>
+                                        </div>
                                     </div>
-
+                                    <div class="col-12 mb-4">
+                                        <label for="song_file_5" class="form-label">Chanson au format wav (téléchargement)</label>
+                                        <input type="file" id="song_file_5" class="form-control"
+                                            (change)="onFileSelected($event, 'chanson_wav')" multiple>
+                                        <div class="progress" [hidden]="chanson_wavProgress === 0">
+                                            <div class="progress-bar" role="progressbar" [style.width.%]="chanson_wavProgress"
+                                                [attr.aria-valuenow]="chanson_wavProgress" aria-valuemin="0"
+                                                aria-valuemax="100">
+                                                {{ chanson_wavProgress }}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                        <label for="song_file_4" class="form-label">Creatoke</label>
+                                        <input type="file" id="song_file_4" class="form-control"
+                                            (change)="onFileSelected($event, 'creatoke')" multiple>
+                                        <div class="progress" [hidden]="creatokeProgress === 0">
+                                            <div class="progress-bar" role="progressbar" [style.width.%]="creatokeProgress"
+                                                [attr.aria-valuenow]="creatokeProgress" aria-valuemin="0"
+                                                aria-valuemax="100">
+                                                {{ creatokeProgress }}%
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="col-12 mb-4">
-                                      <label for="song_file_3" class="form-label">Morceau complet</label>
-                                        <input type="file" id="song_file_3" class="form-control"
-                                            (change)="onFileSelected($event, 'full_music')" multiple>
+                                        <label for="song_file_5" class="form-label">Creatoke au format wav (téléchargement)</label>
+                                        <input type="file" id="song_file_5" class="form-control"
+                                            (change)="onFileSelected($event, 'creatoke_wav')" multiple>
+                                        <div class="progress" [hidden]="urlProgress === 0">
+                                            <div class="progress-bar" role="progressbar" [style.width.%]="creatoke_wavProgress"
+                                                [attr.aria-valuenow]="creatoke_wavProgress" aria-valuemin="0"
+                                                aria-valuemax="100">
+                                                {{ creatoke_wavProgress }}%
+                                            </div>
+                                        </div>
                                     </div>
-
-                                  <div class="col-12 mb-4">
-                                    <label for="song_file_4" class="form-label">Creatoke</label>
-                                    <input type="file" id="song_file_4" class="form-control"
-                                           (change)="onFileSelected($event, 'full_creatoke')" multiple>
-                                  </div>
-
-                                  <div class="col-12 mb-4">
-                                    <label for="song_file_5" class="form-label">Creatoke au format wav</label>
-                                    <input type="file" id="song_file_5" class="form-control"
-                                           (change)="onFileSelected($event, 'wav')" multiple>
-                                  </div>
-
-                                  <div class="col-12 mb-4">
-                                    <label for="song_file_6" class="form-label">Creatoke au format mp3</label>
-                                    <input type="file" id="song_file_6" class="form-control"
-                                           (change)="onFileSelected($event, 'mp3')" multiple>
-                                  </div>
 
                                     <div class="col-12 mb-4">
                                         <label for="img" class="form-label">Image</label>
                                         <input type="file" id="img" class="form-control"
                                             (change)="onFileSelected($event, 'image')" multiple>
+                                        <div class="progress" [hidden]="urlProgress === 0">
+                                            <div class="progress-bar" role="progressbar" [style.width.%]="imageProgress"
+                                                [attr.aria-valuenow]="imageProgress" aria-valuemin="0"
+                                                aria-valuemax="100">
+                                                {{ imageProgress }}%
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="col-sm-6 mb-4">
@@ -112,14 +140,13 @@
                                             class="form-control" placeholder="Lyrics"></textarea>
                                     </div>
 
-
                                     <div class="col-12 mb-4">
                                         <div class="input-group">
                                             <span class="input-group-text">
                                                 <i class="ri-money-euro-circle-line"></i>
                                             </span>
                                             <input type="number" formControlName="price_base" class="form-control"
-                                                placeholder="Prix licence basique">
+                                                placeholder="Prix licence basique - chanson">
                                         </div>
                                     </div>
                                     <div class="col-12 mb-4">
@@ -128,7 +155,25 @@
                                                 <i class="ri-money-euro-circle-line"></i>
                                             </span>
                                             <input type="number" formControlName="price_premium" class="form-control"
-                                                placeholder="Prix licence basique plus">
+                                                placeholder="Prix licence basique plus - chanson">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="ri-money-euro-circle-line"></i>
+                                            </span>
+                                            <input type="number" formControlName="price_base" class="form-control"
+                                                placeholder="Prix licence basique - creatoke">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="ri-money-euro-circle-line"></i>
+                                            </span>
+                                            <input type="number" formControlName="price_premium" class="form-control"
+                                                placeholder="Prix licence basique plus - creatoke">
                                         </div>
                                     </div>
 

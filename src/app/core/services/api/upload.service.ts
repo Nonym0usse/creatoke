@@ -1,57 +1,38 @@
 import {Injectable} from '@angular/core';
-import {AngularFireStorage, AngularFireUploadTask} from "@angular/fire/compat/storage";
-import {combineLatest, finalize, map, Observable, tap} from "rxjs";
+import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService {
-  task: AngularFireUploadTask | undefined;
-  constructor(private storage: AngularFireStorage) { }
+    //      const ref = this.storage.ref(`songs/${id}/${file.name}`);
+  constructor(private http: HttpClient) { }
 
-  async uploadSong(files: any[]): Promise<string[]> {
-    const fileUrls: any = [];
-    const id = Math.random().toString(36).substring(2);
-    for (const file of files) {
+    uploadFile(file: File): Observable<{ downloadUrl: string, percentage: number }> {
+    const formData = new FormData();
+    formData.append('file', file);
 
-      const ref = this.storage.ref(`songs/${id}/${file.name}`);
-      const task = ref.put(file.file);
-
-      await new Promise<void>((resolve, reject) => {
-        task.snapshotChanges().toPromise().then((snapshot) => {
-          // @ts-ignore
-          if (snapshot.state === 'success') {
-            ref.getDownloadURL().toPromise().then((downloadUrl) => {
-              const data = {name: file.name, url: downloadUrl, firestoreID: id};
-              fileUrls.push(data);
-              resolve();
-            }, reject);
-          }
-        }, reject);
-      });
-    }
-
-    return fileUrls;
+    return this.http.post('/api/upload', formData, {
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      map(event => this.trackProgress(event))
+    );
   }
 
-  uploadFile(file: File): Promise<string> {
-    // create a unique ID for the file
-    const id = Math.random().toString(36).substring(2);
-    // create a reference to the storage location for the file
-    const ref = this.storage.ref(`category/${id}/${file.name}`);
-    // upload the file to the storage location
-    const task: AngularFireUploadTask = ref.put(file);
-
-    // return a promise that resolves to the download URL of the uploaded file
-    return new Promise<string>((resolve, reject) => {
-      task.snapshotChanges().pipe(
-        finalize(() => {
-          ref.getDownloadURL().subscribe(
-            url => resolve(url),
-            error => reject(error)
-          );
-        })
-      ).subscribe();
-    });
+  private trackProgress(event: HttpEvent<any>): { downloadUrl: string, percentage: number } {
+    if (event.type === HttpEventType.UploadProgress) {
+        //@ts-ignore
+      const percentage = Math.round((100 * event.loaded) / event.total);
+        //@ts-ignore
+      return { percentage, downloadUrl: null };
+    } else if (event.type === HttpEventType.Response) {
+      const downloadUrl = event.body.downloadUrl;
+      return { percentage: 100, downloadUrl };
+    }
+        //@ts-ignore
+    return { percentage: 0, downloadUrl: null };
   }
 }

@@ -47,14 +47,14 @@ export class CategoryComponent implements OnInit {
   }
 
   addCategory(){
-    if(this.categoryForm.get('title_fr')?.value){
+    /*if(this.categoryForm.get('title_fr')?.value){
       this.uploaderService.uploadFile(this.files).then(url => {
         this.categoryForm.patchValue({ picture: url });
         this.categoryService.createCategory(this.categoryForm.value).then(r => console.log(r));
       }).catch(error => {
         console.log(error)
       })
-    }
+    }*/
   }
 
   async getBackground() {

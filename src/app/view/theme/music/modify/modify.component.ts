@@ -62,7 +62,7 @@ export class ModifyComponent implements OnInit {
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const year = currentDate.getFullYear();
     const formattedDate = `${day}-${month}-${year}`;
-    this.uploadService.uploadSong(this.files).then((url) => {
+    /*this.uploadService.uploadSong(this.files).then((url) => {
       url.forEach((data) => {
         this.musicForm.patchValue({ [data['name']]: data['url'] });
         this.musicForm.patchValue({ id: random });
@@ -76,7 +76,7 @@ export class ModifyComponent implements OnInit {
         }
       }
       this.songService.modifySong(this.musicForm.value).catch((success) => console.log(success))
-    });
+    });*/
   }
 
   updateForm(e) {

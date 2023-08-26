@@ -5,6 +5,8 @@ import { Observable } from "rxjs";
 import { UploadService } from "../../../../core/services/api/upload.service";
 import { SongService } from "../../../../core/services/api/song.service";
 import { CategoryService } from "../../../../core/services/api/category.service";
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'app-add-song',
@@ -15,8 +17,12 @@ export class AddSongComponent implements OnInit {
     subcategory: any = [];
     files: any = [];
     picturebackground: any;
-
-    constructor(private uploadService: UploadService, private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService) {
+    urlProgress: number = 0;
+    chanson_wavProgress: number = 0;
+    creatoke_wavProgress: number = 0;
+    creatokeProgress: number = 0;
+    imageProgress: number = 0;
+    constructor(private uploadService: UploadService, private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private storage: AngularFireStorage) {
 
         this.musicForm = this.fb.group({
             title: [''],
@@ -39,59 +45,62 @@ export class AddSongComponent implements OnInit {
         });
     }
 
-    onFileSelected(event: any, fileName: string) {
-        const file: File = event.target.files[0];
-        if (fileName === 'url') {
-            this.files.push({ name: 'url', file: file });
-        } else if (fileName === 'full_music') {
-            this.files.push({ name: 'full_music', file: file });
-        } else if (fileName == "image") {
-            this.files.push({ name: 'image', file: file });
-        } else if (fileName == "wav") {
-          this.files.push({ name: 'wav', file: file });
-        } else if (fileName == "mp3") {
-          this.files.push({ name: 'mp3', file: file });
-        } else if (fileName == "full_creatoke") {
-          this.files.push({ name: 'full_creatoke', file: file });
-        } else {
-            this.files.push([]);
+    onFileSelected(event: any, fileType: string) {
+        const file = event.target.files[0];
+        if (file) {
+            this.startUpload(file, fileType);
+        }else{
+            console.log(':(')
         }
     }
 
+
     async getBackground() {
-      this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
+        this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
     }
 
     addMusic(): void {
-      const currentDate = new Date();
-      const random = Math.floor((Math.random() * 100000) + 1);
+        const currentDate = new Date();
+        const random = Math.floor((Math.random() * 100000) + 1);
         const day = String(currentDate.getDate()).padStart(2, '0');
         const month = String(currentDate.getMonth() + 1).padStart(2, '0');
         const year = currentDate.getFullYear();
         const formattedDate = `${day}-${month}-${year}`;
-        this.uploadService.uploadSong(this.files).then((url) => {
-            url.forEach((data) => {
-                this.musicForm.patchValue({ [data['name']]: data['url'] });
-                this.musicForm.patchValue({ id: random });
-                this.musicForm.patchValue({ created_at: formattedDate });
-            })
-          for (const key in this.musicForm.value) {
+        for (const key in this.musicForm.value) {
             if (this.musicForm.value.hasOwnProperty(key)) {
-              if (this.musicForm.value[key] === null || this.musicForm.value[key] === undefined || this.musicForm.value[key] === '') {
-                  if(this.musicForm.value['image'] == null){
-                    this.musicForm.value['image'] = "https://placehold.co/600x400";
-                  }else{
-                    this.musicForm.value[key] = 'vide';
-                  } // Replace with the desired value
-              }
+                if (this.musicForm.value[key] === null || this.musicForm.value[key] === undefined || this.musicForm.value[key] === '') {
+                    if (this.musicForm.value['image'] == null) {
+                        this.musicForm.value['image'] = "https://placehold.co/600x400";
+                    } else {
+                        this.musicForm.value[key] = 'vide';
+                    } // Replace with the desired value
+                }
             }
-          }
-            this.songService.createSong(this.musicForm.value).catch((success) => console.log(success))
-        });
+        }
+        this.songService.createSong(this.musicForm.value).catch((success) => console.log(success))
     }
 
     ngOnInit(): void {
         this.categoryService.getSubCategory().then((data) => { this.subcategory = data.data; });
         this.getBackground();
+    }
+
+    startUpload(file: File, fileType: string) {
+        const filePath = `uploads/${file.name}`;
+        const task: AngularFireUploadTask = this.storage.upload(filePath, file);
+        const progressProperty = fileType + 'Progress';
+        this[progressProperty] = 0;
+
+        //@ts-ignore
+        task.percentageChanges().subscribe((progress: number) => {
+            this[progressProperty] = progress.toFixed(2);
+        });
+
+        task.snapshotChanges().pipe(
+            finalize(() => {
+                // Handle completion and download URL
+                // Update corresponding property based on fileType
+            })
+        ).subscribe();
     }
 }

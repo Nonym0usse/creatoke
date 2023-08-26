@@ -44,8 +44,8 @@ export class MusicComponent implements OnInit {
       case "youtubeurs":
         this.title = "Youtubeurs";
         break
-      case "chansons-cherche-texte":
-        this.title = "Chansons cherche texte";
+      case "chansons-cherche-auteur":
+        this.title = "Chansons cherche auteur";
         break
       default:
         this.title = "Musiques"

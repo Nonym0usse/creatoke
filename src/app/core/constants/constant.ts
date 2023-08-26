@@ -26,9 +26,9 @@ export class Constant {
       auth: false,
     },
     {
-      name: 'Chansons cherche texte',
+      name: 'Chansons cherche auteur',
       icon: '<i class="ri-disc-line fs-5"></i>',
-      link: '/song/chansons-cherche-texte',
+      link: '/song/chansons-cherche-auteur',
       auth: false,
     },
     {
