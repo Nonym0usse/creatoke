@@ -1,16 +1,15 @@
-<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<!-- Hero -->
 <div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
-<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<!-- Start:: under hero -->
 <div class="under-hero container">
-
-    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <!-- Start:: section -->
     <div class="section">
         <div class="row">
             <div class="col-xl-12 col-md-10 mx-auto">
                 <div class="card">
                     <div class="card-header pb-0">
-                        <!-- Start:: mat tabs [[ Find at scss/components/nav.scss ]] -->
+                        <!-- Start:: mat tabs -->
                         <div class="mat-tabs" appTabs>
                             <ul class="nav nav-tabs" id="add_music" role="tablist">
                                 <li class="nav-item" role="presentation">
@@ -18,7 +17,7 @@
                                         data-bs-target="#music_pane" type="button" role="tab" aria-controls="music_pane"
                                         aria-selected="true">Ajouter une chanson</button>
                                 </li>
-
+                                <!-- Add more tabs if needed -->
                             </ul>
                         </div>
                         <!-- End:: mat tabs -->
@@ -27,7 +26,7 @@
                         <div class="tab-content" id="add_music_content">
                             <div class="tab-pane fade show active" id="music_pane" role="tabpanel"
                                 aria-labelledby="music" tabindex="0">
-                                <form action="#" class="row" [formGroup]="musicForm">
+                                <form [formGroup]="musicForm" (ngSubmit)="addMusic()">
                                     <div class="col-12 mb-4">
                                         <input type="text" formControlName="title" class="form-control"
                                             placeholder="Titre de la chanson">
@@ -51,30 +50,33 @@
                                             <option value="" selected disabled hidden>Merci de choisir</option>
                                             <option *ngFor="let sub of subcategory" value="{{sub?.title_fr}}">
                                                 Publier dans la sous-catégorie "{{sub.title_fr}}" -> (dans la catégorie
-                                                {{sub.category}})</option>
+                                                {{sub.category}})
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="col-12 mb-4">
                                         <label for="song_file_1" class="form-label">Chanson</label>
                                         <input type="file" id="song_file_1" class="form-control"
                                             (change)="onFileSelected($event, 'url')" multiple>
-                                        <div class="progress" [hidden]="urlProgress === 0">
-                                            <div class="progress-bar" role="progressbar" [style.width.%]="urlProgress"
-                                                [attr.aria-valuenow]="urlProgress" aria-valuemin="0"
-                                                aria-valuemax="100">
-                                                {{ urlProgress }}%
+                                        <div class="progress" [hidden]="progress['url'] === undefined">
+                                            <div class="progress-bar" role="progressbar"
+                                                [style.width.%]="progress['url']" [attr.aria-valuenow]="progress['url']"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{ progress['url'] }}%
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 mb-4">
-                                        <label for="song_file_5" class="form-label">Chanson au format wav (téléchargement)</label>
+                                        <label for="song_file_5" class="form-label">Chanson au format wav
+                                            (téléchargement)</label>
                                         <input type="file" id="song_file_5" class="form-control"
                                             (change)="onFileSelected($event, 'chanson_wav')" multiple>
-                                        <div class="progress" [hidden]="chanson_wavProgress === 0">
-                                            <div class="progress-bar" role="progressbar" [style.width.%]="chanson_wavProgress"
-                                                [attr.aria-valuenow]="chanson_wavProgress" aria-valuemin="0"
+                                        <div class="progress" [hidden]="progress['chanson_wav'] === undefined">
+                                            <div class="progress-bar" role="progressbar"
+                                                [style.width.%]="progress['chanson_wav']"
+                                                [attr.aria-valuenow]="progress['chanson_wav']" aria-valuemin="0"
                                                 aria-valuemax="100">
-                                                {{ chanson_wavProgress }}%
+                                                {{ progress['chanson_wav'] }}%
                                             </div>
                                         </div>
                                     </div>
@@ -82,24 +84,27 @@
                                         <label for="song_file_4" class="form-label">Creatoke</label>
                                         <input type="file" id="song_file_4" class="form-control"
                                             (change)="onFileSelected($event, 'creatoke')" multiple>
-                                        <div class="progress" [hidden]="creatokeProgress === 0">
-                                            <div class="progress-bar" role="progressbar" [style.width.%]="creatokeProgress"
-                                                [attr.aria-valuenow]="creatokeProgress" aria-valuemin="0"
+                                        <div class="progress" [hidden]="progress['creatoke'] === undefined">
+                                            <div class="progress-bar" role="progressbar"
+                                                [style.width.%]="progress['creatoke']"
+                                                [attr.aria-valuenow]="progress['creatoke']" aria-valuemin="0"
                                                 aria-valuemax="100">
-                                                {{ creatokeProgress }}%
+                                                {{ progress['creatoke'] }}%
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-12 mb-4">
-                                        <label for="song_file_5" class="form-label">Creatoke au format wav (téléchargement)</label>
+                                        <label for="song_file_5" class="form-label">Creatoke au format wav
+                                            (téléchargement)</label>
                                         <input type="file" id="song_file_5" class="form-control"
                                             (change)="onFileSelected($event, 'creatoke_wav')" multiple>
-                                        <div class="progress" [hidden]="urlProgress === 0">
-                                            <div class="progress-bar" role="progressbar" [style.width.%]="creatoke_wavProgress"
-                                                [attr.aria-valuenow]="creatoke_wavProgress" aria-valuemin="0"
+                                        <div class="progress" [hidden]="progress['creatoke_wav'] === undefined">
+                                            <div class="progress-bar" role="progressbar"
+                                                [style.width.%]="progress['creatoke_wav']"
+                                                [attr.aria-valuenow]="progress['creatoke_wav']" aria-valuemin="0"
                                                 aria-valuemax="100">
-                                                {{ creatoke_wavProgress }}%
+                                                {{ progress['creatoke_wav'] }}%
                                             </div>
                                         </div>
                                     </div>
@@ -108,24 +113,25 @@
                                         <label for="img" class="form-label">Image</label>
                                         <input type="file" id="img" class="form-control"
                                             (change)="onFileSelected($event, 'image')" multiple>
-                                        <div class="progress" [hidden]="urlProgress === 0">
-                                            <div class="progress-bar" role="progressbar" [style.width.%]="imageProgress"
-                                                [attr.aria-valuenow]="imageProgress" aria-valuemin="0"
+                                        <div class="progress" [hidden]="progress['image'] === undefined">
+                                            <div class="progress-bar" role="progressbar"
+                                                [style.width.%]="progress['image']"
+                                                [attr.aria-valuenow]="progress['image']" aria-valuemin="0"
                                                 aria-valuemax="100">
-                                                {{ imageProgress }}%
+                                                {{ progress['image'] }}%
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 mb-4">
+                                    <div class="col-sm-12 mb-4">
                                         <input type="text" class="form-control" formControlName="artist"
                                             placeholder="Artiste">
                                     </div>
-                                    <div class="col-sm-6 mb-4">
+                                    <div class="col-sm-12 mb-4">
                                         <input type="text" class="form-control" formControlName="youtubeURL"
                                             placeholder="Youtube URL">
                                     </div>
-                                    <div class="col-sm-6 mb-4">
+                                    <div class="col-sm-12 mb-4">
                                         <input type="text" class="form-control" formControlName="spotifyURL"
                                             placeholder="Spotify URL">
                                     </div>
@@ -140,57 +146,56 @@
                                             class="form-control" placeholder="Lyrics"></textarea>
                                     </div>
 
-                                    <div class="col-12 mb-4">
+                                    <div class="col-sm-12 mb-4">
                                         <div class="input-group">
                                             <span class="input-group-text">
                                                 <i class="ri-money-euro-circle-line"></i>
                                             </span>
-                                            <input type="number" formControlName="price_base" class="form-control"
+                                            <input type="number" formControlName="price_base_chanson" class="form-control"
                                                 placeholder="Prix licence basique - chanson">
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-4">
+                                    <div class="col-sm-12 mb-4">
                                         <div class="input-group">
                                             <span class="input-group-text">
                                                 <i class="ri-money-euro-circle-line"></i>
                                             </span>
-                                            <input type="number" formControlName="price_premium" class="form-control"
+                                            <input type="number" formControlName="price_premium_chanson" class="form-control"
                                                 placeholder="Prix licence basique plus - chanson">
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-4">
+                                    <div class="col-sm-12 mb-4">
                                         <div class="input-group">
                                             <span class="input-group-text">
                                                 <i class="ri-money-euro-circle-line"></i>
                                             </span>
-                                            <input type="number" formControlName="price_base" class="form-control"
+                                            <input type="number" formControlName="price_base_creatoke" class="form-control"
                                                 placeholder="Prix licence basique - creatoke">
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-4">
+                                    <div class="col-sm-12 mb-4">
                                         <div class="input-group">
                                             <span class="input-group-text">
                                                 <i class="ri-money-euro-circle-line"></i>
                                             </span>
-                                            <input type="number" formControlName="price_premium" class="form-control"
+                                            <input type="number" formControlName="price_premium_creatoke" class="form-control"
                                                 placeholder="Prix licence basique plus - creatoke">
                                         </div>
                                     </div>
 
+                                    <div class="col-sm-12 mb-4">
+                                        <button class="btn btn-primary" style="min-width: 140px;" type="submit"
+                                            [disabled]="!musicForm.valid">Enregistrer</button>
+                                        <button class="btn btn-outline-secondary ms-2">Annuler</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer text-center">
-                        <button class="btn btn-primary" style="min-width: 140px;" (click)="addMusic()"
-                            [disabled]="!musicForm.valid">Enregistrer</button>
-                        <button class="btn btn-outline-secondary ms-2">Annuler</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- End:: section -->
-
 </div>
 <!-- End:: under hero -->
