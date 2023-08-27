@@ -9,33 +9,34 @@
             </li>
         </ul>
         <!-- Dropdown options -->
-        <app-dropdown [classes]="'cover__options dropstart d-inline-flex ms-auto'" [data]="data" [viewPlay]="viewPlayButton"
-        [viewFavorite]="viewFavorite" [viewPlaylist]="viewPlaylist" [viewQueueOptions]="viewQueueOptions" *ngIf="viewDropdown"></app-dropdown>
+        <app-dropdown [classes]="'cover__options dropstart d-inline-flex ms-auto'" [data]="data"
+            [viewPlay]="viewPlayButton" [viewFavorite]="viewFavorite" [viewPlaylist]="viewPlaylist"
+            [viewQueueOptions]="viewQueueOptions" *ngIf="viewDropdown"></app-dropdown>
     </div>
 
     <div class="cover__image">
         <ng-container *ngIf="coverLink; else coverImage">
-            <a  [routerLink]="data.detailsRoute">
+            <a [routerLink]="'/song/' + data.category + '/' + data.subcategory + '/' + data.id + '/view'">
                 <img [src]="data.cover" [alt]="data.name">
             </a>
         </ng-container>
         <ng-template #coverImage>
-            <img [src]="data.image" [alt]="data.title">
+            <a [routerLink]="'/song/' + data.category + '/' + data.subcategory + '/' + data.id + '/view'">
+                <img [src]="data.image" [alt]="data.title">
+            </a>
         </ng-template>
 
-        <button type="button" class="btn btn-play btn-default btn-icon rounded-pill" (click)="play($event)" [attr.data-play-id]="data.id" *ngIf="viewPlayButton">
+        <button type="button" class="btn btn-play btn-default btn-icon rounded-pill" (click)="play($event)"
+            [attr.data-play-id]="data.id" *ngIf="viewPlayButton">
             <i class="ri-play-fill icon-play"></i>
             <i class="ri-pause-fill icon-pause"></i>
         </button>
     </div>
 
     <div class="cover__foot">
-        <a [routerLink]="data.detailsRoute" routerLinkActive="router-link-active"  class="cover__title text-truncate">{{data.title}}</a>
-        <p class="cover__subtitle text-truncate" *ngIf="data.artists">
-            <ng-container *ngFor="let artist of data.artists; last as isLast">
-                <a [routerLink]="'/app/artist/' + artist.id + '/details'">{{artist.name}}</a>{{!isLast ? ', ' : ''}}
-            </ng-container>
-        </p>
+        <a [routerLink]="'/song/' + data.category + '/' + data.subcategory + '/' + data.id + '/view'" routerLinkActive="router-link-active"
+            class="cover__title text-truncate">{{data.title}}</a>
+        <p class="cover__subtitle text-truncate" >{{data.artist}}</p>
     </div>
 </div>
 <!-- End:: cover -->

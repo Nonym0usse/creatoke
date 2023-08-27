@@ -79,6 +79,7 @@ export class MusicViewComponent implements OnInit {
 
 
   openModal(price, licence_content, licence_name, title) {
+    console.log(licence_content)
     this.display = "block";
     this.payPalConfig = {
       currency: "EUR",

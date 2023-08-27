@@ -38,7 +38,7 @@
                    tabindex="0">
                 <form action="#" class="row">
                   <div class="col-12 mb-4">
-                    <ckeditor [editor]="Editor" [data]="data.basic" [config]="config" (change)="onChange($event)"></ckeditor>
+                    <ckeditor [editor]="Editor" [data]="data?.basic" [config]="config" (change)="onChange($event)"></ckeditor>
                   </div>
 
                 </form>
@@ -46,7 +46,7 @@
               <div class="tab-pane fade" id="licence_deux" role="tabpanel" aria-labelledby="licence2" tabindex="0">
                <form action="#" class="row">
                   <div class="col-12 mb-4">
-                    <ckeditor [editor]="Editor2" [data]="data.base_plus" [config]="config" (change)="onChange2($event)"></ckeditor>
+                    <ckeditor [editor]="Editor2" [data]="data?.base_plus" [config]="config" (change)="onChange2($event)"></ckeditor>
                   </div>
 
                 </form>
@@ -54,7 +54,7 @@
               <div class="tab-pane fade" id="licence_trois" role="tabpanel" aria-labelledby="licence3" tabindex="0">
                 <form action="#" class="row">
                   <div class="col-12 mb-4">
-                    <ckeditor [editor]="Editor3" [data]="data.premium" [config]="config" (change)="onChange3($event)"></ckeditor>
+                    <ckeditor [editor]="Editor3" [data]="data?.premium" [config]="config" (change)="onChange3($event)"></ckeditor>
                   </div>
 
                 </form>

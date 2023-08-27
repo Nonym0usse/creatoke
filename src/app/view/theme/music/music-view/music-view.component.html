@@ -30,20 +30,18 @@
               {{category.name}}{{!isLast ? ', ' : ''}}
             </ng-container>
           </li>
-          <li *ngIf="song?.duration">{{song?.duration}}</li>
-          <li *ngIf="song?.release">{{song?.release}}</li>
-          <li *ngIf="song?.company">{{song?.company}}</li>
+        
         </ul>
         <!-- End:: info list -->
         <div class="mb-4">
           <p class="mb-2">Interprète:
             <span class="text-dark fw-medium">
-              {{song.artist}}
+              {{song?.artist}}
             </span>
           </p>
           <p class="mb-4">Description:
             <span class="text-dark fw-medium" style="word-wrap: break-word;">
-              {{song.description}}
+              {{song?.description}}
             </span>
 
           </p>
@@ -95,14 +93,14 @@
     </div>
   </div>
   <!-- End:: section -->
-  <div class="section" *ngIf="song.spotifyURL">
+  <div class="section" *ngIf="song?.spotifyURL">
     <div class="section__head">
       <h3 class="mb-0">Spotify</h3>
     </div>
     <div class="plan bg-light large">
       <div class="plan__data">
         <div class="iframe-container">
-          <div [innerHTML]="sanitizeHtml(song.spotifyURL)"></div>
+          <div [innerHTML]="sanitizeHtml(song?.spotifyURL)"></div>
       </div>
     </div>
   </div>
@@ -130,7 +128,7 @@
           </div>
           <div class="card-footer pb-4 pb-sm-0">
             <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song.price_base_chanson}}€</span></div>
-            <button type="button" (click)="openModal(song.price_base_chanson, licences['basic'], 'licence-base-chanson', song.title)" class="btn btn-cutsom w-100">Choisir</button>
+            <button type="button" (click)="openModal(song.price_base_chanson, licences[0]['basic'], 'licence-base-chanson', song.title)" class="btn btn-cutsom w-100">Choisir</button>
           </div>
         </div>
 
@@ -149,7 +147,7 @@
           </div>
           <div class="card-footer pb-4 pb-sm-0">
             <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song.price_premium_chanson}}€</span></div>
-            <button type="button" (click)="openModal(song.price_premium_chanson, licences['base_plus'], 'licence-base-plus-chanson', song.title)" class="btn btn-cutsom w-100">Choisir</button>
+            <button type="button" (click)="openModal(song.price_premium_chanson, licences[0]['base_plus'], 'licence-base-plus-chanson', song.title)" class="btn btn-cutsom w-100">Choisir</button>
           </div>
         </div>
         <div class="card plan__col">
@@ -195,7 +193,7 @@
             </div>
             <div class="card-footer pb-4 pb-sm-0">
               <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song.price_base_creatoke}}€</span></div>
-              <button type="button" (click)="openModal(song.price_base, licences['basic'], 'licence-base-creatoke', song.title)" class="btn btn-cutsom w-100">Choisir</button>
+              <button type="button" (click)="openModal(song.price_base_creatoke, licences[0]['basic'], 'licence-base-creatoke', song.title)" class="btn btn-cutsom w-100">Choisir</button>
             </div>
           </div>
 
@@ -214,7 +212,7 @@
             </div>
             <div class="card-footer pb-4 pb-sm-0">
               <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song.price_premium_creatoke}}€</span></div>
-              <button type="button" (click)="openModal(song.price_premium, licences['base_plus'], 'licence-base-plus-creatoke', song.title)" class="btn btn-cutsom w-100">Choisir</button>
+              <button type="button" (click)="openModal(song.price_premium_creatoke, licences[0]['base_plus'], 'licence-base-plus-creatoke', song.title)" class="btn btn-cutsom w-100">Choisir</button>
             </div>
           </div>
           <div class="card plan__col">

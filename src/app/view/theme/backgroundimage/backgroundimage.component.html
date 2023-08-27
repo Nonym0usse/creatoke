@@ -4,47 +4,54 @@
 <!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="under-hero container">
 
-  <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
-  <div class="section">
-    <div class="row">
-      <div class="col-xl-12 col-md-10 mx-auto">
-        <div class="card">
-          <div class="card-header pb-0">
-            <!-- Start:: mat tabs [[ Find at scss/components/nav.scss ]] -->
-            <div class="mat-tabs" appTabs>
-              <ul class="nav nav-tabs" id="add_music" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="licence1" data-bs-toggle="tab" data-bs-target="#licence_un"
-                          type="button" role="tab" aria-controls="licence_un" aria-selected="true">Ajouter une image de fond
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <!-- End:: mat tabs -->
-          </div>
-          <div class="card-body">
-            <div class="tab-content" id="add_music_content">
-              <div class="tab-pane fade show active" id="licence_un" role="tabpanel" aria-labelledby="licence1"
-                   tabindex="0">
-                <form action="#" class="row" [formGroup]="imageForm">
-                  <div class="col-12 mb-4">
-                    <input type="file" class="form-control" (change)="onFileSelected($event)">
-                  </div>
-                  <div class="card-footer text-center">
-                    <div class="spinner-border text-success" role="status" *ngIf="isLoading">
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="row">
+            <div class="col-xl-12 col-md-10 mx-auto">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <!-- Start:: mat tabs [[ Find at scss/components/nav.scss ]] -->
+                        <div class="mat-tabs" appTabs>
+                            <ul class="nav nav-tabs" id="add_music" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="licence1" data-bs-toggle="tab"
+                                        data-bs-target="#licence_un" type="button" role="tab" aria-controls="licence_un"
+                                        aria-selected="true">Ajouter une image de fond
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- End:: mat tabs -->
                     </div>
-                    <button class="btn btn-cutsom" style="min-width: 140px;" (click)="modifyImage()"
-                            [disabled]="!imageForm.valid">Ajouter image</button>
-                    <button class="btn btn-outline-secondary ms-2">Cancel</button>
-                  </div>
-                </form>
-              </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="add_music_content">
+                            <div class="tab-pane fade show active" id="licence_un" role="tabpanel"
+                                aria-labelledby="licence1" tabindex="0">
+                                <form action="#" class="row" [formGroup]="imageForm">
+                                    <div class="col-12 mb-4">
+                                        <input type="file" class="form-control" (change)="onFileSelected($event, 'picture')">
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <div class="progress" [hidden]="progress['picture'] === undefined">
+                                            <div class="progress-bar" role="progressbar"
+                                                [style.width.%]="progress['picture']"
+                                                [attr.aria-valuenow]="progress['picture']" aria-valuemin="0"
+                                                aria-valuemax="100">
+                                                {{ progress['picture'] }}%
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-cutsom" style="min-width: 140px;" (click)="modifyImage()"
+                                            [disabled]="!imageForm.valid">Ajouter image</button>
+                                        <button class="btn btn-outline-secondary ms-2">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  <!-- End:: section -->
+    <!-- End:: section -->
 
 </div>

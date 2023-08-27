@@ -57,7 +57,7 @@ export class LicenceComponent implements OnInit {
     const entries = Object.entries(licenceData);
     const filteredEntries = entries.filter(([key, value]) => value !== '' && value !== undefined);
     const result = Object.fromEntries(filteredEntries);
-    this.licenceService.modifyLicence(result).then(() => console.log('ok'))
+    this.licenceService.modifyLicence(result).then(() => alert('Licences modifiées'))
   }
   async getBackground() {
     this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });

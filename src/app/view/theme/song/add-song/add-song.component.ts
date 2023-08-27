@@ -16,7 +16,7 @@ export class AddSongComponent implements OnInit {
     subcategory: any = [];
     files: any = [];
     progress: { [key: string]: number } = {};
-    downloadUrls: { [key: string]: string } = {};
+    downloadUrls: { [key: string]: { url: string, fileName: string } } = {};
     picturebackground: any;
     constructor(private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private storage: AngularFireStorage) {
 
@@ -27,7 +27,7 @@ export class AddSongComponent implements OnInit {
             description: ['', Validators.required],
             price_base_creatoke: [''],
             price_premium_creatoke: [''],
-            price_base_chanson: ['', ],
+            price_base_chanson: ['',],
             price_premium_chanson: [''],
             image: [''],
             category: ['', Validators.required],
@@ -79,20 +79,34 @@ export class AddSongComponent implements OnInit {
             }
         }
         this.musicForm.patchValue({
-          title: this.musicForm.value['title'].toUpperCase()
+            title: this.musicForm.value['title'].toUpperCase()
         });
         const currentDate = new Date();
         this.musicForm.value['created_at'] = `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`;
-        this.musicForm.value['creatoke_wav'] = this.downloadUrls['creatoke_wav'];
-        this.musicForm.value['image'] = this.downloadUrls['image'];
-        this.musicForm.value['creatoke'] = this.downloadUrls['creatoke'];
-        this.musicForm.value['url'] = this.downloadUrls['url'];
+        const fields = [
+            'creatoke_wav',
+            'creatoke_mp3',
+            'chanson_mp3',
+            'chanson_wav',
+            'image',
+            'creatoke',
+            'url'
+        ];
+
+        fields.forEach(field => {
+            const urlKey = `${field}_url`;
+            const nameKey = `${field}_name`;
+
+            this.musicForm.value[field] = this.downloadUrls[field] ? this.downloadUrls[field].url : 'vide';
+            this.musicForm.value[nameKey] = this.downloadUrls[field] ? this.downloadUrls[field].fileName : 'vide';
+        });
+
 
         this.songService.createSong(this.musicForm.value).catch((success) => console.log(success));
     }
 
     startUpload(file: File, fileType: string): void {
-        const filePath = `category/${file.name}`;
+        const filePath = `songs/${file.name}`;
         const fileRef = this.storage.ref(filePath);
 
         const task: AngularFireUploadTask = this.storage.upload(filePath, file);
@@ -106,14 +120,17 @@ export class AddSongComponent implements OnInit {
         task.snapshotChanges().pipe(
             finalize(() => {
                 fileRef.getDownloadURL().subscribe((url: string) => {
-                    this.handleDownloadURL(url, fileType);
+                    this.handleDownloadURL(url, fileType, file.name);
                 });
             })
         ).subscribe();
     }
 
-    handleDownloadURL(url: string, fileType: string): void {
-        this.downloadUrls[fileType] = url;
+    handleDownloadURL(url: string, fileType: string, fileName: string): void {
+        this.downloadUrls[fileType] = {
+            url: url,
+            fileName: fileName
+        };
     }
 }
 
