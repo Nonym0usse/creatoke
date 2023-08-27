@@ -78,7 +78,7 @@ export class MusicViewComponent implements OnInit {
   }
 
 
-  openModal(price, licence_type, title) {
+  openModal(price, licence_content, licence_name, title) {
     this.display = "block";
     this.payPalConfig = {
       currency: "EUR",
@@ -118,18 +118,21 @@ export class MusicViewComponent implements OnInit {
         const now = new Date();
         const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
         const year = now.getFullYear();
+
+
         const customData = {
           price: price,
-          licence_type: licence_type === 'premium' ? this.licences[0].premium : licence_type === "base_plus" ? this.licences[0].base_plus : this.licences[0].basic,
+          licence_name: licence_name,
+          licence_type: licence_content,
           current_year: year,
           current_month: month,
           email_client: this.inputForm.get('inputField')?.value,
           titre_chanson: this.song.title,
           image_chanson: this.song.image,
-          licence_name: licence_type,
-          type_chanson: this.song.category == "chansons" ? this.song.full_creatoke : this.song.full_music,
-          mp3: this.song.mp3,
-          wav: this.song.wav,
+          type_chanson:  licence_content === 'licence-base-plus-creatoke' ? this.song.creatoke_wav + '.wav' :
+            licence_content === 'licence-base-creatoke' ? this.song.creatoke_mp3 + '.mp3' :
+              licence_content === 'licence-de-base-chanson' ? this.song.chanson_mp3 + '.mp3' :
+                this.song.chanson_wav + '.wav',
           category: this.song.category,
           id_song: this.song.id
         }
@@ -171,8 +174,7 @@ export class MusicViewComponent implements OnInit {
     this.songService.getSongByID(id).then(response => {
       this.song = response.data;
 
-      this.audioElement = new Audio(this.song.full_music);
-      this.audioElementCreatoke = new Audio(this.song.full_creatoke);
+      this.audioElement = new Audio(this.song.creatoke);
     });
   }
 
@@ -207,18 +209,5 @@ export class MusicViewComponent implements OnInit {
     };
   }
 
-  toggleAudioCreatoke() {
-    if (this.isPlayingCreatoke) {
-      this.audioElementCreatoke.pause();
-      this.isPlayingCreatoke = false;
-    } else {
-      this.audioElementCreatoke.play();
-      this.isPlayingCreatoke = true;
-    }
-
-    this.audioElementCreatoke.onended = () => {
-      this.isPlayingCreatoke = false;
-    };
-  }
 
 }

@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
     this.searchTermChanged.pipe(
       debounceTime(1000), // Adjust the debounce time in milliseconds
       distinctUntilChanged(), // Ensure that the search term has changed
-      switchMap(newSearchTerm => this.searchService.searchSong(newSearchTerm))
+      switchMap(newSearchTerm => this.searchService.searchSong(newSearchTerm.toUpperCase()))
     ).subscribe(
       (response) => {
         console.log(response.data)

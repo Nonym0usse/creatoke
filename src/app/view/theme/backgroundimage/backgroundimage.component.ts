@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UploadService} from "../../../core/services/api/upload.service";
 import {CategoryService} from "../../../core/services/api/category.service";
 
 @Component({
@@ -16,7 +15,7 @@ export class BackgroundimageComponent implements OnInit {
   picturebackground: any;
 
   image = "";
-  constructor(private uploaderService: UploadService, private fb: FormBuilder, private categoryService: CategoryService) {
+  constructor(private fb: FormBuilder, private categoryService: CategoryService) {
     this.imageForm = this.fb.group({
       picture: ['']
     });

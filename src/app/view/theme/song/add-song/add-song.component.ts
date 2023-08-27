@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from "rxjs";
-import { UploadService } from "../../../../core/services/api/upload.service";
 import { SongService } from "../../../../core/services/api/song.service";
 import { CategoryService } from "../../../../core/services/api/category.service";
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
@@ -22,23 +21,25 @@ export class AddSongComponent implements OnInit {
     constructor(private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private storage: AngularFireStorage) {
 
         this.musicForm = this.fb.group({
-            title: [''],
-            artist: [''],
-            lyrics: [''],
-            description: [''],
+            title: ['', Validators.required],
+            artist: ['', Validators.required],
+            lyrics: ['', Validators.required],
+            description: ['', Validators.required],
             price_base_creatoke: [''],
             price_premium_creatoke: [''],
-            price_base_chanson: [''],
+            price_base_chanson: ['', ],
             price_premium_chanson: [''],
             image: [''],
-            category: [''],
-            subcategory: [''],
+            category: ['', Validators.required],
+            subcategory: ['', Validators.required],
             created_at: [''],
             youtubeURL: [''],
             spotifyURL: [''],
             creatoke: [''],
             chanson_wav: [''],
             creatoke_wav: [''],
+            chanson_mp3: [''],
+            creatoke_mp3: [''],
             url: [''],
         });
     }
@@ -47,8 +48,6 @@ export class AddSongComponent implements OnInit {
         const file = event.target.files[0];
         if (file) {
             this.startUpload(file, fileType);
-        } else {
-            console.log(':(')
         }
     }
 
@@ -76,13 +75,14 @@ export class AddSongComponent implements OnInit {
                     } else {
                         this.musicForm.value[key] = 'vide';
                     }
-                    if (key === 'title') {
-                        this.musicForm.value[key].toUpperCase();
-                    }
                 }
             }
         }
-
+        this.musicForm.patchValue({
+          title: this.musicForm.value['title'].toUpperCase()
+        });
+        const currentDate = new Date();
+        this.musicForm.value['created_at'] = `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`;
         this.musicForm.value['creatoke_wav'] = this.downloadUrls['creatoke_wav'];
         this.musicForm.value['image'] = this.downloadUrls['image'];
         this.musicForm.value['creatoke'] = this.downloadUrls['creatoke'];
@@ -92,7 +92,7 @@ export class AddSongComponent implements OnInit {
     }
 
     startUpload(file: File, fileType: string): void {
-        const filePath = `uploads/${file.name}`;
+        const filePath = `category/${file.name}`;
         const fileRef = this.storage.ref(filePath);
 
         const task: AngularFireUploadTask = this.storage.upload(filePath, file);

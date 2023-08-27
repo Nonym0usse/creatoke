@@ -41,8 +41,8 @@ export class CategoryService {
     return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/category/getAllCategory');
   }
 
-  deleteCategory(id): Promise<any>{
-    return this.axiosInterceptorService.getAxiosInstance().delete(ApiConstant.API + '/category/delete/' + id, {
+  deleteCategory(id, imagePath): Promise<any>{
+    return this.axiosInterceptorService.getAxiosInstance().post(ApiConstant.API + '/category/delete/', {id: id, picture: imagePath}, {
       headers: {
         Authorization: `Bearer ${this.firebaseToken}`
       }

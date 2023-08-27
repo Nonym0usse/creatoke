@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UploadService} from "../../../../core/services/api/upload.service";
 import {CategoryService} from "../../../../core/services/api/category.service";
 import {SongService} from "../../../../core/services/api/song.service";
 import {Subscription} from "rxjs";
@@ -22,7 +21,7 @@ export class ModifyComponent implements OnInit {
   song: any;
   picturebackground: any;
 
-  constructor(private uploadService: UploadService, private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private activatedRoute: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private activatedRoute: ActivatedRoute) {
     this.musicForm = this.fb.group({
       title: ['', Validators.required],
       artist: [''],
