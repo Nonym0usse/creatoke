@@ -28,7 +28,7 @@ import { TextsComponent } from './texts/texts.component';
 import { ManageComponent } from './music/manage/manage.component';
 import { ModifyComponent } from './music/modify/modify.component';
 import {RecaptchaModule} from "ng-recaptcha";
-import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
+import { CKEditorModule } from 'ngx-ckeditor';
 import {NgxPayPalModule} from "ngx-paypal";
 import {LicenceComponent} from "./licence/licence.component";
 import {AuthGuard} from "../../core/services/global/auth-guard.service";

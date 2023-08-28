@@ -1,8 +1,10 @@
+
+// Angular
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CategoryService} from "../../../../core/services/api/category.service";
-import {SongService} from "../../../../core/services/api/song.service";
-import {Subscription} from "rxjs";
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {Observable, Subscription} from "rxjs";
+import { SongService } from "../../../../core/services/api/song.service";
+import { CategoryService } from "../../../../core/services/api/category.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -11,82 +13,34 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./modify.component.scss']
 })
 export class ModifyComponent implements OnInit {
-
   musicForm: FormGroup;
   subcategory: any = [];
-  files: any = [];
-  isFormVisible = false;
-  isFormVisible2 = false;
-  routerSubscription: Subscription | undefined;
-  song: any;
   picturebackground: any;
-
+  song: any;
+  routerSubscription: Subscription | undefined;
   constructor(private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private activatedRoute: ActivatedRoute) {
+
     this.musicForm = this.fb.group({
-      title: ['', Validators.required],
-      artist: [''],
-      lyrics: [''],
-      description: [''],
-      price_base: [''],
-      price_base_plus: [''],
-      price_pro: [''],
-      image: [''],
-      category: [''],
-      created_at: [''],
-      youtubeURL: [''],
-      spotifyURL: [''],
-      full_creatoke: [''],
-      full_music: [''],
+      title: [this.song?.title || '', Validators.required],
+      artist: [this.song?.artist || '', Validators.required],
+      lyrics: [this.song?.lyrics || '', Validators.required],
+      description: [this.song?.description || '', Validators.required],
+      price_base_creatoke: [this.song?.price_base_creatoke || ''],
+      price_premium_creatoke: [this.song?.price_premium_creatoke || ''],
+      price_base_chanson: [this.song?.price_base_chanson || '' ],
+      price_premium_chanson: [this.song?.price_premium_chanson || ''],
+      category: [this.song?.category || '', Validators.required],
+      subcategory: [this.song?.subcategory || '', Validators.required],
+      youtubeURL: [this.song?.youtubeURL || ''],
+      spotifyURL: [this.song?.spotifyURL || ''],
+      id: [this.song?.id || '']
     });
   }
 
-  onFileSelected(event: any, fileName: string) {
-    const file: File = event.target.files[0];
-    if (fileName === 'url') {
-      this.files.push({ name: 'url', file: file });
-    } else if (fileName === 'full_creatoke') {
-      this.files.push({ name: 'full_creatoke', file: file });
-    } else if (fileName === 'full_music') {
-      this.files.push({ name: 'full_music', file: file });
-    } else if (fileName == "image") {
-      this.files.push({ name: 'image', file: file });
-    } else {
-      this.files.push([]);
-    }
-  }
-  addMusic(): void {
-    const currentDate = new Date();
-    const random = Math.floor((Math.random() * 100000) + 1);
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const year = currentDate.getFullYear();
-    const formattedDate = `${day}-${month}-${year}`;
-    /*this.uploadService.uploadSong(this.files).then((url) => {
-      url.forEach((data) => {
-        this.musicForm.patchValue({ [data['name']]: data['url'] });
-        this.musicForm.patchValue({ id: random });
-        this.musicForm.patchValue({ created_at: formattedDate });
-      })
-      for (const key in this.musicForm.value) {
-        if (this.musicForm.value.hasOwnProperty(key)) {
-          if (this.musicForm.value[key] === null || this.musicForm.value[key] === undefined || this.musicForm.value[key] === '') {
-            this.musicForm.value[key] = 'vide'; // Replace with the desired value
-          }
-        }
-      }
-      this.songService.modifySong(this.musicForm.value).catch((success) => console.log(success))
-    });*/
+  async getBackground() {
+    this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
   }
 
-  updateForm(e) {
-    if(e.target.value == "chanson"){
-      this.isFormVisible = !this.isFormVisible;
-      this.isFormVisible2 = this.isFormVisible2;
-    }else{
-      this.isFormVisible2 = !this.isFormVisible2;
-      this.isFormVisible = this.isFormVisible;
-    }
-  }
 
   ngOnInit(): void {
     this.routerSubscription = this.activatedRoute.params.subscribe(param => {
@@ -96,41 +50,47 @@ export class ModifyComponent implements OnInit {
     this.getBackground();
   }
 
-  getSongs(id: string): void {
-    this.songService.getSongByID(id).then(response => {
-      this.song = response.data;
-      // @ts-ignore
-      this.musicForm.get('title').setValue(this.song.title);
-      // @ts-ignore
-      this.musicForm.get('lyrics').setValue(this.song.lyrics);
-      // @ts-ignore
-      this.musicForm.get('description').setValue(this.song.description);
-      // @ts-ignore
-      this.musicForm.get('price_base').setValue(this.song.price_base);
-      // @ts-ignore
-      this.musicForm.get('price_base_plus').setValue(this.song.price_base_plus);
-      // @ts-ignore
-      this.musicForm.get('price_pro').setValue(this.song.price_pro);
-      // @ts-ignore
-      this.musicForm.get('image').setValue(this.song.image);
-      // @ts-ignore
-      this.musicForm.get('artist').setValue(this.song.artist);
-      // @ts-ignore
-      this.musicForm.get('category').setValue(this.song.category);
-      // @ts-ignore
-      this.musicForm.get('created_at').setValue(this.song.created_at);
-      // @ts-ignore
-      this.musicForm.get('youtubeURL').setValue(this.song.youtubeURL);
-      // @ts-ignore
-      this.musicForm.get('spotifyURL').setValue(this.song.spotifyURL);
-      // @ts-ignore
-      this.musicForm.get('full_creatoke').setValue(this.song.full_creatoke);
-      // @ts-ignore
-      this.musicForm.get('full_music').setValue(this.song.full_music);
-
+  getSongs(id){
+    this.songService.getSongByID(id).then((songs) => {
+      this.song = songs.data;
+      this.musicForm.patchValue({
+        title: this.song.title,
+        artist: this.song.artist,
+        lyrics: this.song.lyrics,
+        description: this.song.description,
+        price_base_creatoke: this.song?.price_base_creatoke,
+        price_premium_creatoke: this.song?.price_premium_creatoke,
+        price_base_chanson: this.song?.price_base_chanson,
+        price_premium_chanson: this.song?.price_premium_chanson,
+        category: this.song?.category,
+        subcategory: this.song?.subcategory,
+        youtubeURL: this.song?.youtubeURL,
+        spotifyURL: this.song?.spotifyURL,
+        id: this.song?.id
+      });
     });
   }
-  async getBackground() {
-    this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
+
+  modifyMusic(): void {
+    for (const key in this.musicForm.value) {
+      if (this.musicForm.value.hasOwnProperty(key)) {
+        if (
+          this.musicForm.value[key] === null ||
+          this.musicForm.value[key] === undefined ||
+          this.musicForm.value[key] === ''
+        ) {
+          if (key === 'image') {
+            this.musicForm.value['image'] = 'https://placehold.co/600x400';
+          } else {
+            this.musicForm.value[key] = 'vide';
+          }
+        }
+      }
+    }
+    this.musicForm.patchValue({
+      title: this.musicForm.value['title'].toUpperCase()
+    });
+
+    this.songService.modifySong(this.musicForm.value).catch((success) => console.log(success));
   }
 }

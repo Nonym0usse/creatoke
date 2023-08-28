@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 // Services
 import { SongService } from '../../../core/services/api/song.service';
 import { CategoryService } from "../../../core/services/api/category.service";
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 
 @Component({
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit {
 
     // Holds song data
     songs: any = [];
+    safeHtmlContent: SafeHtml | undefined;
     picturebackground: any;
     public text: any = {
         id: "",
@@ -22,7 +24,8 @@ export class HomeComponent implements OnInit {
 
     constructor(
         private songService: SongService,
-        private categorySerive: CategoryService
+        private categorySerive: CategoryService,
+        private sanitizer: DomSanitizer
     ) { }
 
     ngOnInit(): void {
@@ -40,7 +43,11 @@ export class HomeComponent implements OnInit {
     }
 
     getText(): void {
-        this.categorySerive.getLastText().then(r => this.text = { id: r.data[0]?.id, text: r.data[0]?.text });
+
+      this.categorySerive.getLastText().then(r => this.text = { id: r.data[0]?.id, text: r.data[0]?.text });
+      setTimeout(() => {
+        this.safeHtmlContent = this.sanitizer.bypassSecurityTrustHtml(this.text.text);
+      }, 1000)
     }
 
     async getBackground() {
