@@ -6,6 +6,7 @@ import { SongService } from "../../../../core/services/api/song.service";
 import { CategoryService } from "../../../../core/services/api/category.service";
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
+import { Ng2ImgMaxService } from 'ng2-img-max';
 
 @Component({
     selector: 'app-add-song',
@@ -18,7 +19,7 @@ export class AddSongComponent implements OnInit {
     progress: { [key: string]: number } = {};
     downloadUrls: { [key: string]: { url: string, fileName: string } } = {};
     picturebackground: any;
-    constructor(private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private storage: AngularFireStorage) {
+    constructor(private fb: FormBuilder, private ng2ImgMax: Ng2ImgMaxService, private categoryService: CategoryService, private songService: SongService, private storage: AngularFireStorage) {
 
         this.musicForm = this.fb.group({
             title: ['', Validators.required],
@@ -109,28 +110,53 @@ export class AddSongComponent implements OnInit {
         const filePath = `songs/${file.name}`;
         const fileRef = this.storage.ref(filePath);
 
-        const task: AngularFireUploadTask = this.storage.upload(filePath, file);
-        this.progress[fileType] = 0;
-        //@ts-ignore
-        task.percentageChanges().subscribe((progress: number) => {
-            //@ts-ignore
-            this.progress[fileType] = progress.toFixed(2);
-        });
+        if (fileType.startsWith('image/')) {
+            // Resize the image only if it's an image file
+            this.ng2ImgMax.resizeImage(file, 800, 600).subscribe(
+                (resizedImage: Blob) => {
+                    const task: AngularFireUploadTask = this.storage.upload(filePath, resizedImage);
+                    this.progress[fileType] = 0;
+                    //@ts-ignore
+                    task.percentageChanges().subscribe((progress: number) => {
+                        //@ts-ignore
+                        this.progress[fileType] = progress.toFixed(2);
+                    });
 
-        task.snapshotChanges().pipe(
-            finalize(() => {
-                fileRef.getDownloadURL().subscribe((url: string) => {
-                    this.handleDownloadURL(url, fileType, file.name);
-                });
-            })
-        ).subscribe();
+                    task.snapshotChanges().pipe(
+                        finalize(() => {
+                            fileRef.getDownloadURL().subscribe((url: string) => {
+                                this.handleDownloadURL(url, fileType, file.name);
+                            });
+                        })
+                    ).subscribe();
+                },
+                (error) => {
+                    console.log('Error resizing image:', error);
+                }
+            );
+        } else {
+            // Upload non-image files as-is
+            const task: AngularFireUploadTask = this.storage.upload(filePath, file);
+            this.progress[fileType] = 0;
+            //@ts-ignore
+            task.percentageChanges().subscribe((progress: number) => {
+                //@ts-ignore
+                this.progress[fileType] = progress.toFixed(2);
+            });
+
+            task.snapshotChanges().pipe(
+                finalize(() => {
+                    fileRef.getDownloadURL().subscribe((url: string) => {
+                        this.handleDownloadURL(url, fileType, file.name);
+                    });
+                })
+            ).subscribe();
+        }
     }
 
-    handleDownloadURL(url: string, fileType: string, fileName: string): void {
-        this.downloadUrls[fileType] = {
-            url: url,
-            fileName: fileName
-        };
+    handleDownloadURL(url: string, fileType: string, fileName: string) {
+        // Handle the download URL as needed
+        console.log('Download URL:', url);
     }
 }
 

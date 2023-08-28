@@ -16,7 +16,7 @@ export class Constant {
     {
       name: 'Chansons à chanter',
       icon: '<i class="ri-disc-line fs-5"></i>',
-      link: '/song/chansons',
+      link: '/song/chansons-a-chanter',
       auth: false,
     },
     {

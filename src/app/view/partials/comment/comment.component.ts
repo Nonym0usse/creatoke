@@ -30,7 +30,7 @@ export class CommentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.commentService.listComment(this.data.id).then((data) => this.comments = data.data);
+    this.commentService.listComment(this.data?.id).then((data) => this.comments = data.data);
   }
   // Inside your component class
   getStarsArray(ratings: number): number[] {
