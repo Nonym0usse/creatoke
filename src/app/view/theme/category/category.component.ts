@@ -69,26 +69,79 @@ export class CategoryComponent implements OnInit {
 
     protected readonly ClassicEditor = ClassicEditor;
 
-    startUpload(file: File, fileType: string): void {
-        const filePath = `category/${file.name}`;
-        const fileRef = this.storage.ref(filePath);
+  startUpload(file: File, fileType: string): void {
+    const filePath = `category/${file.name}`;
+    const fileRef = this.storage.ref(filePath);
 
-        const task: AngularFireUploadTask = this.storage.upload(filePath, file);
+    if (file.type.startsWith('image/')) {
+      this.resizeImage(file, 800, 600, (resizedImage) => {
+        const task: AngularFireUploadTask = this.storage.upload(filePath, resizedImage);
+        //@ts-ignore
         this.progress[fileType] = 0;
         //@ts-ignore
         task.percentageChanges().subscribe((progress: number) => {
-            //@ts-ignore
-            this.progress[fileType] = progress.toFixed(2);
+          //@ts-ignore
+          this.progress[fileType] = progress.toFixed(2);
         });
 
         task.snapshotChanges().pipe(
-            finalize(() => {
-                fileRef.getDownloadURL().subscribe((url: string) => {
-                    this.handleDownloadURL(url, fileType, file.name);
-                });
-            })
+          finalize(() => {
+            fileRef.getDownloadURL().subscribe((url: string) => {
+              this.handleDownloadURL(url, fileType, file.name);
+            });
+          })
         ).subscribe();
+      });
+    } else {
+      const task: AngularFireUploadTask = this.storage.upload(filePath, file);
+      this.progress[fileType] = 0;
+      //@ts-ignore
+      task.percentageChanges().subscribe((progress: number) => {
+        //@ts-ignore
+        this.progress[fileType] = progress.toFixed(2);
+      });
+
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url: string) => {
+            this.handleDownloadURL(url, fileType, file.name);
+          });
+        })
+      ).subscribe();
     }
+  }
+
+  resizeImage(file: File, maxWidth: number, maxHeight: number, callback: (Blob) => void): void {
+    const img = new Image();
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    img.onload = () => {
+      let width = img.width;
+      let height = img.height;
+
+      if (width > maxWidth) {
+        height *= maxWidth / width;
+        width = maxWidth;
+      }
+
+      if (height > maxHeight) {
+        width *= maxHeight / height;
+        height = maxHeight;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      ctx?.drawImage(img, 0, 0, width, height);
+
+      canvas.toBlob((blob) => {
+        callback(blob);
+      }, file.type);
+    };
+
+    img.src = URL.createObjectURL(file);
+  }
 
     handleDownloadURL(url: string, fileType: string, fileName: string): void {
         this.downloadUrls[fileType] = {
