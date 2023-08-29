@@ -98,7 +98,7 @@
     </div>
     <!-- End:: section -->
     <div class="section">
-        <ng-template *ngIf="song?.spotifyURL">
+        <div *ngIf="song.spotifyURL">
             <div class="section__head">
                 <h3 class="mb-0">Spotify</h3>
             </div>
@@ -109,7 +109,22 @@
                     </div>
                 </div>
             </div>
-        </ng-template>
+        </div>
+
+      <div *ngIf="song?.youtubeURL">
+        <div class="section__head">
+          <h3 class="mb-0">Youtube</h3>
+        </div>
+        <div class="plan bg-light large">
+          <div class="plan__data">
+            <div class="iframe-container">
+              <iframe width="640" height="315" [src]="videoUrl">
+            </iframe>
+
+            </div>
+          </div>
+        </div>
+      </div>
 
 
         <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->

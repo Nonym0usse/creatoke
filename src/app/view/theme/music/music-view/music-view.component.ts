@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SongService} from "../../../../core/services/api/song.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PlayerService} from "../../../../core/services/design/player.service";
 import {Subscription} from "rxjs";
 import {HttpStatus} from "../../../../core/constants/http-status";
-import {PlanService} from "../../../../core/services/api/plan.service";
 import {LicenceService} from "../../../../core/services/api/licence.service";
 import {ICreateOrderRequest} from "ngx-paypal";
 import {PaypalService} from "../../../../core/services/api/paypal.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
 import {CategoryService} from "../../../../core/services/api/category.service";
 
 @Component({
@@ -31,12 +30,10 @@ export class MusicViewComponent implements OnInit {
   inputForm: FormGroup;
   showLyrics: boolean = false;
   isPlaying: boolean = false;
-  isPlayingCreatoke: boolean = false;
-  isHidden: boolean = false;
   audioElement: any;
-  audioElementCreatoke: any;
   // Holds router subscription
   routerSubscription: Subscription | undefined;
+  videoUrl: SafeResourceUrl | undefined;
 
   constructor(
     private router: Router,
@@ -47,7 +44,7 @@ export class MusicViewComponent implements OnInit {
     private paypalService: PaypalService,
     private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
   ) {
 
     this.inputForm = this.formBuilder.group({
@@ -64,6 +61,7 @@ export class MusicViewComponent implements OnInit {
     this.getLicence();
     this.getBackground();
   }
+
 
   async getBackground() {
     this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
@@ -174,7 +172,7 @@ export class MusicViewComponent implements OnInit {
   getSongs(id: string): void {
     this.songService.getSongByID(id).then(response => {
       this.song = response.data;
-
+      this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.song?.youtubeURL}`);
       this.audioElement = new Audio(this.song.creatoke);
     });
   }
