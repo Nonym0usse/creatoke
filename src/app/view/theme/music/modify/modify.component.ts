@@ -91,6 +91,6 @@ export class ModifyComponent implements OnInit {
       title: this.musicForm.value['title'].toUpperCase()
     });
 
-    this.songService.modifySong(this.musicForm.value).catch((success) => alert("Chanson modifiée"));
+    this.songService.modifySong(this.musicForm.value).then((success) => alert("Chanson modifiée"));
   }
 }

@@ -55,7 +55,7 @@
                     </select>
                   </div>
                   <div class="col-12 mb-4">
-                    <label for="song_file_1" class="form-label">Chanson</label>
+                    <label for="song_file_1" class="form-label">Chanson (player client)</label>
                     <input type="file" id="song_file_1" class="form-control"
                            (change)="onFileSelected($event, 'url')" multiple>
                     <div class="progress" [hidden]="progress['url'] === undefined">
@@ -67,7 +67,7 @@
                     </div>
                   </div>
                   <div class="col-12 mb-4" [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'youtubeurs'">
-                    <label for="song_file_4" class="form-label">Creatoke</label>
+                    <label for="song_file_4" class="form-label">Creatoke (player client)</label>
                     <input type="file" id="song_file_4" class="form-control"
                            (change)="onFileSelected($event, 'creatoke')" multiple>
                     <div class="progress" [hidden]="progress['creatoke'] === undefined">
@@ -170,8 +170,7 @@
                                                   placeholder="Description"></textarea>
                   </div>
                   <div class="col-12 mb-4">
-                                        <textarea name="lyrics" id="lyrics" formControlName="lyrics" cols="30" rows="4"
-                                                  class="form-control" placeholder="Lyrics"></textarea>
+                    <ck-editor  formControlName="lyrics" skin="moono-lisa" language="fr" [fullPage]="false"></ck-editor>
                   </div>
 
                   <div class="col-sm-12 mb-4">
@@ -192,7 +191,7 @@
                              placeholder="Prix licence basique plus - chanson">
                     </div>
                   </div>
-                  <div class="col-sm-12 mb-4">
+                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'youtubeurs'">
                     <div class="input-group">
                                             <span class="input-group-text">
                                                 <i class="ri-money-euro-circle-line"></i>
@@ -201,7 +200,7 @@
                              placeholder="Prix licence basique - creatoke">
                     </div>
                   </div>
-                  <div class="col-sm-12 mb-4">
+                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'youtubeurs'">
                     <div class="input-group">
                                             <span class="input-group-text">
                                                 <i class="ri-money-euro-circle-line"></i>
