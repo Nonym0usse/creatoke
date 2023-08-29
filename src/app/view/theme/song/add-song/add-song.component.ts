@@ -92,7 +92,7 @@ export class AddSongComponent implements OnInit {
     }
 
     startUpload(file: File, fileType: string): void {
-        const filePath = `category/${file.name}`;
+        const filePath = `songs/${file.name}`;
         const fileRef = this.storage.ref(filePath);
 
         const task: AngularFireUploadTask = this.storage.upload(filePath, file);
