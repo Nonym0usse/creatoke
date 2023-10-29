@@ -23,7 +23,7 @@ export class AddSongComponent implements OnInit {
         this.musicForm = this.fb.group({
             title: ['', Validators.required],
             artist: ['', Validators.required],
-            lyrics: ['', Validators.required],
+            lyrics: [''],
             description: ['', Validators.required],
             price_base_creatoke: [''],
             price_premium_creatoke: [''],
@@ -84,6 +84,10 @@ export class AddSongComponent implements OnInit {
         const currentDate = new Date();
         this.musicForm.value['created_at'] = `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`;
         this.musicForm.value['creatoke_wav'] = this.downloadUrls['creatoke_wav'];
+        this.musicForm.value['creatoke_mp3'] = this.downloadUrls['creatoke_mp3'];
+        this.musicForm.value['chanson_mp3'] = this.downloadUrls['chanson_mp3'];
+        this.musicForm.value['chanson_wav'] = this.downloadUrls['chanson_wav'];
+
         this.musicForm.value['image'] = this.downloadUrls['image'];
         this.musicForm.value['creatoke'] = this.downloadUrls['creatoke'];
         this.musicForm.value['url'] = this.downloadUrls['url'];

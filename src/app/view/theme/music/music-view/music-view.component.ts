@@ -128,9 +128,9 @@ export class MusicViewComponent implements OnInit {
           email_client: this.inputForm.get('inputField')?.value,
           titre_chanson: this.song.title,
           image_chanson: this.song.image,
-          type_chanson:  licence_content === 'licence-base-plus-creatoke' ? this.song.creatoke_wav + '.wav' :
-            licence_content === 'licence-base-creatoke' ? this.song.creatoke_mp3 + '.mp3' :
-              licence_content === 'licence-de-base-chanson' ? this.song.chanson_mp3 + '.mp3' :
+          type_chanson:  licence_name === 'licence-base-plus-creatoke' ? this.song.creatoke_wav + '.wav' :
+          licence_name === 'licence-base-creatoke' ? this.song.creatoke_mp3 + '.mp3' :
+            licence_name === 'licence-base-chanson' ? this.song.chanson_mp3 + '.mp3' :
                 this.song.chanson_wav + '.wav',
           category: this.song.category,
           id_song: this.song.id
@@ -163,6 +163,23 @@ export class MusicViewComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.routerSubscription?.unsubscribe();
+  }
+
+  downloadSong(songUrl: string) {
+    const link = document.createElement('a');
+    link.href = songUrl;
+    link.target = '_blank'; // Open in a new tab or window
+    link.download = 'creatoke-free.mp3'; // Specify the filename here
+    link.style.display = 'none';
+
+    document.body.appendChild(link);
+    link.click();
+
+    // Delay to allow the browser to initiate the download
+    setTimeout(() => {
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(link.href);
+    }, 100);
   }
 
   /**

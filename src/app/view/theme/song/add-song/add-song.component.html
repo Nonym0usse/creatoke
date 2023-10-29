@@ -157,7 +157,7 @@
                   </div>
                   <div class="col-sm-12 mb-4">
                     <input type="text" class="form-control" formControlName="youtubeURL"
-                           placeholder="Youtube URL">
+                           placeholder="Youtube URL ex: (https://www.youtube.com/watch?v=Aq1NJxJZo6E) -> Mettre uniquement 'Aq1NJxJZo6E' ici ">
                   </div>
                   <div class="col-sm-12 mb-4">
                     <input type="text" class="form-control" formControlName="spotifyURL"
@@ -169,7 +169,7 @@
                                                   cols="30" rows="4" class="form-control"
                                                   placeholder="Description"></textarea>
                   </div>
-                  <div class="col-12 mb-4">
+                  <div class="col-12 mb-4" [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'youtubeurs'">
                     <ck-editor  formControlName="lyrics" skin="moono-lisa" language="fr" [fullPage]="false"></ck-editor>
                   </div>
 

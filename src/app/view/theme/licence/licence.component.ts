@@ -51,8 +51,8 @@ export class LicenceComponent implements OnInit {
     const licenceData = {
       id: this.data.id,
       basic: this.editorData,
-      premium: this.editorData2,
-      base_plus: this.editorData3,
+      base_plus: this.editorData2,
+      premium: this.editorData3,
     }
     const entries = Object.entries(licenceData);
     const filteredEntries = entries.filter(([key, value]) => value !== '' && value !== undefined);

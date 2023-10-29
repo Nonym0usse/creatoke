@@ -59,7 +59,8 @@
                                 </button>
                                 <span class="text-extrait">Écouter la chanson</span>
                             </div>
-                            <div class="chanson-player">
+                            <div class="chanson-player"
+                                *ngIf="song?.category == 'chansons-a-chanter' || song?.category == 'chansons-cherche-auteur'">
                                 <button type="button" class="btn btn-icon btn-player rounded-pill"
                                     (click)="toggleAudio()">
                                     <ng-container *ngIf="isPlaying; else pauseIcon">
@@ -69,8 +70,7 @@
                                         <i class="ri-play-fill icon-play"></i>
                                     </ng-template>
                                 </button>
-                                <span class="text-extrait">Écouter {{(song?.category === "instrumentaux" ||
-                                    song?.category === "youtubeurs") ? "l'instrumental" : "le creatoke"}}</span>
+                                <span class="text-extrait">Écouter le créatoké</span>
                             </div>
                             <span class="ps-2 fw-semi-bold" *ngIf="song?.played">{{song?.played}}</span>
                         </div>
@@ -111,20 +111,20 @@
             </div>
         </div>
 
-      <div *ngIf="song?.youtubeURL">
-        <div class="section__head">
-          <h3 class="mb-0">Youtube</h3>
-        </div>
-        <div class="plan bg-light large">
-          <div class="plan__data">
-            <div class="iframe-container">
-              <iframe width="640" height="315" [src]="videoUrl">
-            </iframe>
-
+        <div *ngIf="song?.youtubeURL">
+            <div class="section__head">
+                <h3 class="mb-0">Youtube</h3>
             </div>
-          </div>
+            <div class="plan bg-light large">
+                <div class="plan__data">
+                    <div class="iframe-container">
+                        <iframe width="640" height="315" [src]="videoUrl">
+                        </iframe>
+
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
 
 
         <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
@@ -149,11 +149,14 @@
                             </div>
                         </div>
                         <div class="card-footer pb-4 pb-sm-0">
-                            <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song?.price_base_chanson}}€</span>
+                            <div class="text-dark mb-3" *ngIf="song?.price_base_chanson > 0"><span
+                                    class="fs-4 fw-bold">{{song?.price_base_chanson}}€</span>
                             </div>
                             <button type="button"
                                 (click)="openModal(song?.price_base_chanson, licences[0]['basic'], 'licence-base-chanson', song.title)"
-                                class="btn btn-cutsom w-100">Choisir</button>
+                                class="btn btn-cutsom w-100" *ngIf="song?.price_base_chanson > 0">Choisir</button>
+                            <button type="button" class="btn btn-cutsom w-100" *ngIf="song?.price_base_chanson === 0 && song?.category == 'instrumentaux' || song?.category == 'youtubeurs'"
+                                (click)="downloadSong(song?.chanson_mp3 + '.mp3')">Télécharger gratuitement en MP3</button>
                         </div>
                     </div>
 
@@ -200,7 +203,8 @@
             </div>
         </div>
 
-        <div class="section" *ngIf="song?.category === 'chansons-a-chanter' || song?.category === 'chansons-cherche-auteur'">
+        <div class="section"
+            *ngIf="song?.category === 'chansons-a-chanter' || song?.category === 'chansons-cherche-auteur'">
             <div class="section__head">
                 <h3 class="mb-0" style="padding-top: 20px">Acheter le créatoke</h3>
             </div>
