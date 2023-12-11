@@ -34,7 +34,7 @@
                 </ul>
                 <!-- End:: info list -->
                 <div class="mb-4">
-                    <p class="mb-2">Voix témoin:
+                    <p class="mb-2">Musicien:
                         <span class="text-dark fw-medium">
                             {{song?.artist}}
                         </span>
@@ -43,7 +43,11 @@
                         <span class="text-dark fw-medium" style="word-wrap: break-word;">
                             {{song?.description}}
                         </span>
-
+                    </p>
+                    <p class="mb-4" [hidden]="song?.exclu == 'non'" *ngIf="song?.exclu">
+                        <span class="text-dark fw-medium" style="word-wrap: break-word;">
+                            🎤☀️ Chanson en contrat avec un distributeur , vous pouvez l'acheter sur n'importe quelle plateforme  (Spotify, Deezer, etc...)
+                        </span>
                     </p>
 
                 </div>
@@ -51,7 +55,7 @@
                 <ul class="info-list mb-5">
                     <li>
                         <div class="d-flex align-items-center">
-                            <div class="chanson-player">
+                            <div class="chanson-player" [hidden]="song?.exclu == 'oui'" *ngIf="song?.exclu">
                                 <button type="button" class="btn btn-icon btn-player rounded-pill"
                                     (click)="play($event)" [attr.data-play-id]="song?.id">
                                     <i class="ri-play-fill icon-play"></i>
@@ -98,7 +102,7 @@
     </div>
     <!-- End:: section -->
     <div class="section">
-        <div *ngIf="song.spotifyURL">
+        <div [hidden]="!song.spotifyURL">
             <div class="section__head">
                 <h3 class="mb-0">Spotify</h3>
             </div>
@@ -111,7 +115,7 @@
             </div>
         </div>
 
-        <div *ngIf="song?.youtubeURL">
+        <div [hidden]="song?.exclu == 'oui' && !song?.youtubeURL">
             <div class="section__head">
                 <h3 class="mb-0">Youtube</h3>
             </div>
@@ -128,7 +132,7 @@
 
 
         <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
-        <div class="section">
+        <div class="section" [hidden]="song?.exclu == 'oui'" *ngIf="song?.exclu">
             <div class="section__head">
                 <h3 class="mb-0" style="padding-top: 20px">Acheter la chanson</h3>
             </div>

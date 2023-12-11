@@ -90,7 +90,10 @@ export class ModifyComponent implements OnInit {
     this.musicForm.patchValue({
       title: this.musicForm.value['title'].toUpperCase()
     });
-
-    this.songService.modifySong(this.musicForm.value).then((success) => alert("Chanson modifiée"));
+    if(this.musicForm.valid){
+      this.songService.modifySong(this.musicForm.value).then((success) => alert("Chanson modifiée"));
+    }else{
+      alert('Merci de remplir les champs')
+    }
   }
 }

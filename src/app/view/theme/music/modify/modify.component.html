@@ -13,9 +13,9 @@
             <div class="mat-tabs" appTabs>
               <ul class="nav nav-tabs" id="add_music" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="music" data-bs-toggle="tab"
-                          data-bs-target="#music_pane" type="button" role="tab" aria-controls="music_pane"
-                          aria-selected="true">Modifier une chanson</button>
+                  <button class="nav-link active" id="music" data-bs-toggle="tab" data-bs-target="#music_pane"
+                    type="button" role="tab" aria-controls="music_pane" aria-selected="true">Modifier une
+                    chanson</button>
                 </li>
                 <!-- Add more tabs if needed -->
               </ul>
@@ -24,17 +24,15 @@
           </div>
           <div class="card-body">
             <div class="tab-content" id="add_music_content">
-              <div class="tab-pane fade show active" id="music_pane" role="tabpanel"
-                   aria-labelledby="music" tabindex="0">
+              <div class="tab-pane fade show active" id="music_pane" role="tabpanel" aria-labelledby="music"
+                tabindex="0">
                 <form [formGroup]="musicForm" (ngSubmit)="modifyMusic()">
                   <div class="col-12 mb-4">
-                    <input type="text" formControlName="title"  class="form-control"
-                           placeholder="Titre de la chanson">
+                    <input type="text" formControlName="title" class="form-control" placeholder="Titre de la chanson">
                   </div>
                   <div class="col-sm-12 mb-4">
                     <label class="form-label">Dans quelle catégorie ?</label>
-                    <select class="form-select" formControlName="category"
-                            aria-label="Select category">
+                    <select class="form-select" formControlName="category" aria-label="Select category">
                       <option value="" selected disabled hidden>Merci de choisir</option>
                       <option value="chansons-a-chanter">Publier dans les chansons à chanter</option>
                       <option value="chansons-cherche-auteur">Publier dans les chansons cherche
@@ -45,8 +43,7 @@
                   </div>
                   <div class="col-sm-12 mb-4">
                     <label class="form-label">Dans quelle sous-catégorie ?</label>
-                    <select class="form-select" formControlName="subcategory"
-                            aria-label="Select sub-category">
+                    <select class="form-select" formControlName="subcategory" aria-label="Select sub-category">
                       <option value="" selected disabled hidden>Merci de choisir</option>
                       <option *ngFor="let sub of subcategory" value="{{sub?.title_fr}}">
                         Publier dans la sous-catégorie "{{sub.title_fr}}" -> (dans la catégorie
@@ -57,69 +54,65 @@
 
 
                   <div class="col-sm-12 mb-4">
-                    <input type="text" class="form-control" formControlName="artist"
-                           placeholder="Artiste">
+                    <input type="text" class="form-control" formControlName="artist" placeholder="Artiste">
                   </div>
                   <div class="col-sm-12 mb-4">
-                    <input type="text" class="form-control" formControlName="youtubeURL"
-                           placeholder="Youtube URL">
+                    <input type="text" class="form-control" formControlName="youtubeURL" placeholder="Youtube URL">
                   </div>
                   <div class="col-sm-12 mb-4">
-                    <input type="text" class="form-control" formControlName="spotifyURL"
-                           placeholder="Spotify URL">
+                    <input type="text" class="form-control" formControlName="spotifyURL" placeholder="Spotify URL">
                   </div>
 
                   <div class="col-12 mb-4">
-                                        <textarea name="description" id="description" formControlName="description"
-                                                  cols="30" rows="4" class="form-control"
-                                                  placeholder="Description"></textarea>
+                    <textarea name="description" id="description" formControlName="description" cols="30" rows="4"
+                      class="form-control" placeholder="Description"></textarea>
                   </div>
                   <div class="col-12 mb-4">
-                    <ck-editor  formControlName="lyrics" skin="moono-lisa" language="fr" [fullPage]="false"></ck-editor>
+                    <ck-editor formControlName="lyrics" skin="moono-lisa" language="fr" [fullPage]="false"></ck-editor>
                   </div>
 
                   <div class="col-sm-12 mb-4">
                     <div class="input-group">
-                                            <span class="input-group-text">
-                                                <i class="ri-money-euro-circle-line"></i>
-                                            </span>
+                      <span class="input-group-text">
+                        <i class="ri-money-euro-circle-line"></i>
+                      </span>
                       <input type="number" formControlName="price_base_chanson" class="form-control"
-                             placeholder="Prix licence basique - chanson">
+                        placeholder="Prix licence basique - chanson">
                     </div>
                   </div>
                   <div class="col-sm-12 mb-4">
                     <div class="input-group">
-                                            <span class="input-group-text">
-                                                <i class="ri-money-euro-circle-line"></i>
-                                            </span>
+                      <span class="input-group-text">
+                        <i class="ri-money-euro-circle-line"></i>
+                      </span>
                       <input type="number" formControlName="price_premium_chanson" class="form-control"
-                             placeholder="Prix licence basique plus - chanson">
+                        placeholder="Prix licence basique plus - chanson">
                     </div>
                   </div>
                   <div class="col-sm-12 mb-4">
                     <div class="input-group">
-                                            <span class="input-group-text">
-                                                <i class="ri-money-euro-circle-line"></i>
-                                            </span>
+                      <span class="input-group-text">
+                        <i class="ri-money-euro-circle-line"></i>
+                      </span>
                       <input type="number" formControlName="price_base_creatoke" class="form-control"
-                             placeholder="Prix licence basique - creatoke">
+                        placeholder="Prix licence basique - creatoke">
                     </div>
                   </div>
                   <div class="col-sm-12 mb-4">
                     <div class="input-group">
-                                            <span class="input-group-text">
-                                                <i class="ri-money-euro-circle-line"></i>
-                                            </span>
+                      <span class="input-group-text">
+                        <i class="ri-money-euro-circle-line"></i>
+                      </span>
                       <input type="number" formControlName="price_premium_creatoke" class="form-control"
-                             placeholder="Prix licence basique plus - creatoke">
+                        placeholder="Prix licence basique plus - creatoke">
                     </div>
                   </div>
 
                   <div class="col-sm-12 mb-4">
                     <button class="btn btn-primary" style="min-width: 140px;" type="submit"
-                            [disabled]="!musicForm.valid">Enregistrer</button>
-                    <button class="btn btn-outline-secondary ms-2">Annuler</button>
-                  </div>
+                      [disabled]="!musicForm.valid">Enregistrer</button>
+                      <a href="/" class="btn btn-outline-secondary ms-2">Annuler</a>
+                    </div>
                 </form>
               </div>
             </div>

@@ -18,6 +18,7 @@ export class AddSongComponent implements OnInit {
     progress: { [key: string]: number } = {};
     downloadUrls: { [key: string]: string } = {};
     picturebackground: any;
+    isExclu = "non";
     constructor(private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private storage: AngularFireStorage) {
 
         this.musicForm = this.fb.group({
@@ -29,6 +30,7 @@ export class AddSongComponent implements OnInit {
             price_premium_creatoke: [''],
             price_base_chanson: ['', ],
             price_premium_chanson: [''],
+            exclu: [''],
             image: [''],
             category: ['', Validators.required],
             subcategory: ['', Validators.required],
@@ -91,8 +93,11 @@ export class AddSongComponent implements OnInit {
         this.musicForm.value['image'] = this.downloadUrls['image'];
         this.musicForm.value['creatoke'] = this.downloadUrls['creatoke'];
         this.musicForm.value['url'] = this.downloadUrls['url'];
-
-        this.songService.createSong(this.musicForm.value).catch((success) => console.log(success));
+        if(this.musicForm.valid){
+          this.songService.createSong(this.musicForm.value).catch((success) => console.log(success))
+        }else{
+          alert('Merci de remplir les champs')
+        }
     }
 
   startUpload(file: File, fileType: string): void {

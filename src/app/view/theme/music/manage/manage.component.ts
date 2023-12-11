@@ -24,8 +24,8 @@ export class ManageComponent implements OnInit {
         this.router.navigate(['/modify-song', id]);
     }
 
-    delete(id: string) {
-      this.musicService.deleteSong(id);
+    delete(id: string, name: string) {
+      this.musicService.deleteSong(id, name);
       const objectsString = localStorage.getItem('songs'); // Replace 'yourLocalStorageKey' with the key you used to store the array
       // @ts-ignore
       let arrayOfObjects = JSON.parse(objectsString) || [];

@@ -36,19 +36,19 @@ export class MusicComponent implements OnInit {
   getParams(param){
     switch (param) {
       case "chansons-a-chanter":
-        this.title = "Chansons à chanter";
+        this.title = "Chansons à chanter 🎤";
         break
       case "instrumentaux":
-        this.title = "Instrumentaux";
+        this.title = "Instrumentaux 🎶";
         break
       case "youtubeurs":
-        this.title = "Youtubeurs";
+        this.title = "Youtubeurs 🖥️";
         break
       case "chansons-cherche-auteur":
-        this.title = "Chansons cherche auteur";
+        this.title = "Chansons cherche auteur 🎙️";
         break
       default:
-        this.title = "Musiques"
+        this.title = "Musiques 🎶"
         break
     }
     return this.title;

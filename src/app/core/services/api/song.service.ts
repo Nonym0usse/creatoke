@@ -46,13 +46,13 @@ export class SongService {
         }).then(() => {alert('Chanson créée avec succès.'); console.log(this.firebaseToken)}).catch((e) => alert("Erreur."))
     }
 
-    deleteSong(id: string) {
+    deleteSong(id: string, name: string) {
         return this.axiosInterceptorService.getAxiosInstance().delete(ApiConstant.API + '/admin/delete-music/' + id,  {
           headers: {
             Authorization: `Bearer ${this.firebaseToken}`
           }
-        });
-    }
+        }).then(() => {alert('Chanson ' + name + " supprimée avec succès"); console.log(this.firebaseToken)}).catch((e) => alert("Erreur."))
+      }
 
     modifySong(data: any) {
         return this.axiosInterceptorService.getAxiosInstance().put(ApiConstant.API + '/admin/update-music', data, {
