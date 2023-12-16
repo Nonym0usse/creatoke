@@ -28,11 +28,12 @@
                 tabindex="0">
                 <form [formGroup]="musicForm" (ngSubmit)="modifyMusic()">
                   <div class="col-12 mb-4">
+                    <label class="form-label">Titre de la chanson</label>
                     <input type="text" formControlName="title" class="form-control" placeholder="Titre de la chanson">
                   </div>
                   <div class="col-sm-12 mb-4">
                     <label class="form-label">Dans quelle catégorie ?</label>
-                    <select class="form-select" formControlName="category" aria-label="Select category">
+                    <select [(ngModel)]='song.category' class="form-select" formControlName="category" aria-label="Select category">
                       <option value="" selected disabled hidden>Merci de choisir</option>
                       <option value="chansons-a-chanter">Publier dans les chansons à chanter</option>
                       <option value="chansons-cherche-auteur">Publier dans les chansons cherche
@@ -43,7 +44,7 @@
                   </div>
                   <div class="col-sm-12 mb-4">
                     <label class="form-label">Dans quelle sous-catégorie ?</label>
-                    <select class="form-select" formControlName="subcategory" aria-label="Select sub-category">
+                    <select [(ngModel)]='song.subcategory' class="form-select" formControlName="subcategory" aria-label="Select sub-category">
                       <option value="" selected disabled hidden>Merci de choisir</option>
                       <option *ngFor="let sub of subcategory" value="{{sub?.title_fr}}">
                         Publier dans la sous-catégorie "{{sub.title_fr}}" -> (dans la catégorie
@@ -52,26 +53,39 @@
                     </select>
                   </div>
 
-
                   <div class="col-sm-12 mb-4">
-                    <input type="text" class="form-control" formControlName="artist" placeholder="Artiste">
+                    <label class="form-label">Votre chanson est une exclusivité</label>
+                    <select class="form-select" formControlName="exclu" aria-label="Select exclusivité"
+                      [(ngModel)]='song.exclu'>
+                      <option value="non">Non</option>
+                      <option value="oui">Oui</option>
+                    </select>
                   </div>
                   <div class="col-sm-12 mb-4">
+                    <label class="form-label">Artiste</label>
+                    <input type="text" class="form-control" formControlName="artist" placeholder="Artiste">
+                  </div>
+                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
+                    <label class="form-label">Youtube (ex: (https://www.youtube.com/watch?v=Aq1NJxJZo6E) -> Mettre uniquement 'Aq1NJxJZo6E' ici )</label>
                     <input type="text" class="form-control" formControlName="youtubeURL" placeholder="Youtube URL">
                   </div>
                   <div class="col-sm-12 mb-4">
+                    <label class="form-label">Spotify (Click droit sur le titre Spotify -> Partager -> Intégrer le titre -> Choisir taille compacte -> Copier -> Coller sur creatoke)</label>
                     <input type="text" class="form-control" formControlName="spotifyURL" placeholder="Spotify URL">
                   </div>
 
                   <div class="col-12 mb-4">
+                    <label class="form-label">Description</label>
                     <textarea name="description" id="description" formControlName="description" cols="30" rows="4"
                       class="form-control" placeholder="Description"></textarea>
                   </div>
                   <div class="col-12 mb-4">
+                    <label class="form-label">Lyrics</label>
                     <ck-editor formControlName="lyrics" skin="moono-lisa" language="fr" [fullPage]="false"></ck-editor>
                   </div>
 
-                  <div class="col-sm-12 mb-4">
+                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
+                    <label class="form-label">Prix licence basique chanson</label>
                     <div class="input-group">
                       <span class="input-group-text">
                         <i class="ri-money-euro-circle-line"></i>
@@ -80,7 +94,8 @@
                         placeholder="Prix licence basique - chanson">
                     </div>
                   </div>
-                  <div class="col-sm-12 mb-4">
+                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
+                    <label class="form-label">Prix licence basique + chanson</label>
                     <div class="input-group">
                       <span class="input-group-text">
                         <i class="ri-money-euro-circle-line"></i>
@@ -89,7 +104,8 @@
                         placeholder="Prix licence basique plus - chanson">
                     </div>
                   </div>
-                  <div class="col-sm-12 mb-4">
+                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui' && musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'youtubeurs'">
+                    <label class="form-label">Prix licence basique creatoké</label>
                     <div class="input-group">
                       <span class="input-group-text">
                         <i class="ri-money-euro-circle-line"></i>
@@ -98,7 +114,8 @@
                         placeholder="Prix licence basique - creatoke">
                     </div>
                   </div>
-                  <div class="col-sm-12 mb-4">
+                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui' && musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'youtubeurs'">
+                    <label class="form-label">Prix licence basic + creatoké</label>
                     <div class="input-group">
                       <span class="input-group-text">
                         <i class="ri-money-euro-circle-line"></i>
@@ -111,8 +128,8 @@
                   <div class="col-sm-12 mb-4">
                     <button class="btn btn-primary" style="min-width: 140px;" type="submit"
                       [disabled]="!musicForm.valid">Enregistrer</button>
-                      <a href="/" class="btn btn-outline-secondary ms-2">Annuler</a>
-                    </div>
+                    <a href="/" class="btn btn-outline-secondary ms-2">Annuler</a>
+                  </div>
                 </form>
               </div>
             </div>

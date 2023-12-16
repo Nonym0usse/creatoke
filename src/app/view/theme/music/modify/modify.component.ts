@@ -17,6 +17,7 @@ export class ModifyComponent implements OnInit {
   subcategory: any = [];
   picturebackground: any;
   song: any;
+  isExclu = "non";
   routerSubscription: Subscription | undefined;
   constructor(private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private activatedRoute: ActivatedRoute) {
 
@@ -28,6 +29,7 @@ export class ModifyComponent implements OnInit {
       price_base_creatoke: [this.song?.price_base_creatoke || ''],
       price_premium_creatoke: [this.song?.price_premium_creatoke || ''],
       price_base_chanson: [this.song?.price_base_chanson || '' ],
+      exclu: [this.song?.exclu || ''],
       price_premium_chanson: [this.song?.price_premium_chanson || ''],
       category: [this.song?.category || '', Validators.required],
       subcategory: [this.song?.subcategory || '', Validators.required],

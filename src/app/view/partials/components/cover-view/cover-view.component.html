@@ -35,7 +35,7 @@
 
     <div class="cover__foot">
         <a [routerLink]="'/song/' + data.category + '/' + data.subcategory + '/' + data.id + '/view'" routerLinkActive="router-link-active"
-            class="cover__title text-truncate">{{data.title}}</a>
+            class="cover__title text-truncate">{{data.title}} <span class="exclu">{{data.exclu == 'oui' ? '(Exclusivité)' : '' }}</span></a>
         <p class="cover__subtitle text-truncate" >{{data.artist}}</p>
     </div>
 </div>

@@ -53,9 +53,10 @@
                   </div>
                   <div class="col-sm-12 mb-4">
                     <label class="form-label">Votre chanson est une exclusivité</label>
-                    <select class="form-select" formControlName="exclu" aria-label="Select exclusivité" [(ngModel)]='isExclu'>
+                    <select class="form-select" formControlName="exclu" aria-label="Select exclusivité"
+                      [(ngModel)]='isExclu'>
                       <option value="non">Non</option>
-                      <option value="oui" >Oui</option>
+                      <option value="oui">Oui</option>
                     </select>
                   </div>
                   <div class="col-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
@@ -147,26 +148,32 @@
                   </div>
 
                   <div class="col-sm-12 mb-4">
+                    <label class="form-label">Artiste</label>
                     <input type="text" class="form-control" formControlName="artist" placeholder="Artiste">
                   </div>
                   <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
+                    <label class="form-label">Youtube</label>
                     <input type="text" class="form-control" formControlName="youtubeURL"
                       placeholder="Youtube URL ex: (https://www.youtube.com/watch?v=Aq1NJxJZo6E) -> Mettre uniquement 'Aq1NJxJZo6E' ici ">
                   </div>
                   <div class="col-sm-12 mb-4">
-                    <input type="text" class="form-control" formControlName="spotifyURL" placeholder="Spotify URL">
+                    <label class="form-label">Spotify (Click droit sur le titre Spotify -> Partager -> Intégrer le titre -> Choisir taille compacte -> Copier -> Coller sur creatoke)</label>
+                    <input type="text" class="form-control" formControlName="spotifyURL" placeholder="Spotify IFRAME">
                   </div>
 
                   <div class="col-12 mb-4">
+                    <label class="form-label">Description</label>
                     <textarea name="description" id="description" formControlName="description" cols="30" rows="4"
                       class="form-control" placeholder="Description"></textarea>
                   </div>
                   <div class="col-12 mb-4"
                     [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'youtubeurs'">
+                    <label class="form-label">Lyrics</label>
                     <ck-editor formControlName="lyrics" skin="moono-lisa" language="fr" [fullPage]="false"></ck-editor>
                   </div>
 
                   <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
+                    <label class="form-label">Prix licence basique chanson (0 si gratuit)</label>
                     <div class="input-group">
                       <span class="input-group-text">
                         <i class="ri-money-euro-circle-line"></i>
@@ -176,6 +183,7 @@
                     </div>
                   </div>
                   <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
+                    <label class="form-label">Prix licence basique + chanson</label>
                     <div class="input-group">
                       <span class="input-group-text">
                         <i class="ri-money-euro-circle-line"></i>
@@ -186,6 +194,7 @@
                   </div>
                   <div class="col-sm-12 mb-4"
                     [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'youtubeurs'">
+                    <label class="form-label">Prix licence basique creatoke (0 si gratuit)</label>
                     <div class="input-group">
                       <span class="input-group-text">
                         <i class="ri-money-euro-circle-line"></i>
@@ -200,6 +209,7 @@
                       <span class="input-group-text">
                         <i class="ri-money-euro-circle-line"></i>
                       </span>
+                      <label class="form-label">Prix licence basique + creatoke</label>
                       <input type="number" formControlName="price_premium_creatoke" class="form-control"
                         placeholder="Prix licence basique plus - creatoke">
                     </div>

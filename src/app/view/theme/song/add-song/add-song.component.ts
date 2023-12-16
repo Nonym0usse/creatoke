@@ -1,6 +1,6 @@
 // Angular
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from "rxjs";
 import { SongService } from "../../../../core/services/api/song.service";
 import { CategoryService } from "../../../../core/services/api/category.service";
@@ -9,7 +9,8 @@ import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'app-add-song',
-    templateUrl: './add-song.component.html'
+    templateUrl: './add-song.component.html',
+    styleUrls: ['./add-song.component.scss']
 })
 export class AddSongComponent implements OnInit {
     musicForm: FormGroup;

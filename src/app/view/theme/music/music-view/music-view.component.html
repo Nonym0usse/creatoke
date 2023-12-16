@@ -19,9 +19,7 @@
             <div class="col-1 d-none d-xl-block"></div>
             <div class="col-md-8 mt-5 mt-md-0">
                 <div class="d-flex flex-wrap mb-2">
-                    <span class="text-dark fs-4 fw-semi-bold pe-2">{{song?.title}}</span>
-                    <app-dropdown [data]="song" [classes]="'dropstart d-inline-flex ms-auto'" [viewFavorite]="false"
-                        [iconVertical]="false"></app-dropdown>
+                    <span class="text-dark fs-4 fw-semi-bold pe-2">{{song?.title}}<span class="exclu">{{song?.exclu == 'oui' ? ' (Exclusivité)' : '' }}</span></span>
                 </div>
                 <!-- Start:: info list [[ Find at scss/components/list.scss ]] -->
                 <ul class="info-list info-list--dotted mb-3">
@@ -34,7 +32,7 @@
                 </ul>
                 <!-- End:: info list -->
                 <div class="mb-4">
-                    <p class="mb-2">Musicien:
+                    <p class="mb-2">{{song?.category === 'chansons-a-chanter' ? 'Interprète:' : 'Compositeur:'}}
                         <span class="text-dark fw-medium">
                             {{song?.artist}}
                         </span>
@@ -46,25 +44,26 @@
                     </p>
                     <p class="mb-4" [hidden]="song?.exclu == 'non'" *ngIf="song?.exclu">
                         <span class="text-dark fw-medium" style="word-wrap: break-word;">
-                            🎤☀️ Chanson en contrat avec un distributeur , vous pouvez l'acheter sur n'importe quelle plateforme  (Spotify, Deezer, etc...)
+                            🎤☀️ Chanson en contrat avec un distributeur , vous pouvez l'acheter sur n'importe quelle
+                            plateforme (Spotify, Deezer, etc...)
                         </span>
                     </p>
 
                 </div>
                 <!-- Start:: info list [[ Find at scss/components/list.scss ]] -->
                 <ul class="info-list mb-5">
-                    <li>
+                    <li [hidden]="song?.exclu == 'oui' && (song?.category == 'instrumentaux' || song?.category == 'youtubeurs')">
                         <div class="d-flex align-items-center">
-                            <div class="chanson-player" [hidden]="song?.exclu == 'oui'" *ngIf="song?.exclu">
+                            <div class="chanson-player">
                                 <button type="button" class="btn btn-icon btn-player rounded-pill"
                                     (click)="play($event)" [attr.data-play-id]="song?.id">
                                     <i class="ri-play-fill icon-play"></i>
                                     <i class="ri-pause-fill icon-pause"></i>
                                 </button>
-                                <span class="text-extrait">Écouter la chanson</span>
+                                <span class="text-extrait">{{ song?.exclu == 'oui' ? 'Écouter le créatoké' : 'Écouter la chanson'  }}</span>
                             </div>
                             <div class="chanson-player"
-                                *ngIf="song?.category == 'chansons-a-chanter' || song?.category == 'chansons-cherche-auteur'">
+                                *ngIf="(song?.category == 'chansons-a-chanter' || song?.category == 'chansons-cherche-auteur') && song?.exclu == 'non'">
                                 <button type="button" class="btn btn-icon btn-player rounded-pill"
                                     (click)="toggleAudio()">
                                     <ng-container *ngIf="isPlaying; else pauseIcon">
@@ -102,7 +101,7 @@
     </div>
     <!-- End:: section -->
     <div class="section">
-        <div [hidden]="!song.spotifyURL">
+        <div [hidden]="!song?.spotifyURL">
             <div class="section__head">
                 <h3 class="mb-0">Spotify</h3>
             </div>
@@ -115,7 +114,7 @@
             </div>
         </div>
 
-        <div [hidden]="song?.exclu == 'oui' && !song?.youtubeURL">
+        <div [hidden]="!song?.youtubeURL">
             <div class="section__head">
                 <h3 class="mb-0">Youtube</h3>
             </div>
@@ -153,14 +152,16 @@
                             </div>
                         </div>
                         <div class="card-footer pb-4 pb-sm-0">
-                            <div class="text-dark mb-3" *ngIf="song?.price_base_chanson > 0"><span
-                                    class="fs-4 fw-bold">{{song?.price_base_chanson}}€</span>
+                            <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song?.price_base_chanson === 0 ?
+                                    'Gratuit' : song?.price_base_chanson + '€'}}</span>
                             </div>
                             <button type="button"
                                 (click)="openModal(song?.price_base_chanson, licences[0]['basic'], 'licence-base-chanson', song.title)"
                                 class="btn btn-cutsom w-100" *ngIf="song?.price_base_chanson > 0">Choisir</button>
-                            <button type="button" class="btn btn-cutsom w-100" *ngIf="song?.price_base_chanson === 0 && song?.category == 'instrumentaux' || song?.category == 'youtubeurs'"
-                                (click)="downloadSong(song?.chanson_mp3 + '.mp3')">Télécharger gratuitement en MP3</button>
+                            <button type="button" class="btn btn-cutsom w-100"
+                                *ngIf="song?.price_base_chanson === 0"
+                                (click)="downloadSong(song?.chanson_mp3 + '.mp3')">Télécharger en
+                                MP3</button>
                         </div>
                     </div>
 
@@ -229,11 +230,11 @@
                             </div>
                         </div>
                         <div class="card-footer pb-4 pb-sm-0">
-                            <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song?.price_base_creatoke}}€</span>
+                            <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song?.price_base_creatoke === 0 ?
+                                    'Gratuit' : song?.price_base_creatoke + '€'}}</span>
                             </div>
-                            <button type="button"
-                                (click)="openModal(song?.price_base_creatoke, licences[0]['basic'], 'licence-base-creatoke', song?.title)"
-                                class="btn btn-cutsom w-100">Choisir</button>
+                            <button type="button" class="btn btn-cutsom w-100" *ngIf="song?.price_base_creatoke === 0"
+                                (click)="downloadSong(song?.creatoke_mp3 + '.mp3')">Télécharger en MP3</button>
                         </div>
                     </div>
 

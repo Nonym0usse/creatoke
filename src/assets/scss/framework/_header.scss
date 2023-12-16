@@ -12,7 +12,7 @@
 
     .header-container {
         padding: $header-container-padding-y $header-container-padding-x;
-        background-color: #131416;
+        background-color: #131416 !important;
         color: color-contrast($header-container-bg);
         border-radius: $header-container-border-radius;
         position: relative;

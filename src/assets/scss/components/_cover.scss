@@ -5,6 +5,13 @@
 
 // Add border radius on head and image
 //
+
+.exclu{
+    background-image: linear-gradient(90deg, #5438d1, #8938d1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
 @mixin cover-border-radius($border-radius: $cover-border-radius) {
     .cover__head:before {
         border-top-left-radius: $border-radius;

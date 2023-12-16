@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 // Services
 import { PlayerService } from './../../../../core/services/design/player.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class CoverViewComponent implements OnInit {
   @Input() viewPlaylist: boolean = true;
 
   constructor(
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -41,10 +43,16 @@ export class CoverViewComponent implements OnInit {
 
   /**
    * Play song
+   * 
    * @param event 
    */
-  play(event: any): void {
-    this.playerService.songPlayPause(event, this.data);
-  }
 
+  play(event: any): void {
+    console.log(this.data)
+    if (this.data.exclu == "non") {
+      this.playerService.songPlayPause(event, this.data);
+    } else {
+      this.router.navigateByUrl(`/song/${this.data.category}/${this.data.subcategory}/${this.data.id}/view`);
+    }
+  }
 }

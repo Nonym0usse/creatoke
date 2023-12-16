@@ -67,23 +67,31 @@ export class PlayerService {
     const songs = localStorage.getItem(Constant.SONG_KEY);
     // @ts-ignore
     const songList = JSON.parse(songs);
-    for (let i = 0; i < songList.length; i++) {
-      if (songList[i].full_creatoke === 'vide') {
-        songList[i].url = songList[i].full_music;
-      }else if(songList[i].full_creatoke === 'vide'){
-        songList[i].url = songList[i].full_creatoke;
-      }
-    }
     //console.log(songList)
     return songList;
   }
 
   /**
    * Set songs in local storage
-   */
+   */    
+  
   set localSongs(songs: any) {
-    localStorage.removeItem(Constant.SONG_KEY);
-    this.songService.getAllSongs().then((data) => localStorage.setItem(Constant.SONG_KEY, JSON.stringify(data.data)))
+    this.songService.getAllSongs()
+      .then((music) => {
+        if (!music.data) {
+          return;
+        }
+        const songsWithUrl = music.data
+          .filter(song => song && !song.url) // Filter out songs without a URL
+          .map(song => ({ ...song, url: song.creatoke })); // Map to new array with URLs
+  
+        // Overwrite the existing value in localStorage
+        localStorage.setItem(Constant.SONG_KEY, JSON.stringify(songsWithUrl));
+      })
+      .catch(error => {
+        console.error('Error fetching songs:', error);
+        // Handle any errors here, like notifying the user
+      });
   }
 
   /**
