@@ -19,7 +19,7 @@
             <div class="col-1 d-none d-xl-block"></div>
             <div class="col-md-8 mt-5 mt-md-0">
                 <div class="d-flex flex-wrap mb-2">
-                    <span class="text-dark fs-4 fw-semi-bold pe-2">{{song?.title}}<span class="exclu">{{song?.exclu == 'oui' ? ' (Exclusivité)' : '' }}</span></span>
+                    <span class="text-dark fs-4 fw-semi-bold pe-2">{{song?.title}}<span class="exclu">{{song?.exclu == 'oui' ? ' (Exclusivité plateforme)' : '' }}</span></span>
                 </div>
                 <!-- Start:: info list [[ Find at scss/components/list.scss ]] -->
                 <ul class="info-list info-list--dotted mb-3">
@@ -52,7 +52,7 @@
                 </div>
                 <!-- Start:: info list [[ Find at scss/components/list.scss ]] -->
                 <ul class="info-list mb-5">
-                    <li [hidden]="song?.exclu == 'oui' && (song?.category == 'instrumentaux' || song?.category == 'youtubeurs')">
+                    <li [hidden]="song?.exclu == 'oui' && (song?.category == 'instrumentaux' || song?.category == 'createurs-de-contenu')">
                         <div class="d-flex align-items-center">
                             <div class="chanson-player">
                                 <button type="button" class="btn btn-icon btn-player rounded-pill"
@@ -92,10 +92,10 @@
                         <p style="word-wrap: break-word;" [innerHTML]="song?.lyrics"></p>
                     </div>
                 </div>
-                <div class="mt-2">
-                    <button class="btn btn-cutsom" (click)="showLyricsBtn()">
-                        {{showLyrics ? 'Cacher les paroles' : 'Voir les paroles' }}</button>
-                </div>
+                    <div class="mt-2" *ngIf="song?.lyrics.length > 0">
+                        <button class="btn btn-cutsom" (click)="showLyricsBtn()">
+                            {{showLyrics ? 'Cacher les paroles' : 'Voir les paroles' }}</button>
+                    </div>
             </div>
         </div>
     </div>
@@ -108,7 +108,7 @@
             <div class="plan bg-light large">
                 <div class="plan__data">
                     <div class="iframe-container">
-                        <div [innerHTML]="sanitizeHtml(song?.spotifyURL)"></div>
+                        <iframe style="border-radius:12px" [src]="this.trustedDashboardUrl" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
                 </div>
             </div>
@@ -170,7 +170,7 @@
                         <div class="card-body fw-medium">
                             <div class="d-flex align-items-center text-dark mb-4">
                                 <span></span>
-                                <h4 class="mb-0 ps-3">Licence de base plus</h4>
+                                <h4 class="mb-0 ps-3">Licence premium</h4>
                             </div>
                             <p class="fs-6 opacity-50">Ce qui est inclut</p>
                             <div class="d-flex mb-3" *ngFor="let feature of licences">
@@ -216,34 +216,34 @@
 
             <div class="plan bg-light">
                 <div class="plan__data">
+                    <ng-container *ngIf="song.category !== 'chansons-a-chanter' && song.exclu === 'oui'">
+                        <div class="card plan__col">
+                            <div class="card-body fw-medium">
+                                <div class="d-flex align-items-center text-dark mb-4">
+                                    <span></span>
+                                    <h4 class="mb-0 ps-3">Licence de base</h4>
+                                </div>
+                                <p class="fs-6 opacity-50">Ce qui est inclut</p>
+                                <div class="d-flex mb-3" *ngFor="let feature of licences">
+                                    <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
+                                    <span class="ps-2" [innerHTML]="feature.basic"></span>
+                                </div>
+                            </div>
+                            <div class="card-footer pb-4 pb-sm-0">
+                                <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song?.price_base_creatoke === 0 ?
+                                        'Gratuit' : song?.price_base_creatoke + '€'}}</span>
+                                </div>
+                                <button type="button" class="btn btn-cutsom w-100" *ngIf="song?.price_base_creatoke === 0"
+                                    (click)="downloadSong(song?.creatoke_mp3 + '.mp3')">Télécharger en MP3</button>
+                            </div>
+                        </div>
+                    </ng-container>
 
                     <div class="card plan__col">
                         <div class="card-body fw-medium">
                             <div class="d-flex align-items-center text-dark mb-4">
                                 <span></span>
-                                <h4 class="mb-0 ps-3">Licence de base</h4>
-                            </div>
-                            <p class="fs-6 opacity-50">Ce qui est inclut</p>
-                            <div class="d-flex mb-3" *ngFor="let feature of licences">
-                                <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
-                                <span class="ps-2" [innerHTML]="feature.basic"></span>
-                            </div>
-                        </div>
-                        <div class="card-footer pb-4 pb-sm-0">
-                            <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song?.price_base_creatoke === 0 ?
-                                    'Gratuit' : song?.price_base_creatoke + '€'}}</span>
-                            </div>
-                            <button type="button" class="btn btn-cutsom w-100" *ngIf="song?.price_base_creatoke === 0"
-                                (click)="downloadSong(song?.creatoke_mp3 + '.mp3')">Télécharger en MP3</button>
-                        </div>
-                    </div>
-
-
-                    <div class="card plan__col">
-                        <div class="card-body fw-medium">
-                            <div class="d-flex align-items-center text-dark mb-4">
-                                <span></span>
-                                <h4 class="mb-0 ps-3">Licence de base plus</h4>
+                                <h4 class="mb-0 ps-3">Licence premium</h4>
                             </div>
                             <p class="fs-6 opacity-50">Ce qui est inclut</p>
                             <div class="d-flex mb-3" *ngFor="let feature of licences">

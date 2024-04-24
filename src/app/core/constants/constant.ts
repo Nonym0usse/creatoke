@@ -32,9 +32,9 @@ export class Constant {
       auth: false,
     },
     {
-      name: 'Youtubeurs',
+      name: 'Créateurs de contenu',
       icon: '<i class="ri-youtube-line fs-5"></i>',
-      link: '/song/youtubeurs',
+      link: '/song/createurs-de-contenu',
       auth: false,
     },
     {

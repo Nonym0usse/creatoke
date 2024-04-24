@@ -8,7 +8,7 @@ import {LicenceService} from "../../../../core/services/api/licence.service";
 import {ICreateOrderRequest} from "ngx-paypal";
 import {PaypalService} from "../../../../core/services/api/paypal.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
+import {DomSanitizer, SafeHtml, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 import {CategoryService} from "../../../../core/services/api/category.service";
 
 @Component({
@@ -31,6 +31,7 @@ export class MusicViewComponent implements OnInit {
   showLyrics: boolean = false;
   isPlaying: boolean = false;
   audioElement: any;
+  trustedDashboardUrl: SafeUrl | undefined;
   // Holds router subscription
   routerSubscription: Subscription | undefined;
   videoUrl: SafeResourceUrl | undefined;
@@ -67,8 +68,8 @@ export class MusicViewComponent implements OnInit {
     this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
   }
 
-  sanitizeHtml(html: string): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(html);
+  sanitizeHtml(song) {
+    this.trustedDashboardUrl = this.sanitizer.bypassSecurityTrustResourceUrl(song);
   }
 
   showLyricsBtn(){
@@ -189,7 +190,9 @@ export class MusicViewComponent implements OnInit {
   getSongs(id: string): void {
     this.songService.getSongByID(id).then(response => {
       this.song = response.data;
+      console.log(this.song)
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.song?.youtubeURL}`);
+      this.sanitizeHtml(this.song.spotifyURL);
       this.audioElement = new Audio(this.song.creatoke);
     });
   }

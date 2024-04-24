@@ -39,7 +39,7 @@
                       <option value="chansons-cherche-auteur">Publier dans les chansons cherche
                         auteur</option>
                       <option value="instrumentaux">Publier dans les instrumentaux</option>
-                      <option value="youtubeurs">Publier dans les youtubeurs</option>
+                      <option value="createurs-de-contenu">Publier dans créateurs de contenu</option>
                     </select>
                   </div>
                   <div class="col-sm-12 mb-4">
@@ -104,7 +104,7 @@
                         placeholder="Prix licence basique plus - chanson">
                     </div>
                   </div>
-                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui' && musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'youtubeurs'">
+                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui' && musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'createurs-de-contenu'">
                     <label class="form-label">Prix licence basique creatoké</label>
                     <div class="input-group">
                       <span class="input-group-text">
@@ -114,7 +114,7 @@
                         placeholder="Prix licence basique - creatoke">
                     </div>
                   </div>
-                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui' && musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'youtubeurs'">
+                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui' && musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'createurs-de-contenu'">
                     <label class="form-label">Prix licence basic + creatoké</label>
                     <div class="input-group">
                       <span class="input-group-text">

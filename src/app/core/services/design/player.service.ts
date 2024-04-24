@@ -293,6 +293,8 @@ export class PlayerService {
   songPlayPause(event: any, data: any): void {
     const buttonEl = event.currentTarget as HTMLElement;
 
+   
+
     if (Utils.hasClass(buttonEl, Constant.ACTIVE)) {
       this.buttonRemoveClass();
       this.pause();
@@ -310,6 +312,7 @@ export class PlayerService {
         } else {
           Amplitude.playSongAtIndex(this.songs?.length - 1);
           this.emitPlaylist = this.songs;
+          window.location.reload();
         }
 
       } else { // Play exist song

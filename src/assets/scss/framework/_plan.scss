@@ -30,6 +30,7 @@
 
     .plan__col {
         @include flex(100%);
+        margin: 0 auto;
         &:not(:first-child) {
             border-top: 2px solid $plan-card-border-color;
         }
