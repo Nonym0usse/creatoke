@@ -312,7 +312,7 @@ export class PlayerService {
         } else {
           Amplitude.playSongAtIndex(this.songs?.length - 1);
           this.emitPlaylist = this.songs;
-          window.location.reload();
+          //window.location.reload();
         }
 
       } else { // Play exist song

@@ -48,11 +48,7 @@ export class CoverViewComponent implements OnInit {
    */
 
   play(event: any): void {
-    console.log(this.data)
-    if (this.data.exclu == "non") {
-      this.playerService.songPlayPause(event, this.data);
-    } else {
-      this.router.navigateByUrl(`/song/${this.data.category}/${this.data.subcategory}/${this.data.id}/view`);
-    }
+    const newSong = {...this.data, url: this.data.url ?? this.data.creatoke};
+    this.playerService.songPlayPause(event, newSong);
   }
 }

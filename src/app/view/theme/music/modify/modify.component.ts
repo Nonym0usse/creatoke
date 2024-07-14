@@ -2,10 +2,10 @@
 // Angular
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {Observable, Subscription} from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { SongService } from "../../../../core/services/api/song.service";
 import { CategoryService } from "../../../../core/services/api/category.service";
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-modify',
@@ -18,7 +18,14 @@ export class ModifyComponent implements OnInit {
   picturebackground: any;
   song: any;
   isExclu = "non";
+  isLicenceBase = "non";
+  isPremium = "non";
+  isLicenceBaseCreatoke = "non";
+  isPremiumCreatoke = "non";
   routerSubscription: Subscription | undefined;
+  filteredSubcategories: any = [];
+  display = "none";
+
   constructor(private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private activatedRoute: ActivatedRoute) {
 
     this.musicForm = this.fb.group({
@@ -26,16 +33,20 @@ export class ModifyComponent implements OnInit {
       artist: [this.song?.artist || '', Validators.required],
       lyrics: [this.song?.lyrics || '', Validators.required],
       description: [this.song?.description || '', Validators.required],
+      price_base: [this.song?.price_base || ''],
       price_base_creatoke: [this.song?.price_base_creatoke || ''],
       price_premium_creatoke: [this.song?.price_premium_creatoke || ''],
-      price_base_chanson: [this.song?.price_base_chanson || '' ],
       exclu: [this.song?.exclu || ''],
-      price_premium_chanson: [this.song?.price_premium_chanson || ''],
+      price_premium: [this.song?.price_premium || ''],
       category: [this.song?.category || '', Validators.required],
       subcategory: [this.song?.subcategory || '', Validators.required],
       youtubeURL: [this.song?.youtubeURL || ''],
       spotifyURL: [this.song?.spotifyURL || ''],
-      id: [this.song?.id || '']
+      id: [this.song?.id || ''],
+      isLicenceBase: [this.song?.isLicenceBase || ''],
+      isPremium: [this.song?.isPremium || ''],
+      isLicenceBaseCreatoke: [this.song?.isLicenceBaseCreatoke || ''],
+      isPremiumCreatoke: [this.song?.isPremiumCreatoke || ''],
     });
   }
 
@@ -52,7 +63,7 @@ export class ModifyComponent implements OnInit {
     this.getBackground();
   }
 
-  getSongs(id){
+  getSongs(id) {
     this.songService.getSongByID(id).then((songs) => {
       this.song = songs.data;
       this.musicForm.patchValue({
@@ -60,17 +71,37 @@ export class ModifyComponent implements OnInit {
         artist: this.song.artist,
         lyrics: this.song.lyrics,
         description: this.song.description,
-        price_base_creatoke: this.song?.price_base_creatoke,
-        price_premium_creatoke: this.song?.price_premium_creatoke,
-        price_base_chanson: this.song?.price_base_chanson,
-        price_premium_chanson: this.song?.price_premium_chanson,
+        price_base: this.song?.price_base_chanson,
+        price_premium: this.song?.price_premium,
         category: this.song?.category,
         subcategory: this.song?.subcategory,
         youtubeURL: this.song?.youtubeURL,
         spotifyURL: this.song?.spotifyURL,
-        id: this.song?.id
+        id: this.song?.id,
+        isLicenceBase: ['non'],
+        isPremium: ['non'],
+        isLicenceBaseCreatoke: ['non'],
+        isPremiumCreatoke: ['non'],
       });
     });
+  }
+
+  onCategoryChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const selectedCategory = target ? target.value : null;
+    if (selectedCategory) {
+      this.filteredSubcategories = this.subcategory.filter(sub => sub.category === selectedCategory);
+    } else {
+      this.filteredSubcategories = [];
+    }
+  }
+
+  openModal() {
+    this.display = "block";
+  }
+
+  onCloseHandled() {
+    this.display = "none";
   }
 
   modifyMusic(): void {
@@ -92,9 +123,9 @@ export class ModifyComponent implements OnInit {
     this.musicForm.patchValue({
       title: this.musicForm.value['title'].toUpperCase()
     });
-    if(this.musicForm.valid){
+    if (this.musicForm.valid) {
       this.songService.modifySong(this.musicForm.value).then((success) => alert("Chanson modifiée"));
-    }else{
+    } else {
       alert('Merci de remplir les champs')
     }
   }

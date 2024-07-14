@@ -15,7 +15,7 @@ export class ApiConstant {
     public static PLAYLISTS = ApiConstant.API_BASE_URL + 'playlists.json';
     public static RADIO = ApiConstant.API_BASE_URL + 'radio.json';
     public static SONGS = ApiConstant.API_BASE_URL + 'songs.json';
-    public static API =  window.location.hostname === 'localhost' ? "http://localhost:3001" : "https://api.colocservice.fr/"
+    public static API =  window.location.hostname === 'localhost' ? "http://localhost:3001" : "https://creatoke.net"
 
     public static CATEGORY = ApiConstant.API_BASE_URL + 'category.json';
 

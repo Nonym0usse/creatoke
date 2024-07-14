@@ -32,7 +32,7 @@
                   </div>
                   <div class="col-sm-12 mb-4">
                     <label class="form-label">Dans quelle catégorie ?</label>
-                    <select class="form-select" formControlName="category" aria-label="Select category">
+                    <select class="form-select" formControlName="category" aria-label="Select category" (change)="onCategoryChange($event)">
                       <option value="" selected disabled hidden>Merci de choisir</option>
                       <option value="chansons-a-chanter">Publier dans les chansons à chanter</option>
                       <option value="chansons-cherche-auteur">Publier dans les chansons cherche
@@ -45,7 +45,7 @@
                     <label class="form-label">Dans quelle sous-catégorie ?</label>
                     <select class="form-select" formControlName="subcategory" aria-label="Select sub-category">
                       <option value="" selected disabled hidden>Merci de choisir</option>
-                      <option *ngFor="let sub of subcategory" value="{{sub?.title_fr}}">
+                      <option *ngFor="let sub of filteredSubcategories" value="{{sub?.title_fr}}">
                         Publier dans la sous-catégorie "{{sub.title_fr}}" -> (dans la catégorie
                         {{sub.category}})
                       </option>
@@ -60,7 +60,7 @@
                     </select>
                   </div>
                   <div class="col-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
-                    <label for="song_file_1" class="form-label">Chanson (player client)</label>
+                    <label for="song_file_1" class="form-label">Chanson (player client web) .mp3</label>
                     <input type="file" id="song_file_1" class="form-control" (change)="onFileSelected($event, 'url')"
                       multiple>
                     <div class="progress" [hidden]="progress['url'] === undefined">
@@ -157,8 +157,12 @@
                       placeholder="Youtube URL ex: (https://www.youtube.com/watch?v=Aq1NJxJZo6E) -> Mettre uniquement 'Aq1NJxJZo6E' ici ">
                   </div>
                   <div class="col-sm-12 mb-4">
-                    <label class="form-label">Spotify (Click droit sur le titre Spotify -> Partager -> Intégrer le titre -> Choisir taille compacte -> Copier url dans SRC="" (uniquement)-> Coller sur creatoke)</label>
-                    <input type="text" class="form-control" formControlName="spotifyURL" placeholder="Exemple : https://open.spotify.com/embed/track/6yqwxY8qifBBhyryjZutxk?utm_source=generator">
+                    <button type="button" (click)="openModal()" class="btn btn-cutsom w-10" style="margin-bottom: 20px; margin-right: 10px;">Aide</button>
+                    <label class="form-label">Spotify (Click droit sur le titre Spotify -> Partager -> Intégrer le titre
+                      -> Choisir taille compacte -> <span style="color: red">Copier url dans SRC="" (uniquement)</span>
+                      -> Coller sur creatoke)</label>
+                    <input type="text" class="form-control" formControlName="spotifyURL"
+                      placeholder="Exemple : https://open.spotify.com/embed/track/6yqwxY8qifBBhyryjZutxk?utm_source=generator">
                   </div>
 
                   <div class="col-12 mb-4">
@@ -166,52 +170,102 @@
                     <textarea name="description" id="description" formControlName="description" cols="30" rows="4"
                       class="form-control" placeholder="Description"></textarea>
                   </div>
+
                   <div class="col-12 mb-4"
                     [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'createurs-de-contenu'">
                     <label class="form-label">Lyrics</label>
-                    <ck-editor formControlName="lyrics" skin="moono-lisa" language="fr" [fullPage]="false"></ck-editor>
+                    <ck-editor [config]="{ versionCheck: false }" formControlName="lyrics" skin="moono-lisa"
+                      language="fr" [fullPage]="false"></ck-editor>
                   </div>
 
-                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
-                    <label class="form-label">Prix licence basique chanson (0 si gratuit)</label>
+                  <hr>
+                  <h5>Prix Chanson</h5>
+                  <hr>
+
+                  <div class="col-sm-12 mb-4">
+                    <label class="form-label">Afficher licence de base - <span style="color: green">chanson</span>
+                    </label>
+                    <select class="form-select" formControlName="isLicenceBase" aria-label="Select licence base"
+                      [(ngModel)]='isLicenceBase'>
+                      <option value="non">Non</option>
+                      <option value="oui">Oui</option>
+                    </select>
+                  </div>
+
+                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isLicenceBase')?.value == 'non'">
+                    <label class="form-label">Prix licence de base (0 si gratuit)</label>
                     <div class="input-group">
                       <span class="input-group-text">
                         <i class="ri-money-euro-circle-line"></i>
                       </span>
-                      <input type="number" formControlName="price_base_chanson" class="form-control"
+                      <input type="number" formControlName="price_base" class="form-control"
                         placeholder="Prix licence basique - chanson">
                     </div>
                   </div>
-                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
-                    <label class="form-label">Prix licence basique + chanson</label>
+
+                  <div class="col-sm-12 mb-4">
+                    <label class="form-label">Afficher licence premium - <span
+                        style="color: green">chanson</span></label>
+                    <select class="form-select" formControlName="isPremium" aria-label="Select licence premium"
+                      [(ngModel)]='isPremium'>
+                      <option value="non">Non</option>
+                      <option value="oui">Oui</option>
+                    </select>
+                  </div>
+
+                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isPremium')?.value == 'non'">
+                    <label class="form-label">Prix licence premium</label>
                     <div class="input-group">
                       <span class="input-group-text">
                         <i class="ri-money-euro-circle-line"></i>
                       </span>
-                      <input type="number" formControlName="price_premium_chanson" class="form-control"
-                        placeholder="Prix licence basique plus - chanson">
+                      <input type="number" formControlName="price_premium_creatoke" class="form-control"
+                        placeholder="Prix licence premium - chanson">
                     </div>
                   </div>
-                  <div class="col-sm-12 mb-4"
-                    [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'createurs-de-contenu'">
-                    <label class="form-label">Prix licence basique creatoke (0 si gratuit)</label>
+
+                  <hr>
+                  <h5>Prix créatoké</h5>
+                  <hr>
+
+                  <div class="col-sm-12 mb-4">
+                    <label class="form-label">Afficher licence de base <span style="color: red">créatoké</span></label>
+                    <select class="form-select" formControlName="isLicenceBaseCreatoke" aria-label="Select licence base"
+                      [(ngModel)]='isLicenceBaseCreatoke'>
+                      <option value="non">Non</option>
+                      <option value="oui">Oui</option>
+                    </select>
+                  </div>
+
+                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isLicenceBaseCreatoke')?.value == 'non'">
+                    <label class="form-label">Prix licence de base (0 si gratuit)</label>
                     <div class="input-group">
                       <span class="input-group-text">
                         <i class="ri-money-euro-circle-line"></i>
                       </span>
                       <input type="number" formControlName="price_base_creatoke" class="form-control"
-                        placeholder="Prix licence basique - creatoke">
+                        placeholder="Prix licence basique - créatoké">
                     </div>
                   </div>
-                  <div class="col-sm-12 mb-4"
-                    [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'createurs-de-contenu'">
+
+                  <div class="col-sm-12 mb-4">
+                    <label class="form-label">Afficher licence premium - <span
+                        style="color: red">créatoké</span></label>
+                    <select class="form-select" formControlName="isPremiumCreatoke" aria-label="Select licence premium"
+                      [(ngModel)]='isPremiumCreatoke'>
+                      <option value="non">Non</option>
+                      <option value="oui">Oui</option>
+                    </select>
+                  </div>
+
+                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isPremiumCreatoke')?.value == 'non'">
+                    <label class="form-label">Prix licence premium (0 si gratuit)</label>
                     <div class="input-group">
                       <span class="input-group-text">
                         <i class="ri-money-euro-circle-line"></i>
                       </span>
-                      <label class="form-label">Prix licence basique + creatoke</label>
                       <input type="number" formControlName="price_premium_creatoke" class="form-control"
-                        placeholder="Prix licence basique plus - creatoke">
+                        placeholder="Prix licence premium créatoké">
                     </div>
                   </div>
 
@@ -228,6 +282,25 @@
       </div>
     </div>
   </div>
-  <!-- End:: section -->
 </div>
-<!-- End:: under hero -->
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content custom">
+      <div class="modal-header">
+        <h4 class="modal-title text-center w-100">Aide</h4>
+        <button type="btn btn-cutsom" class="close" aria-label="Close" (click)="onCloseHandled()"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="col-sm-6 offset-sm-3">
+          <p>Récupérer tout ce qui a entre src=" ... " sans les guillemets</p>
+          <img src="./assets/images/spotify.png" alt="Image" style="width:500px;">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cutsom" (click)="onCloseHandled()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>

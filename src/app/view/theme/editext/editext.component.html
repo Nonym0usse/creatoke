@@ -12,7 +12,7 @@
           <div class="card-body">
             <form action="#" class="row" (ngSubmit)="onSubmit()">
               <div class="col-12 mb-4">
-                <ck-editor name="editor1" [(ngModel)]="editor" skin="moono-lisa" language="fr" [fullPage]="true"></ck-editor>
+                <ck-editor name="editor1" [config]="{ versionCheck: false }" [(ngModel)]="editor" skin="moono-lisa" language="fr" [fullPage]="true"></ck-editor>
               </div>
               <div class="col-12 mb-4">
                 <button class="btn btn-cutsom">Enregistrer</button>

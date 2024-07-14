@@ -1,15 +1,15 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {SongService} from "../../../../core/services/api/song.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {PlayerService} from "../../../../core/services/design/player.service";
-import {Subscription} from "rxjs";
-import {HttpStatus} from "../../../../core/constants/http-status";
-import {LicenceService} from "../../../../core/services/api/licence.service";
-import {ICreateOrderRequest} from "ngx-paypal";
-import {PaypalService} from "../../../../core/services/api/paypal.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {DomSanitizer, SafeHtml, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
-import {CategoryService} from "../../../../core/services/api/category.service";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { SongService } from "../../../../core/services/api/song.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { PlayerService } from "../../../../core/services/design/player.service";
+import { Subscription } from "rxjs";
+import { HttpStatus } from "../../../../core/constants/http-status";
+import { LicenceService } from "../../../../core/services/api/licence.service";
+import { ICreateOrderRequest } from "ngx-paypal";
+import { PaypalService } from "../../../../core/services/api/paypal.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { DomSanitizer, SafeHtml, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { CategoryService } from "../../../../core/services/api/category.service";
 
 @Component({
   selector: 'app-music-view',
@@ -72,7 +72,7 @@ export class MusicViewComponent implements OnInit {
     this.trustedDashboardUrl = this.sanitizer.bypassSecurityTrustResourceUrl(song);
   }
 
-  showLyricsBtn(){
+  showLyricsBtn() {
     this.showLyrics = !this.showLyrics;
   }
 
@@ -83,7 +83,7 @@ export class MusicViewComponent implements OnInit {
     this.payPalConfig = {
       currency: "EUR",
       clientId: "AUmNR3MJCKhVgZvF9z2DByyfihtVVL0M9CB6FERS_LsEAKoTZXt4ctdT30PJIDn3o5x6SYQLe3mGFV_X",
-      createOrderOnClient: (data) => < ICreateOrderRequest > {
+      createOrderOnClient: (data) => <ICreateOrderRequest>{
         intent: 'CAPTURE',
         purchase_units: [{
           amount: {
@@ -119,6 +119,23 @@ export class MusicViewComponent implements OnInit {
         const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
         const year = now.getFullYear();
 
+        let song = "";
+
+        switch (licence_name) {
+          case "price_base":
+            song = this.song.chanson_mp3 + '.mp3'
+            break;
+          case "price_premium":
+            song = this.song.chanson_wav + '.wav'
+            break;
+          case "price_base_creatoke":
+            song = this.song.creatoke_mp3 + '.mp3'
+            break;
+          case "price_premium_creatoke":
+            song = this.song.creatoke_wav + '.wav'
+            break;
+        }
+
 
         const customData = {
           price: price,
@@ -129,10 +146,7 @@ export class MusicViewComponent implements OnInit {
           email_client: this.inputForm.get('inputField')?.value,
           titre_chanson: this.song.title,
           image_chanson: this.song.image,
-          type_chanson:  licence_name === 'licence-base-plus-creatoke' ? this.song.creatoke_wav + '.wav' :
-          licence_name === 'licence-base-creatoke' ? this.song.creatoke_mp3 + '.mp3' :
-            licence_name === 'licence-base-chanson' ? this.song.chanson_mp3 + '.mp3' :
-                this.song.chanson_wav + '.wav',
+          type_chanson: song,
           category: this.song.category,
           id_song: this.song.id
         }
@@ -158,7 +172,7 @@ export class MusicViewComponent implements OnInit {
     };
   }
 
-  contact(){
+  contact() {
     this.router.navigate(['/contact'])
   }
 
@@ -197,7 +211,7 @@ export class MusicViewComponent implements OnInit {
     });
   }
 
-  getLicence(){
+  getLicence() {
     this.licenceService.listLicence().then((data) => this.licences = data.data);
   }
 
