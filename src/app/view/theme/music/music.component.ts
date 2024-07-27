@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {CategoryService} from "../../../core/services/api/category.service";
-import {Subscription} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
-import {getParams} from "swiper/angular/angular/src/utils/get-params";
+import { CategoryService } from "../../../core/services/api/category.service";
+import { Subscription } from "rxjs";
+import { ActivatedRoute } from "@angular/router";
+import { getParams } from "swiper/angular/angular/src/utils/get-params";
 
 @Component({
   selector: 'app-music',
@@ -24,7 +24,7 @@ export class MusicComponent implements OnInit {
   ngOnInit(): void {
     this.routerSubscription = this.activatedRoute.params.subscribe(param => {
       this.getParams(param['category']);
-      this.categoryService.getSubCategoryByID(param).then((data) => {this.subCategory = data.data; console.log(data.data)})
+      this.categoryService.getSubCategoryByID(param).then((data) => { this.subCategory = data.data; console.log(data.data) })
     });
     this.getBackground();
   }
@@ -33,10 +33,13 @@ export class MusicComponent implements OnInit {
     this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
   }
 
-  getParams(param){
+  getParams(param) {
     switch (param) {
       case "chansons-a-chanter":
         this.title = "Chansons à chanter 🎤";
+        break
+      case "raccourcis":
+        this.title = "Raccourcis 🎤";
         break
       case "instrumentaux":
         this.title = "Instrumentaux 🎶";
@@ -45,7 +48,7 @@ export class MusicComponent implements OnInit {
         this.title = "Créateurs de contenu 🖥️";
         break
       case "chansons-cherche-auteur":
-        this.title = "Chansons cherche auteur 🎙️";
+        this.title = "Chanson(s) cherche auteur 🎙️";
         break
       default:
         this.title = "Musiques 🎶"

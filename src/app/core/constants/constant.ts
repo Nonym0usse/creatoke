@@ -26,7 +26,7 @@ export class Constant {
       auth: false,
     },
     {
-      name: 'Chansons cherche auteur',
+      name: 'Chanson(s) cherche auteur',
       icon: '<i class="ri-disc-line fs-5"></i>',
       link: '/song/chansons-cherche-auteur',
       auth: false,
@@ -35,6 +35,12 @@ export class Constant {
       name: 'Créateurs de contenu',
       icon: '<i class="ri-youtube-line fs-5"></i>',
       link: '/song/createurs-de-contenu',
+      auth: false,
+    },
+    {
+      name: 'Raccourcis',
+      icon: '<i class="ri-star-line fs-5"></i>',
+      link: '/song/raccourcis',
       auth: false,
     },
     {

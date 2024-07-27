@@ -59,7 +59,7 @@ export class ModifyComponent implements OnInit {
     this.routerSubscription = this.activatedRoute.params.subscribe(param => {
       this.getSongs(param['id']);
     });
-    this.categoryService.getSubCategory().then((data) => { this.subcategory = data.data; });
+    this.categoryService.getSubCategory().then((data) => { this.subcategory = data.data; this.filteredSubcategories = this.subcategory });
     this.getBackground();
   }
 
