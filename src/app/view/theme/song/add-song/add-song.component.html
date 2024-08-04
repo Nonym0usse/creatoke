@@ -40,7 +40,7 @@
                         auteur</option>
                       <option value="raccourcis">Publier dans les raccourcis</option>
                       <option value="instrumentaux">Publier dans les instrumentaux</option>
-                      <option value="createurs-de-contenu">Publier dans créateurs de contenu</option>
+                      <option value="musique-de-contenus">Publier dans musique de contenus</option>
                     </select>
                   </div>
                   <div class="col-sm-12 mb-4">
@@ -183,8 +183,7 @@
                     <ck-editor [config]="{ versionCheck: false }" formControlName="lyrics" skin="moono-lisa"
                       language="fr" [fullPage]="false"></ck-editor>
                   </div>
-                  <ng-template
-                    [hidden]="musicForm.get('exclu')?.value == 'oui' || musicForm.get('category')?.value == 'raccourcis'">
+                  <div [hidden]="musicForm.get('exclu')?.value == 'oui' || musicForm.get('category')?.value == 'raccourcis'">
 
                     <hr>
                     <h5>Prix Chanson</h5>
@@ -278,7 +277,7 @@
                       </div>
                     </div>
 
-                  </ng-template>
+                  </div>
 
                   <div class="col-sm-12 mb-4">
                     <button class="btn btn-primary" style="min-width: 140px;" type="submit"

@@ -32,9 +32,9 @@ export class Constant {
       auth: false,
     },
     {
-      name: 'Créateurs de contenu',
+      name: 'Musique de contenus',
       icon: '<i class="ri-youtube-line fs-5"></i>',
-      link: '/song/createurs-de-contenu',
+      link: '/song/musique-de-contenus',
       auth: false,
     },
     {
