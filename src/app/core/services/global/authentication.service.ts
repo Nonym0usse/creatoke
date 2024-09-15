@@ -1,86 +1,54 @@
-// Angular
 import { Injectable } from '@angular/core';
-
-// Constant classes
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable, map, filter } from 'rxjs';
-import { Constant } from '../../constants/constant';
-import { User } from 'firebase/auth';
-import { NavigationEnd, Router } from "@angular/router";
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  public user: any = {}
+  user$: Observable<any>;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {
-    this.afAuth.authState.subscribe((user: User | any) => {
-      if (user) {
-        this.afAuth.onIdTokenChanged(async (user) => {
-          if (user) {
-            const token = await user.getIdToken();
-            sessionStorage.setItem('firebaseToken', token);
-          } else {
-            sessionStorage.removeItem('firebaseToken');
-          }
-        });
-      }
-    });
-  }
-  /**
-   * Get user object
-   */
-  async logIn(email: string, password: string): Promise<any> {
-    try {
-      const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
-      const token = await userCredential.user?.getIdToken();
-      if (token) {
-        sessionStorage.setItem('firebaseToken', token);
-      }
-    } catch (error: any) {
-      const errorCode = error.code;
-      const errorMessage = Constant.AUTH_ERROR_MESSAGES_FR[errorCode] || 'Erreur inconnue.';
-      console.error(errorMessage);
-      throw new Error(errorMessage);
-    }
+  constructor(private afAuth: AngularFireAuth) {
+    // Set the user observable to the authState observable provided by AngularFireAuth
+    this.user$ = this.afAuth.authState;
   }
 
-  async logOut(): Promise<void> {
-    try {
-      sessionStorage.removeItem('firebaseToken');
-      this.router.navigateByUrl('/');
-      await this.afAuth.signOut();
-    } catch (error) {
-      console.error('Erreur lors de la déconnexion', error);
-    }
+  // Sign in with email and password
+  logIn(email: string, password: string) {
+    return this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
-  /**
-   * Get user login status
-   */
+  // Sign out
+  logOut() {
+    return this.afAuth.signOut();
+  }
+
+  // Check if the user is logged in
   isAuthenticated(): Observable<boolean> {
+    // Use the authState observable and map it to a boolean value
     return this.afAuth.authState.pipe(
-      map((user) => user !== null)
+      map(user => !!user) // Convert the user object to a boolean
     );
   }
-  async getFirebaseIdToken(): Promise<string> {
-    const user = await this.afAuth.currentUser;
-    if (user) {
-      const token = await user.getIdToken();
-      return token;
-    } else {
-      throw new Error('User not authenticated.');
-    }
+
+  // Optionally, you can create a method to get the current user information
+  getCurrentUser(): Observable<any> {
+    return this.user$;
   }
 
-  async refreshToken(): Promise<any> {
-    const user = await this.afAuth.currentUser;
-    if (user) {
-      const token = await user.getIdToken(true); // true for forcing the refresh of the token
-      sessionStorage.setItem('firebaseToken', token);
-      return token; // Return the refreshed token
-    }
-    return null; // Return null if no user is logged in
+  getToken(): Observable<string | null> {
+    return this.afAuth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          return user.getIdToken(); // Return the ID token as an observable
+        } else {
+          return new Observable<string | null>((observer) => {
+            observer.next(null);
+            observer.complete();
+          });
+        }
+      })
+    );
   }
 }
