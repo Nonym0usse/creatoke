@@ -27,7 +27,8 @@
               <div class="tab-pane fade show active" id="music_pane" role="tabpanel" aria-labelledby="music"
                 tabindex="0">
                 <form [formGroup]="musicForm" (ngSubmit)="addMusic()">
-                  <div class="col-12 mb-4">
+                  <div class="col-12 mb-4"
+                    [hidden]="!musicForm.get('category')?.value || filteredSubcategories.length === 0">
                     <input type="text" formControlName="title" class="form-control" placeholder="Titre de la chanson">
                   </div>
                   <div class="col-sm-12 mb-4">
@@ -38,7 +39,8 @@
                       <option value="chansons-a-chanter">Publier dans les chansons à chanter</option>
                       <option value="chansons-cherche-auteur">Publier dans les chansons cherche
                         auteur</option>
-                      <option value="raccourcis">Publier dans les raccourcis</option>
+                      <option value="creacourcis">Publier dans les creacourcis</option>
+                      <option value="virgules-sonores">Publier dans virgules sonores</option>
                       <option value="instrumentaux">Publier dans les instrumentaux</option>
                       <option value="musique-de-contenus">Publier dans musique de contenus</option>
                     </select>
@@ -53,186 +55,194 @@
                       </option>
                     </select>
                   </div>
-                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == 'raccourcis'">
-                    <label class="form-label">Votre chanson est une exclusivité</label>
-                    <select class="form-select" formControlName="exclu" aria-label="Select exclusivité"
-                      [(ngModel)]='isExclu'>
-                      <option value="non">Non</option>
-                      <option value="oui">Oui</option>
-                    </select>
-                  </div>
-                  <div class="col-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
-                    <label for="song_file_1" class="form-label">Chanson (player client web) .mp3</label>
-                    <input type="file" id="song_file_1" class="form-control" (change)="onFileSelected($event, 'url')"
-                      multiple>
-                    <div class="progress" [hidden]="progress['url'] === undefined">
-                      <div class="progress-bar" role="progressbar" [style.width.%]="progress['url']"
-                        [attr.aria-valuenow]="progress['url']" aria-valuemin="0" aria-valuemax="100">
-                        {{ progress['url'] }}%
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 mb-4"
-                    [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value == 'raccourcis'">
-                    <label for="song_file_4" class="form-label">Creatoke (player client)</label>
-                    <input type="file" id="song_file_4" class="form-control"
-                      (change)="onFileSelected($event, 'creatoke')" multiple>
-                    <div class="progress" [hidden]="progress['creatoke'] === undefined">
-                      <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke']"
-                        [attr.aria-valuenow]="progress['creatoke']" aria-valuemin="0" aria-valuemax="100">
-                        {{ progress['creatoke'] }}%
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 mb-4"
-                    [hidden]="musicForm.get('exclu')?.value == 'oui' || musicForm.get('category')?.value == 'raccourcis'">
-                    <label for="song_file_10" class="form-label">Chanson au format wav
-                      (téléchargement)</label>
-                    <input type="file" id="song_file_10" class="form-control"
-                      (change)="onFileSelected($event, 'chanson_wav')" multiple>
-                    <div class="progress" [hidden]="progress['chanson_wav'] === undefined">
-                      <div class="progress-bar" role="progressbar" [style.width.%]="progress['chanson_wav']"
-                        [attr.aria-valuenow]="progress['chanson_wav']" aria-valuemin="0" aria-valuemax="100">
-                        {{ progress['chanson_wav'] }}%
-                      </div>
-                    </div>
-                  </div>
+                  <p [hidden]="filteredSubcategories.length > 0 || !musicForm.get('category')?.value" style="color: red">Aucune sous catégorie associée à la catégorie. Merci d'en créer une dans <i class="ri-stack-fill fs-5"></i> Catégories           
 
-                  <div class="col-12 mb-4"
-                    [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value == 'raccourcis'">
-                    <label for="song_file_5" class="form-label">Creatoke au format wav
-                      (téléchargement)</label>
-                    <input type="file" id="song_file_5" class="form-control"
-                      (change)="onFileSelected($event, 'creatoke_wav')" multiple>
-                    <div class="progress" [hidden]="progress['creatoke_wav'] === undefined">
-                      <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke_wav']"
-                        [attr.aria-valuenow]="progress['creatoke_wav']" aria-valuemin="0" aria-valuemax="100">
-                        {{ progress['creatoke_wav'] }}%
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-12 mb-4"
-                    [hidden]="musicForm.get('exclu')?.value == 'oui' || musicForm.get('category')?.value == 'raccourcis'">
-                    <label for="song_file_19" class="form-label">Chanson au format mp3
-                      (téléchargement)</label>
-                    <input type="file" id="song_file_19" class="form-control"
-                      (change)="onFileSelected($event, 'chanson_mp3')" multiple>
-                    <div class="progress" [hidden]="progress['chanson_mp3'] === undefined">
-                      <div class="progress-bar" role="progressbar" [style.width.%]="progress['chanson_mp3']"
-                        [attr.aria-valuenow]="progress['chanson_mp3']" aria-valuemin="0" aria-valuemax="100">
-                        {{ progress['chanson_mp3'] }}%
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 mb-4"
-                    [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value == 'raccourcis'">
-                    <label for="song_file_5" class="form-label">Creatoke au format mp3
-                      (téléchargement)</label>
-                    <input type="file" id="song_file_11" class="form-control"
-                      (change)="onFileSelected($event, 'creatoke_mp3')" multiple>
-                    <div class="progress" [hidden]="progress['creatoke_mp3'] === undefined">
-                      <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke_mp3']"
-                        [attr.aria-valuenow]="progress['creatoke_mp3']" aria-valuemin="0" aria-valuemax="100">
-                        {{ progress['creatoke_mp3'] }}%
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-12 mb-4">
-                    <label for="img" class="form-label">Image</label>
-                    <input type="file" id="img" class="form-control" (change)="onFileSelected($event, 'image')"
-                      multiple>
-                    <div class="progress" [hidden]="progress['image'] === undefined">
-                      <div class="progress-bar" role="progressbar" [style.width.%]="progress['image']"
-                        [attr.aria-valuenow]="progress['image']" aria-valuemin="0" aria-valuemax="100">
-                        {{ progress['image'] }}%
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-sm-12 mb-4">
-                    <label class="form-label">Artiste</label>
-                    <input type="text" class="form-control" formControlName="artist" placeholder="Artiste">
-                  </div>
-                  <div class="col-sm-12 mb-4"
-                    [hidden]="musicForm.get('exclu')?.value == 'oui' || musicForm.get('category')?.value == 'raccourcis'">
-                    <label class="form-label">Youtube</label>
-                    <input type="text" class="form-control" formControlName="youtubeURL"
-                      placeholder="Youtube URL ex: (https://www.youtube.com/watch?v=Aq1NJxJZo6E) -> Mettre uniquement 'Aq1NJxJZo6E' ici ">
-                  </div>
-                  <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == 'raccourcis'">
-                    <button type="button" (click)="openModal()" class="btn btn-cutsom w-10"
-                      style="margin-bottom: 20px; margin-right: 10px;">Aide</button>
-                    <label class="form-label">Spotify (Click droit sur le titre Spotify -> Partager -> Intégrer le titre
-                      -> Choisir taille compacte -> <span style="color: red">Copier url dans SRC="" (uniquement)</span>
-                      -> Coller sur creatoke)</label>
-                    <input type="text" class="form-control" formControlName="spotifyURL"
-                      placeholder="Exemple : https://open.spotify.com/embed/track/6yqwxY8qifBBhyryjZutxk?utm_source=generator">
-                  </div>
-
-                  <div class="col-12 mb-4">
-                    <label class="form-label">Description</label>
-                    <textarea name="description" id="description" formControlName="description" cols="30" rows="4"
-                      class="form-control" placeholder="Description"></textarea>
-                  </div>
-
-                  <div class="col-12 mb-4"
-                    [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus'">
-                    <label class="form-label">Lyrics</label>
-                    <ck-editor [config]="{ versionCheck: false }" formControlName="lyrics" skin="moono-lisa"
-                      language="fr" [fullPage]="false"></ck-editor>
-                  </div>
-                  <div
-                    [hidden]="musicForm.get('category')?.value == 'raccourcis'">
-
-                    <hr>
-                    <h5>Prix Chanson</h5>
-                    <hr>
-
-                    <div class="col-sm-12 mb-4">
-                      <label class="form-label">Afficher licence de base - <span style="color: green">chanson</span>
-                      </label>
-                      <select class="form-select" formControlName="isLicenceBase" aria-label="Select licence base"
-                        [(ngModel)]='isLicenceBase'>
+                  <div [hidden]="!musicForm.get('subcategory')?.value || filteredSubcategories.length === 0">
+                    <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == 'creacourcis'">
+                      <label class="form-label">Votre chanson est une exclusivité</label>
+                      <select class="form-select" formControlName="exclu" aria-label="Select exclusivité"
+                        [(ngModel)]='isExclu'>
                         <option value="non">Non</option>
                         <option value="oui">Oui</option>
                       </select>
                     </div>
+                    <div class="col-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
+                      <label for="song_file_1" class="form-label">Chanson (player client web) .mp3</label>
+                      <input type="file" id="song_file_1" class="form-control" (change)="onFileSelected($event, 'url')"
+                        multiple>
+                      <div class="progress" [hidden]="progress['url'] === undefined">
+                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['url']"
+                          [attr.aria-valuenow]="progress['url']" aria-valuemin="0" aria-valuemax="100">
+                          {{ progress['url'] }}%
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 mb-4"
+                      [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value == 'creacourcis'">
+                      <label for="song_file_4" class="form-label">Creatoke (player client)</label>
+                      <input type="file" id="song_file_4" class="form-control"
+                        (change)="onFileSelected($event, 'creatoke')" multiple>
+                      <div class="progress" [hidden]="progress['creatoke'] === undefined">
+                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke']"
+                          [attr.aria-valuenow]="progress['creatoke']" aria-valuemin="0" aria-valuemax="100">
+                          {{ progress['creatoke'] }}%
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 mb-4"
+                      [hidden]="musicForm.get('category')?.value == 'creacourcis'">
+                      <label for="song_file_10" class="form-label">Chanson au format wav
+                        (téléchargement)</label>
+                      <input type="file" id="song_file_10" class="form-control"
+                        (change)="onFileSelected($event, 'chanson_wav')" multiple>
+                      <div class="progress" [hidden]="progress['chanson_wav'] === undefined">
+                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['chanson_wav']"
+                          [attr.aria-valuenow]="progress['chanson_wav']" aria-valuemin="0" aria-valuemax="100">
+                          {{ progress['chanson_wav'] }}%
+                        </div>
+                      </div>
+                    </div>
 
-                    <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isLicenceBase')?.value == 'non'">
-                      <label class="form-label">Prix licence de base (0 si gratuit)</label>
-                      <div class="input-group">
-                        <span class="input-group-text">
-                          <i class="ri-money-euro-circle-line"></i>
-                        </span>
-                        <input type="number" formControlName="price_base" class="form-control"
-                          placeholder="Prix licence basique - chanson">
+                    <div class="col-12 mb-4"
+                      [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value == 'creacourcis'">
+                      <label for="song_file_5" class="form-label">Creatoke au format wav
+                        (téléchargement)</label>
+                      <input type="file" id="song_file_5" class="form-control"
+                        (change)="onFileSelected($event, 'creatoke_wav')" multiple>
+                      <div class="progress" [hidden]="progress['creatoke_wav'] === undefined">
+                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke_wav']"
+                          [attr.aria-valuenow]="progress['creatoke_wav']" aria-valuemin="0" aria-valuemax="100">
+                          {{ progress['creatoke_wav'] }}%
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 mb-4"
+                      [hidden]="musicForm.get('exclu')?.value == 'oui' || musicForm.get('category')?.value == 'creacourcis'">
+                      <label for="song_file_19" class="form-label">Chanson au format mp3
+                        (téléchargement)</label>
+                      <input type="file" id="song_file_19" class="form-control"
+                        (change)="onFileSelected($event, 'chanson_mp3')" multiple>
+                      <div class="progress" [hidden]="progress['chanson_mp3'] === undefined">
+                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['chanson_mp3']"
+                          [attr.aria-valuenow]="progress['chanson_mp3']" aria-valuemin="0" aria-valuemax="100">
+                          {{ progress['chanson_mp3'] }}%
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 mb-4"
+                      [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value == 'creacourcis'">
+                      <label for="song_file_5" class="form-label">Creatoke au format mp3
+                        (téléchargement)</label>
+                      <input type="file" id="song_file_11" class="form-control"
+                        (change)="onFileSelected($event, 'creatoke_mp3')" multiple>
+                      <div class="progress" [hidden]="progress['creatoke_mp3'] === undefined">
+                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke_mp3']"
+                          [attr.aria-valuenow]="progress['creatoke_mp3']" aria-valuemin="0" aria-valuemax="100">
+                          {{ progress['creatoke_mp3'] }}%
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 mb-4">
+                      <label for="img" class="form-label">Image</label>
+                      <input type="file" id="img" class="form-control" (change)="onFileSelected($event, 'image')"
+                        multiple>
+                      <div class="progress" [hidden]="progress['image'] === undefined">
+                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['image']"
+                          [attr.aria-valuenow]="progress['image']" aria-valuemin="0" aria-valuemax="100">
+                          {{ progress['image'] }}%
+                        </div>
                       </div>
                     </div>
 
                     <div class="col-sm-12 mb-4">
-                      <label class="form-label">Afficher licence premium - <span
-                          style="color: green">chanson</span></label>
-                      <select class="form-select" formControlName="isPremium" aria-label="Select licence premium"
-                        [(ngModel)]='isPremium'>
-                        <option value="non">Non</option>
-                        <option value="oui">Oui</option>
-                      </select>
+                      <label class="form-label">Artiste</label>
+                      <input type="text" class="form-control" formControlName="artist" placeholder="Artiste">
+                    </div>
+                    <div class="col-sm-12 mb-4"
+                      [hidden]="musicForm.get('exclu')?.value == 'oui' || musicForm.get('category')?.value == 'creacourcis'">
+                      <label class="form-label">Youtube</label>
+                      <input type="text" class="form-control" formControlName="youtubeURL"
+                        placeholder="Youtube URL ex: (https://www.youtube.com/watch?v=Aq1NJxJZo6E) -> Mettre uniquement 'Aq1NJxJZo6E' ici ">
+                    </div>
+                    <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == 'creacourcis'">
+                      <button type="button" (click)="openModal()" class="btn btn-cutsom w-10"
+                        style="margin-bottom: 20px; margin-right: 10px;">Aide</button>
+                      <label class="form-label">Spotify (Click droit sur le titre Spotify -> Partager -> Intégrer le
+                        titre
+                        -> Choisir taille compacte -> <span style="color: red">Copier url dans SRC=""
+                          (uniquement)</span>
+                        -> Coller sur creatoke)</label>
+                      <input type="text" class="form-control" formControlName="spotifyURL"
+                        placeholder="Exemple : https://open.spotify.com/embed/track/6yqwxY8qifBBhyryjZutxk?utm_source=generator">
                     </div>
 
-                    <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isPremium')?.value == 'non'">
-                      <label class="form-label">Prix licence premium</label>
-                      <div class="input-group">
-                        <span class="input-group-text">
-                          <i class="ri-money-euro-circle-line"></i>
-                        </span>
-                        <input type="number" formControlName="price_premium_creatoke" class="form-control"
-                          placeholder="Prix licence premium - chanson">
+                    <div class="col-12 mb-4">
+                      <label class="form-label">Description</label>
+                      <textarea name="description" id="description" formControlName="description" cols="30" rows="4"
+                        class="form-control" placeholder="Description"></textarea>
+                    </div>
+
+                    <div class="col-12 mb-4"
+                      [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus'">
+                      <label class="form-label">Lyrics</label>
+                      <ck-editor [config]="{ versionCheck: false }" formControlName="lyrics" skin="moono-lisa"
+                        language="fr" [fullPage]="false"></ck-editor>
+                    </div>
+                    <div [hidden]="musicForm.get('exclu')?.value == 'oui' && 
+                      (musicForm.get('category')?.value == 'chansons-a-chanter' || 
+                       musicForm.get('category')?.value == 'chansons-cherche-auteur')">
+
+                      <hr>
+                      <h5>Prix Chanson</h5>
+                      <hr>
+
+                      <div class="col-sm-12 mb-4">
+                        <label class="form-label">Afficher licence de base - <span style="color: green">chanson</span>
+                        </label>
+                        <select class="form-select" formControlName="isLicenceBase" aria-label="Select licence base"
+                          [(ngModel)]='isLicenceBase'>
+                          <option value="non">Non</option>
+                          <option value="oui">Oui</option>
+                        </select>
+                      </div>
+
+                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isLicenceBase')?.value == 'non'">
+                        <label class="form-label">Prix licence de base (0 si gratuit)</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-money-euro-circle-line"></i>
+                          </span>
+                          <input type="number" formControlName="price_base" class="form-control"
+                            placeholder="Prix licence basique - chanson">
+                        </div>
+                      </div>
+
+                      <div class="col-sm-12 mb-4">
+                        <label class="form-label">Afficher licence premium - <span
+                            style="color: green">chanson</span></label>
+                        <select class="form-select" formControlName="isPremium" aria-label="Select licence premium"
+                          [(ngModel)]='isPremium'>
+                          <option value="non">Non</option>
+                          <option value="oui">Oui</option>
+                        </select>
+                      </div>
+
+                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isPremium')?.value == 'non'">
+                        <label class="form-label">Prix licence premium</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <i class="ri-money-euro-circle-line"></i>
+                          </span>
+                          <input type="number" formControlName="price_premium_creatoke" class="form-control"
+                            placeholder="Prix licence premium - chanson">
+                        </div>
                       </div>
                     </div>
 
-                    <div [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus'">
+                    <div
+                      [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value == 'creacourcis' || musicForm.get('category')?.value == 'virgules-sonores'">
 
                       <hr>
                       <h5>Prix créatoké</h5>
@@ -280,7 +290,6 @@
                         </div>
                       </div>
                     </div>
-
                   </div>
 
                   <div class="col-sm-12 mb-4">

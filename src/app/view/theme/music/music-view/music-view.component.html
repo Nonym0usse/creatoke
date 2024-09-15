@@ -128,9 +128,9 @@
         </div>
 
 
-        <div class="section" *ngIf="song?.category !== 'raccourcis'">
+        <div class="section">
             <div class="section__head">
-                <h3 class="mb-0" style="padding-top: 20px">Acheter<span class="exclu"> la chanson</span></h3>
+                <h3 class="mb-0" style="padding-top: 20px">Acheter<span class="exclu"> {{categoryName}}</span></h3>
             </div>
 
             <div class="plan bg-light">
@@ -209,7 +209,7 @@
             </div>
         </div>
 
-        <div class="section" *ngIf="song?.category !== 'raccourcis' ">
+        <div class="section" *ngIf="song?.category === 'chansons-a-chanter' && song?.category === 'chansons-cherche-auteur'">
             <div class="section__head">
                 <h3 class="mb-0" style="padding-top: 20px">Acheter<span class="exclu"> le créatoké</span></h3>
             </div>

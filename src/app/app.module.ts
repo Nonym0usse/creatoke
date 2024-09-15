@@ -22,7 +22,6 @@ import {LicenceComponent} from "./view/theme/licence/licence.component";
 import {CommentsAdminComponent} from "./view/theme/comments-admin/comments-admin.component";
 import {BackgroundimageComponent} from "./view/theme/backgroundimage/backgroundimage.component";
 import {LoaderComponent} from "./view/partials/loader/loader.component";
-import { RefreshTokenService } from './core/services/global/refresh-token.service';
 
 @NgModule({
   declarations: [
@@ -54,7 +53,7 @@ import { RefreshTokenService } from './core/services/global/refresh-token.servic
     useValue: {
       siteKey: "6LeCDVIUAAAAAP86GJ95Z-0OY8CeUaG-oEeIpYcF",
     } as RecaptchaSettings,
-  }, RefreshTokenService],
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

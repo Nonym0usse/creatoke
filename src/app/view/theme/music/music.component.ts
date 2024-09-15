@@ -38,8 +38,11 @@ export class MusicComponent implements OnInit {
       case "chansons-a-chanter":
         this.title = "Chansons à chanter 🎤";
         break
-      case "raccourcis":
-        this.title = "Raccourcis 🎤";
+      case "creacourcis":
+        this.title = "Créacourcis 🎤";
+        break
+      case "virgules-sonores":
+        this.title = "Virgules sonores 🎤";
         break
       case "instrumentaux":
         this.title = "Instrumentaux 🎶";

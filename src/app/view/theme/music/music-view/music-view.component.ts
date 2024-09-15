@@ -31,6 +31,7 @@ export class MusicViewComponent implements OnInit {
   showLyrics: boolean = false;
   isPlaying: boolean = false;
   audioElement: any;
+  categoryName: string = "";
   trustedDashboardUrl: SafeUrl | undefined;
   // Holds router subscription
   routerSubscription: Subscription | undefined;
@@ -74,6 +75,33 @@ export class MusicViewComponent implements OnInit {
 
   showLyricsBtn() {
     this.showLyrics = !this.showLyrics;
+  }
+
+  getParams(sub) {
+    switch (sub) {
+      case "chansons-a-chanter":
+        this.categoryName = "la chanson à chanter";
+        break
+      case "creacourcis":
+        this.categoryName = "le créacourcis";
+        break
+      case "virgules-sonores":
+        this.categoryName = "la virgule sonore";
+        break
+      case "instrumentaux":
+        this.categoryName = "l'instrumentale";
+        break
+      case "musique-de-contenus":
+        this.categoryName = "la musique de contenu";
+        break
+      case "chansons-cherche-auteur":
+        this.categoryName = "la chanson cherche auteur";
+        break
+      default:
+        this.categoryName = "la chanson"
+        break
+    }
+    return this.categoryName;
   }
 
 
@@ -204,7 +232,7 @@ export class MusicViewComponent implements OnInit {
   getSongs(id: string): void {
     this.songService.getSongByID(id).then(response => {
       this.song = response.data;
-      console.log(this.song)
+      this.getParams(this.song.category);
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.song?.youtubeURL}`);
       this.sanitizeHtml(this.song.spotifyURL);
       this.audioElement = new Audio(this.song.creatoke);

@@ -38,9 +38,15 @@ export class Constant {
       auth: false,
     },
     {
-      name: 'Raccourcis',
+      name: 'Créacourcis',
       icon: '<i class="ri-star-line fs-5"></i>',
-      link: '/song/raccourcis',
+      link: '/song/creacourcis',
+      auth: false,
+    },
+    {
+      name: 'Virgules sonores',
+      icon: '<i class="ri-music-2-line fs-5"></i>',
+      link: '/song/virgules-sonores',
       auth: false,
     },
     {

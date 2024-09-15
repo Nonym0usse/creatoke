@@ -22,7 +22,7 @@ export class CategoryService {
       headers: {
         Authorization: `Bearer ${this.firebaseToken}`
       }
-    }).then(() => alert('Catégorie créée avec succès')).catch((e) => alert('Erreur.'));
+    }).then(() => alert('Sous catégorie créée avec succès')).catch((e) => alert('Erreur.'));
   }
 
   createBackground(data){

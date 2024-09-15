@@ -40,14 +40,16 @@ export class LoginComponent implements OnInit {
     /**
      * User login
      */
-    login(): void {
-        this.authService.logIn(this.form.get('email')?.value, this.form.get('password')?.value).then((userCredential) => {
-            console.log(userCredential)
-            if (userCredential) {
-              this.router.navigateByUrl('/');
-            }
-        }).catch((error) => {
-             this.message = error.message;
-        });
-    }
+    async login(): Promise<void> {
+        try {
+          const email = this.form.get('email')?.value;
+          const password = this.form.get('password')?.value;
+          const userCredential = await this.authService.logIn(email, password);
+          if (userCredential) {
+            await this.router.navigateByUrl('/');
+          }
+        } catch (error: any) {
+          this.message = error.message;
+        }
+      }
 }

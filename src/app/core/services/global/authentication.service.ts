@@ -17,31 +17,43 @@ export class AuthenticationService {
   constructor(private afAuth: AngularFireAuth, private router: Router) {
     this.afAuth.authState.subscribe((user: User | any) => {
       if (user) {
-        this.user = { email: user.email, uid: user.uid }
+        this.afAuth.onIdTokenChanged(async (user) => {
+          if (user) {
+            const token = await user.getIdToken();
+            sessionStorage.setItem('firebaseToken', token);
+          } else {
+            sessionStorage.removeItem('firebaseToken');
+          }
+        });
       }
     });
   }
   /**
    * Get user object
    */
-  logIn(email: string, password: string): Promise<any> {
-    return this.afAuth.signInWithEmailAndPassword(email, password).then(async (user) => {
-      const token = await user.user?.getIdToken();
-      // @ts-ignore
-      localStorage.setItem('firebaseToken', token);
-      this.router.navigate(['/']).then(() => {
-        window.location.reload();
-      });
-    }).catch((error: any) => {
+  async logIn(email: string, password: string): Promise<any> {
+    try {
+      const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
+      const token = await userCredential.user?.getIdToken();
+      if (token) {
+        sessionStorage.setItem('firebaseToken', token);
+      }
+    } catch (error: any) {
       const errorCode = error.code;
       const errorMessage = Constant.AUTH_ERROR_MESSAGES_FR[errorCode] || 'Erreur inconnue.';
+      console.error(errorMessage);
       throw new Error(errorMessage);
-    });
+    }
   }
 
-  logOut() {
-    localStorage.removeItem('firebaseToken');
-    return this.afAuth.signOut().then(() => this.router.navigate(['/']))
+  async logOut(): Promise<void> {
+    try {
+      sessionStorage.removeItem('firebaseToken');
+      this.router.navigateByUrl('/');
+      await this.afAuth.signOut();
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion', error);
+    }
   }
 
   /**
@@ -60,5 +72,15 @@ export class AuthenticationService {
     } else {
       throw new Error('User not authenticated.');
     }
+  }
+
+  async refreshToken(): Promise<any> {
+    const user = await this.afAuth.currentUser;
+    if (user) {
+      const token = await user.getIdToken(true); // true for forcing the refresh of the token
+      sessionStorage.setItem('firebaseToken', token);
+      return token; // Return the refreshed token
+    }
+    return null; // Return null if no user is logged in
   }
 }

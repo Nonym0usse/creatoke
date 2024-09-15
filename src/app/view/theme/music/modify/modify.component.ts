@@ -31,7 +31,7 @@ export class ModifyComponent implements OnInit {
     this.musicForm = this.fb.group({
       title: [this.song?.title || '', Validators.required],
       artist: [this.song?.artist || '', Validators.required],
-      lyrics: [this.song?.lyrics || '', Validators.required],
+      lyrics: [''],
       description: [this.song?.description || '', Validators.required],
       price_base: [this.song?.price_base || ''],
       price_base_creatoke: [this.song?.price_base_creatoke || ''],
@@ -90,7 +90,7 @@ export class ModifyComponent implements OnInit {
     const target = event.target as HTMLSelectElement;
     const selectedCategory = target ? target.value : null;
     if (selectedCategory) {
-      this.filteredSubcategories = this.subcategory.filter(sub => sub.category === selectedCategory);
+      this.filteredSubcategories = this.subcategory.filter(sub => sub.category === selectedCategory) ?? [];
     } else {
       this.filteredSubcategories = [];
     }
