@@ -135,7 +135,7 @@
 
             <div class="plan bg-light">
                 <div class="plan__data">
-                    <ng-container *ngIf="song.isLicenceBase === 'oui'">
+                    <ng-container *ngIf="song?.isLicenceBase === 'oui'">
                         <div class="card plan__col">
                             <div class="card-body fw-medium">
                                 <div class="d-flex align-items-center text-dark mb-4">
@@ -164,7 +164,7 @@
                         </div>
                     </ng-container>
 
-                    <ng-container *ngIf="song.isPremium === 'oui'">
+                    <ng-container *ngIf="song?.isPremium === 'oui'">
                         <div class="card plan__col">
                             <div class="card-body fw-medium">
                                 <div class="d-flex align-items-center text-dark mb-4">
@@ -209,7 +209,7 @@
             </div>
         </div>
 
-        <div class="section" *ngIf="song?.category === 'chansons-a-chanter' && song?.category === 'chansons-cherche-auteur'">
+        <div class="section" *ngIf="song?.category === 'chansons-a-chanter' || song?.category === 'chansons-cherche-auteur'">
             <div class="section__head">
                 <h3 class="mb-0" style="padding-top: 20px">Acheter<span class="exclu"> le créatoké</span></h3>
             </div>

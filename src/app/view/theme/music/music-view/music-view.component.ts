@@ -89,7 +89,7 @@ export class MusicViewComponent implements OnInit {
         this.categoryName = "la virgule sonore";
         break
       case "instrumentaux":
-        this.categoryName = "l'instrumentale";
+        this.categoryName = "l'instrumental";
         break
       case "musique-de-contenus":
         this.categoryName = "la musique de contenu";
