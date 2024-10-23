@@ -68,6 +68,17 @@
                         <option value="oui">Oui</option>
                       </select>
                     </div>
+
+                    <div class="col-sm-12 mb-4">
+                      <label class="form-label">Publier dans coup de coeur</label>
+                      <select class="form-select" formControlName="isHeartStroke" aria-label="Select exclusivité"
+                        [(ngModel)]='song.isHeartStroke'>
+                        <option value="non">Non</option>
+                        <option value="oui">Oui</option>
+                      </select>
+                    </div>
+
+
                     <div class="col-sm-12 mb-4">
                       <label class="form-label">Artiste</label>
                       <input type="text" class="form-control" formControlName="artist" placeholder="Artiste">

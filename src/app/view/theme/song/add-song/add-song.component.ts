@@ -20,6 +20,7 @@ export class AddSongComponent implements OnInit {
   display = "none";
   picturebackground: any;
   isExclu = "non";
+  isHeartStroke = "non";
   isLicenceBase = "non";
   isPremium = "non";
   isLicenceBaseCreatoke = "non";
@@ -54,6 +55,7 @@ export class AddSongComponent implements OnInit {
       isPremium: ['non'],
       isLicenceBaseCreatoke: ['non'],
       isPremiumCreatoke: ['non'],
+      isHeartStroke: ['non'],
     });
   }
 

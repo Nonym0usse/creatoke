@@ -55,7 +55,9 @@
                       </option>
                     </select>
                   </div>
-                  <p [hidden]="filteredSubcategories.length > 0 || !musicForm.get('category')?.value" style="color: red">Aucune sous catégorie associée à la catégorie. Merci d'en créer une dans <i class="ri-stack-fill fs-5"></i> Catégories           
+                  <p [hidden]="filteredSubcategories.length > 0 || !musicForm.get('category')?.value"
+                    style="color: red">Aucune sous catégorie associée à la catégorie. Merci d'en créer une dans <i
+                      class="ri-stack-fill fs-5"></i> Catégories
 
                   <div [hidden]="!musicForm.get('subcategory')?.value || filteredSubcategories.length === 0">
                     <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == 'creacourcis'">
@@ -66,6 +68,16 @@
                         <option value="oui">Oui</option>
                       </select>
                     </div>
+
+                    <div class="col-sm-12 mb-4">
+                      <label class="form-label">Est-elle un coup de coeur?</label>
+                      <select class="form-select" formControlName="isHeartStroke" aria-label="Select exclusivité"
+                        [(ngModel)]='isHeartStroke'>
+                        <option value="non">Non</option>
+                        <option value="oui">Oui</option>
+                      </select>
+                    </div>
+
                     <div class="col-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
                       <label for="song_file_1" class="form-label">Chanson (player client web) .mp3</label>
                       <input type="file" id="song_file_1" class="form-control" (change)="onFileSelected($event, 'url')"
@@ -89,8 +101,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 mb-4"
-                      [hidden]="musicForm.get('category')?.value == 'creacourcis'">
+                    <div class="col-12 mb-4" [hidden]="musicForm.get('category')?.value == 'creacourcis'">
                       <label for="song_file_10" class="form-label">Chanson au format wav
                         (téléchargement)</label>
                       <input type="file" id="song_file_10" class="form-control"

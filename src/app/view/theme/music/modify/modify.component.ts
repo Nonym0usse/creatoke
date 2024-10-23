@@ -21,6 +21,7 @@ export class ModifyComponent implements OnInit {
   isLicenceBase = "non";
   isPremium = "non";
   isLicenceBaseCreatoke = "non";
+  isHeartStroke = "non";
   isPremiumCreatoke = "non";
   routerSubscription: Subscription | undefined;
   filteredSubcategories: any = [];
@@ -47,6 +48,7 @@ export class ModifyComponent implements OnInit {
       isPremium: [this.song?.isPremium || ''],
       isLicenceBaseCreatoke: [this.song?.isLicenceBaseCreatoke || ''],
       isPremiumCreatoke: [this.song?.isPremiumCreatoke || ''],
+      isHeartStroke: [this.song?.isHeartStroke || ''],
     });
   }
 
