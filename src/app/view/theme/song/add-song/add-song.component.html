@@ -201,6 +201,14 @@
                       <ck-editor [config]="{ versionCheck: false }" formControlName="lyrics" skin="moono-lisa"
                         language="fr" [fullPage]="false"></ck-editor>
                     </div>
+
+                    <div class="col-12 mb-4" [hidden]="musicForm.get('exclu')?.value === 'non'">
+                      <label class="form-label">Message</label>
+                      <ck-editor [config]="{ versionCheck: false }" formControlName="message" skin="moono-lisa"
+                        language="fr" [fullPage]="false"></ck-editor>
+                    </div>
+
+
                     <div [hidden]="musicForm.get('exclu')?.value == 'oui' && 
                       (musicForm.get('category')?.value == 'chansons-a-chanter' || 
                        musicForm.get('category')?.value == 'chansons-cherche-auteur')">
@@ -209,7 +217,7 @@
                       <h5>Prix Chanson</h5>
                       <hr>
 
-                      <div class="col-sm-12 mb-4">
+                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
                         <label class="form-label">Afficher licence de base - <span style="color: green">chanson</span>
                         </label>
                         <select class="form-select" formControlName="isLicenceBase" aria-label="Select licence base"
@@ -219,7 +227,7 @@
                         </select>
                       </div>
 
-                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isLicenceBase')?.value == 'non'">
+                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isLicenceBase')?.value == 'non' && musicForm.get('exclu')?.value == 'oui'">
                         <label class="form-label">Prix licence de base (0 si gratuit)</label>
                         <div class="input-group">
                           <span class="input-group-text">
@@ -230,7 +238,7 @@
                         </div>
                       </div>
 
-                      <div class="col-sm-12 mb-4">
+                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
                         <label class="form-label">Afficher licence premium - <span
                             style="color: green">chanson</span></label>
                         <select class="form-select" formControlName="isPremium" aria-label="Select licence premium"
@@ -240,7 +248,7 @@
                         </select>
                       </div>
 
-                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isPremium')?.value == 'non'">
+                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isPremium')?.value == 'non' && musicForm.get('exclu')?.value == 'oui'">
                         <label class="form-label">Prix licence premium</label>
                         <div class="input-group">
                           <span class="input-group-text">

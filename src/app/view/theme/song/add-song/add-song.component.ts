@@ -56,6 +56,7 @@ export class AddSongComponent implements OnInit {
       isLicenceBaseCreatoke: ['non'],
       isPremiumCreatoke: ['non'],
       isHeartStroke: ['non'],
+      message: [''],
     });
   }
 

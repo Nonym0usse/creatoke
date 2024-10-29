@@ -114,6 +114,12 @@
                         language="fr" [fullPage]="false"></ck-editor>
                     </div>
 
+                    <div class="col-12 mb-4" [hidden]="musicForm.get('exclu')?.value === 'non'">
+                      <label class="form-label">Message</label>
+                      <ck-editor [config]="{ versionCheck: false }" formControlName="message" skin="moono-lisa"
+                        language="fr" [fullPage]="false"></ck-editor>
+                    </div>
+
                     <div [hidden]="musicForm.get('exclu')?.value == 'oui' && 
                       (musicForm.get('category')?.value == 'chansons-a-chanter' || 
                        musicForm.get('category')?.value == 'chansons-cherche-auteur')">

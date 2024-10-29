@@ -49,6 +49,7 @@ export class ModifyComponent implements OnInit {
       isLicenceBaseCreatoke: [this.song?.isLicenceBaseCreatoke || ''],
       isPremiumCreatoke: [this.song?.isPremiumCreatoke || ''],
       isHeartStroke: [this.song?.isHeartStroke || ''],
+      message: [this.song?.message || ''],
     });
   }
 
@@ -84,6 +85,8 @@ export class ModifyComponent implements OnInit {
         isPremium: ['non'],
         isLicenceBaseCreatoke: ['non'],
         isPremiumCreatoke: ['non'],
+        isHeartStroke: ['non'],
+        message: this.song?.message,
       });
     });
   }
