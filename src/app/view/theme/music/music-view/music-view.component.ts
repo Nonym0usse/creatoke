@@ -80,25 +80,25 @@ export class MusicViewComponent implements OnInit {
   getParams(sub) {
     switch (sub) {
       case "chansons-a-chanter":
-        this.categoryName = "la chanson à chanter";
+        this.categoryName = " la chanson à chanter";
         break
       case "creacourcis":
-        this.categoryName = "le créacourcis";
+        this.categoryName = " le créacourcis";
         break
       case "virgules-sonores":
-        this.categoryName = "la virgule sonore";
+        this.categoryName = " la virgule sonore";
         break
       case "instrumentaux":
-        this.categoryName = "l'instrumental";
+        this.categoryName = " l'instrumental";
         break
       case "musique-de-contenus":
-        this.categoryName = "la musique de contenu";
+        this.categoryName = " la musique de contenu";
         break
       case "chansons-cherche-auteur":
-        this.categoryName = "la chanson cherche auteur";
+        this.categoryName = " la chanson cherche auteur";
         break
       default:
-        this.categoryName = "la chanson"
+        this.categoryName = " la chanson"
         break
     }
     return this.categoryName;
@@ -232,6 +232,7 @@ export class MusicViewComponent implements OnInit {
   getSongs(id: string): void {
     this.songService.getSongByID(id).then(response => {
       this.song = response.data;
+      console.log(this.song)
       this.getParams(this.song.category);
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.song?.youtubeURL}`);
       this.sanitizeHtml(this.song.spotifyURL);

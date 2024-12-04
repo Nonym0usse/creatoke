@@ -130,10 +130,9 @@
 
         <div class="section">
             <div class="section__head">
-                <h3 class="mb-0" style="padding-top: 20px">Acheter <span class="exclu"> {{categoryName}}</span></h3>
+                <h3 class="mb-0" style="padding-top: 20px">Acheter<span class="exclu">{{categoryName}}</span></h3>
             </div>
-
-            <div class="plan bg-light" *ngIf="song?.message.length === 0; else elseBlock">
+            <div class="plan bg-light" *ngIf="song?.message?.length === 0 || song?.exclu === 'non'; else elseBlock">
                 <div class="plan__data">
                     <ng-container *ngIf="song?.isLicenceBase === 'oui'">
                         <div class="card plan__col">
@@ -142,7 +141,7 @@
                                     <span></span>
                                     <h4 class="mb-0 ps-3">Licence de base</h4>
                                 </div>
-                                <p class="fs-6 opacity-50">Ce qui est inclut</p>
+                                <p class="fs-6 opacity-50">Ce qui est inclus</p>
                                 <div class="d-flex mb-3" *ngFor="let feature of licences">
                                     <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
                                     <span class="ps-2" [innerHTML]="feature.basic"></span>
@@ -171,7 +170,7 @@
                                     <span></span>
                                     <h4 class="mb-0 ps-3">Licence premium</h4>
                                 </div>
-                                <p class="fs-6 opacity-50">Ce qui est inclut</p>
+                                <p class="fs-6 opacity-50">Ce qui est inclus</p>
                                 <div class="d-flex mb-3" *ngFor="let feature of licences">
                                     <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
                                     <span class="ps-2" [innerHTML]="feature.base_plus"></span>
@@ -193,7 +192,7 @@
                                 <span></span>
                                 <h4 class="mb-0 ps-3">Licence pro et exclusivité</h4>
                             </div>
-                            <p class="fs-6 opacity-50">Ce qui est inclut</p>
+                            <p class="fs-6 opacity-50">Ce qui est inclus</p>
                             <div class="d-flex mb-3" *ngFor="let feature of licences">
                                 <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
                                 <span class="ps-2" [innerHTML]="feature.premium"></span>
@@ -227,7 +226,7 @@
                                     <span></span>
                                     <h4 class="mb-0 ps-3">Licence de base créatoké</h4>
                                 </div>
-                                <p class="fs-6 opacity-50">Ce qui est inclut</p>
+                                <p class="fs-6 opacity-50">Ce qui est inclus</p>
                                 <div class="d-flex mb-3" *ngFor="let feature of licences">
                                     <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
                                     <span class="ps-2" [innerHTML]="feature.basic"></span>
@@ -257,7 +256,7 @@
                                     <span></span>
                                     <h4 class="mb-0 ps-3">Licence premium créatoké</h4>
                                 </div>
-                                <p class="fs-6 opacity-50">Ce qui est inclut</p>
+                                <p class="fs-6 opacity-50">Ce qui est inclus</p>
                                 <div class="d-flex mb-3" *ngFor="let feature of licences">
                                     <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
                                     <span class="ps-2" [innerHTML]="feature.base_plus"></span>
@@ -280,7 +279,7 @@
                                 <span></span>
                                 <h4 class="mb-0 ps-3">Licence pro et exclusivité</h4>
                             </div>
-                            <p class="fs-6 opacity-50">Ce qui est inclut</p>
+                            <p class="fs-6 opacity-50">Ce qui est inclus</p>
                             <div class="d-flex mb-3" *ngFor="let feature of licences">
                                 <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
                                 <span class="ps-2" [innerHTML]="feature.premium"></span>
