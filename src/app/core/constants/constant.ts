@@ -56,6 +56,12 @@ export class Constant {
       auth: false,
     },
     {
+      name: 'A propos de Créatoké',
+      icon: '<i class="ri-information-line fs-5"></i>',
+      link: '/about',
+      auth: false,
+    },
+    {
       head: 'Tableau de bord',
       auth: true,
 

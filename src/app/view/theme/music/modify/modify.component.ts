@@ -2,10 +2,11 @@
 // Angular
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subscription } from "rxjs";
+import { finalize, Observable, Subscription } from "rxjs";
 import { SongService } from "../../../../core/services/api/song.service";
 import { CategoryService } from "../../../../core/services/api/category.service";
 import { ActivatedRoute } from "@angular/router";
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-modify',
@@ -26,8 +27,14 @@ export class ModifyComponent implements OnInit {
   routerSubscription: Subscription | undefined;
   filteredSubcategories: any = [];
   display = "none";
+  currentAudio: HTMLAudioElement | null = null;
+  isPlaying: boolean = false;
+  files: any = [];
+  progress: { [key: string]: number } = {};
+  downloadUrls: { [key: string]: string } = {};
 
-  constructor(private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private activatedRoute: ActivatedRoute) {
+
+  constructor(private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private activatedRoute: ActivatedRoute, private storage: AngularFireStorage) {
 
     this.musicForm = this.fb.group({
       title: [this.song?.title || '', Validators.required],
@@ -69,6 +76,7 @@ export class ModifyComponent implements OnInit {
   getSongs(id) {
     this.songService.getSongByID(id).then((songs) => {
       this.song = songs.data;
+      console.log(this.song);
       this.musicForm.patchValue({
         title: this.song.title,
         artist: this.song.artist,
@@ -91,6 +99,35 @@ export class ModifyComponent implements OnInit {
     });
   }
 
+  playSong(url: string) {
+    if (this.currentAudio) {
+      this.currentAudio.pause(); // Pause the previous audio if playing
+    }
+
+    this.currentAudio = new Audio(url);
+    this.currentAudio.play();
+    this.isPlaying = true;
+
+    this.currentAudio.onended = () => {
+      this.isPlaying = false; // Reset UI when song ends
+    };
+  }
+
+  pauseSong() {
+    if (this.currentAudio) {
+      this.currentAudio.pause();
+      this.isPlaying = false;
+    }
+  }
+
+  stopSong() {
+    if (this.currentAudio) {
+      this.currentAudio.pause();
+      this.currentAudio.currentTime = 0; // Reset audio to start
+      this.isPlaying = false;
+    }
+  }
+
   onCategoryChange(event: Event) {
     const target = event.target as HTMLSelectElement;
     const selectedCategory = target ? target.value : null;
@@ -99,6 +136,35 @@ export class ModifyComponent implements OnInit {
     } else {
       this.filteredSubcategories = [];
     }
+  }
+
+  onFileSelected(event: any, fileType: string) {
+    const file = event.target.files[0];
+    if (file) {
+      this.startUpload(file, fileType);
+    }
+  }
+
+
+  startUpload(file: File, fileType: string): void {
+    const filePath = `songs/${file.name}`;
+    const fileRef = this.storage.ref(filePath);
+
+    const task: AngularFireUploadTask = this.storage.upload(filePath, file);
+    this.progress[fileType] = 0;
+    //@ts-ignore
+    task.percentageChanges().subscribe((progress: number) => {
+      //@ts-ignore
+      this.progress[fileType] = progress.toFixed(2);
+    });
+
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe((url: string) => {
+          this.handleDownloadURL(url, fileType);
+        });
+      })
+    ).subscribe();
   }
 
   openModal() {
@@ -128,10 +194,22 @@ export class ModifyComponent implements OnInit {
     this.musicForm.patchValue({
       title: this.musicForm.value['title'].toUpperCase()
     });
+    this.musicForm.value['creatoke_wav'] = this.downloadUrls['creatoke_wav'];
+    this.musicForm.value['creatoke_mp3'] = this.downloadUrls['creatoke_mp3'];
+    this.musicForm.value['chanson_mp3'] = this.downloadUrls['chanson_mp3'];
+    this.musicForm.value['chanson_wav'] = this.downloadUrls['chanson_wav'];
+
+    this.musicForm.value['image'] = this.downloadUrls['image'];
+    this.musicForm.value['creatoke'] = this.downloadUrls['creatoke'];
+    this.musicForm.value['url'] = this.downloadUrls['url'];
     if (this.musicForm.valid) {
       this.songService.modifySong(this.musicForm.value).then((success) => alert("Chanson modifiée"));
     } else {
       alert('Merci de remplir les champs')
     }
+  }
+
+  handleDownloadURL(url: string, fileType: string): void {
+    this.downloadUrls[fileType] = url;
   }
 }

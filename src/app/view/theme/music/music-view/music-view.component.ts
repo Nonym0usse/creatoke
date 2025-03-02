@@ -3,7 +3,6 @@ import { SongService } from "../../../../core/services/api/song.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PlayerService } from "../../../../core/services/design/player.service";
 import { Subscription } from "rxjs";
-import { HttpStatus } from "../../../../core/constants/http-status";
 import { LicenceService } from "../../../../core/services/api/licence.service";
 import { ICreateOrderRequest } from "ngx-paypal";
 import { PaypalService } from "../../../../core/services/api/paypal.service";
@@ -104,10 +103,49 @@ export class MusicViewComponent implements OnInit {
     return this.categoryName;
   }
 
+  getCurrentFormattedDate(): string {
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Les mois sont basés sur zéro
+    const year = now.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
 
   openModal(price, licence_content, licence_name, title) {
-    console.log(licence_content)
     this.display = "block";
+
+    let songUrlDownload = "";
+
+    switch (licence_name) {
+      case "price_base":
+        songUrlDownload = this.song.chanson_mp3 + '.mp3'
+        break;
+      case "price_premium":
+        songUrlDownload = this.song.chanson_wav + '.wav'
+        break;
+      case "price_base_creatoke":
+        songUrlDownload = this.song.creatoke_mp3 + '.mp3'
+        break;
+      case "price_premium_creatoke":
+        songUrlDownload = this.song.creatoke_wav + '.wav'
+        break;
+    }
+
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+
+    const formatDataForSelling = {
+      price: price,
+      year: year,
+      month: month,
+      email_client: this.inputForm.get('inputField')?.value,
+      titre_chanson: this.song.title,
+      id_song: this.song.id,
+      songUrlDownload: songUrlDownload,
+      date: this.getCurrentFormattedDate()
+    }
+
     this.payPalConfig = {
       currency: "EUR",
       clientId: "AUmNR3MJCKhVgZvF9z2DByyfihtVVL0M9CB6FERS_LsEAKoTZXt4ctdT30PJIDn3o5x6SYQLe3mGFV_X",
@@ -143,43 +181,22 @@ export class MusicViewComponent implements OnInit {
         layout: "vertical"
       },
       onApprove: (data, actions) => {
-        const now = new Date();
-        const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-        const year = now.getFullYear();
-
-        let song = "";
-
-        switch (licence_name) {
-          case "price_base":
-            song = this.song.chanson_mp3 + '.mp3'
-            break;
-          case "price_premium":
-            song = this.song.chanson_wav + '.wav'
-            break;
-          case "price_base_creatoke":
-            song = this.song.creatoke_mp3 + '.mp3'
-            break;
-          case "price_premium_creatoke":
-            song = this.song.creatoke_wav + '.wav'
-            break;
-        }
-
-
-        const customData = {
-          price: price,
-          licence_name: licence_name,
-          licence_type: licence_content,
-          current_year: year,
-          current_month: month,
-          email_client: this.inputForm.get('inputField')?.value,
-          titre_chanson: this.song.title,
-          image_chanson: this.song.image,
-          type_chanson: song,
-          category: this.song.category,
-          id_song: this.song.id
-        }
         actions.order.get().then(details => {
-          this.paypalService.createSale(customData).then(() => alert("Merci pour votre achat. Vérifiez votre boite mail."));
+          this.paypalService.createSale(formatDataForSelling)
+            .then((response) => {
+              if (response.status === 200) {
+                if (response.data?.songUrlDownload) {
+                  this.router.navigate(['/confirm-purchase'], { state: { songUrlDownload: response.data.songUrlDownload, songName: this.song.title } });
+                } else {
+                  console.error('songUrlDownload is undefined!');
+                }
+              } else {
+                alert('Une erreur est survenue lors de l\'approbation de la transaction.');
+              }
+            })
+            .catch((error) => {
+              console.error('PayPal Sale Error:', error);
+            });
         });
       },
       onClientAuthorization: data => {
@@ -192,7 +209,7 @@ export class MusicViewComponent implements OnInit {
         console.log("OnCancel", data, actions);
       },
       onError: err => {
-        console.log("OnError", err);
+        alert("Une erreur s'est produite. Veuillez réessayer votre achat.")
       },
       onClick: (data, actions) => {
         console.log("onClick", data, actions);
@@ -211,8 +228,8 @@ export class MusicViewComponent implements OnInit {
   downloadSong(songUrl: string) {
     const link = document.createElement('a');
     link.href = songUrl;
-    link.target = '_blank'; // Open in a new tab or window
-    link.download = 'creatoke-free.mp3'; // Specify the filename here
+    link.target = '_blank';
+    link.download = 'creatoke-free.mp3';
     link.style.display = 'none';
 
     document.body.appendChild(link);

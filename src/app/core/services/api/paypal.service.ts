@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import axios from 'axios';
 import {ApiConstant} from "../../constants/api-constant";
-import {AuthenticationService} from "../global/authentication.service";
 import {InterceptorService} from "../global/interceptor.service";
 
 @Injectable({
@@ -11,11 +9,9 @@ export class PaypalService {
 
   firebaseToken = "";
 
-  constructor(private authenticationService: AuthenticationService, private axiosInterceptorService: InterceptorService) {
+  constructor(private axiosInterceptorService: InterceptorService) {
     // @ts-ignore
     this.firebaseToken = localStorage.getItem('firebaseToken');
-    this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
-    });
   }
 
   createSale(data) {

@@ -1,4 +1,3 @@
-
 <!-- Hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
@@ -34,6 +33,28 @@
             </div>
             <div class="col-md-12">
                 <app-statistics></app-statistics>
+            </div>
+            <div class="col-md-12">
+                <div class="col-xl-12 col-md-12 mx-auto">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Montant</th>
+                                <th scope="col">Email client</th>
+                                <th scope="col">Titre chanson</th>
+                                <th scope="col">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let sales of turnOverData">
+                                <td>{{sales.price}}€</td>
+                                <td>{{sales.email_client}}</td>
+                                <td>{{sales.titre_chanson}}</td>
+                                <td>{{sales.date ?? "Inconnu"}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 

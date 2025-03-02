@@ -27,7 +27,8 @@
               <div class="tab-pane fade show active" id="music_pane" role="tabpanel" aria-labelledby="music"
                 tabindex="0">
                 <form [formGroup]="musicForm" (ngSubmit)="modifyMusic()">
-                  <div class="col-12 mb-4" [hidden]="!musicForm.get('category')?.value || (filteredSubcategories.length === 0)">
+                  <div class="col-12 mb-4"
+                    [hidden]="!musicForm.get('category')?.value || (filteredSubcategories.length === 0)">
                     <label class="form-label">Titre de la chanson</label>
                     <input type="text" formControlName="title" class="form-control" placeholder="Titre de la chanson">
                   </div>
@@ -57,7 +58,8 @@
                       </option>
                     </select>
                   </div>
-                  <p [hidden]="filteredSubcategories.length > 0" style="color: red">Attention: Aucune sous catégorie lié à {{musicForm.get('category')?.value}}, merci d'en créer une.</p>
+                  <p [hidden]="filteredSubcategories.length > 0" style="color: red">Attention: Aucune sous catégorie lié
+                    à {{musicForm.get('category')?.value}}, merci d'en créer une.</p>
                   <div [hidden]="!musicForm.get('category')?.value || (filteredSubcategories.length === 0)">
 
                     <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == 'creacourcis'">
@@ -108,7 +110,8 @@
                         formControlName="description" cols="30" rows="4" class="form-control"
                         placeholder="Description"></textarea>
                     </div>
-                    <div class="col-12 mb-4" [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus'">
+                    <div class="col-12 mb-4"
+                      [hidden]="musicForm.get('category')?.value == '' || musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus'">
                       <label class="form-label">Lyrics</label>
                       <ck-editor [config]="{ versionCheck: false }" formControlName="lyrics" skin="moono-lisa"
                         language="fr" [fullPage]="false"></ck-editor>
@@ -173,7 +176,7 @@
                     </div>
 
                     <div
-                      [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value == 'creacourcis' || musicForm.get('category')?.value == 'virgules-sonores'">
+                      [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value == 'virgules-sonores'">
                       <hr>
                       <h5>Prix créatoké</h5>
                       <hr>
@@ -226,12 +229,105 @@
                     </div>
                   </div>
 
+            
                   <div class="col-sm-12 mb-4">
                     <button class="btn btn-primary" style="min-width: 140px;" type="submit"
                       [disabled]="!musicForm.valid">Enregistrer</button>
                     <a href="/" class="btn btn-outline-secondary ms-2">Annuler</a>
                   </div>
                 </form>
+
+                <hr>
+                <h5>Player de la chanson</h5>
+                <hr>
+                
+                <div class="col-sm-12 mb-4">
+                  <p>Extrait</p>
+
+                  <button class="btn btn-primary" (click)="playSong(song.url)">
+                    <span *ngIf="!isPlaying">▶️ Play</span>
+                    <span *ngIf="isPlaying">Lecture</span>
+                  </button>
+                  <button class="btn btn-danger" (click)="stopSong()">Stop</button>
+                  <input type="file" id="song_file_5" class="form-control"
+                  (change)="onFileSelected($event, 'url')" multiple>
+
+                  <div class="progress" [hidden]="progress['url'] === undefined">
+                    <div class="progress-bar" role="progressbar" [style.width.%]="progress['url']"
+                      [attr.aria-valuenow]="progress['url']" aria-valuemin="0" aria-valuemax="100">
+                      {{ progress['url'] }}%
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12 mb-4">
+                  <p>Chanson mp3</p>
+                  <button  class="btn btn-primary" (click)="playSong(song.chanson_mp3)">
+                    <span *ngIf="!isPlaying">▶️ Play</span>
+                    <span *ngIf="isPlaying">Lecture</span>
+                  </button>
+                  <button  class="btn btn-danger" (click)="stopSong()">Stop</button>
+                  <input type="file" id="song_file_5" class="form-control"
+                  (change)="onFileSelected($event, 'chanson_mp3')" multiple>
+                  <div class="progress" [hidden]="progress['chanson_mp3'] === undefined">
+                    <div class="progress-bar" role="progressbar" [style.width.%]="progress['chanson_mp3']"
+                      [attr.aria-valuenow]="progress['chanson_mp3']" aria-valuemin="0" aria-valuemax="100">
+                      {{ progress['chanson_mp3'] }}%
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12 mb-4">
+                  <p>Chanson .wav</p>
+                  <button  class="btn btn-primary" (click)="playSong(song.chanson_wav)">
+                    <span *ngIf="!isPlaying">▶️ Play</span>
+                    <span *ngIf="isPlaying">Lecture</span>
+                  </button>
+                  <button  class="btn btn-danger" (click)="stopSong()">Stop</button>
+                  <input type="file" id="song_file_5" class="form-control"
+                  (change)="onFileSelected($event, 'chanson_wav')" multiple>
+                  <div class="progress" [hidden]="progress['chanson_wav'] === undefined">
+                    <div class="progress-bar" role="progressbar" [style.width.%]="progress['chanson_wav']"
+                      [attr.aria-valuenow]="progress['chanson_wav']" aria-valuemin="0" aria-valuemax="100">
+                      {{ progress['chanson_wav'] }}%
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12 mb-4">
+                  <p>Créatoké mp3</p>
+                  <button  class="btn btn-primary" (click)="playSong(song.creatoke_mp3)">
+                    <span *ngIf="!isPlaying">▶️ Play</span>
+                    <span *ngIf="isPlaying">Lecture</span>
+                  </button>
+                  <button  class="btn btn-danger" (click)="stopSong()">Stop</button>
+                  <input type="file" id="song_file_5" class="form-control"
+                  (change)="onFileSelected($event, 'creatoke_mp3')" multiple>
+                  <div class="progress" [hidden]="progress['creatoke_mp3'] === undefined">
+                    <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke_mp3']"
+                      [attr.aria-valuenow]="progress['creatoke_mp3']" aria-valuemin="0" aria-valuemax="100">
+                      {{ progress['creatoke_mp3'] }}%
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12 mb-4">
+                  <p>Créatoké wav</p>
+                  <button  class="btn btn-primary" (click)="playSong(song.creatoke_wav)">
+                    <span *ngIf="!isPlaying">▶️ Play</span>
+                    <span *ngIf="isPlaying">Lecture</span>
+                  </button>
+                  <button  class="btn btn-danger" (click)="stopSong()">Stop</button>
+                  <input type="file" id="song_file_5" class="form-control"
+                  (change)="onFileSelected($event, 'creatoke_wav')" multiple>
+                  <div class="progress" [hidden]="progress['creatoke_wav'] === undefined">
+                    <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke_wav']"
+                      [attr.aria-valuenow]="progress['creatoke_wav']" aria-valuemin="0" aria-valuemax="100">
+                      {{ progress['creatoke_wav'] }}%
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>

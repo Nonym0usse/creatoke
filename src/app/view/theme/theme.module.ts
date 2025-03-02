@@ -23,6 +23,7 @@ import { CategoryComponent } from './category/category.component';
 import { MusicComponent } from './music/music.component';
 import { MusicDetailsComponent } from './music/music-details/music-details.component';
 import { MusicViewComponent } from './music/music-view/music-view.component';
+import { ConfirmPurchaseComponent } from './confirm/confirm-purchase.component';
 import { ContactComponent } from './contact/contact.component';
 import { TextsComponent } from './texts/texts.component';
 import { ManageComponent } from './music/manage/manage.component';
@@ -36,6 +37,7 @@ import {LoginComponent} from "../pages/auth/login/login.component";
 import { EditextComponent } from './editext/editext.component';
 import {CommentsAdminComponent} from "./comments-admin/comments-admin.component";
 import {BackgroundimageComponent} from "./backgroundimage/backgroundimage.component";
+import { AboutComponent } from './about/about.component';
 
 //
 // Theme routes
@@ -64,6 +66,10 @@ const routes: Routes = [
       {
         path: 'song/:category/:id/:detail/view',
         component: MusicViewComponent
+      },
+      {
+        path: 'confirm-purchase',
+        component: ConfirmPurchaseComponent
       },
       {
         path: 'add-song',
@@ -124,6 +130,10 @@ const routes: Routes = [
         component: SettingsComponent
       },
       {
+        path: 'about',
+        component: AboutComponent
+      },
+      {
         path: 'manage',
         component: ManageComponent,
         canActivate: [AuthGuard]
@@ -158,6 +168,7 @@ const routes: Routes = [
     SongComponent,
     SongDetailsComponent,
     ModifyComponent,
+    ConfirmPurchaseComponent,
     AlbumComponent,
     AlbumDetailsComponent,
     ArtistComponent,
@@ -169,6 +180,7 @@ const routes: Routes = [
     AddSongComponent,
     CategoryComponent,
     MusicComponent,
+    AboutComponent,
     MusicDetailsComponent,
     MusicViewComponent,
     ContactComponent,

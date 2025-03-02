@@ -1,0 +1,10 @@
+<div class="container">
+    <h2 style="color: white;">Confirmation d'achat</h2>
+  
+    <p *ngIf="songUrlDownload">Votre achat a été confirmé. Vous pouvez télécharger votre chanson ci-dessous :</p>
+    <p *ngIf="!songUrlDownload" class="error">Aucun lien de téléchargement disponible.</p>
+  
+    <button *ngIf="songUrlDownload" (click)="downloadSong()" class="download-btn">
+      📥 Télécharger
+    </button>
+  </div>

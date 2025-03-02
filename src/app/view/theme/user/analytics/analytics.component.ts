@@ -14,7 +14,6 @@ import { Utils } from '../../../../core/utils/utils';
 import {PaypalService} from "../../../../core/services/api/paypal.service";
 import {CategoryService} from "../../../../core/services/api/category.service";
 
-
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html'
@@ -30,6 +29,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
   // Theme subscription
   themeSubscription: Subscription | undefined;
 
+  turnOverData: any = [];
+
   constructor(
     private themeService: ThemeService,
     private sellingService: PaypalService,
@@ -40,7 +41,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     this.sellingService.listSales().then((data) => {
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
-      this.turnover = this.sumPricesForCurrentYear(data.data, currentYear);
+      this.turnOverData = data.data;
+      this.turnover = this.sumPricesForCurrentYear(this.turnOverData, currentYear);
     })
     this.themeSubscription = this.themeService.themeMode.subscribe((value) => {
       this.overrideChartDefaults();
