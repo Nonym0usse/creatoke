@@ -26,7 +26,6 @@ export class MusicViewComponent implements OnInit {
   picturebackground: any;
   // Holds song data
   songs: any = [];
-  inputForm: FormGroup;
   showLyrics: boolean = false;
   isPlaying: boolean = false;
   audioElement: any;
@@ -43,16 +42,9 @@ export class MusicViewComponent implements OnInit {
     private playerService: PlayerService,
     private licenceService: LicenceService,
     private paypalService: PaypalService,
-    private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer,
     private categoryService: CategoryService,
   ) {
-
-    this.inputForm = this.formBuilder.group({
-      // Define your input form controls here
-      // Example:
-      inputField: ['', Validators.required],
-    });
   }
 
   ngOnInit(): void {
@@ -139,7 +131,6 @@ export class MusicViewComponent implements OnInit {
       price: price,
       year: year,
       month: month,
-      email_client: this.inputForm.get('inputField')?.value,
       titre_chanson: this.song.title,
       id_song: this.song.id,
       songUrlDownload: songUrlDownload,
@@ -182,7 +173,11 @@ export class MusicViewComponent implements OnInit {
       },
       onApprove: (data, actions) => {
         actions.order.get().then(details => {
-          this.paypalService.createSale(formatDataForSelling)
+          const payer = details.payer;
+          const email = payer.email_address;
+          const copyCustomerInfos = { ...formatDataForSelling, email_client: email }
+
+          this.paypalService.createSale(copyCustomerInfos)
             .then((response) => {
               if (response.status === 200) {
                 if (response.data?.songUrlDownload) {

@@ -42,6 +42,11 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
       this.turnOverData = data.data;
+      this.turnOverData = this.turnOverData.sort((a, b) => {
+        if (!a.date) return 1;
+        if (!b.date) return -1;
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
       this.turnover = this.sumPricesForCurrentYear(this.turnOverData, currentYear);
     })
     this.themeSubscription = this.themeService.themeMode.subscribe((value) => {

@@ -11,7 +11,7 @@ export class SongService {
   constructor(
     private authenticationService: AuthenticationService,
     private axiosInterceptorService: InterceptorService
-  ) {}
+  ) { }
 
   // Method to ensure the token is always valid
   private async getValidToken(): Promise<string | null> {
@@ -131,6 +131,25 @@ export class SongService {
     } catch (error) {
       console.error('Error fetching highlighted songs:', error);
       throw error;
+    }
+  }
+
+  async downloadSong(name, url) {
+    try {
+      const download = await this.axiosInterceptorService.getAxiosInstance().post(ApiConstant.API + '/download', { songUrl: url, songName: name });
+      const contentType = download.headers['content-type'];
+
+      const blob = new Blob([download.data], { type: contentType });
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.setAttribute('download', name || 'song.mp3');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error('Error:', error);
     }
   }
 }
