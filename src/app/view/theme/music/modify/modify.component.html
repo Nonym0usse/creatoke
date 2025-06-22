@@ -62,7 +62,7 @@
                     à {{musicForm.get('category')?.value}}, merci d'en créer une.</p>
                   <div [hidden]="!musicForm.get('category')?.value || (filteredSubcategories.length === 0)">
 
-                    <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == 'creacourcis'">
+                    <div class="col-sm-12 mb-4">
                       <label class="form-label">Votre chanson est une exclusivité</label>
                       <select class="form-select" formControlName="exclu" aria-label="Select exclusivité"
                         [(ngModel)]='song.exclu'>
@@ -85,14 +85,13 @@
                       <label class="form-label">Artiste</label>
                       <input type="text" class="form-control" formControlName="artist" placeholder="Artiste">
                     </div>
-                    <div class="col-sm-12 mb-4"
-                      [hidden]="musicForm.get('exclu')?.value == 'oui' || musicForm.get('category')?.value == 'creacourcis'">
+                    <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
                       <label class="form-label">Youtube (ex: (https://www.youtube.com/watch?v=Aq1NJxJZo6E) -> Mettre
                         uniquement 'Aq1NJxJZo6E' ici )</label>
                       <input type="text" class="form-control" [(ngModel)]='song.youtubeURL' formControlName="youtubeURL"
                         placeholder="Youtube URL">
                     </div>
-                    <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == 'creacourcis'">
+                    <div class="col-sm-12 mb-4">
                       <button type="button" (click)="openModal()" class="btn btn-cutsom w-10"
                         style="margin-bottom: 20px; margin-right: 10px;">Aide</button>
                       <label class="form-label">Spotify (Click droit sur le titre Spotify -> Partager -> Intégrer le
@@ -229,7 +228,7 @@
                     </div>
                   </div>
 
-            
+
                   <div class="col-sm-12 mb-4">
                     <button class="btn btn-primary" style="min-width: 140px;" type="submit"
                       [disabled]="!musicForm.valid">Enregistrer</button>
@@ -240,18 +239,16 @@
                 <hr>
                 <h5>Player de la chanson</h5>
                 <hr>
-                
+
                 <div class="col-sm-12 mb-4">
-                  <p>Extrait</p>
-
-                  <button class="btn btn-primary" (click)="playSong(song.url)">
-                    <span *ngIf="!isPlaying">▶️ Play</span>
-                    <span *ngIf="isPlaying">Lecture</span>
+                  <p>Chanson (player client web) .mp3</p>
+                  <button class="btn btn-primary" (click)="playSong('url', song.url)">
+                    <span *ngIf="!playingMap['url']">▶️ Play</span>
+                    <span *ngIf="playingMap['url']">Lecture</span>
                   </button>
-                  <button class="btn btn-danger" (click)="stopSong()">Stop</button>
-                  <input type="file" id="song_file_5" class="form-control"
-                  (change)="onFileSelected($event, 'url')" multiple>
-
+                  <button class="btn btn-danger" (click)="stopSong('url')">Stop</button>
+                  <input type="file" id="song_file_5" class="form-control" (change)="onFileSelected($event, 'url')"
+                    multiple>
                   <div class="progress" [hidden]="progress['url'] === undefined">
                     <div class="progress-bar" role="progressbar" [style.width.%]="progress['url']"
                       [attr.aria-valuenow]="progress['url']" aria-valuemin="0" aria-valuemax="100">
@@ -261,14 +258,31 @@
                 </div>
 
                 <div class="col-sm-12 mb-4">
-                  <p>Chanson mp3</p>
-                  <button  class="btn btn-primary" (click)="playSong(song.chanson_mp3)">
-                    <span *ngIf="!isPlaying">▶️ Play</span>
-                    <span *ngIf="isPlaying">Lecture</span>
+                  <p>Creatoke (player client web) .mp3</p>
+                  <button class="btn btn-primary" (click)="playSong('creatoke', song.creatoke)">
+                    <span *ngIf="!playingMap['creatoke']">▶️ Play</span>
+                    <span *ngIf="playingMap['creatoke']">Lecture</span>
                   </button>
-                  <button  class="btn btn-danger" (click)="stopSong()">Stop</button>
+                  <button class="btn btn-danger" (click)="stopSong('creatoke')">Stop</button>
+                  <input type="file" id="song_file_9" class="form-control" (change)="onFileSelected($event, 'creatoke')"
+                    multiple>
+                  <div class="progress" [hidden]="progress['creatoke'] === undefined">
+                    <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke']"
+                      [attr.aria-valuenow]="progress['creatoke']" aria-valuemin="0" aria-valuemax="100">
+                      {{ progress['creatoke'] }}%
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12 mb-4">
+                  <p>Chanson au format mp3</p>
+                  <button class="btn btn-primary" (click)="playSong('chanson_mp3', song.chanson_mp3)">
+                    <span *ngIf="!playingMap['chanson_mp3']">▶️ Play</span>
+                    <span *ngIf="playingMap['chanson_mp3']">Lecture</span>
+                  </button>
+                  <button class="btn btn-danger" (click)="stopSong('chanson_mp3')">Stop</button>
                   <input type="file" id="song_file_5" class="form-control"
-                  (change)="onFileSelected($event, 'chanson_mp3')" multiple>
+                    (change)="onFileSelected($event, 'chanson_mp3')" multiple>
                   <div class="progress" [hidden]="progress['chanson_mp3'] === undefined">
                     <div class="progress-bar" role="progressbar" [style.width.%]="progress['chanson_mp3']"
                       [attr.aria-valuenow]="progress['chanson_mp3']" aria-valuemin="0" aria-valuemax="100">
@@ -278,14 +292,14 @@
                 </div>
 
                 <div class="col-sm-12 mb-4">
-                  <p>Chanson .wav</p>
-                  <button  class="btn btn-primary" (click)="playSong(song.chanson_wav)">
-                    <span *ngIf="!isPlaying">▶️ Play</span>
-                    <span *ngIf="isPlaying">Lecture</span>
+                  <p>Chanson au format .wav</p>
+                  <button class="btn btn-primary" (click)="playSong('chanson_wav', song.chanson_wav)">
+                    <span *ngIf="!playingMap['chanson_wav']">▶️ Play</span>
+                    <span *ngIf="playingMap['chanson_wav']">Lecture</span>
                   </button>
-                  <button  class="btn btn-danger" (click)="stopSong()">Stop</button>
+                  <button class="btn btn-danger" (click)="stopSong('chanson_wav')">Stop</button>
                   <input type="file" id="song_file_5" class="form-control"
-                  (change)="onFileSelected($event, 'chanson_wav')" multiple>
+                    (change)="onFileSelected($event, 'chanson_wav')" multiple>
                   <div class="progress" [hidden]="progress['chanson_wav'] === undefined">
                     <div class="progress-bar" role="progressbar" [style.width.%]="progress['chanson_wav']"
                       [attr.aria-valuenow]="progress['chanson_wav']" aria-valuemin="0" aria-valuemax="100">
@@ -295,14 +309,14 @@
                 </div>
 
                 <div class="col-sm-12 mb-4">
-                  <p>Créatoké mp3</p>
-                  <button  class="btn btn-primary" (click)="playSong(song.creatoke_mp3)">
-                    <span *ngIf="!isPlaying">▶️ Play</span>
-                    <span *ngIf="isPlaying">Lecture</span>
+                  <p>Creatoke au format mp3</p>
+                  <button class="btn btn-primary" (click)="playSong('creatoke_mp3', song.creatoke_mp3)">
+                    <span *ngIf="!playingMap['creatoke_mp3']">▶️ Play</span>
+                    <span *ngIf="playingMap['creatoke_mp3']">Lecture</span>
                   </button>
-                  <button  class="btn btn-danger" (click)="stopSong()">Stop</button>
+                  <button class="btn btn-danger" (click)="stopSong('creatoke_mp3')">Stop</button>
                   <input type="file" id="song_file_5" class="form-control"
-                  (change)="onFileSelected($event, 'creatoke_mp3')" multiple>
+                    (change)="onFileSelected($event, 'creatoke_mp3')" multiple>
                   <div class="progress" [hidden]="progress['creatoke_mp3'] === undefined">
                     <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke_mp3']"
                       [attr.aria-valuenow]="progress['creatoke_mp3']" aria-valuemin="0" aria-valuemax="100">
@@ -313,13 +327,13 @@
 
                 <div class="col-sm-12 mb-4">
                   <p>Créatoké wav</p>
-                  <button  class="btn btn-primary" (click)="playSong(song.creatoke_wav)">
-                    <span *ngIf="!isPlaying">▶️ Play</span>
-                    <span *ngIf="isPlaying">Lecture</span>
+                  <button class="btn btn-primary" (click)="playSong('creatoke_wav', song.creatoke_wav)">
+                    <span *ngIf="!playingMap['creatoke_wav']">▶️ Play</span>
+                    <span *ngIf="playingMap['creatoke_wav']">Lecture</span>
                   </button>
-                  <button  class="btn btn-danger" (click)="stopSong()">Stop</button>
+                  <button class="btn btn-danger" (click)="stopSong('creatoke_wav')">Stop</button>
                   <input type="file" id="song_file_5" class="form-control"
-                  (change)="onFileSelected($event, 'creatoke_wav')" multiple>
+                    (change)="onFileSelected($event, 'creatoke_wav')" multiple>
                   <div class="progress" [hidden]="progress['creatoke_wav'] === undefined">
                     <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke_wav']"
                       [attr.aria-valuenow]="progress['creatoke_wav']" aria-valuemin="0" aria-valuemax="100">

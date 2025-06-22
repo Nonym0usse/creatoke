@@ -107,7 +107,6 @@ export class MusicViewComponent implements OnInit {
     this.display = "block";
 
     let songUrlDownload = "";
-
     switch (licence_name) {
       case "price_base":
         songUrlDownload = this.song.chanson_mp3 + '.mp3'
@@ -224,7 +223,7 @@ export class MusicViewComponent implements OnInit {
     const link = document.createElement('a');
     link.href = songUrl;
     link.target = '_blank';
-    link.download = 'creatoke-free.mp3';
+    link.download = songUrl.split('/').pop() || 'song.mp3'; // Extract the filename from the URL
     link.style.display = 'none';
 
     document.body.appendChild(link);

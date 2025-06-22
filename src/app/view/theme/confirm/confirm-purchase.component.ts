@@ -16,7 +16,8 @@ export class ConfirmPurchaseComponent {
         this.songUrlDownload = navigation?.extras.state?.['songUrlDownload'];
         this.songName = navigation?.extras.state?.['songName'];
     }
-    ngOnInit() {
+
+    ngOnInit(): void {
         if (this.songUrlDownload) {
             sessionStorage.setItem('songUrlDownload', this.songUrlDownload);
         } else {
@@ -24,11 +25,28 @@ export class ConfirmPurchaseComponent {
         }
     }
 
-    downloadSong() {
-        if (this.songUrlDownload) {
-            this.songService.downloadSong(this.songName, this.songUrlDownload);
-        } else {
-            alert('Aucun fichier disponible pour le téléchargement.');
+    async downloadFile() {
+        if (!this.songUrlDownload) {
+            console.error('No song URL available for download');
+            return;
+        }
+
+        try {
+            const response = await fetch(this.songUrlDownload);
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = this.songName || 'downloaded_song.mp3'; // Fallback name
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Cleanup blob URL
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Error downloading file:', error);
         }
     }
 }

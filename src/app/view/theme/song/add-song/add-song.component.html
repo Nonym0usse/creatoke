@@ -60,7 +60,7 @@
                       class="ri-stack-fill fs-5"></i> Catégories
 
                   <div [hidden]="!musicForm.get('subcategory')?.value || filteredSubcategories.length === 0">
-                    <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == 'creacourcis'">
+                    <div class="col-sm-12 mb-4">
                       <label class="form-label">Votre chanson est une exclusivité</label>
                       <select class="form-select" formControlName="exclu" aria-label="Select exclusivité"
                         [(ngModel)]='isExclu'>
@@ -101,7 +101,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 mb-4" [hidden]="musicForm.get('category')?.value == 'creacourcis'">
+                    <div class="col-12 mb-4">
                       <label for="song_file_10" class="form-label">Chanson au format wav
                         (téléchargement)</label>
                       <input type="file" id="song_file_10" class="form-control"
@@ -172,12 +172,12 @@
                       <input type="text" class="form-control" formControlName="artist" placeholder="Artiste">
                     </div>
                     <div class="col-sm-12 mb-4"
-                      [hidden]="musicForm.get('exclu')?.value == 'oui' || musicForm.get('category')?.value == 'creacourcis'">
+                      [hidden]="musicForm.get('exclu')?.value == 'oui'">
                       <label class="form-label">Youtube</label>
                       <input type="text" class="form-control" formControlName="youtubeURL"
                         placeholder="Youtube URL ex: (https://www.youtube.com/watch?v=Aq1NJxJZo6E) -> Mettre uniquement 'Aq1NJxJZo6E' ici ">
                     </div>
-                    <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == 'creacourcis'">
+                    <div class="col-sm-12 mb-4">
                       <button type="button" (click)="openModal()" class="btn btn-cutsom w-10"
                         style="margin-bottom: 20px; margin-right: 10px;">Aide</button>
                       <label class="form-label">Spotify (Click droit sur le titre Spotify -> Partager -> Intégrer le

@@ -148,12 +148,13 @@
                                 </div>
                             </div>
                             <div class="card-footer pb-4 pb-sm-0">
-                                <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song?.price_base === 0
+                                <div class="text-dark mb-3">
+                                    <span class="fs-4 fw-bold">{{song?.price_base === 0
                                         ?
                                         'Gratuit' : song?.price_base + '€'}}</span>
                                 </div>
 
-                                <button type="button"
+                                <button type="button" [hidden]="+song?.price_base === 0"
                                     (click)="openModal(song.price_base, licences[0]['basic'], 'price_base', song.title)"
                                     class="btn btn-cutsom w-100">Choisir</button>
 
@@ -177,11 +178,16 @@
                                 </div>
                             </div>
                             <div class="card-footer pb-4 pb-sm-0">
-                                <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song.price_premium}}€</span>
+                                <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song?.price_premium === 0
+                                        ?
+                                        'Gratuit' : song?.price_premium + '€'}}</span>
                                 </div>
-                                <button type="button"
+                                <button type="button" [hidden]="+song?.price_premium === 0"
                                     (click)="openModal(song.price_premium, licences[0]['base_plus'], 'price_premium', song.title)"
                                     class="btn btn-cutsom w-100">Choisir</button>
+
+                                <button type="button" class="btn btn-cutsom w-100" *ngIf="song?.price_premium === 0"
+                                    (click)="downloadSong(song?.chanson_wav + '.wav')">Télécharger en Wav</button>
                             </div>
                         </div>
                     </ng-container>
@@ -233,12 +239,12 @@
                                 </div>
                             </div>
                             <div class="card-footer pb-4 pb-sm-0">
-                                <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song?.price_base_creatoke === 0
+                                <div class="text-dark mb-3">
+                                    <span class="fs-4 fw-bold">{{song?.price_base_creatoke === 0
                                         ?
                                         'Gratuit' : song?.price_base_creatoke + '€'}}</span>
                                 </div>
-
-                                <button type="button"
+                                <button type="button" [hidden]="+song?.price_base_creatoke === 0"
                                     (click)="openModal(song.price_base_creatoke, licences[0]['basic'], 'price_base_creatoke', song.title)"
                                     class="btn btn-cutsom w-100">Choisir</button>
 
@@ -263,12 +269,18 @@
                                 </div>
                             </div>
                             <div class="card-footer pb-4 pb-sm-0">
-                                <div class="text-dark mb-3"><span
-                                        class="fs-4 fw-bold">{{song.price_premium_creatoke}}€</span>
+                                <div class="text-dark mb-3">
+                                    <span class="fs-4 fw-bold">{{song?.price_premium_creatoke === 0
+                                        ?
+                                        'Gratuit' : song?.price_premium_creatoke + '€'}}</span>
                                 </div>
-                                <button type="button"
+
+                                <button type="button" [hidden]="+song?.price_premium_creatoke === 0"
                                     (click)="openModal(song.price_premium_creatoke, licences[0]['base_plus'], 'price_premium_creatoke', song.title)"
                                     class="btn btn-cutsom w-100">Choisir</button>
+
+                                <button type="button" class="btn btn-cutsom w-100" *ngIf="song?.price_premium === 0"
+                                    (click)="downloadSong(song?.creatoke_wav + '.wav')">Télécharger en Wav</button>
                             </div>
                         </div>
                     </ng-container>

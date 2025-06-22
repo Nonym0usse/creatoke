@@ -32,7 +32,8 @@ export class ModifyComponent implements OnInit {
   files: any = [];
   progress: { [key: string]: number } = {};
   downloadUrls: { [key: string]: string } = {};
-
+  audioMap: { [key: string]: HTMLAudioElement } = {};
+  playingMap: { [key: string]: boolean } = {};
 
   constructor(private fb: FormBuilder, private categoryService: CategoryService, private songService: SongService, private activatedRoute: ActivatedRoute, private storage: AngularFireStorage) {
 
@@ -99,32 +100,42 @@ export class ModifyComponent implements OnInit {
     });
   }
 
-  playSong(url: string) {
-    if (this.currentAudio) {
-      this.currentAudio.pause(); // Pause the previous audio if playing
-    }
+  playSong(key: string, url: string) {
+    // Stop any currently playing audio
+    Object.keys(this.audioMap).forEach(k => {
+      if (this.audioMap[k]) {
+        this.audioMap[k].pause();
+        this.audioMap[k].currentTime = 0;
+        this.playingMap[k] = false;
+      }
+    });
 
-    this.currentAudio = new Audio(url);
-    this.currentAudio.play();
-    this.isPlaying = true;
+    // Create and play the new audio
+    const audio = new Audio(url);
+    this.audioMap[key] = audio;
+    this.playingMap[key] = true;
 
-    this.currentAudio.onended = () => {
-      this.isPlaying = false; // Reset UI when song ends
+    audio.play();
+
+    audio.onended = () => {
+      this.playingMap[key] = false;
     };
   }
 
-  pauseSong() {
-    if (this.currentAudio) {
-      this.currentAudio.pause();
-      this.isPlaying = false;
+  pauseSong(key: string) {
+    const audio = this.audioMap[key];
+    if (audio) {
+      audio.pause();
+      this.playingMap[key] = false;
     }
   }
 
-  stopSong() {
-    if (this.currentAudio) {
-      this.currentAudio.pause();
-      this.currentAudio.currentTime = 0; // Reset audio to start
-      this.isPlaying = false;
+  stopSong(key: string) {
+    const audio = this.audioMap[key];
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+      this.playingMap[key] = false;
     }
   }
 
