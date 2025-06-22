@@ -1,57 +1,112 @@
-<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
-<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<!-- Start:: under hero -->
 <div class="under-hero container">
 
     <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
     <div class="section">
-        <div class="col-xl-12 col-md-12 mx-auto">
-            <div class="legal-container">
-                <h1>Mentions Légales</h1>
+        <div class="row">
+            <div class="col-xl-12 col-md-10 mx-auto">
+                <div class="card">
+                    <div class="legal-container">
+                        <div class="legal-title">Mentions Légales</div>
 
-                <h2>1. Éditeur du site</h2>
-                <p>
-                    Nom de l'entreprise : <strong>FakeCorp</strong><br>
-                    Adresse : 123 Rue Imaginaire, 75000 Paris, France<br>
-                    Téléphone : +33 1 23 45 67 89<br>
-                    Email : contact@fakecorp.com<br>
-                    Directeur de la publication : John Doe
-                </p>
+                        <div class="legal-section-title">1. Éditeur du site</div>
+                        <p>
+                            Nom de l'entreprise : <strong>CREATOKE</strong><br>
+                            Adresse : Arcades des Citeaux, Le Sénanque, 13127 Vitrolles, France<br>
+                            Email : contact@creatoke.fr
+                            Hébergement : <strong>O2switch</strong><br>
+                            Adresse : Chem. des Pardiaux, 63000 Clermont-Ferrand, France<br>
+                            Téléphone : +33 02 036 950 543<br>
+                            Développeur du site web : <strong>Cyril VELLA - <a href="www.cyrilvella.com" _target="_blank">www.cyrilvella.com</a></strong>
+                        </p>
 
-                <h2>2. Hébergement</h2>
-                <p>
-                    Hébergeur : <strong>FakeHost</strong><br>
-                    Adresse : 456 Avenue du Web, 69000 Lyon, France<br>
-                    Téléphone : +33 4 56 78 90 12<br>
-                    Email : support@fakehost.com
-                </p>
+                        <div class="legal-section-title">2. Propriété intellectuelle</div>
+                        <p>
+                            Le contenu du site <strong>Creatoke</strong> (musiques, textes, images, vidéos, logos, etc.)
+                            est
+                            protégé par le droit de la propriété intellectuelle et reste la propriété exclusive de
+                            Creatoke.
+                        </p>
 
-                <h2>3. Propriété intellectuelle</h2>
-                <p>
-                    Le contenu du site <strong>FakeCorp</strong> (textes, images, vidéos, logos, etc.) est protégé par
-                    le droit de la propriété intellectuelle et reste la propriété exclusive de FakeCorp.
-                </p>
+                        <div class="legal-section-title">3. Collecte des données personnelles</div>
+                        <p>
+                            Les informations recueillies sur ce site sont utilisées uniquement dans le cadre de la
+                            gestion de la
+                            relation client et ne sont en aucun cas revendues à des tiers. Seules les adresses emails
+                            sont
+                            collectées sur creatoke.fr.
+                        </p>
 
-                <h2>4. Collecte des données personnelles</h2>
-                <p>
-                    Les informations recueillies sur ce site sont utilisées uniquement dans le cadre de la gestion de la
-                    relation client et ne sont en aucun cas revendues à des tiers.
-                </p>
+                        <div class="legal-section-title">4. Cookies</div>
+                        <p>
+                            Ce site n’utilise pas de cookies.
+                        </p>
 
-                <h2>5. Cookies</h2>
-                <p>
-                    Ce site utilise des cookies pour améliorer l'expérience utilisateur. Vous pouvez configurer votre
-                    navigateur pour refuser les cookies.
-                </p>
+                        <div class="legal-section-title">5. Droit applicable</div>
+                        <p>
+                            Les présentes mentions légales sont régies par la loi française. En cas de litige, les
+                            tribunaux
+                            compétents seront ceux de Paris.
+                        </p>
 
-                <h2>6. Droit applicable</h2>
-                <p>
-                    Les présentes mentions légales sont régies par la loi française. En cas de litige, les tribunaux
-                    compétents seront ceux de Paris.
-                </p>
+                        <div class="legal-section-title">6. Politique de confidentialité (RGPD)</div>
+                        <p>
+                            Creatoke accorde une importance primordiale à la protection des données personnelles.
+                            Conformément
+                            au Règlement Général sur la Protection des Données (RGPD), nous nous engageons à garantir la
+                            transparence, la sécurité et le respect des droits des individus.
+                        </p>
 
-                <p class="back"><a routerLink="/">Retour à l'accueil</a></p>
+                        <div class="legal-subsection-title">Catégories de données collectées</div>
+                        <p>Nous collectons uniquement les adresses emails des utilisateurs.</p>
+
+                        <div class="legal-subsection-title">Finalité du traitement des données</div>
+                        <ul>
+                            <li>Gestion des achats</li>
+                            <li>Envoi d’offres promotionnelles</li>
+                        </ul>
+
+                        <div class="legal-subsection-title">Base légale du traitement</div>
+                        <ul>
+                            <li>Consentement explicite de l'utilisateur</li>
+                            <li>Exécution d’un contrat (achat de musique)</li>
+                            <li>Obligation légale (facturation)</li>
+                            <li>Intérêt légitime (amélioration des services, sécurité)</li>
+                        </ul>
+
+                        <div class="legal-subsection-title">Conservation des données</div>
+                        <ul>
+                            <li>Comptes clients : jusqu’à suppression par l’utilisateur</li>
+                            <li>Facturation : 10 ans</li>
+                            <li>Historique : 2 ans maximum</li>
+                        </ul>
+
+                        <div class="legal-subsection-title">Droits des utilisateurs</div>
+                        <ul>
+                            <li>Droit d’accès</li>
+                            <li>Droit de rectification</li>
+                            <li>Droit à l’effacement</li>
+                            <li>Droit à la portabilité</li>
+                            <li>Droit d’opposition</li>
+                            <li>Droit à la limitation</li>
+                        </ul>
+
+                        <p>Pour exercer vos droits : <a href="mailto:contact@creatoke.fr">contact@creatoke.fr</a></p>
+
+                        <div class="legal-subsection-title">Sécurité et partage</div>
+                        <p>Les données ne sont jamais partagées sauf obligation légale. Toutes les mesures nécessaires
+                            sont
+                            prises pour assurer leur sécurité.</p>
+
+                        <div class="legal-subsection-title">Modifications</div>
+                        <p>Cette politique peut être mise à jour. Dernière mise à jour : 22/06/2025.</p>
+
+                        <p class="back"><a routerLink="/">Retour à l'accueil</a></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
