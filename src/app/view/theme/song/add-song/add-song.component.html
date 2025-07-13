@@ -90,7 +90,7 @@
                       </div>
                     </div>
                     <div class="col-12 mb-4"
-                      [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus'">
+                      [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value === 'virgules-sonores'">
                       <label for="song_file_4" class="form-label">Creatoke (player client)</label>
                       <input type="file" id="song_file_4" class="form-control"
                         (change)="onFileSelected($event, 'creatoke')" multiple>
@@ -115,7 +115,7 @@
                     </div>
 
                     <div class="col-12 mb-4"
-                      [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus'">
+                      [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value === 'virgules-sonores'">
                       <label for="song_file_5" class="form-label">Creatoke au format wav
                         (téléchargement)</label>
                       <input type="file" id="song_file_5" class="form-control"
@@ -142,7 +142,7 @@
                       </div>
                     </div>
                     <div class="col-12 mb-4"
-                      [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus'">
+                      [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value === 'virgules-sonores'">
                       <label for="song_file_5" class="form-label">Creatoke au format mp3
                         (téléchargement)</label>
                       <input type="file" id="song_file_11" class="form-control"

@@ -257,7 +257,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-12 mb-4">
+                <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value === 'virgules-sonores'">
                   <p>Creatoke (player client web) .mp3</p>
                   <button class="btn btn-primary" (click)="playSong('creatoke', song.creatoke)">
                     <span *ngIf="!playingMap['creatoke']">▶️ Play</span>
@@ -308,7 +308,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-12 mb-4">
+                <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value === 'virgules-sonores'">
                   <p>Creatoke au format mp3</p>
                   <button class="btn btn-primary" (click)="playSong('creatoke_mp3', song.creatoke_mp3)">
                     <span *ngIf="!playingMap['creatoke_mp3']">▶️ Play</span>
@@ -325,7 +325,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-12 mb-4">
+                <div class="col-sm-12 mb-4" [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus' || musicForm.get('category')?.value === 'virgules-sonores'">
                   <p>Créatoké wav</p>
                   <button class="btn btn-primary" (click)="playSong('creatoke_wav', song.creatoke_wav)">
                     <span *ngIf="!playingMap['creatoke_wav']">▶️ Play</span>
