@@ -1,0 +1,102 @@
+<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
+
+<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
+<div class="under-hero container">
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="row">
+            <div class="col-xl-12 col-md-10 mx-auto">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <!-- Start:: mat tabs [[ Find at scss/components/nav.scss ]] -->
+                        <div class="mat-tabs" appTabs>
+                            <ul class="nav nav-tabs" id="add_music" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="licence1" data-bs-toggle="tab"
+                                        data-bs-target="#licence_un" type="button" role="tab" aria-controls="licence_un"
+                                        aria-selected="true">Publier une vidéo sur les réseaux sociaux
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- End:: mat tabs -->
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="add_music_content">
+                            <div class="tab-pane fade show active" id="licence_un" role="tabpanel"
+                                aria-labelledby="licence1" tabindex="0">
+                                <form [formGroup]="videoForm" (submit)="validatePublishing()" class="row" novalidate>
+
+                                    <!-- Titre -->
+                                    <div class="col-12 mb-4">
+                                        <input type="text" class="form-control" placeholder="Titre de la vidéo"
+                                            formControlName="title" />
+                                        <div class="text-danger mt-1"
+                                            *ngIf="videoForm.get('title')?.touched && videoForm.get('title')?.invalid">
+                                            Titre requis
+                                        </div>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="col-12 mb-4">
+                                        <input type="text" class="form-control" placeholder="Description de la vidéo"
+                                            formControlName="description" />
+                                        <div class="text-danger mt-1"
+                                            *ngIf="videoForm.get('description')?.touched && videoForm.get('description')?.invalid">
+                                            Description requise
+                                        </div>
+                                    </div>
+
+                                    <!-- Fichier vidéo -->
+                                    <div class="col-12 mb-4">
+                                        <input type="file" class="form-control" accept="video/*"
+                                            (change)="onFileChange($event)" />
+                                        <div class="text-danger mt-1"
+                                            *ngIf="videoForm.get('video')?.touched && videoForm.get('video')?.invalid">
+                                            Fichier vidéo requis
+                                        </div>
+                                    </div>
+
+                                    <!-- 
+                                    <div class="col-sm-12 mb-4" formArrayName="platforms">
+                                        <label class="form-label">Sur quelles plateformes publier ?</label>
+
+                                        <div class="row">
+                                            <div class="col-6" *ngFor="let p of platformOptions; let i = index">
+                                                <div class="form-check form-switch my-2">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        [id]="'platform_'+i" [formControlName]="i" />
+                                                    <label class="form-check-label" [attr.for]="'platform_'+i">{{ p
+                                                        }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-danger mt-1"
+                                            *ngIf="platformsFA.touched && platformsFA.invalid">
+                                            Sélectionnez au moins une plateforme.
+                                        </div>
+                                    </div>Plateformes (FormArray) -->
+
+                                    <div class="card-footer text-center">
+                                        <button class="btn btn-cutsom" style="min-width: 140px;" type="submit"
+                                            [disabled]="videoForm.invalid">
+                                            {{ isLoading ? 'Chargement...' : 'Publier votre vidéo' }}
+                                        </button>
+                                        <button class="btn btn-outline-secondary ms-2" type="button"
+                                            (click)="videoForm.reset()">Cancel</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End:: section -->
+
+</div>

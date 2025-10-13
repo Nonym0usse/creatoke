@@ -1,16 +1,11 @@
 // Angular
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
-
-// Services
-import { BaseApiService } from '../global/base-api.service';
 
 // Constant classes
 import { ApiConstant } from '../../constants/api-constant';
-import axios from "axios";
-import {AuthenticationService} from "../global/authentication.service";
-import {InterceptorService} from "../global/interceptor.service";
+import { AuthenticationService } from "../global/authentication.service";
+import { InterceptorService } from "../global/interceptor.service";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +14,13 @@ export class LicenceService {
 
   firebaseToken = "";
 
-  constructor(private authenticationService: AuthenticationService, private axiosInterceptorService: InterceptorService) {
+  constructor(private authenticationService: AuthenticationService, private axiosInterceptorService: InterceptorService, private router: Router) {
     // @ts-ignore
     this.firebaseToken = localStorage.getItem('firebaseToken');
     this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.router.navigate(['/']);
+      }
     });
   }
   /**

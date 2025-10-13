@@ -22,6 +22,7 @@ import {LicenceComponent} from "./view/theme/licence/licence.component";
 import {CommentsAdminComponent} from "./view/theme/comments-admin/comments-admin.component";
 import {BackgroundimageComponent} from "./view/theme/backgroundimage/backgroundimage.component";
 import {LoaderComponent} from "./view/partials/loader/loader.component";
+import { PublishVideoComponent } from './view/theme/publish-video/publish-video.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {LoaderComponent} from "./view/partials/loader/loader.component";
     LicenceComponent,
     CommentsAdminComponent,
     BackgroundimageComponent,
+    PublishVideoComponent,
   ],
   imports: [
     // Angular

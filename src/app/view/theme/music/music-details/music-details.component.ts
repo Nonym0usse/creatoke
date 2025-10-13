@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpStatus} from "../../../../core/constants/http-status";
 import {ActivatedRoute} from "@angular/router";
-import {GenreService} from "../../../../core/services/api/genre.service";
 import {Subscription} from "rxjs";
 import {SongService} from "../../../../core/services/api/song.service";
 import {CategoryService} from "../../../../core/services/api/category.service";

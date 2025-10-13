@@ -108,6 +108,12 @@ export class Constant {
       link: '/image-background',
       auth: true,
     },
+    {
+      name: 'Publier une vidéo',
+      icon: '<i class="ri-video-fill fs-5"></i>',
+      link: '/publish-video',
+      auth: true,
+    },
   ];
 
   public static AUTH_ERROR_MESSAGES_FR = {

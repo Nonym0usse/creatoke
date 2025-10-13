@@ -38,6 +38,7 @@ import { EditextComponent } from './editext/editext.component';
 import {CommentsAdminComponent} from "./comments-admin/comments-admin.component";
 import {BackgroundimageComponent} from "./backgroundimage/backgroundimage.component";
 import { AboutComponent } from './about/about.component';
+import { PublishVideoComponent } from './publish-video/publish-video.component';
 
 //
 // Theme routes
@@ -155,6 +156,11 @@ const routes: Routes = [
       {
         path: 'text-accueil',
         component: EditextComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'publish-video',
+        component: PublishVideoComponent,
         canActivate: [AuthGuard]
       }
     ]
