@@ -118,8 +118,10 @@ export class AddSongComponent implements OnInit, OnDestroy {
 
     const placeholderImage = 'https://placehold.co/600x400';
     const now = new Date();
-    const created_at = `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
-
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const created_at = `${yyyy}-${mm}-${dd}`;
     const ensureValue = (v: unknown, fallback = 'vide') =>
       (v === null || v === undefined || v === '') ? fallback : v;
 

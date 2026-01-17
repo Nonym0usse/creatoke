@@ -244,7 +244,7 @@ export class MusicViewComponent implements OnInit {
     this.songService.getSongByID(id).then(response => {
       this.song = response.data;
       console.log(this.song)
-      this.getParams(this.song.category);
+      this.getParams(this.song.category || "");
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.song?.youtubeURL}`);
       this.sanitizeHtml(this.song.spotifyURL);
       this.audioElement = new Audio(this.song.creatoke);

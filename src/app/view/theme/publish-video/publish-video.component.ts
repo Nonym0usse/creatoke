@@ -68,7 +68,7 @@ export class PublishVideoComponent implements OnInit {
     form.append('video', video);
 
     try {
-      const res = await this.n8nService.postVideoOnSocialNetwork(form);
+      const res = await this.n8nService.postVideoOnSocialNetwork(form).catch((e) => console.log(e));
       alert(res.status === 200 ? 'Vidéo publiée' : 'Erreur serveur');
     } catch (e) {
       console.error(e);

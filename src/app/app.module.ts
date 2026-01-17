@@ -53,7 +53,7 @@ import { PublishVideoComponent } from './view/theme/publish-video/publish-video.
   providers: [{
     provide: RECAPTCHA_SETTINGS,
     useValue: {
-      siteKey: "6LeCDVIUAAAAAP86GJ95Z-0OY8CeUaG-oEeIpYcF",
+      siteKey: "6LcQmk0sAAAAALZgW3jzDEpwrly8DzJPPnomUjS6",
     } as RecaptchaSettings,
   }],
   bootstrap: [AppComponent]

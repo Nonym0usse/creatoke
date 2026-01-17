@@ -1,4 +1,14 @@
 # Force HTTPS and redirect all HTTP traffic to HTTPS
+# =========================
+# REDIRECT creatoke.fr → creatoke.com
+# =========================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Redirect creatoke.fr and www.creatoke.fr to creatoke.com
+  RewriteCond %{HTTP_HOST} ^(www\.)?creatoke\.fr$ [NC]
+  RewriteRule ^(.*)$ https://creatoke.com/$1 [R=301,L]
+</IfModule>
 <IfModule mod_rewrite.c>
   RewriteEngine On
 

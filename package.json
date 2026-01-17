@@ -1,6 +1,6 @@
 {
     "name": "creatoke",
-    "version": "3.1.7",
+    "version": "3.2.1",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
