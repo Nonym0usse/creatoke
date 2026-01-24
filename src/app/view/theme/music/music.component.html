@@ -1,4 +1,3 @@
-
 <!-- Hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
@@ -7,17 +6,23 @@
 
   <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
   <div class="section">
-    <div class="section__head">
-      <h3 class="mb-0">{{title}}</h3>
+    <div class="section__head align-items-center">
+      <span class="d-block pe-3 fs-6 fw-semi-bold">{{songs.length}} musiques au total</span>
     </div>
-    <div class="row g-4">
-      <div class="col-xl-3 col-sm-6" *ngFor="let sub of subCategory">
-        <app-cluster-view [data]="sub" [viewData]="true"></app-cluster-view>
+
+    <!-- Start:: list [[ Find at scss/components/list.scss ]] -->
+    <div class="list">
+      <div class="row">
+        <div class="col-xl-6" *ngFor="let song of songs">
+          <app-list-view [data]="song"></app-list-view>
+        </div>
+        <div class="alert alert-custom" *ngIf="songs.length === 0">
+          Aucune chanson dans cette catégorie.
+        </div>
       </div>
-      <div class="alert alert-custom" *ngIf="subCategory.length === 0">Aucune chanson dans cette catégorie.</div>
     </div>
+
   </div>
   <!-- End:: section -->
-
 </div>
 <!-- End:: under hero -->

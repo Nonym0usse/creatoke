@@ -4,12 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 // Services
-import { SongService } from './../../../../core/services/api/song.service';
 import { PlayerService } from './../../../../core/services/design/player.service';
 
 // Constant classes
-import { HttpStatus } from './../../../../core/constants/http-status';
-
+import { Song } from 'src/app/core/models/song.model';
 
 @Component({
   selector: 'app-song-details',
@@ -21,33 +19,22 @@ export class SongDetailsComponent implements OnInit, OnDestroy {
   song: any;
 
   // Holds song data
-  songs: any = [];
+  songs: Song[] = [];
 
   // Holds router subscription
   routerSubscription: Subscription | undefined;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private songService: SongService,
     private playerService: PlayerService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.routerSubscription = this.activatedRoute.params.subscribe(param => {
-      this.getSongsById(param['id']);
-    });
+    console.log("SongDetailsComponent initialized");
   }
 
   ngOnDestroy(): void {
     this.routerSubscription?.unsubscribe();
-  }
-
-  /**
-   * Get song data from default json.
-   * @param id
-   */
-  getSongsById(id: string): void {
-    
   }
 
   /**

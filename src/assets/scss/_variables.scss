@@ -42,7 +42,7 @@ $grays: (
 // scss-docs-start color-variables
 $blue:      #196eed;
 $indigo:    #7551D8;
-$purple:    #ad20d4;
+$purple:    #8938d1;
 $pink:      #DD0A85;
 $red:       #E72412;
 $orange:    #f7591d;
@@ -362,14 +362,14 @@ $nav-link-disabled-color:       $gray-500;
 
 $nav-tabs-border-color:         $gray-200;
 $nav-tabs-link-active-bg:       transparent;
-$nav-tabs-link-active-color:    $primary;
+$nav-tabs-link-active-color:    $purple;
 
 // Custom variables
 $nav-item-margin-left:          1rem; // 16px
 $nav-link-line-height:          1.5rem; // 24px
 
 $mat-nav-line-height:           0.125rem; // 2px
-$mat-nav-line-bg:               $primary; // 2px
+$mat-nav-line-bg:               $purple; // 2px
 
 
 // List
@@ -562,7 +562,7 @@ $sidebar-nav-link-padding:                  0.625rem $sidebar-padding-x;
 $sidebar-nav-link-color:                    $gray-800;
 $sidebar-nav-link-border-width:             0.25rem; // 4px
 
-$sidebar-nav-link-active-color:             $primary;
+$sidebar-nav-link-active-color:             $purple;
 $sidebar-nav-link-active-bg:                linear-gradient(90deg, rgba($sidebar-nav-link-active-color, 0.1) 0%, rgba($sidebar-nav-link-active-color, 0) 100%);
 
 $sidebar-nav-item-head-color:               $gray-500;

@@ -63,31 +63,10 @@
                 </div>
             </div>
 
-            <app-dropdown [data]="song" [classes]="'dropstart d-none d-md-block'" [dropdownLinkClasses]="'btn btn-icon'"
-            [viewQueueOptions]="false" [viewPlay]="false" [viewDownload]="true"></app-dropdown>
+            
 
             <!-- Start:: playlist [[ Find at scss/framework/playlist.scss ]] -->
-            <div class="playlist dropstart me-3">
-                <button class="btn btn-icon" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-label="Playlist" aria-expanded="false">
-                    <i class="ri-play-list-fill fs-5"></i>
-                </button>
-                <div class="dropdown-menu playlist__dropdown">
-                    <div class="playlist__head d-flex align-items-center justify-content-between">
-                        <h6 class="mb-0">Next Lineup</h6>
-                        <a href="javascript:void(0);" role="button" class="btn btn-link" (click)="clearPlaylist()">Clear</a>
-                    </div>
-                    <!-- Start:: list [[ Find at scss/components/list.scss ]] -->
-                    <perfect-scrollbar class="list playlist__body">
-                        <ng-container *ngIf="playlist?.length; else noSongView">
-                            <div class="list">
-                                <ng-container [ngTemplateOutlet]="songView" [ngTemplateOutletContext]="{item: item}"
-                                *ngFor="let item of playlist"></ng-container>
-                            </div>
-                        </ng-container>
-                    </perfect-scrollbar>
-                    <!-- End:: list -->
-                </div>
-            </div>
+            
             <!-- End:: playlist -->
         </div>
     </div>
@@ -106,7 +85,7 @@
             </a>
         </div>
         <div class="list__content">
-            <a [routerLink]="'/app/chansons/' + item?.id + '/view'" class="list__title text-truncate">{{item?.title}}</a>
+            <a [routerLink]="'/app/chansons/' + item?.id" class="list__title text-truncate">{{item?.title}}</a>
             <p class="list__subtitle text-truncate" *ngIf="item?.artists">
                 <ng-container *ngFor="let artist of item?.artists; last as isLast">
                     <a [routerLink]="'/app/artist/' + artist?.id + '/details'">{{artist?.name}}</a>{{!isLast ? ', ' : ''}}

@@ -21,7 +21,7 @@
         </div>
         <div class="row g-4">
             <div class="col-6 col-xl-2 col-md-3 col-sm-4" *ngFor="let artist of artists">
-                <app-cover-view [data]="artist" [coverLink]="true" [viewDropdown]="false" [viewPlayButton]="false"></app-cover-view>
+                <app-cover-view [songs]="artist" [coverLink]="true" [viewDropdown]="false" [viewPlayButton]="false"></app-cover-view>
             </div>
         </div>
         <div class="mt-5 text-center">

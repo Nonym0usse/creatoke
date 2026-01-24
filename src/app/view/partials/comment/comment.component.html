@@ -28,7 +28,7 @@
                     <textarea name="comment" id="comment" cols="30" rows="4" class="form-control" placeholder="Votre commentaire..." formControlName="comment"></textarea>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-cutsom" (click)="createComment()" style="min-width: 160px;" [disabled]="form.invalid">Commenter</button>
+                    <button type="button" class="btn btn-custom" (click)="createComment()" style="min-width: 160px;" [disabled]="form.invalid">Commenter</button>
                 </div>
             </form>
             <div class="avatar avatar--lg align-items-start" style="min-height: 160px" *ngFor="let post of comments">

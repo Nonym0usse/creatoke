@@ -10,7 +10,7 @@ export class Constant {
     {
       name: 'Accueil',
       icon: '<i class="ri-home-4-line fs-5"></i>',
-      link: '/home',
+      link: '/',
       auth: false,
     },
     {
@@ -123,37 +123,6 @@ export class Constant {
     'auth/wrong-password': 'Adresse e-mail ou mot de passe invalides.'
   };
 
-  // End: navbar array
-
-
-  // Top header menu
-  //
-  // Start: header menu array
-  public static menu = [
-    {
-      name: 'Discover',
-      link: '/app'
-    },
-    {
-      name: 'Pricing',
-      link: '/landing',
-      fragment: 'pricing'
-    },
-    {
-      name: 'About us',
-      link: '/about'
-    },
-    {
-      name: 'Blog',
-      link: '/blog'
-    },
-    {
-      name: 'Contact us',
-      link: '/contact'
-    }
-  ];
-  // End: header array
-
 
   // Login user dropdown options
   //
@@ -180,30 +149,7 @@ export class Constant {
       link: '/app/plan'
     }
   ];
-  // End: options array
-
-
-  // Language dropdown options
-  //
-  // Start: languages array
-  public static languages = [
-    {
-      id: 1,
-      name: 'Français',
-      checked: true
-    },
-    {
-      id: 2,
-      name: 'English',
-      checked: false
-    }
-  ];
-  // End: languages array
-
-
-  // Social links
-  //
-  // Start: social array
+ 
   public static social = [
     {
       icon: '<i class="ri-facebook-fill fs-6"></i>',
@@ -226,16 +172,6 @@ export class Constant {
       link: '#'
     }
   ];
-  // End: social array
-
-
-  // Default user object is use to show user data after login.
-  // You can remove this after integration
-  public static DEFAULT_USER = {
-    name: 'Androws Kinny',
-    cover: './assets/images/users/thumb.jpg',
-    role: 'admin'
-  };
 
 
   // Brand object
@@ -294,10 +230,6 @@ export class Constant {
   public static HEADER = 'data-header';
   public static SIDEBAR = 'data-sidebar';
   public static PLAYER = 'data-player';
-
-
-  // Flag to show theme setting options
-  public static SETTINGS_VIEW = false;
 
   // Enable for theme dark mode
   public static DARK_MODE = true;

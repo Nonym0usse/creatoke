@@ -21,8 +21,7 @@
             <div class="col-md-8 mt-5 mt-md-0">
                 <div class="d-flex flex-wrap mb-2">
                     <span class="text-dark fs-4 fw-semi-bold pe-2">{{album?.name}}</span>
-                    <app-dropdown [data]="album" [classes]="'dropstart d-inline-flex ms-auto'" [viewFavorite]="false"
-                    [viewQueueOptions]="false" [iconVertical]="false"></app-dropdown>
+                    
                 </div>
                 <!-- Start:: info list [[ Find at scss/components/list.scss ]] -->
                 <ul class="info-list info-list--dotted mb-3">
@@ -110,7 +109,7 @@
         </div>
 
         <ng-template #albumView let-data="data">
-            <app-cover-view [data]="data" [coverLink]="true" [viewPlayButton]="false" [viewQueueOptions]="false"></app-cover-view>
+            <app-cover-view [songs]="data" [coverLink]="true" [viewPlayButton]="false" [viewQueueOptions]="false"></app-cover-view>
         </ng-template>
         <app-carousel [classes]="'swiper-carousel-button'" [slideTemplate]="albumView" [slideData]="albums" [slides]="5" [navigation]="true"></app-carousel>
     </div>

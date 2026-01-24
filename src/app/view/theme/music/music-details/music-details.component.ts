@@ -29,7 +29,7 @@ export class MusicDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.routerSubscription = this.activatedRoute.params.subscribe(param => {
-      this.getSongs(param['category'], param['id']);
+      this.getSongs(param['category']);
     });
     this.getBackground();
   }
@@ -47,7 +47,7 @@ export class MusicDetailsComponent implements OnInit {
    * @param category
    * @param subcategory
    */
-  getSongs(category: string, subcategory: string): void {
-    this.songService.getSongByCategory({category: category, subcategory: subcategory}).then((data) => {this.songs = data.data;});
+  getSongs(category: string): void {
+    this.songService.getSongByCategory({category: category}).then((data) => {this.songs = data.data;});
   }
 }

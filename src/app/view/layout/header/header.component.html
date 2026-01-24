@@ -16,13 +16,7 @@
                         <i class="ri-menu-3-fill"></i>
                     </button>
                 </div>
-                <div class="collapse navbar-collapse" id="top_navbar">
-                    <ul class="navbar-nav mt-4 mt-lg-0 mx-auto fw-semi-bold">
-                        <li class="nav-item" *ngFor="let nav of menu">
-                            <a class="nav-link" [routerLink]="nav.link" [routerLinkActive]="nav.fragment ? '' : active" [fragment]="nav.fragment">{{nav.name}}</a>
-                        </li>
-                    </ul>
-                </div>
+                
             </nav>
         </div>
     </header>

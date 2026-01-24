@@ -9,7 +9,7 @@
     </div>
 
     <div class="list__content">
-        <a [routerLink]="data.id + '/view'" class="list__title text-truncate">{{data.title}}</a>
+        <a [routerLink]="data.slug" class="list__title text-truncate">{{data.title}}</a>
         <p class="list__subtitle text-truncate" *ngIf="data.artist">
         </p>
     </div>
@@ -22,10 +22,6 @@
             </a>
         </li>
         <li *ngIf="viewTime && data.duration">{{data.duration}}</li>
-        <li *ngIf="viewDropdown">
-            <!-- Dropdown options -->
-            <app-dropdown [classes]="'dropstart d-inline-flex'" [data]="data" [iconVertical]="false" [viewDownload]="viewDownload"
-            [viewFavorite]="viewFavorite" [viewPlay]="viewPlayButton" [viewQueueOptions]="viewQueueOptions" [viewPlaylist]="viewPlaylist"></app-dropdown>
-        </li>
+        
     </ul>
 </div>

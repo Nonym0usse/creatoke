@@ -1,24 +1,26 @@
-
 <!-- Hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
 <!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="under-hero container">
 
-    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
-    <div class="section">
-        <div class="section__head">
-            <div class="flex-grow-1">
-                <span class="section__subtitle">Dernières publications</span>
-                <h3 class="mb-0">Nos <span class="text-custom">coups de coeur </span>💜</h3>
-            </div>
-        </div>
-
-        <ng-template #charts let-data="data">
-            <app-cover-view [data]="data"></app-cover-view>
-        </ng-template>
-        <app-carousel [classes]="'swiper-carousel-button'" [slideTemplate]="charts" [slideData]="songs" [slides]="5" [navigation]="true"></app-carousel>
+  <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+  <div class="section">
+    <div class="section__head">
+      <div class="flex-grow-1">
+        <span class="section__subtitle">Dernières publications</span>
+        <h3 class="mb-0">Nos <span class="text-custom">coups de coeur </span>💜</h3>
+      </div>
     </div>
+
+    <ng-template #charts let-data="data">
+      <app-cover-view [songs]="[data]" [coverLink]="true" [isHome]="true" [viewPlayButton]="false"
+        [viewQueueOptions]="false"></app-cover-view>
+    </ng-template>
+
+    <app-carousel [classes]="'swiper-carousel-button'" [slideTemplate]="charts" [slideData]="songsHightlighted"
+      [slides]="5" [navigation]="true"></app-carousel>
+  </div>
   <div class="section">
     <div class="section__head">
       <div class="flex-grow-1">
@@ -27,8 +29,11 @@
       </div>
     </div>
 
-    <div style="padding-bottom: 50px" [innerHTML]="safeHtmlContent">
+    <div style="padding-bottom: 50px">
+      <div *ngIf="textLoading" class="spinner" aria-label="Chargement"></div>
+
+      <div *ngIf="!textLoading && safeHtmlContent" [innerHTML]="safeHtmlContent"></div>
     </div>
   </div>
-    <!-- End:: section -->
+  <!-- End:: section -->
 </div>

@@ -18,7 +18,7 @@ export class n8nService {
         // @ts-ignore
         this.firebaseToken = localStorage.getItem('firebaseToken');
         this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
-            if (isAuthenticated) {
+            if (!isAuthenticated) {
                 this.router.navigate(['/']);
             }
         });

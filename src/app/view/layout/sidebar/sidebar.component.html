@@ -21,7 +21,9 @@
             <span class="nav-item--head__dots">...</span>
           </ng-container>
           <ng-template #navLink>
-            <a [routerLink]="nav.link" [routerLinkActive]="active" class="nav-link d-flex align-items-center" [innerHTML]="navLinkHTML(nav)"></a>
+            <a [routerLink]="nav.link" routerLinkActive="active"
+              [routerLinkActiveOptions]="nav.link === '/' ? { exact: true } : { exact: false }"
+              class="nav-link d-flex align-items-center" [innerHTML]="navLinkHTML(nav)"></a>
           </ng-template>
         </li>
       </ul>
@@ -29,7 +31,7 @@
   </perfect-scrollbar>
 
   <div class="sidebar-foot" *ngIf="isAuthenticated">
-    <a routerLink="/add-song" class="btn btn-cutsom d-flex">
+    <a routerLink="/add-song" class="btn btn-custom d-flex">
       <div class="btn__wrap">
         <i style="color: #F5F7FA" class="ri-music-fill"></i>
         <span style="color: #F5F7FA">Ajouter musique</span>

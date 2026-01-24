@@ -5,6 +5,7 @@ import { SongService } from '../../../../core/services/api/song.service';
 import { CategoryService } from '../../../../core/services/api/category.service';
 import { Subscription } from 'rxjs';
 import { UploadService } from '../../../../core/utils/upload';
+import * as slug from 'slug';
 
 type UrlMap = Record<string, string>;
 type NumMap = Record<string, number>;
@@ -16,8 +17,6 @@ type NumMap = Record<string, number>;
 })
 export class AddSongComponent implements OnInit, OnDestroy {
   musicForm: FormGroup;
-  subcategory: any[] = [];
-  filteredSubcategories: any[] = [];
   progress: NumMap = {};
   downloadUrls: UrlMap = {};
   display = 'none';
@@ -51,7 +50,6 @@ export class AddSongComponent implements OnInit, OnDestroy {
       exclu: [''],
       image: [''],
       category: ['', Validators.required],
-      subcategory: ['', Validators.required],
       created_at: [''],
       youtubeURL: [''],
       spotifyURL: [''],
@@ -67,13 +65,11 @@ export class AddSongComponent implements OnInit, OnDestroy {
       isPremiumCreatoke: ['non'],
       isHeartStroke: ['non'],
       message: [''],
-    });
+    }) as FormGroup;
   }
 
   ngOnInit(): void {
-    this.categoryService.getSubCategory().then((res) => {
-      this.subcategory = res.data || [];
-    });
+    
     this.categoryService.getBackgroundImg().then(r => {
       this.picturebackground = r.data?.[0]?.picture;
     });
@@ -81,13 +77,6 @@ export class AddSongComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
-  }
-
-  onCategoryChange(event: Event) {
-    const selected = (event.target as HTMLSelectElement)?.value || '';
-    this.filteredSubcategories = selected
-      ? this.subcategory.filter(s => String(s.category) === selected)
-      : [];
   }
 
   onFileSelected(event: Event, fileType: string) {
@@ -102,10 +91,8 @@ export class AddSongComponent implements OnInit, OnDestroy {
       this.progress[fileType] = p;
     }));
 
-    // Récupérer l’URL finale et la ranger dans downloadUrls[fileType]
     this.subs.add(downloadUrl$.subscribe(url => {
       this.downloadUrls[fileType] = url;
-      // Option: patcher tout de suite les champs liés
       const patch: Partial<Record<string, string>> = {};
       patch[fileType] = url; // si les noms de fileType == noms de champs
       this.musicForm.patchValue(patch);
@@ -129,6 +116,7 @@ export class AddSongComponent implements OnInit, OnDestroy {
       ...raw,
       title: (raw.title ?? '').toString().toUpperCase(),
       created_at,
+      slug: slug(raw.title ?? ''),
       image: this.downloadUrls['image'] ?? ensureValue(raw.image, placeholderImage),
       creatoke: this.downloadUrls['creatoke'] ?? ensureValue(raw.creatoke),
       url: this.downloadUrls['url'] ?? ensureValue(raw.url),

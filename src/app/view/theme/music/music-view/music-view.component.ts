@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SongService } from "../../../../core/services/api/song.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PlayerService } from "../../../../core/services/design/player.service";
@@ -6,9 +6,9 @@ import { Subscription } from "rxjs";
 import { LicenceService } from "../../../../core/services/api/licence.service";
 import { ICreateOrderRequest } from "ngx-paypal";
 import { PaypalService } from "../../../../core/services/api/paypal.service";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { DomSanitizer, SafeHtml, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { CategoryService } from "../../../../core/services/api/category.service";
+import { Song } from 'src/app/core/models/song.model';
 
 @Component({
   selector: 'app-music-view',
@@ -18,7 +18,7 @@ import { CategoryService } from "../../../../core/services/api/category.service"
 export class MusicViewComponent implements OnInit {
 
   // Holds song data
-  song: any;
+  song: Song = {} as Song;
   licences: any = [];
   public payPalConfig: any;
   //@ts-ignore
@@ -34,6 +34,7 @@ export class MusicViewComponent implements OnInit {
   // Holds router subscription
   routerSubscription: Subscription | undefined;
   videoUrl: SafeResourceUrl | undefined;
+  imgLoading = true;
 
   constructor(
     private router: Router,
@@ -48,9 +49,11 @@ export class MusicViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.routerSubscription = this.activatedRoute.params.subscribe(param => {
-      this.getSongs(param['detail']);
+    this.routerSubscription = this.activatedRoute.paramMap.subscribe(pm => {
+      const slug = pm.get("slug") || "";
+      this.getSongs(slug);
     });
+
     this.getLicence();
     this.getBackground();
   }
@@ -238,22 +241,22 @@ export class MusicViewComponent implements OnInit {
 
   /**
    * Get song data from default json.
-   * @param id
+   * @param slug
    */
-  getSongs(id: string): void {
-    this.songService.getSongByID(id).then(response => {
+  getSongs(slug: string): void {
+    this.songService.getSongBySlug(slug).then(response => {
       this.song = response.data;
-      console.log(this.song)
       this.getParams(this.song.category || "");
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.song?.youtubeURL}`);
       this.sanitizeHtml(this.song.spotifyURL);
-      this.audioElement = new Audio(this.song.creatoke);
+      this.audioElement = new Audio(this.song?.creatoke ?? "");
     });
   }
 
   getLicence() {
     this.licenceService.listLicence().then((data) => this.licences = data.data);
   }
+
 
   /**
    * Play song
@@ -263,6 +266,10 @@ export class MusicViewComponent implements OnInit {
     this.playerService.songPlayPause(event, this.song);
   }
 
+  ngOnChanges() {
+    // si song change et qu'on charge une nouvelle image => on remet le loader
+    this.imgLoading = true;
+  }
 
   onCloseHandled() {
     this.display = "none";

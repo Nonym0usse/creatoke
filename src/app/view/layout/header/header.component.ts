@@ -3,7 +3,6 @@ import { AfterViewInit, Component, Input, OnInit, ElementRef, TemplateRef, ViewC
 import { Subscription } from 'rxjs';
 
 // Services
-import { LoginService } from './../../../core/services/api/login.service';
 import { TogglerService } from './../../../core/services/design/toggler.service';
 import { AuthenticationService } from './../../../core/services/global/authentication.service';
 import { ThemeService } from './../../../core/services/design/theme.service';
@@ -36,23 +35,12 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   // Holds brand object
   brand = Constant.BRAND;
 
-  // Holds header menu
-  menu = Constant.menu;
-
-  // Holds user options data
-  options = Constant.options;
-
-  // Holds languages data
-  languages = Constant.languages;
-
-  // Active class name
   active = Constant.ACTIVE;
   imgProfile = "";
   // Header theme subscription
   headerSubscription: Subscription | undefined;
 
   constructor(
-    private loginService: LoginService,
     private togglerService: TogglerService,
     private authenticationService: AuthenticationService,
     private themeService: ThemeService

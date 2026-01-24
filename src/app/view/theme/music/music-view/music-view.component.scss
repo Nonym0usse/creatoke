@@ -1,56 +1,53 @@
 .custom {
-    border: 1px solid;
-    border-image: linear-gradient(90deg, #5438d1, #8938d1 60%);
-    border-image-slice: 1;
-    border-radius: 5px;
+  border: 1px solid;
+  border-image: linear-gradient(90deg, #5438d1, #8938d1 60%);
+  border-image-slice: 1;
+  border-radius: 5px;
 }
 
 .btn-custom2 {
-    background-color: linear-gradient(90deg, #5438d1, #8938d1 60%);
+  background-color: linear-gradient(90deg, #5438d1, #8938d1 60%);
 }
 
 
 .modal-content {
-    background-color: rgba(0, 0, 0, 0.9)
+  background-color: rgba(0, 0, 0, 0.9)
 }
 
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 
-.large{
-    width: 100%;
+.large {
+  width: 100%;
 }
 
-.iframe-container{
-    width: 100%;
-    margin: 0 auto;
+.iframe-container {
+  width: 100%;
+  margin: 0 auto;
 }
 
 
-.chanson-player{
+.chanson-player {
   padding: 10px;
-  margin: 15px;
-  background-color: rgba(255,255,255,0.1);
+  margin: 0 10px 0 0;
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
 }
 
-.text-extrait{
+.text-extrait {
   padding-left: 10px;
 }
 
-.btn-player{
+.btn-player {
   background: linear-gradient(90deg, #5438d1, #8938d1 60%);
   z-index: 999 !important;
 }
 
-.exclu{
+.exclu {
   background-image: linear-gradient(90deg, #5438d1, #8938d1);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 }
-
-
-

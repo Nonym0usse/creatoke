@@ -28,13 +28,12 @@
                 tabindex="0">
                 <form [formGroup]="musicForm" (ngSubmit)="addMusic()">
                   <div class="col-12 mb-4"
-                    [hidden]="!musicForm.get('category')?.value || filteredSubcategories.length === 0">
+                    [hidden]="!musicForm.get('category')?.value">
                     <input type="text" formControlName="title" class="form-control" placeholder="Titre de la chanson">
                   </div>
                   <div class="col-sm-12 mb-4">
                     <label class="form-label">Dans quelle catégorie ?</label>
-                    <select class="form-select" formControlName="category" aria-label="Select category"
-                      (change)="onCategoryChange($event)">
+                    <select class="form-select" formControlName="category" aria-label="Select category">
                       <option value="" selected disabled hidden>Merci de choisir</option>
                       <option value="chansons-a-chanter">Publier dans les chansons à chanter</option>
                       <option value="chansons-cherche-auteur">Publier dans les chansons cherche
@@ -45,21 +44,8 @@
                       <option value="musique-de-contenus">Publier dans musique de contenus</option>
                     </select>
                   </div>
-                  <div class="col-sm-12 mb-4">
-                    <label class="form-label">Dans quelle sous-catégorie ?</label>
-                    <select class="form-select" formControlName="subcategory" aria-label="Select sub-category">
-                      <option value="" selected disabled hidden>Merci de choisir</option>
-                      <option *ngFor="let sub of filteredSubcategories" value="{{sub?.title_fr}}">
-                        Publier dans la sous-catégorie "{{sub.title_fr}}" -> (dans la catégorie
-                        {{sub.category}})
-                      </option>
-                    </select>
-                  </div>
-                  <p [hidden]="filteredSubcategories.length > 0 || !musicForm.get('category')?.value"
-                    style="color: red">Aucune sous catégorie associée à la catégorie. Merci d'en créer une dans <i
-                      class="ri-stack-fill fs-5"></i> Catégories
 
-                  <div [hidden]="!musicForm.get('subcategory')?.value || filteredSubcategories.length === 0">
+                  <div>
                     <div class="col-sm-12 mb-4">
                       <label class="form-label">Votre chanson est une exclusivité</label>
                       <select class="form-select" formControlName="exclu" aria-label="Select exclusivité"
@@ -178,7 +164,7 @@
                         placeholder="Youtube URL ex: (https://www.youtube.com/watch?v=Aq1NJxJZo6E) -> Mettre uniquement 'Aq1NJxJZo6E' ici ">
                     </div>
                     <div class="col-sm-12 mb-4">
-                      <button type="button" (click)="openModal()" class="btn btn-cutsom w-10"
+                      <button type="button" (click)="openModal()" class="btn btn-custom w-10"
                         style="margin-bottom: 20px; margin-right: 10px;">Aide</button>
                       <label class="form-label">Spotify (Click droit sur le titre Spotify -> Partager -> Intégrer le
                         titre
@@ -331,7 +317,7 @@
     <div class="modal-content custom">
       <div class="modal-header">
         <h4 class="modal-title text-center w-100">Aide</h4>
-        <button type="btn btn-cutsom" class="close" aria-label="Close" (click)="onCloseHandled()"><span
+        <button type="btn btn-custom" class="close" aria-label="Close" (click)="onCloseHandled()"><span
             aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
@@ -341,7 +327,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-cutsom" (click)="onCloseHandled()">Fermer</button>
+        <button type="button" class="btn btn-custom" (click)="onCloseHandled()">Fermer</button>
       </div>
     </div>
   </div>

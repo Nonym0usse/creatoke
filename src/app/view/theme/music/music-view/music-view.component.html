@@ -7,7 +7,9 @@
             <div class="col-xl-3 col-md-4">
                 <div class="cover cover--round">
                     <div class="cover__image">
-                        <img [src]="song?.image" [alt]="song?.title">
+                        <div class="spinner" *ngIf="imgLoading" aria-label="Chargement"></div>
+                        <img [class.is-hidden]="imgLoading" [src]="song?.image" [alt]="song?.title || ''"
+                            (load)="imgLoading = false" />
                     </div>
                 </div>
             </div>
@@ -19,9 +21,9 @@
                             {{song?.exclu == 'oui' ? ' (Exclusivité plateforme)' : '' }}</span></span>
                 </div>
                 <ul class="info-list info-list--dotted mb-3">
-                    <li *ngIf="song?.categories">
-                        <ng-container *ngFor="let category of song?.categories; last as isLast">
-                            {{category.name}}{{!isLast ? ', ' : ''}}
+                    <li *ngIf="song?.category">
+                        <ng-container *ngFor="let cat of song?.category; last as isLast">
+                            {{cat}}{{!isLast ? ', ' : ''}}
                         </ng-container>
                     </li>
 
@@ -82,21 +84,23 @@
                         </span>
                     </li>
                 </ul>
-                <div class="mt-2" *ngIf="song?.lyrics && showLyrics">
-                    <span class="d-block text-dark fs-6 fw-semi-bold mb-3">Lyrics</span>
-                    <div>
-                        <p style="word-wrap: break-word;" [innerHTML]="song?.lyrics"></p>
-                    </div>
+                <!-- Bouton -->
+                <div class="mt-2" [hidden]="!song?.lyrics">
+                    <button class="btn btn-custom" type="button" (click)="showLyricsBtn()">
+                        {{ showLyrics ? 'Cacher les paroles' : 'Voir les paroles' }}
+                    </button>
                 </div>
-                <div class="mt-2" *ngIf="song?.lyrics.length > 0">
-                    <button class="btn btn-cutsom" (click)="showLyricsBtn()">
-                        {{showLyrics ? 'Cacher les paroles' : 'Voir les paroles' }}</button>
+
+                <!-- Lyrics -->
+                <div class="mt-2" *ngIf="showLyrics && (song?.lyrics ?? '').trim().length > 0">
+                    <span class="d-block text-dark fs-6 fw-semi-bold mb-3">Lyrics</span>
+                    <p style="word-wrap: break-word;" [innerHTML]="song?.lyrics"></p>
                 </div>
             </div>
         </div>
     </div>
     <div class="section">
-        <div [hidden]="!song?.spotifyURL">
+        <div *ngIf="(song?.spotifyURL ?? '').trim() !== '' && song?.spotifyURL !== 'vide'">
             <div class="section__head">
                 <h3 class="mb-0">Spotify</h3>
             </div>
@@ -112,7 +116,7 @@
             </div>
         </div>
 
-        <div [hidden]="!song?.youtubeURL">
+        <div *ngIf="(song?.youtubeURL ?? '').trim() !== '' && song?.youtubeURL !== 'vide'">
             <div class="section__head">
                 <h3 class="mb-0">Youtube</h3>
             </div>
@@ -154,11 +158,11 @@
                                         'Gratuit' : song?.price_base + '€'}}</span>
                                 </div>
 
-                                <button type="button" [hidden]="+song?.price_base === 0"
+                                <button type="button" [hidden]="+(song?.price_base ?? 0) === 0"
                                     (click)="openModal(song.price_base, licences[0]['basic'], 'price_base', song.title)"
-                                    class="btn btn-cutsom w-100">Choisir</button>
+                                    class="btn btn-custom w-100">Choisir</button>
 
-                                <button type="button" class="btn btn-cutsom w-100" *ngIf="song?.price_base === 0"
+                                <button type="button" class="btn btn-custom w-100" *ngIf="song?.price_base === 0"
                                     (click)="downloadSong(song?.creatoke_mp3 + '.mp3')">Télécharger en MP3</button>
                             </div>
                         </div>
@@ -182,11 +186,11 @@
                                         ?
                                         'Gratuit' : song?.price_premium + '€'}}</span>
                                 </div>
-                                <button type="button" [hidden]="+song?.price_premium === 0"
+                                <button type="button" [hidden]="+(song?.price_premium ?? 0) === 0"
                                     (click)="openModal(song.price_premium, licences[0]['base_plus'], 'price_premium', song.title)"
-                                    class="btn btn-cutsom w-100">Choisir</button>
+                                    class="btn btn-custom w-100">Choisir</button>
 
-                                <button type="button" class="btn btn-cutsom w-100" *ngIf="song?.price_premium === 0"
+                                <button type="button" class="btn btn-custom w-100" *ngIf="song?.price_premium === 0"
                                     (click)="downloadSong(song?.chanson_wav + '.wav')">Télécharger en Wav</button>
                             </div>
                         </div>
@@ -207,7 +211,7 @@
                         <div class="card-footer pb-4 pb-sm-0">
                             <div class="text-dark mb-3"><span class="fs-4 fw-bold">À la carte</span></div>
                             <button type="button" (click)="contact()"
-                                class="btn btn-cutsom w-100">Contactez-nous</button>
+                                class="btn btn-custom w-100">Contactez-nous</button>
                         </div>
                     </div>
                 </div>
@@ -244,11 +248,11 @@
                                         ?
                                         'Gratuit' : song?.price_base_creatoke + '€'}}</span>
                                 </div>
-                                <button type="button" [hidden]="+song?.price_base_creatoke === 0"
+                                <button type="button" [hidden]="+(song?.price_base_creatoke ?? 0) === 0"
                                     (click)="openModal(song.price_base_creatoke, licences[0]['basic'], 'price_base_creatoke', song.title)"
-                                    class="btn btn-cutsom w-100">Choisir</button>
+                                    class="btn btn-custom w-100">Choisir</button>
 
-                                <button type="button" class="btn btn-cutsom w-100"
+                                <button type="button" class="btn btn-custom w-100"
                                     *ngIf="song?.price_base_creatoke === 0"
                                     (click)="downloadSong(song?.creatoke_mp3 + '.mp3')">Télécharger en MP3</button>
                             </div>
@@ -275,11 +279,11 @@
                                         'Gratuit' : song?.price_premium_creatoke + '€'}}</span>
                                 </div>
 
-                                <button type="button" [hidden]="+song?.price_premium_creatoke === 0"
+                                <button type="button" [hidden]="+(song?.price_premium_creatoke ?? 0) === 0"
                                     (click)="openModal(song.price_premium_creatoke, licences[0]['base_plus'], 'price_premium_creatoke', song.title)"
-                                    class="btn btn-cutsom w-100">Choisir</button>
+                                    class="btn btn-custom w-100">Choisir</button>
 
-                                <button type="button" class="btn btn-cutsom w-100" *ngIf="song?.price_premium === 0"
+                                <button type="button" class="btn btn-custom w-100" *ngIf="song?.price_premium === 0"
                                     (click)="downloadSong(song?.creatoke_wav + '.wav')">Télécharger en Wav</button>
                             </div>
                         </div>
@@ -300,7 +304,7 @@
                         <div class="card-footer pb-4 pb-sm-0">
                             <div class="text-dark mb-3"><span class="fs-4 fw-bold">À la carte</span></div>
                             <button type="button" (click)="contact()"
-                                class="btn btn-cutsom w-100">Contactez-nous</button>
+                                class="btn btn-custom w-100">Contactez-nous</button>
                         </div>
                     </div>
                 </div>
@@ -315,8 +319,9 @@
             <div class="modal-content custom">
                 <div class="modal-header">
                     <h4 class="modal-title text-center w-100">Paiement sécurisé avec Paypal</h4>
-                    <button type="btn btn-cutsom" class="close" aria-label="Close" (click)="onCloseHandled()"><span
-                            aria-hidden="true">&times;</span></button>
+                    <button type="button" class="btn-close-custom" aria-label="Fermer" (click)="onCloseHandled()">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="col-sm-6 offset-sm-3">
@@ -326,7 +331,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-cutsom" (click)="onCloseHandled()">Fermer</button>
+                    <button type="button" class="btn btn-custom" (click)="onCloseHandled()">Fermer</button>
                 </div>
             </div>
         </div>

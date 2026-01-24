@@ -12,7 +12,7 @@
         </div>
 
         <ng-template #albumView let-data="data">
-            <app-cover-view [data]="data" [coverLink]="true" [viewPlayButton]="false" [viewQueueOptions]="false"></app-cover-view>
+            <app-cover-view [songs]="data" [coverLink]="true" [viewPlayButton]="false" [viewQueueOptions]="false"></app-cover-view>
         </ng-template>
         <app-carousel [classes]="'swiper-carousel-button'" [slideTemplate]="albumView" [slideData]="albums" [slides]="5" [navigation]="true"></app-carousel>
     </div>

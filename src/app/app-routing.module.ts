@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 
 // Services
-import { AuthGuard } from './core/services/global/auth-guard.service';
+import { ErrorComponent } from './view/pages/auth/error/error.component';
 
 
 //
@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '404'
+    component: ErrorComponent
   },
 ];
 

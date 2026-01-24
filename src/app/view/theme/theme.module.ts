@@ -17,26 +17,23 @@ import { AlbumDetailsComponent } from './album/album-details/album-details.compo
 import { ArtistComponent } from './artist/artist.component';
 import { ArtistDetailsComponent } from './artist/artist-details/artist-details.component';
 import { AnalyticsComponent } from './user/analytics/analytics.component';
-import { ProfileComponent } from './user/profile/profile.component';
-import { SettingsComponent } from './user/settings/settings.component';
 import { CategoryComponent } from './category/category.component';
 import { MusicComponent } from './music/music.component';
-import { MusicDetailsComponent } from './music/music-details/music-details.component';
 import { MusicViewComponent } from './music/music-view/music-view.component';
 import { ConfirmPurchaseComponent } from './confirm/confirm-purchase.component';
 import { ContactComponent } from './contact/contact.component';
 import { TextsComponent } from './texts/texts.component';
 import { ManageComponent } from './music/manage/manage.component';
 import { ModifyComponent } from './music/modify/modify.component';
-import {RecaptchaModule} from "ng-recaptcha";
+import { RecaptchaModule } from "ng-recaptcha";
 import { CKEditorModule } from 'ngx-ckeditor';
-import {NgxPayPalModule} from "ngx-paypal";
-import {LicenceComponent} from "./licence/licence.component";
-import {AuthGuard} from "../../core/services/global/auth-guard.service";
-import {LoginComponent} from "../pages/auth/login/login.component";
+import { NgxPayPalModule } from "ngx-paypal";
+import { LicenceComponent } from "./licence/licence.component";
+import { AuthGuard } from "../../core/services/global/auth-guard.service";
+import { LoginComponent } from "../pages/auth/login/login.component";
 import { EditextComponent } from './editext/editext.component';
-import {CommentsAdminComponent} from "./comments-admin/comments-admin.component";
-import {BackgroundimageComponent} from "./backgroundimage/backgroundimage.component";
+import { CommentsAdminComponent } from "./comments-admin/comments-admin.component";
+import { BackgroundimageComponent } from "./backgroundimage/backgroundimage.component";
 import { AboutComponent } from './about/about.component';
 import { PublishVideoComponent } from './publish-video/publish-video.component';
 
@@ -49,25 +46,10 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-      },
-      {
-        path: 'home',
         component: HomeComponent
       },
-      {
-        path: 'song/:category',
-        component: MusicComponent
-      },
-      {
-        path: 'song/:category/:id',
-        component: MusicDetailsComponent
-      },
-      {
-        path: 'song/:category/:id/:detail/view',
-        component: MusicViewComponent
-      },
+      { path: "song/:category", component: MusicComponent },
+      { path: "song/:category/:slug", component: MusicViewComponent },
       {
         path: 'confirm-purchase',
         component: ConfirmPurchaseComponent
@@ -123,14 +105,6 @@ const routes: Routes = [
         component: ContactComponent
       },
       {
-        path: 'profile',
-        component: ProfileComponent
-      },
-      {
-        path: 'settings',
-        component: SettingsComponent
-      },
-      {
         path: 'about',
         component: AboutComponent
       },
@@ -180,32 +154,29 @@ const routes: Routes = [
     ArtistComponent,
     ArtistDetailsComponent,
     AnalyticsComponent,
-    ProfileComponent,
-    SettingsComponent,
     LoginComponent,
     AddSongComponent,
     CategoryComponent,
     MusicComponent,
     AboutComponent,
-    MusicDetailsComponent,
     MusicViewComponent,
     ContactComponent,
     TextsComponent,
     ManageComponent,
     EditextComponent,
   ],
-    imports: [
-        // Angular
-        CommonModule,
+  imports: [
+    // Angular
+    CommonModule,
 
-        // Modules
-        LayoutModule,
+    // Modules
+    LayoutModule,
 
-        // Import router module
-        RouterModule.forChild(routes),
-        RecaptchaModule,
-        CKEditorModule,
-        NgxPayPalModule,
-    ]
+    // Import router module
+    RouterModule.forChild(routes),
+    RecaptchaModule,
+    CKEditorModule,
+    NgxPayPalModule,
+  ]
 })
 export class ThemeModule { }

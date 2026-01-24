@@ -1,42 +1,42 @@
-<!-- Start:: cover [[ Find at scss/components/cover.scss ]] -->
-<div class="cover cover--round">
-    <div class="cover__head" *ngIf="viewDropdown || data.favorite">
-        <ul class="cover__label d-flex" *ngIf="data.favorite">
-            <li *ngIf="data.favorite">
-                <span class="badge rounded-pill bg-danger">
-                    <i class="ri-heart-fill"></i>
-                </span>
-            </li>
-        </ul>
-        <!-- Dropdown options -->
-        <app-dropdown [classes]="'cover__options dropstart d-inline-flex ms-auto'" [data]="data"
-            [viewPlay]="viewPlayButton" [viewFavorite]="viewFavorite" [viewPlaylist]="viewPlaylist"
-            [viewQueueOptions]="viewQueueOptions" *ngIf="viewDropdown"></app-dropdown>
-    </div>
-
-    <div class="cover__image">
+<div class="row g-4">
+  <div [ngClass]="isHome ? 'col-12' : 'col-6 col-md-4 col-xl-3'" *ngFor="let song of songs; trackBy: trackById">
+    <div class="cover cover--round">
+      <div class="cover__image">
         <ng-container *ngIf="coverLink; else coverImage">
-            <a [routerLink]="'/song/' + data.category + '/' + data.subcategory + '/' + data.id + '/view'">
-                <img [src]="data.cover" [alt]="data.name">
-            </a>
+          <a [routerLink]="'/song/' + song.category + '/' + song.slug">
+            <img [src]="song.image" [alt]="song.title || ''">
+          </a>
         </ng-container>
+
         <ng-template #coverImage>
-            <a [routerLink]="'/song/' + data.category + '/' + data.subcategory + '/' + data.id + '/view'">
-                <img [src]="data.image" [alt]="data.title">
-            </a>
+          <a [routerLink]="'/song/' + song.category + '/' + song.slug">
+            <img [src]="song.image" [alt]="song.title || ''">
+          </a>
         </ng-template>
 
-        <button type="button" class="btn btn-play btn-default btn-icon rounded-pill" (click)="play($event)"
-            [attr.data-play-id]="data.id" *ngIf="viewPlayButton">
-            <i class="ri-play-fill icon-play"></i>
-            <i class="ri-pause-fill icon-pause"></i>
+        <button
+          type="button"
+          class="btn btn-play btn-default btn-icon rounded-pill"
+          (click)="play($event, song)"
+          [attr.data-play-id]="song.id"
+          *ngIf="viewPlayButton"
+        >
+          <i class="ri-play-fill icon-play"></i>
+          <i class="ri-pause-fill icon-pause"></i>
         </button>
-    </div>
+      </div>
 
-    <div class="cover__foot">
-        <a [routerLink]="'/song/' + data.category + '/' + data.subcategory + '/' + data.id + '/view'" routerLinkActive="router-link-active"
-            class="cover__title text-truncate">{{data.title}} <span class="exclu">{{data.exclu == 'oui' ? '(Exclusivité)' : '' }}</span></a>
-        <p class="cover__subtitle text-truncate" >{{data.artist}}</p>
+      <div class="cover__foot">
+        <a
+          [routerLink]="'/song/' + song.category + '/' + song.slug"
+          routerLinkActive="router-link-active"
+          class="cover__title text-truncate"
+        >
+          {{ song.title }}
+          <span class="exclu">{{ song.exclu === 'oui' ? '(Exclusivité)' : '' }}</span>
+          <p class="cover__subtitle text-truncate" >{{ song.artist }}</p>
+        </a>
+      </div>
     </div>
+  </div>
 </div>
-<!-- End:: cover -->

@@ -21,7 +21,6 @@
                     <tr *ngFor="let song of songs">
                         <td>{{song.title}}</td>
                         <td>{{song.category}}</td>
-                        <td>{{song.subcategory}}</td>
                       <td><button class="btn btn-light-primary" (click)="modify(song.id)">Modifier</button></td>
                         <td><button class="btn btn-light-danger" (click)="delete(song.id, song.title)">Supprimer</button></td>
                     </tr>

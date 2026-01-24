@@ -1,54 +1,39 @@
-// Angular
-import { Component, Input, OnInit } from '@angular/core';
-
-// Services
-import { PlayerService } from './../../../../core/services/design/player.service';
-import { Router } from '@angular/router';
-
+import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { PlayerService } from "../../../../core/services/design/player.service";
+import { Song } from "src/app/core/models/song.model";
 
 @Component({
-  selector: 'app-cover-view',
-  templateUrl: './cover-view.component.html'
+  selector: "app-cover-view",
+  templateUrl: "./cover-view.component.html",
 })
-export class CoverViewComponent implements OnInit {
+export class CoverViewComponent implements OnChanges {
+  @Input() songs: Song[] = [];
+  @Input() isHome: boolean = false;
+  @Input() coverLink = false;
+  @Input() viewDropdown = true;
+  @Input() viewPlayButton = true;
+  @Input() viewQueueOptions = true;
+  @Input() viewFavorite = true;
+  @Input() viewPlaylist = true;
 
-  // Holds data to view
-  @Input() data: any;
+  constructor(private playerService: PlayerService) {}
 
-  // Flag for link on cover
-  @Input() coverLink: boolean = false;
-
-  // Flag to view dropdown element
-  @Input() viewDropdown: boolean = true;
-
-  // Flag to view play button
-  @Input() viewPlayButton: boolean = true;
-
-  // Flag to view option like [add in queue, play next]
-  @Input() viewQueueOptions: boolean = true;
-
-  // Flag to view favorite option
-  @Input() viewFavorite: boolean = true;
-
-  // Flag to view playlist option
-  @Input() viewPlaylist: boolean = true;
-
-  constructor(
-    private playerService: PlayerService,
-    private router: Router
-  ) { }
-
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["songs"]) {
+      console.log("songs updated:");
+    }
   }
 
-  /**
-   * Play song
-   * 
-   * @param event 
-   */
+  ngOnInit(): void {
+    console.log("CoverViewComponent initialized with songs:", this.songs, typeof this.songs);
+  }
 
-  play(event: any): void {
-    const newSong = {...this.data, url: this.data.url ?? this.data.creatoke};
+  play(event: any, song: Song): void {
+    const newSong = { ...song, url: song.url || (song as any).creatoke };
     this.playerService.songPlayPause(event, newSong);
+  }
+
+  trackById(_: number, s: any) {
+    return s.id || s.firestoreID || s.url || s.title;
   }
 }

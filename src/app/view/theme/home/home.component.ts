@@ -1,56 +1,59 @@
-// Angular
-import { Component, OnInit } from '@angular/core';
-
-// Services
-import { SongService } from '../../../core/services/api/song.service';
-import { CategoryService } from "../../../core/services/api/category.service";
+import { Component, OnInit } from "@angular/core";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-
+import { SongService } from "../../../core/services/api/song.service";
+import { CategoryService } from "../../../core/services/api/category.service";
+import { Song } from "src/app/core/models/song.model";
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html'
+  selector: "app-home",
+  templateUrl: "./home.component.html",
 })
 export class HomeComponent implements OnInit {
+  songsHightlighted: Song[] = [];
 
-    // Holds song data
-    songs: any = [];
-    safeHtmlContent: SafeHtml | undefined;
-    picturebackground: any;
-    public text: any = {
-        id: "",
-        text: ""
-    };
+  safeHtmlContent: SafeHtml | null = null;
+  textLoading = true;
 
-    constructor(
-        private songService: SongService,
-        private categorySerive: CategoryService,
-        private sanitizer: DomSanitizer
-    ) { }
+  picturebackground: any;
 
-    ngOnInit(): void {
-        this.getSongs();
-        this.getText();
-        this.getBackground();
-    }
+  text = { id: "", text: "" };
 
+  constructor(
+    private songService: SongService,
+    private categorySerive: CategoryService,
+    private sanitizer: DomSanitizer
+  ) {}
 
-    /**
-     * Get song data from default json.
-     */
-    getSongs(): void {
-        this.songService.highlightedSongs().then((data) => { this.songs = data.data; });
-    }
+  ngOnInit(): void {
+    this.getSongs();
+    this.getText();
+    this.getBackground();
+  }
 
-    getText(): void {
+  getSongs(): void {
+    this.songService.highlightedSongs().then((res) => {
+      this.songsHightlighted = res.data ?? [];
+      console.log(this.songsHightlighted);
+    });
+  }
 
-        this.categorySerive.getLastText().then(r => this.text = { id: r.data[0]?.id, text: r.data[0]?.text });
-        setTimeout(() => {
-            this.safeHtmlContent = this.sanitizer.bypassSecurityTrustHtml(this.text.text);
-        }, 1000)
-    }
+  getText(): void {
+    this.textLoading = true;
+    this.categorySerive.getLastText().then((r) => {
+      const item = r.data?.[0];
+      this.text = { id: item?.id ?? "", text: item?.text ?? "" };
 
-    async getBackground() {
-        this.categorySerive.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
-    }
+      this.safeHtmlContent = this.sanitizer.bypassSecurityTrustHtml(this.text.text);
+      this.textLoading = false;
+    }).catch(() => {
+      this.safeHtmlContent = null;
+      this.textLoading = false;
+    });
+  }
+
+  getBackground(): void {
+    this.categorySerive.getBackgroundImg().then((r) => {
+      this.picturebackground = r.data?.[0]?.picture ?? null;
+    });
+  }
 }

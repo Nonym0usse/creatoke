@@ -3,6 +3,8 @@ import { ApiConstant } from '../../constants/api-constant';
 import { AuthenticationService } from '../global/authentication.service';
 import { InterceptorService } from '../global/interceptor.service';
 import { firstValueFrom } from 'rxjs';
+import { ApiCacheService } from '../global/api-global-cache';
+import { Song } from '../../models/song.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +12,9 @@ import { firstValueFrom } from 'rxjs';
 export class SongService {
   constructor(
     private authenticationService: AuthenticationService,
-    private axiosInterceptorService: InterceptorService
+    private axiosInterceptorService: InterceptorService,
+    private apiCache: ApiCacheService
+
   ) { }
 
   // Method to ensure the token is always valid
@@ -40,10 +44,10 @@ export class SongService {
   }
 
   // Fetch song by ID
-  async getSongByID(id: string): Promise<any> {
+  async getSongBySlug(slug: string): Promise<any> {
     try {
       const token = await this.getValidToken();
-      return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/admin/single-music/' + id, {
+      return this.axiosInterceptorService.getAxiosInstance().get<{ data: Song[] }>(ApiConstant.API + '/admin/single-music/' + slug, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -58,7 +62,7 @@ export class SongService {
   async getAllSongs(): Promise<any> {
     try {
       const token = await this.getValidToken();
-      return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/admin/list-music', {
+      return this.axiosInterceptorService.getAxiosInstance().get<{ data: Song[] }>(ApiConstant.API + '/admin/list-music', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -77,6 +81,10 @@ export class SongService {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+      }).then((res) => {
+        // invalide tout ce qui est taggé "licence"
+        this.apiCache.invalidateTags("licence");
+        return res;
       });
       alert('Chanson créée avec succès.');
     } catch (error) {
@@ -107,7 +115,7 @@ export class SongService {
   async modifySong(data: any): Promise<void> {
     try {
       const token = await this.getValidToken();
-      await this.axiosInterceptorService.getAxiosInstance().put(ApiConstant.API + '/admin/update-music', data, {
+      await this.axiosInterceptorService.getAxiosInstance().put<{ data: Song[] }>(ApiConstant.API + '/admin/update-music', data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -123,7 +131,7 @@ export class SongService {
   async highlightedSongs(): Promise<any> {
     try {
       const token = await this.getValidToken();
-      return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/admin/highlight-music', {
+      return this.axiosInterceptorService.getAxiosInstance().get<{ data: Song[] }>(ApiConstant.API + '/admin/highlight-music', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

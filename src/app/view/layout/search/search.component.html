@@ -3,7 +3,8 @@
   <label for="search_input">
     <i class="ri-search-2-line"></i>
   </label>
-  <input type="text" placeholder="Rechercher sur le site..." id="search_input" class="form-control form-control-sm" (input)="onSearchTermChange($event)">
+  <input type="text" placeholder="Rechercher sur le site..." id="search_input" class="form-control form-control-sm"
+    (input)="onSearchTermChange($event)">
 </form>
 <!-- End:: search form -->
 
@@ -20,14 +21,15 @@
         </div>
         <div class="col-xl-3 col-md-4 col-sm-6" *ngFor="let song of results">
           <div class="list__item">
-            <a (click)="routeToPage('/song/' + song.category + '/' + song.subcategory + '/' + song.id + '/view')" class="list__cover">
-              <img [src]="song.image" alt="Hey not me">
+            <a class="list__cover" [routerLink]="['/song', song.category, song.id]">
+              <img [src]="song.image" [alt]="song.title">
             </a>
+
             <div class="list__content">
-              <a (click)="routeToPage('/song/' + song.category + '/' + song.subcategory + '/' + song.id + '/view')" class="list__title text-truncate">{{song.title}}</a>
-              <p class="list__subtitle text-truncate">
-                {{song.artist}}
-              </p>
+              <a class="list__title text-truncate" [routerLink]="['/song', song.category, song.id]">
+                {{ song.title }}
+              </a>
+              <p class="list__subtitle text-truncate">{{ song.artist }}</p>
             </div>
           </div>
         </div>
