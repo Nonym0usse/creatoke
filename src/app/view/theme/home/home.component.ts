@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { DomSanitizer, SafeHtml, Title } from "@angular/platform-browser";
 import { SongService } from "../../../core/services/api/song.service";
 import { CategoryService } from "../../../core/services/api/category.service";
 import { Song } from "src/app/core/models/song.model";
@@ -21,13 +21,15 @@ export class HomeComponent implements OnInit {
   constructor(
     private songService: SongService,
     private categorySerive: CategoryService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private docTitle: Title
   ) {}
 
   ngOnInit(): void {
     this.getSongs();
     this.getText();
     this.getBackground();
+    this.docTitle.setTitle("Creatoke - Le site de musique pour les artistes");
   }
 
   getSongs(): void {

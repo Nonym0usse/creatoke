@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { CategoryService } from 'src/app/core/services/api/category.service';
 
 @Component({
@@ -9,10 +10,11 @@ import { CategoryService } from 'src/app/core/services/api/category.service';
 export class AboutComponent {
     picturebackground: any;
 
-    constructor(private categoryService: CategoryService) { }
+    constructor(private categoryService: CategoryService, private docTitle: Title) { }
 
     ngOnInit() {
         this.getBackground();
+        this.docTitle.setTitle("Mentions légales | Creatoke");
     }
 
     async getBackground() {

@@ -1,23 +1,20 @@
 // Angular
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
-
-// Services
-import { BaseApiService } from '../global/base-api.service';
 
 // Constant classes
 import { ApiConstant } from '../../constants/api-constant';
 import axios from "axios";
+import { Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
 
- constructor(
+  constructor(
     protected http: HttpClient
   ) { }
-
   /**
    * Get playlist data
    * @returns {object}

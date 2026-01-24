@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ContactService} from '../../../core/services/api/contact.service'
 import {CategoryService} from "../../../core/services/api/category.service";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact',
@@ -15,7 +16,7 @@ export class ContactComponent implements OnInit {
   success: string | undefined;
   picturebackground: any;
 
-  constructor(private fb: FormBuilder, private contactService: ContactService, private categoryService: CategoryService) {
+  constructor(private fb: FormBuilder, private contactService: ContactService, private categoryService: CategoryService, private docTitle: Title) {
 
     this.contactForm = this.fb.group({
         email:  ['', [Validators.required, Validators.email]],
@@ -27,6 +28,7 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBackground();
+    this.docTitle.setTitle("Contactez-nous | Creatoke");
   }
 
   async getBackground() {
