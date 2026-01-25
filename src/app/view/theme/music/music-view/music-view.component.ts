@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { SongService } from "../../../../core/services/api/song.service";
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { PlayerService } from "../../../../core/services/design/player.service";
-import { filter, Subject, Subscription } from "rxjs";
+import { Subject, Subscription } from "rxjs";
 import { LicenceService } from "../../../../core/services/api/licence.service";
 import { ICreateOrderRequest } from "ngx-paypal";
 import { PaypalService } from "../../../../core/services/api/paypal.service";
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl, SafeUrl, Title } from '@angular/platform-browser';
 import { CategoryService } from "../../../../core/services/api/category.service";
 import { Song } from 'src/app/core/models/song.model';
 
@@ -54,6 +54,7 @@ export class MusicViewComponent implements OnInit {
     private paypalService: PaypalService,
     private sanitizer: DomSanitizer,
     private categoryService: CategoryService,
+    private title: Title
   ) {
   }
 
@@ -65,6 +66,7 @@ export class MusicViewComponent implements OnInit {
     // 1er chargement
     this.getLicence();
     this.getBackground();
+    this.title.setTitle(`Créatoke | ${this.song.title || ''}`);
   }
 
 

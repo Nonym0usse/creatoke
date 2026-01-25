@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SongService } from 'src/app/core/services/api/song.service';
 import {CategoryService} from "../../../../core/services/api/category.service";
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-manage',
@@ -13,11 +14,12 @@ export class ManageComponent implements OnInit {
     songs: any = [];
     picturebackground: any;
 
-  constructor(private musicService: SongService, private router: Router, private categoryService: CategoryService) { }
+  constructor(private musicService: SongService, private router: Router, private categoryService: CategoryService, private title: Title) { }
 
     ngOnInit(): void {
         this.musicService.getAllSongs().then((music) => this.songs = music.data).catch((err) => console.log(err));
         this.getBackground();
+        this.title.setTitle('Créatoke | Gérer mes musiques');
     }
 
     modify(id: string) {

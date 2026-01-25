@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CommentService} from "../../../core/services/api/comment.service";
 import {CategoryService} from "../../../core/services/api/category.service";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-comments-admin',
@@ -9,13 +10,14 @@ import {CategoryService} from "../../../core/services/api/category.service";
 })
 export class CommentsAdminComponent implements OnInit {
 
-  constructor(private commentService: CommentService, private categoryService: CategoryService) { }
+  constructor(private commentService: CommentService, private categoryService: CategoryService, private title: Title) { }
   comms: any = [];
   picturebackground: any;
 
   ngOnInit(): void {
     this.commentService.getAllComments().then((data) => this.comms = data.data);
     this.getBackground();
+    this.title.setTitle('Créatoke | Gestion des commentaires');
   }
 
   delete(id){

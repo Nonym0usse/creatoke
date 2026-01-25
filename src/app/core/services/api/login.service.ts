@@ -2,11 +2,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './../../../core/services/global/authentication.service';
-import { Observable, catchError, throwError } from 'rxjs';
 
 // Constant classes
 import { Constant } from '../../constants/constant';
-
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +13,7 @@ export class LoginService {
     message: string = "";
     constructor(
         private router: Router,
-        private authService: AuthenticationService
+        private authService: AuthenticationService,
     ) {
       this.authService.isAuthenticated().subscribe((isAuthenticated) => {
         if(isAuthenticated){

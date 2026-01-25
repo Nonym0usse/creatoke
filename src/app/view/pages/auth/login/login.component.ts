@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 // Services
 import { AuthenticationService } from './../../../../core/services/global/authentication.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -19,12 +20,14 @@ export class LoginComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
-        private authService: AuthenticationService
+        private authService: AuthenticationService,
+        private title: Title
     ) {
         this.buildForm();
     }
 
     ngOnInit(): void {
+        this.title.setTitle('Créatoke | Login');
     }
 
     /**

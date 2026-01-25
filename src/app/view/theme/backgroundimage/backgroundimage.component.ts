@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CategoryService } from "../../../core/services/api/category.service";
 import { AngularFireStorage, AngularFireUploadTask } from "@angular/fire/compat/storage";
 import { finalize } from "rxjs/operators";
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-backgroundimage',
@@ -18,7 +19,7 @@ export class BackgroundimageComponent implements OnInit {
     progress: { [key: string]: number } = {};
     downloadUrls: { [key: string]: { url: string, fileName: string } } = {};
     image = "";
-    constructor(private fb: FormBuilder, private categoryService: CategoryService, private storage: AngularFireStorage) {
+    constructor(private fb: FormBuilder, private categoryService: CategoryService, private storage: AngularFireStorage, private title: Title) {
         this.imageForm = this.fb.group({
             picture: [''],
             picture_name: ['']
@@ -28,6 +29,7 @@ export class BackgroundimageComponent implements OnInit {
     ngOnInit(): void {
         this.categoryService.getBackgroundImg().then((url) => console.log(url.data[0]))
         this.getBackground();
+        this.title.setTitle('Créatoke | Modifier l\'image de fond');
     }
 
     onFileSelected(event: any, fileType: string) {

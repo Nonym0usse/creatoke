@@ -13,6 +13,7 @@ import { Constant } from '../../../../core/constants/constant';
 import { Utils } from '../../../../core/utils/utils';
 import {PaypalService} from "../../../../core/services/api/paypal.service";
 import {CategoryService} from "../../../../core/services/api/category.service";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-analytics',
@@ -34,10 +35,12 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
   constructor(
     private themeService: ThemeService,
     private sellingService: PaypalService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('Créatoke | Statistiques');
     this.sellingService.listSales().then((data) => {
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();

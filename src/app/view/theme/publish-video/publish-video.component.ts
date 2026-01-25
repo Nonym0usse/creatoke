@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { CategoryService } from 'src/app/core/services/api/category.service';
 import { n8nService } from 'src/app/core/services/api/n8n.service';
 
-type UrlMap = Record<string, string>;
 type NumMap = Record<string, number>;
 
 @Component({
@@ -18,10 +18,7 @@ export class PublishVideoComponent implements OnInit {
   progress: NumMap = {};
   isLoading = false;
 
-  //platformOptions = ['Youtube', 'Facebook', 'Bluesky', 'X', 'Instagram', 'LinkedIn'];
-
-
-  constructor(private categoryService: CategoryService, private fb: FormBuilder, private n8nService: n8nService
+  constructor(private categoryService: CategoryService, private fb: FormBuilder, private n8nService: n8nService, private title: Title
   ) {
     this.videoForm = this.fb.group({
       title: ['', Validators.required],
@@ -33,16 +30,13 @@ export class PublishVideoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBackground();
-    //this.setupPlatformDependencies();
+    this.title.setTitle('Créatoke | Publier une vidéo sur les plateformes');
   }
 
   get platformsFA() {
     return this.videoForm.get('platforms') as FormArray;
   }
 
-  /*get selectedPlatforms(): string[] {
-    return this.platformOptions.filter((_, i) => this.platformsFA.at(i).value);
-  }*/
 
   async getBackground() {
     this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
@@ -59,7 +53,7 @@ export class PublishVideoComponent implements OnInit {
   async validatePublishing() {
     if (this.videoForm.invalid) return;
 
-    this.isLoading = true; // 🟢 active le mode chargement
+    this.isLoading = true;
 
     const { title, description, video } = this.videoForm.value as any;
     const form = new FormData();
@@ -74,45 +68,7 @@ export class PublishVideoComponent implements OnInit {
       console.error(e);
       alert('Une erreur est survenue lors de la publication');
     } finally {
-      this.isLoading = false; // 🔴 désactive le mode chargement
+      this.isLoading = false;
     }
   }
-
-  /*private setupPlatformDependencies(): void {
-    const youtubeIndex = this.indexOf('youtube');
-    const instaIndex = this.indexOf('instagram');
-    const xIndex = this.indexOf('x');
-    const linkedinIndex = this.indexOf('linkedin');
-
-    // sécurise
-    const pick = (i: number) => (i > -1 ? this.platformsFA.at(i) as any : null);
-    const yCtrl = pick(youtubeIndex);
-    const iCtrl = pick(instaIndex);
-    const xCtrl = pick(xIndex);
-    const lCtrl = pick(linkedinIndex);
-
-    const group = [yCtrl, iCtrl, xCtrl, lCtrl].filter(Boolean) as any[];
-
-    if (!yCtrl || group.length === 0) return;
-
-    const setAll = (val: boolean) => {
-      group.forEach(c => c.setValue(!!val, { emitEvent: false }));
-    };
-
-    // Quand YouTube change → aligne tout
-    yCtrl.valueChanges.subscribe((y: boolean) => setAll(y));
-
-    // Quand un des trois change → aligne tout (donc YouTube aussi)
-    [iCtrl, xCtrl, lCtrl].forEach(ctrl => {
-      if (!ctrl) return;
-      ctrl.valueChanges.subscribe((v: boolean) => setAll(v));
-    });
-
-    // Optionnel: normaliser à l'init si besoin
-    // setAll(!!yCtrl.value);
-  }
-
-  private indexOf(name: string): number {
-    return this.platformOptions.findIndex(p => p.toLowerCase() === name);
-  }*/
 }
