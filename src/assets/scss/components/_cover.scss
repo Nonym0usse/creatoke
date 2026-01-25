@@ -6,12 +6,13 @@
 // Add border radius on head and image
 //
 
-.exclu{
+.exclu {
     background-image: linear-gradient(90deg, #5438d1, #8938d1);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
 }
+
 @mixin cover-border-radius($border-radius: $cover-border-radius) {
     .cover__head:before {
         border-top-left-radius: $border-radius;
@@ -22,6 +23,7 @@
         img {
             border-radius: $border-radius;
         }
+
         .cover__image__content {
             border-bottom-left-radius: $border-radius;
             border-bottom-right-radius: $border-radius;
@@ -42,6 +44,7 @@
         padding: $cover-head-padding;
         @include flexbox-v-center;
         color: $cover-head-color;
+
         @include before {
             @include absolute(top 0 left 0);
             @include size(100%);
@@ -50,7 +53,8 @@
             z-index: 1;
         }
 
-        .cover__options .dropdown-link:not(.show), &:before {
+        .cover__options .dropdown-link:not(.show),
+        &:before {
             @include hidden;
         }
     }
@@ -82,10 +86,12 @@
     .cover__image {
         position: relative;
         display: block;
+
         img {
             max-width: 100%;
             width: 100%;
         }
+
         .btn-play {
             @include absolute(top 50% left 50%);
             transform: translate(-50%, -50%);
@@ -97,9 +103,24 @@
             padding: $cover-image-content-padding;
             background: $cover-image-content-bg;
             color: $cover-image-content-color;
+
             .cover__title,
             .cover__subtitle {
                 color: inherit;
+            }
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .cover__image {
+            position: relative;
+            display: block;
+
+            img {
+                display: block;
+                width: 60%;
+                height: 60%;
+                margin: 0 auto;
             }
         }
     }
@@ -121,8 +142,10 @@
         color: $cover-subtitle-color;
         font-size: $cover-subtitle-font-size;
         font-weight: $cover-subtitle-font-weight;
+
         a {
             color: inherit;
+
             @include hover {
                 text-decoration: underline;
             }
@@ -131,7 +154,9 @@
 
     @include hover-focus {
         .cover__head {
-            .cover__options .dropdown-link, &:before {
+
+            .cover__options .dropdown-link,
+            &:before {
                 @include visible;
             }
         }
