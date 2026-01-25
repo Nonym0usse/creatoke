@@ -1,5 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ChangeEvent} from "@ckeditor/ckeditor5-angular/ckeditor.component";
+import {Component, OnInit} from '@angular/core';
 import {CategoryService} from "../../../core/services/api/category.service";
 
 @Component({
@@ -12,8 +11,7 @@ export class EditextComponent implements OnInit {
   public text: any = {id: "", text: ""};
   picturebackground: any;
 
-  constructor(private categoryService: CategoryService) {
-  }
+  constructor(private categoryService: CategoryService) {}
 
   ngOnInit(): void {
     this.categoryService.getLastText().then(r => {

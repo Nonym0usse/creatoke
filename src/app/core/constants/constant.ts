@@ -73,12 +73,6 @@ export class Constant {
       auth: true,
     },
     {
-      name: 'Catégories',
-      icon: '<i class="ri-stack-fill fs-5"></i>',
-      link: '/category',
-      auth: true,
-    },
-    {
       name: 'Chansons',
       icon: '<i class="ri-edit-2-fill fs-5"></i>',
       link: '/manage',
@@ -113,7 +107,7 @@ export class Constant {
       icon: '<i class="ri-video-fill fs-5"></i>',
       link: '/publish-video',
       auth: true,
-    },
+    }
   ];
 
   public static AUTH_ERROR_MESSAGES_FR = {

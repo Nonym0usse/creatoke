@@ -124,7 +124,6 @@ export class ModifyComponent implements OnInit, OnDestroy {
       price_premium: [0],
       price_base_creatoke: [0],
       price_premium_creatoke: [0],
-
       category: ["", Validators.required],
 
       exclu: ["non" as OuiNon, Validators.required],
@@ -165,7 +164,7 @@ export class ModifyComponent implements OnInit, OnDestroy {
       try {
         a.pause();
         a.currentTime = 0;
-      } catch {}
+      } catch { }
     });
   }
 
@@ -211,12 +210,16 @@ export class ModifyComponent implements OnInit, OnDestroy {
     const res = await this.songService.getSongBySlug(slug);
     this.song = res.data ?? {};
 
+    if (!this.song || Object.keys(this.song).length === 0) {
+      alert("Chanson non trouvée");
+      window.location.href = "/manage";
+    }
+
     this.musicForm.patchValue({
       title: this.song.title ?? "",
       artist: this.song.artist ?? "",
       lyrics: this.song.lyrics ?? "",
       description: this.song.description ?? "",
-
       price_base: Number(this.song.price_base_chanson ?? 0),
       price_premium: Number(this.song.price_premium ?? 0),
       price_base_creatoke: Number(this.song.price_base_creatoke ?? 0),
@@ -379,8 +382,9 @@ export class ModifyComponent implements OnInit, OnDestroy {
       image: (this.downloadUrls.image ?? this.song?.image ?? "https://placehold.co/600x400").toString(),
     };
 
-    await this.songService.modifySong(payload);
-    alert("Chanson modifiée");
+    await this.songService.modifySong(payload).then(() => {
+      alert("Chanson modifiée");
+    });
   }
 
 

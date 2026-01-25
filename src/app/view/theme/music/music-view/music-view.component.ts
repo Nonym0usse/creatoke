@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SongService } from "../../../../core/services/api/song.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { PlayerService } from "../../../../core/services/design/player.service";
-import { Subscription } from "rxjs";
+import { filter, Subject, Subscription } from "rxjs";
 import { LicenceService } from "../../../../core/services/api/licence.service";
 import { ICreateOrderRequest } from "ngx-paypal";
 import { PaypalService } from "../../../../core/services/api/paypal.service";
@@ -10,19 +10,24 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 import { CategoryService } from "../../../../core/services/api/category.service";
 import { Song } from 'src/app/core/models/song.model';
 
+declare global {
+  interface Window {
+    Calendly?: { initPopupWidget: (opts: { url: string }) => void };
+  }
+}
+
 @Component({
   selector: 'app-music-view',
   templateUrl: './music-view.component.html',
   styleUrls: ['./music-view.component.scss']
 })
+
 export class MusicViewComponent implements OnInit {
 
   // Holds song data
   song: Song = {} as Song;
   licences: any = [];
   public payPalConfig: any;
-  //@ts-ignore
-  display = "none";
   picturebackground: any;
   // Holds song data
   songs: any = [];
@@ -35,6 +40,10 @@ export class MusicViewComponent implements OnInit {
   routerSubscription: Subscription | undefined;
   videoUrl: SafeResourceUrl | undefined;
   imgLoading = true;
+  isModalOpen = false;
+  copied = false;
+  private destroy$ = new Subject<void>();
+  private promoTriggeredForUrl = new Set<string>();
 
   constructor(
     private router: Router,
@@ -53,11 +62,41 @@ export class MusicViewComponent implements OnInit {
       const slug = pm.get("slug") || "";
       this.getSongs(slug);
     });
-
+    // 1er chargement
     this.getLicence();
     this.getBackground();
   }
 
+
+  private checkPromoteAndOpenCalendly(title?: string) {
+    const promote = this.activatedRoute.snapshot.queryParamMap.get("promote") === "1";
+    if (!promote) return;
+
+    const songTitle = (title ?? this.song?.title ?? "").trim();
+    if (!songTitle) return;
+
+    const pathOnly = this.router.url.split("?")[0];
+    const key = `${pathOnly}::promote`;
+    if (this.promoTriggeredForUrl.has(key)) return;
+    this.promoTriggeredForUrl.add(key);
+
+    setTimeout(() => {
+      const base = "https://calendly.com/jeanarnaque13/creatoke";
+      const url =
+        `${base}` +
+        `?a1=${encodeURIComponent(songTitle)}` +
+        `&utm_source=creatoke&utm_campaign=promote`;
+
+      window.Calendly?.initPopupWidget({ url });
+
+      this.router.navigate([], {
+        relativeTo: this.activatedRoute,
+        queryParams: { promote: null },
+        queryParamsHandling: "merge",
+        replaceUrl: true,
+      });
+    }, 0);
+  }
 
   async getBackground() {
     this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });
@@ -106,8 +145,8 @@ export class MusicViewComponent implements OnInit {
     return `${day}/${month}/${year}`;
   }
 
-  openModal(price, licence_content, licence_name, title) {
-    this.display = "block";
+  openPaypalModal(price, licence_name, title) {
+    this.isModalOpen = true;
 
     let songUrlDownload = "";
     switch (licence_name) {
@@ -207,11 +246,16 @@ export class MusicViewComponent implements OnInit {
       },
       onError: err => {
         alert("Une erreur s'est produite. Veuillez réessayer votre achat.")
+        window.location.reload();
       },
       onClick: (data, actions) => {
         console.log("onClick", data, actions);
       }
     };
+  }
+
+  closePaypalModal() {
+    this.isModalOpen = false;
   }
 
   contact() {
@@ -220,6 +264,8 @@ export class MusicViewComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.routerSubscription?.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   downloadSong(songUrl: string) {
@@ -250,6 +296,7 @@ export class MusicViewComponent implements OnInit {
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.song?.youtubeURL}`);
       this.sanitizeHtml(this.song.spotifyURL);
       this.audioElement = new Audio(this.song?.creatoke ?? "");
+      this.checkPromoteAndOpenCalendly(this.song.title || "");
     });
   }
 
@@ -257,6 +304,36 @@ export class MusicViewComponent implements OnInit {
     this.licenceService.listLicence().then((data) => this.licences = data.data);
   }
 
+  copySongUrl(): void {
+    const url = `${window.location.origin}${this.router.url}`;
+    const promoteUrl = url.includes("?") ? `${url}&promote=1` : `${url}?promote=1`;
+
+    // API moderne
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(promoteUrl)
+        .then(() => this.onCopySuccess())
+        .catch(() => this.fallbackCopy(promoteUrl));
+    } else {
+      this.fallbackCopy(promoteUrl);
+    }
+  }
+
+  private fallbackCopy(text: string) {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+    this.onCopySuccess();
+  }
+
+  private onCopySuccess() {
+    this.copied = true;
+    setTimeout(() => this.copied = false, 2000);
+  }
 
   /**
    * Play song
@@ -269,10 +346,6 @@ export class MusicViewComponent implements OnInit {
   ngOnChanges() {
     // si song change et qu'on charge une nouvelle image => on remet le loader
     this.imgLoading = true;
-  }
-
-  onCloseHandled() {
-    this.display = "none";
   }
 
   toggleAudio() {

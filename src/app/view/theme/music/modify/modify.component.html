@@ -14,8 +14,8 @@
             <div class="mat-tabs" appTabs>
               <ul class="nav nav-tabs" id="add_music" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="music" data-bs-toggle="tab" data-bs-target="#music_pane" type="button"
-                    role="tab" aria-controls="music_pane" aria-selected="true">
+                  <button class="nav-link active" id="music" data-bs-toggle="tab" data-bs-target="#music_pane"
+                    type="button" role="tab" aria-controls="music_pane" aria-selected="true">
                     Modifier une chanson
                   </button>
                 </li>
@@ -26,7 +26,8 @@
 
           <div class="card-body">
             <div class="tab-content" id="add_music_content">
-              <div class="tab-pane fade show active" id="music_pane" role="tabpanel" aria-labelledby="music" tabindex="0">
+              <div class="tab-pane fade show active" id="music_pane" role="tabpanel" aria-labelledby="music"
+                tabindex="0">
 
                 <form [formGroup]="musicForm" (ngSubmit)="modifyMusic()">
 
@@ -79,37 +80,32 @@
                         Aide
                       </button>
                       <label class="form-label">
-                        Spotify (Click droit sur le titre Spotify -> Partager -> Intégrer le titre -> Choisir taille compacte ->
+                        Spotify (Click droit sur le titre Spotify -> Partager -> Intégrer le titre -> Choisir taille
+                        compacte ->
                         <span style="color: red">Copier url dans SRC="" (uniquement)</span> -> Coller sur creatoke)
                       </label>
-                      <input type="text" class="form-control" formControlName="spotifyURL" placeholder="Spotify embed URL">
+                      <input type="text" class="form-control" formControlName="spotifyURL"
+                        placeholder="Spotify embed URL">
                     </div>
 
                     <div class="col-12 mb-4">
                       <label class="form-label">Description</label>
-                      <textarea formControlName="description" cols="30" rows="4" class="form-control" placeholder="Description"></textarea>
+                      <textarea formControlName="description" cols="30" rows="4" class="form-control"
+                        placeholder="Description"></textarea>
                     </div>
 
                     <!-- CKEditor (keep in DOM, use [hidden] to avoid CKEditor duplicate globals) -->
                     <div class="col-12 mb-4" [hidden]="!showLyrics">
                       <label class="form-label">Lyrics</label>
-                      <ck-editor
-                        [config]="{ versionCheck: false }"
-                        formControlName="lyrics"
-                        skin="moono-lisa"
-                        language="fr"
-                        [fullPage]="false">
+                      <ck-editor [config]="{ versionCheck: false }" formControlName="lyrics" skin="moono-lisa"
+                        language="fr" [fullPage]="false">
                       </ck-editor>
                     </div>
 
                     <div class="col-12 mb-4" [hidden]="!showMessage">
                       <label class="form-label">Message</label>
-                      <ck-editor
-                        [config]="{ versionCheck: false }"
-                        formControlName="message"
-                        skin="moono-lisa"
-                        language="fr"
-                        [fullPage]="false">
+                      <ck-editor [config]="{ versionCheck: false }" formControlName="message" skin="moono-lisa"
+                        language="fr" [fullPage]="false">
                       </ck-editor>
                     </div>
 
@@ -119,7 +115,8 @@
                       <hr>
 
                       <div class="col-sm-12 mb-4">
-                        <label class="form-label">Afficher licence de base - <span style="color: green">chanson</span></label>
+                        <label class="form-label">Afficher licence de base - <span
+                            style="color: green">chanson</span></label>
                         <select class="form-select" formControlName="isLicenceBase" aria-label="Select licence base">
                           <option value="non">Non</option>
                           <option value="oui">Oui</option>
@@ -130,12 +127,14 @@
                         <label class="form-label">Prix licence de base (0 si gratuit)</label>
                         <div class="input-group">
                           <span class="input-group-text"><i class="ri-money-euro-circle-line"></i></span>
-                          <input type="number" formControlName="price_base" class="form-control" placeholder="Prix licence basique - chanson">
+                          <input type="number" formControlName="price_base" class="form-control"
+                            placeholder="Prix licence basique - chanson">
                         </div>
                       </div>
 
                       <div class="col-sm-12 mb-4">
-                        <label class="form-label">Afficher licence premium - <span style="color: green">chanson</span></label>
+                        <label class="form-label">Afficher licence premium - <span
+                            style="color: green">chanson</span></label>
                         <select class="form-select" formControlName="isPremium" aria-label="Select licence premium">
                           <option value="non">Non</option>
                           <option value="oui">Oui</option>
@@ -146,7 +145,8 @@
                         <label class="form-label">Prix licence premium</label>
                         <div class="input-group">
                           <span class="input-group-text"><i class="ri-money-euro-circle-line"></i></span>
-                          <input type="number" formControlName="price_premium" class="form-control" placeholder="Prix licence premium - chanson">
+                          <input type="number" formControlName="price_premium" class="form-control"
+                            placeholder="Prix licence premium - chanson">
                         </div>
                       </div>
                     </div>
@@ -157,8 +157,10 @@
                       <hr>
 
                       <div class="col-sm-12 mb-4">
-                        <label class="form-label">Afficher licence de base <span style="color: red">créatoké</span></label>
-                        <select class="form-select" formControlName="isLicenceBaseCreatoke" aria-label="Select licence base">
+                        <label class="form-label">Afficher licence de base <span
+                            style="color: red">créatoké</span></label>
+                        <select class="form-select" formControlName="isLicenceBaseCreatoke"
+                          aria-label="Select licence base">
                           <option value="non">Non</option>
                           <option value="oui">Oui</option>
                         </select>
@@ -168,13 +170,16 @@
                         <label class="form-label">Prix licence de base (0 si gratuit)</label>
                         <div class="input-group">
                           <span class="input-group-text"><i class="ri-money-euro-circle-line"></i></span>
-                          <input type="number" formControlName="price_base_creatoke" class="form-control" placeholder="Prix licence basique - créatoké">
+                          <input type="number" formControlName="price_base_creatoke" class="form-control"
+                            placeholder="Prix licence basique - créatoké">
                         </div>
                       </div>
 
                       <div class="col-sm-12 mb-4">
-                        <label class="form-label">Afficher licence premium - <span style="color: red">créatoké</span></label>
-                        <select class="form-select" formControlName="isPremiumCreatoke" aria-label="Select licence premium">
+                        <label class="form-label">Afficher licence premium - <span
+                            style="color: red">créatoké</span></label>
+                        <select class="form-select" formControlName="isPremiumCreatoke"
+                          aria-label="Select licence premium">
                           <option value="non">Non</option>
                           <option value="oui">Oui</option>
                         </select>
@@ -184,7 +189,8 @@
                         <label class="form-label">Prix licence premium (0 si gratuit)</label>
                         <div class="input-group">
                           <span class="input-group-text"><i class="ri-money-euro-circle-line"></i></span>
-                          <input type="number" formControlName="price_premium_creatoke" class="form-control" placeholder="Prix licence premium créatoké">
+                          <input type="number" formControlName="price_premium_creatoke" class="form-control"
+                            placeholder="Prix licence premium créatoké">
                         </div>
                       </div>
                     </div>
@@ -192,7 +198,8 @@
                   </div>
 
                   <div class="col-sm-12 mb-4">
-                    <button class="btn btn-primary" style="min-width: 140px;" type="submit" [disabled]="!musicForm.valid">
+                    <button class="btn btn-custom" style="min-width: 140px;" type="submit"
+                      [disabled]="!musicForm.valid">
                       Enregistrer
                     </button>
                     <a href="/" class="btn btn-outline-secondary ms-2">Annuler</a>
@@ -207,34 +214,22 @@
                   <div class="col-sm-12 mb-4" *ngIf="showBlock(block)">
                     <p>{{ block.label }}</p>
 
-                    <button class="btn btn-primary"
-                      *ngIf="block.play && hasMediaUrl(block.key)"
+                    <button class="btn btn-primary" *ngIf="block.play && hasMediaUrl(block.key)"
                       (click)="playSong(block.key, getMediaUrl(block.key))">
                       <span *ngIf="!playingMap[block.key]">▶️ Play</span>
                       <span *ngIf="playingMap[block.key]">Lecture</span>
                     </button>
 
-                    <button class="btn btn-danger"
-                      *ngIf="hasMediaUrl(block.key)"
-                      (click)="stopSong(block.key)">
+                    <button class="btn btn-danger" *ngIf="hasMediaUrl(block.key)" (click)="stopSong(block.key)">
                       Stop
                     </button>
 
-                    <input
-                      type="file"
-                      class="form-control"
-                      [id]="'song_file_' + block.key"
-                      [attr.accept]="block.accept"
+                    <input type="file" class="form-control" [id]="'song_file_' + block.key" [attr.accept]="block.accept"
                       (change)="onFileSelected($event, block.key)">
 
                     <div class="progress" *ngIf="progress[block.key] !== undefined">
-                      <div
-                        class="progress-bar"
-                        role="progressbar"
-                        [style.width.%]="progress[block.key]"
-                        [attr.aria-valuenow]="progress[block.key]"
-                        aria-valuemin="0"
-                        aria-valuemax="100">
+                      <div class="progress-bar" role="progressbar" [style.width.%]="progress[block.key]"
+                        [attr.aria-valuenow]="progress[block.key]" aria-valuemin="0" aria-valuemax="100">
                         {{ progress[block.key] }}%
                       </div>
                     </div>

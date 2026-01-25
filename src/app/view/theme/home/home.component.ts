@@ -35,7 +35,6 @@ export class HomeComponent implements OnInit {
   getSongs(): void {
     this.songService.highlightedSongs().then((res) => {
       this.songsHightlighted = res.data ?? [];
-      console.log(this.songsHightlighted);
     });
   }
 

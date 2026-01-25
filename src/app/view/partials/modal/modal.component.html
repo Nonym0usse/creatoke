@@ -1,0 +1,37 @@
+<div class="modal-backdrop" *ngIf="open" (click)="onBackdropClick()">
+  <div class="modal-card" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title" *ngIf="title">{{ title }}</div>
+
+      <button
+        *ngIf="showCloseBtn"
+        type="button"
+        class="modal-close"
+        aria-label="Fermer"
+        (click)="close()"
+      >
+        ×
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="modal-foot" *ngIf="showFooter">
+      <button type="button" class="btn-outline" (click)="onCancel()" [disabled]="loading">
+        {{ cancelText }}
+      </button>
+
+      <button
+        type="button"
+        class="btn-solid"
+        (click)="onConfirm()"
+        [disabled]="loading || disableConfirm"
+      >
+        <span class="spinner" *ngIf="loading"></span>
+        {{ confirmText }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -12,12 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { SongComponent } from './song/song.component';
 import { SongDetailsComponent } from './song/song-details/song-details.component';
 import { AddSongComponent } from './song/add-song/add-song.component';
-import { AlbumComponent } from './album/album.component';
-import { AlbumDetailsComponent } from './album/album-details/album-details.component';
-import { ArtistComponent } from './artist/artist.component';
-import { ArtistDetailsComponent } from './artist/artist-details/artist-details.component';
 import { AnalyticsComponent } from './user/analytics/analytics.component';
-import { CategoryComponent } from './category/category.component';
 import { MusicComponent } from './music/music.component';
 import { MusicViewComponent } from './music/music-view/music-view.component';
 import { ConfirmPurchaseComponent } from './confirm/confirm-purchase.component';
@@ -36,6 +31,7 @@ import { CommentsAdminComponent } from "./comments-admin/comments-admin.componen
 import { BackgroundimageComponent } from "./backgroundimage/backgroundimage.component";
 import { AboutComponent } from './about/about.component';
 import { PublishVideoComponent } from './publish-video/publish-video.component';
+import { ModalComponent } from '../partials/modal/modal.component';
 
 //
 // Theme routes
@@ -60,22 +56,6 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'album',
-        component: AlbumComponent
-      },
-      {
-        path: 'album/:id/details',
-        component: AlbumDetailsComponent,
-      },
-      {
-        path: 'artist',
-        component: ArtistComponent
-      },
-      {
-        path: 'artist/:id/details',
-        component: ArtistDetailsComponent
-      },
-      {
         path: 'analytics',
         component: AnalyticsComponent,
         canActivate: [AuthGuard]
@@ -96,11 +76,6 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'category',
-        component: CategoryComponent,
-        canActivate: [AuthGuard]
-      },
-      {
         path: 'contact',
         component: ContactComponent
       },
@@ -114,7 +89,7 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'modify-song/:id',
+        path: 'modify-song/:slug',
         component: ModifyComponent,
         canActivate: [AuthGuard]
       },
@@ -149,14 +124,9 @@ const routes: Routes = [
     SongDetailsComponent,
     ModifyComponent,
     ConfirmPurchaseComponent,
-    AlbumComponent,
-    AlbumDetailsComponent,
-    ArtistComponent,
-    ArtistDetailsComponent,
     AnalyticsComponent,
     LoginComponent,
     AddSongComponent,
-    CategoryComponent,
     MusicComponent,
     AboutComponent,
     MusicViewComponent,
@@ -164,6 +134,7 @@ const routes: Routes = [
     TextsComponent,
     ManageComponent,
     EditextComponent,
+    ModalComponent,
   ],
   imports: [
     // Angular
@@ -177,6 +148,9 @@ const routes: Routes = [
     RecaptchaModule,
     CKEditorModule,
     NgxPayPalModule,
+  ],
+  exports: [
+    ModalComponent
   ]
 })
 export class ThemeModule { }

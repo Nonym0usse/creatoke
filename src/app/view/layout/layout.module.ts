@@ -10,7 +10,6 @@ import { PartialsModule } from '../partials/partials.module';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PlayerComponent } from './player/player.component';
-import { ArtistCarouselComponent } from './artist-carousel/artist-carousel.component';
 import { SearchComponent } from './search/search.component';
 import { TotalUsersComponent } from './charts/total-users/total-users.component';
 import { TotalSongsComponent } from './charts/total-songs/total-songs.component';
@@ -24,7 +23,6 @@ import { StatisticsComponent } from './charts/statistics/statistics.component';
     HeaderComponent,
     SidebarComponent,
     PlayerComponent,
-    ArtistCarouselComponent,
     SearchComponent,
     TotalUsersComponent,
     TotalSongsComponent,
@@ -44,7 +42,6 @@ import { StatisticsComponent } from './charts/statistics/statistics.component';
     HeaderComponent,
     SidebarComponent,
     PlayerComponent,
-    ArtistCarouselComponent,
     TotalUsersComponent,
     TotalSongsComponent,
     PurchasesComponent,

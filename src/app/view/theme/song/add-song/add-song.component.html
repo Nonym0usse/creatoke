@@ -27,8 +27,7 @@
               <div class="tab-pane fade show active" id="music_pane" role="tabpanel" aria-labelledby="music"
                 tabindex="0">
                 <form [formGroup]="musicForm" (ngSubmit)="addMusic()">
-                  <div class="col-12 mb-4"
-                    [hidden]="!musicForm.get('category')?.value">
+                  <div class="col-12 mb-4" [hidden]="!musicForm.get('category')?.value">
                     <input type="text" formControlName="title" class="form-control" placeholder="Titre de la chanson">
                   </div>
                   <div class="col-sm-12 mb-4">
@@ -114,8 +113,7 @@
                       </div>
                     </div>
 
-                    <div class="col-12 mb-4"
-                      [hidden]="musicForm.get('exclu')?.value == 'oui'">
+                    <div class="col-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
                       <label for="song_file_19" class="form-label">Chanson au format mp3
                         (téléchargement)</label>
                       <input type="file" id="song_file_19" class="form-control"
@@ -157,8 +155,7 @@
                       <label class="form-label">Artiste</label>
                       <input type="text" class="form-control" formControlName="artist" placeholder="Artiste">
                     </div>
-                    <div class="col-sm-12 mb-4"
-                      [hidden]="musicForm.get('exclu')?.value == 'oui'">
+                    <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value == 'oui'">
                       <label class="form-label">Youtube</label>
                       <input type="text" class="form-control" formControlName="youtubeURL"
                         placeholder="Youtube URL ex: (https://www.youtube.com/watch?v=Aq1NJxJZo6E) -> Mettre uniquement 'Aq1NJxJZo6E' ici ">
@@ -213,7 +210,8 @@
                         </select>
                       </div>
 
-                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isLicenceBase')?.value == 'non' && musicForm.get('exclu')?.value == 'oui'">
+                      <div class="col-sm-12 mb-4"
+                        [hidden]="musicForm.get('isLicenceBase')?.value == 'non' && musicForm.get('exclu')?.value == 'oui'">
                         <label class="form-label">Prix licence de base (0 si gratuit)</label>
                         <div class="input-group">
                           <span class="input-group-text">
@@ -234,7 +232,8 @@
                         </select>
                       </div>
 
-                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isPremium')?.value == 'non' && musicForm.get('exclu')?.value == 'oui'">
+                      <div class="col-sm-12 mb-4"
+                        [hidden]="musicForm.get('isPremium')?.value == 'non' && musicForm.get('exclu')?.value == 'oui'">
                         <label class="form-label">Prix licence premium</label>
                         <div class="input-group">
                           <span class="input-group-text">
@@ -298,7 +297,7 @@
                   </div>
 
                   <div class="col-sm-12 mb-4">
-                    <button class="btn btn-primary" style="min-width: 140px;" type="submit"
+                    <button class="btn btn-custom" style="min-width: 140px;" type="submit"
                       [disabled]="!musicForm.valid">Enregistrer</button>
                     <a href="/" class="btn btn-outline-secondary ms-2">Annuler</a>
                   </div>
