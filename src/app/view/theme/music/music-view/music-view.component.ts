@@ -66,7 +66,6 @@ export class MusicViewComponent implements OnInit {
     // 1er chargement
     this.getLicence();
     this.getBackground();
-    this.title.setTitle(`Créatoke | ${this.song.title || ''}`);
   }
 
 
@@ -299,6 +298,7 @@ export class MusicViewComponent implements OnInit {
       this.sanitizeHtml(this.song.spotifyURL);
       this.audioElement = new Audio(this.song?.creatoke ?? "");
       this.checkPromoteAndOpenCalendly(this.song.title || "");
+      this.title.setTitle(`Créatoke | ${this.song.title || ''}`);
     });
   }
 
