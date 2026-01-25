@@ -3,6 +3,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import {LicenceService} from "../../../core/services/api/licence.service";
 import {CategoryService} from "../../../core/services/api/category.service";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-licence',
@@ -27,12 +28,13 @@ export class LicenceComponent implements OnInit {
 
   public data: any;
   public id: string | undefined;
-  constructor(private licenceService: LicenceService, private categoryService: CategoryService) {
+  constructor(private licenceService: LicenceService, private categoryService: CategoryService, private title: Title) {
   }
 
   ngOnInit(): void {
     this.licenceService.listLicence().then(r => this.data = r.data[0]);
     this.getBackground();
+    this.title.setTitle('Créatoke | Gérer les licences');
   }
 
   public onChange( { editor }: ChangeEvent ) {
