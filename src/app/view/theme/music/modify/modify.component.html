@@ -194,9 +194,40 @@
                         </div>
                       </div>
                     </div>
-
                   </div>
 
+                  <hr>
+                  <h5>Player de la chanson</h5>
+                  <hr>
+
+                  <ng-container *ngFor="let block of playerBlocks; trackBy: trackByBlock">
+                    <div class="col-sm-12 mb-4" *ngIf="showBlock(block)">
+                      <p>{{ block.label }}</p>
+
+                      <button class="btn btn-primary" *ngIf="block.play && hasMediaUrl(block.key)"
+                        (click)="playSong(block.key, getMediaUrl(block.key))">
+                        <span *ngIf="!playingMap[block.key]">▶️ Play</span>
+                        <span *ngIf="playingMap[block.key]">Lecture</span>
+                      </button>
+
+                      <button type="button" class="btn btn-danger" *ngIf="hasMediaUrl(block.key)"
+                        (click)="stopSong(block.key)">
+                        Stop
+                      </button>
+
+                      <input type="file" class="form-control" [id]="'song_file_' + block.key"
+                        [attr.accept]="block.accept" (change)="onFileSelected($event, block.key)">
+
+                      <div class="progress" *ngIf="progress[block.key] !== undefined">
+                        <div class="progress-bar" role="progressbar" [style.width.%]="progress[block.key]"
+                          [attr.aria-valuenow]="progress[block.key]" aria-valuemin="0" aria-valuemax="100">
+                          {{ progress[block.key] }}%
+                        </div>
+                      </div>
+
+                      <p class="text-info">{{ getOriginalFilenameFromFirebaseUrl(getMediaUrl(block.key)) }}</p>
+                    </div>
+                  </ng-container>
                   <div class="col-sm-12 mb-4">
                     <button class="btn btn-custom" style="min-width: 140px;" type="submit"
                       [disabled]="!musicForm.valid">
@@ -205,39 +236,6 @@
                     <a href="/" class="btn btn-outline-secondary ms-2">Annuler</a>
                   </div>
                 </form>
-
-                <hr>
-                <h5>Player de la chanson</h5>
-                <hr>
-
-                <ng-container *ngFor="let block of playerBlocks; trackBy: trackByBlock">
-                  <div class="col-sm-12 mb-4" *ngIf="showBlock(block)">
-                    <p>{{ block.label }}</p>
-
-                    <button class="btn btn-primary" *ngIf="block.play && hasMediaUrl(block.key)"
-                      (click)="playSong(block.key, getMediaUrl(block.key))">
-                      <span *ngIf="!playingMap[block.key]">▶️ Play</span>
-                      <span *ngIf="playingMap[block.key]">Lecture</span>
-                    </button>
-
-                    <button class="btn btn-danger" *ngIf="hasMediaUrl(block.key)" (click)="stopSong(block.key)">
-                      Stop
-                    </button>
-
-                    <input type="file" class="form-control" [id]="'song_file_' + block.key" [attr.accept]="block.accept"
-                      (change)="onFileSelected($event, block.key)">
-
-                    <div class="progress" *ngIf="progress[block.key] !== undefined">
-                      <div class="progress-bar" role="progressbar" [style.width.%]="progress[block.key]"
-                        [attr.aria-valuenow]="progress[block.key]" aria-valuemin="0" aria-valuemax="100">
-                        {{ progress[block.key] }}%
-                      </div>
-                    </div>
-
-                    <p class="text-info">{{ getOriginalFilenameFromFirebaseUrl(getMediaUrl(block.key)) }}</p>
-                  </div>
-                </ng-container>
-
               </div>
             </div>
           </div>
