@@ -86,10 +86,40 @@ export class SongService {
         this.apiCache.invalidateTags("licence");
         return res;
       });
-      alert('Chanson créée avec succès.');
     } catch (error) {
       console.error('Error creating song:', error);
       alert('Erreur lors de la création de la chanson.');
+    }
+  }
+
+  async generateSongWithIA(songData: { file: File; prompt: string, isImage: boolean }): Promise<any> {
+    try {
+      const token = await this.getValidToken();
+
+      const formData = new FormData();
+      formData.append('file', songData.file);
+      formData.append('prompt', songData.prompt);
+      formData.append('isImage', songData.isImage.toString());
+
+      const res = await this.axiosInterceptorService
+        .getAxiosInstance()
+        .post(
+          'https://n8n.creatoke.fr/webhook/217d7eb4-77ac-4abf-8f53-2e155a76b955',
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            responseType: songData.isImage ? 'blob' : 'json',
+          }
+        );
+
+      this.apiCache.invalidateTags('licence');
+      return res.data;
+    } catch (error) {
+      console.error('Error generating song with IA:', error);
+      alert('Erreur lors de la génération de la chanson.');
+      throw error;
     }
   }
 
@@ -120,7 +150,6 @@ export class SongService {
           Authorization: `Bearer ${token}`,
         },
       });
-      alert('Chanson modifiée avec succès.');
     } catch (error) {
       console.error('Error modifying song:', error);
       alert('Erreur lors de la modification de la chanson.');

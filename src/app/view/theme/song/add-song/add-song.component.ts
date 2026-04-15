@@ -6,6 +6,7 @@ import { CategoryService } from '../../../../core/services/api/category.service'
 import { Subscription } from 'rxjs';
 import { UploadService } from '../../../../core/utils/upload';
 import * as slug from 'slug';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 type UrlMap = Record<string, string>;
 type NumMap = Record<string, number>;
@@ -29,6 +30,11 @@ export class AddSongComponent implements OnInit, OnDestroy {
   isPremium = 'non';
   isLicenceBaseCreatoke = 'non';
   isPremiumCreatoke = 'non';
+  songFile: File | null = null;
+  generatedImageFile: File | null = null;
+  generatedImagePreview: SafeUrl | null = null;
+  showImageModal = false;
+  isLoading = false;
 
   private subs = new Subscription();
 
@@ -36,7 +42,8 @@ export class AddSongComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private categoryService: CategoryService,
     private songService: SongService,
-    private uploader: UploadService
+    private uploader: UploadService,
+    private sanitizer: DomSanitizer
   ) {
     this.musicForm = this.fb.group({
       title: ['', Validators.required],
@@ -69,7 +76,7 @@ export class AddSongComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    
+
     this.categoryService.getBackgroundImg().then(r => {
       this.picturebackground = r.data?.[0]?.picture;
     });
@@ -97,6 +104,7 @@ export class AddSongComponent implements OnInit, OnDestroy {
       patch[fileType] = url; // si les noms de fileType == noms de champs
       this.musicForm.patchValue(patch);
     }));
+    this.songFile = file;
   }
 
   private buildPayload() {
@@ -142,10 +150,79 @@ export class AddSongComponent implements OnInit, OnDestroy {
       alert('Merci de remplir les champs');
       return;
     }
+    this.isLoading = true;
     const payload = this.buildPayload();
+    try {
+      this.songService.createSong(payload)
+    } catch (error) {
+      console.error('Error creating song:', error);
+      this.isLoading = false;
+      alert('Erreur lors de la création de la chanson.');
+    } finally {
+      this.isLoading = false;
+    }
 
-    this.songService.createSong(payload)
-      .catch(err => console.error(err));
+  }
+
+  generateContentWithIA(action: string) {
+    if (!this.songFile) {
+      alert('Merci de sélectionner un fichier audio avant de générer du contenu avec l\'IA.');
+      return;
+    };
+
+    const prompt = this.generatePrompt(action);
+    const payload = { file: this.songFile, prompt, isImage: action === 'image' ? true : false };
+    this.isLoading = true;
+
+    this.songService.generateSongWithIA(payload).then((res) => {
+      if (action === 'image') {
+        this.generatedImageFile = new File([res], 'generated-image.png', {
+          type: 'image/png'
+        });
+
+        const objectUrl = URL.createObjectURL(this.generatedImageFile);
+        this.generatedImagePreview = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+        this.showImageModal = true;
+      } else {
+        this.musicForm.patchValue({ [action]: res });
+      }
+      this.isLoading = false;
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
+
+  generatePrompt(action): string {
+    switch (action) {
+      case 'description':
+        return `Génère une description à partir du fichier audio que tu vas reçevoir 
+      La description doit être concise, accrocheuse et donner envie d'écouter la chanson.
+      Retourne uniquement le texte final brut.
+      Elle doit ne pas être trop longue (10 phrases) et mettre en avant les éléments clés de la chanson tels que le style musical, les émotions véhiculées et les thèmes abordés.`;
+      case 'lyrics':
+        return `Tu dois analyser le fichier audio que tu vas recevoir et en extraire les paroles de la chanson.
+      Les paroles doivent être précises et refléter fidèlement le contenu de la chanson. Tu ne dois pas mettre les timpos, juste les paroles. Fais des sauts de ligne en ajoutant des "</br>" entre chaque ligne. Retourne uniquement le texte final brut.`;
+      case 'image':
+        return `Tu dois analyser le fichier audio que tu vas recevoir et en extraire les paroles de la chanson.
+      Les paroles doivent être précises et refléter fidèlement le contenu de la chanson. Tu ne dois pas mettre les timpos, juste les paroles. Retourne uniquement le texte final brut. Si aucune parole n'est détectée, génère une image abstraite qui reflète les émotions véhiculées par la chanson.`;
+      default:
+        return '';
+    }
+  }
+
+  closeImageModal(): void {
+    this.showImageModal = false;
+  }
+
+  rejectImage(): void {
+    this.generatedImageFile = null;
+    this.generatedImagePreview = null;
+    this.showImageModal = false;
+  }
+
+  acceptImage(): void {
+    this.onFileSelected({ target: { files: [this.generatedImageFile] } } as unknown as Event, 'image');
+    this.showImageModal = false;
   }
 
   openModal() { this.display = 'block'; }

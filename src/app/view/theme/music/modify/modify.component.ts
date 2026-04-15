@@ -54,6 +54,9 @@ export class ModifyComponent implements OnInit, OnDestroy {
   audioMap: Record<string, HTMLAudioElement> = {};
   playingMap: Record<string, boolean> = {};
 
+  isLoading = false;
+
+
   // Options category (utilisées en HTML)
   readonly categories = [
     { value: "chansons-a-chanter", label: "Publier dans les chansons à chanter" },
@@ -381,10 +384,15 @@ export class ModifyComponent implements OnInit, OnDestroy {
 
       image: (this.downloadUrls.image ?? this.song?.image ?? "https://placehold.co/600x400").toString(),
     };
+    this.isLoading = true;
 
-    await this.songService.modifySong(payload).then(() => {
-      alert("Chanson modifiée");
-    });
+    try {
+      await this.songService.modifySong(payload);
+    } catch (error) {
+      console.error('Error modifying song:', error);
+    } finally {
+      this.isLoading = false;
+    }
   }
 
 

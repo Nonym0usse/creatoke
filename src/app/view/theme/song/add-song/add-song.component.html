@@ -141,9 +141,16 @@
 
                     <div class="col-12 mb-4">
                       <label for="img" class="form-label">Image</label>
-                      <input type="file" id="img" class="form-control" (change)="onFileSelected($event, 'image')"
-                        multiple>
-                      <div class="progress" [hidden]="progress['image'] === undefined">
+                      <div class="d-flex gap-2">
+                        <input type="file" id="img" class="form-control" (change)="onFileSelected($event, 'image')"
+                          multiple>
+
+                        <button type="button" class="btn btn-custom" (click)="generateContentWithIA('image')">
+                          I.A
+                        </button>
+                      </div>
+
+                      <div class="progress mt-2" [hidden]="progress['image'] === undefined">
                         <div class="progress-bar" role="progressbar" [style.width.%]="progress['image']"
                           [attr.aria-valuenow]="progress['image']" aria-valuemin="0" aria-valuemax="100">
                           {{ progress['image'] }}%
@@ -173,14 +180,31 @@
                     </div>
 
                     <div class="col-12 mb-4">
-                      <label class="form-label">Description</label>
-                      <textarea name="description" id="description" formControlName="description" cols="30" rows="4"
-                        class="form-control" placeholder="Description"></textarea>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <label class="form-label mb-0">Description</label>
+
+                        <button type="button" class="btn btn-sm btn-custom"
+                          (click)="generateContentWithIA('description')">
+                          I.A
+                        </button>
+                      </div>
+
+                      <textarea name="description" id="description" formControlName="description" rows="4"
+                        class="form-control mt-2" placeholder="Description">
+  </textarea>
                     </div>
 
                     <div class="col-12 mb-4"
                       [hidden]="musicForm.get('category')?.value == 'instrumentaux' || musicForm.get('category')?.value == 'musique-de-contenus'">
-                      <label class="form-label">Lyrics</label>
+                      <div class="d-flex justify-content-between align-items-center">
+
+                        <label class="form-label">Lyrics</label>
+                        <button type="button" class="btn btn-sm btn-custom mb-2"
+                          (click)="generateContentWithIA('lyrics')">
+                          I.A
+                        </button>
+                      </div>
+
                       <ck-editor [config]="{ versionCheck: false }" formControlName="lyrics" skin="moono-lisa"
                         language="fr" [fullPage]="false"></ck-editor>
                     </div>
@@ -297,8 +321,7 @@
                   </div>
 
                   <div class="col-sm-12 mb-4">
-                    <button class="btn btn-custom" style="min-width: 140px;" type="submit"
-                      [disabled]="!musicForm.valid">Enregistrer</button>
+                    <button class="btn btn-custom" style="min-width: 140px;" type="submit" [disabled]="!musicForm.valid">Enregistrer</button>
                     <a href="/" class="btn btn-outline-secondary ms-2">Annuler</a>
                   </div>
                 </form>
@@ -328,6 +351,46 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-custom" (click)="onCloseHandled()">Fermer</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade show" tabindex="-1" *ngIf="showImageModal"
+  [ngStyle]="{'display': 'block', 'background': 'rgba(0,0,0,0.5)'}">
+
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Prévisualisation de l'image</h5>
+        <button type="button" class="btn-close" (click)="closeImageModal()"></button>
+      </div>
+
+      <div class="modal-body text-center">
+        <img *ngIf="generatedImagePreview" [src]="generatedImagePreview" alt="Preview" class="img-fluid rounded"
+          style="max-height: 300px; object-fit: contain;">
+      </div>
+
+      <div class="modal-footer justify-content-between">
+        <button class="btn btn-success" (click)="acceptImage()">
+          J'aime
+        </button>
+        <button class="btn btn-danger" (click)="generateContentWithIA('image')">
+          Je n'aime pas
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="fullscreen-loader" *ngIf="isLoading">
+  <div class="ai-loader">
+    <p>Chargement ...</p>
+    <div class="dots">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   </div>
 </div>
