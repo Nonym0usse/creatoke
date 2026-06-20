@@ -27,7 +27,7 @@ export class PlanService {
       map((response: any) => {
         if (response.data) {
           // Covert api response data into local data
-          response.data = response.data.map((element: any) => {
+          response.data = response.data.map((_element: any) => {
           });
         }
         return response;

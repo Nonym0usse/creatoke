@@ -18,7 +18,7 @@
                 <div class="d-flex flex-wrap mb-2">
 
                     <span class="text-dark fs-4 fw-semi-bold pe-2">{{song?.title}}<span class="exclu">
-                            {{song?.exclu == 'oui' ? ' (Exclusivité plateforme)' : '' }}</span></span>
+                            {{song?.exclu === 'oui' ? ' (Exclusivité plateforme)' : '' }}</span></span>
                 </div>
                 <ul class="info-list info-list--dotted mb-3">
                     <li *ngIf="song?.category">
@@ -39,7 +39,7 @@
                             {{song?.description}}
                         </span>
                     </p>
-                    <p class="mb-4" [hidden]="song?.exclu == 'non'" *ngIf="song?.exclu">
+                    <p class="mb-4" [hidden]="song?.exclu === 'non'" *ngIf="song?.exclu">
                         <span class="text-dark fw-medium" style="word-wrap: break-word;">
                             🎤☀️ Chanson en contrat avec un distributeur , vous pouvez la télécharger sur n'importe
                             quelle
@@ -50,7 +50,7 @@
                 </div>
                 <ul class="info-list mb-5">
                     <li
-                        [hidden]="song?.exclu == 'oui' && (song?.category == 'instrumentaux' || song?.category == 'createurs-de-contenu')">
+                        [hidden]="song?.exclu === 'oui' && (song?.category === 'instrumentaux' || song?.category === 'createurs-de-contenu')">
                         <div class="d-flex align-items-center">
                             <div class="chanson-player">
                                 <button type="button" class="btn btn-icon btn-player rounded-pill"
@@ -58,11 +58,11 @@
                                     <i class="ri-play-fill icon-play"></i>
                                     <i class="ri-pause-fill icon-pause"></i>
                                 </button>
-                                <span class="text-extrait">{{ song?.exclu == 'oui' ? 'Écouter le créatoké' : 'Écouter la
+                                <span class="text-extrait">{{ song?.exclu === 'oui' ? 'Écouter le créatoké' : 'Écouter la
                                     chanson'}}</span>
                             </div>
                             <div class="chanson-player"
-                                *ngIf="(song?.category == 'chansons-a-chanter' || song?.category == 'chansons-cherche-auteur') && song?.exclu == 'non'">
+                                *ngIf="(song?.category === 'chansons-a-chanter' || song?.category === 'chansons-cherche-auteur') && song?.exclu === 'non'">
                                 <button type="button" class="btn btn-icon btn-player rounded-pill"
                                     (click)="toggleAudio()">
                                     <ng-container *ngIf="isPlaying; else pauseIcon">

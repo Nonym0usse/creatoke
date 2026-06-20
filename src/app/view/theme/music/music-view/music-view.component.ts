@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { SongService } from "../../../../core/services/api/song.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PlayerService } from "../../../../core/services/design/player.service";
@@ -22,7 +22,7 @@ declare global {
   styleUrls: ['./music-view.component.scss']
 })
 
-export class MusicViewComponent implements OnInit {
+export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
 
   // Holds song data
   song: Song = {} as Song;
@@ -182,7 +182,7 @@ export class MusicViewComponent implements OnInit {
     this.payPalConfig = {
       currency: "EUR",
       clientId: "AUmNR3MJCKhVgZvF9z2DByyfihtVVL0M9CB6FERS_LsEAKoTZXt4ctdT30PJIDn3o5x6SYQLe3mGFV_X",
-      createOrderOnClient: (data) => <ICreateOrderRequest>{
+      createOrderOnClient: (_data) => <ICreateOrderRequest>{
         intent: 'CAPTURE',
         purchase_units: [{
           amount: {
@@ -236,21 +236,18 @@ export class MusicViewComponent implements OnInit {
             });
         });
       },
-      onClientAuthorization: data => {
-        console.log(
-          "onClientAuthorization - you should probably inform your server about completed transaction at this point",
-          data
-        );
+      onClientAuthorization: () => {
+        // Transaction approuvée côté client : le serveur est notifié via le flux PayPal ci-dessus.
       },
-      onCancel: (data, actions) => {
-        console.log("OnCancel", data, actions);
+      onCancel: () => {
+        // Achat annulé par l'utilisateur.
       },
-      onError: err => {
+      onError: () => {
         alert("Une erreur s'est produite. Veuillez réessayer votre achat.")
         window.location.reload();
       },
-      onClick: (data, actions) => {
-        console.log("onClick", data, actions);
+      onClick: () => {
+        // Clic sur le bouton PayPal.
       }
     };
   }

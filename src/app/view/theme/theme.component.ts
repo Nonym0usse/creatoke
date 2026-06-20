@@ -1,5 +1,5 @@
 // Angular
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 // Constant classes
 import { Constant } from './../../core/constants/constant';
@@ -9,7 +9,7 @@ import { Constant } from './../../core/constants/constant';
   selector: 'app-theme',
   templateUrl: './theme.component.html'
 })
-export class ThemeComponent implements OnInit {
+export class ThemeComponent {
 
   // Holds header views
   headerView = Constant.HEADER_VIEW;
@@ -18,8 +18,5 @@ export class ThemeComponent implements OnInit {
   footerView = Constant.FOOTER_VIEW;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

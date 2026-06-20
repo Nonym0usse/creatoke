@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SongService } from 'src/app/core/services/api/song.service';
 
@@ -7,7 +7,7 @@ import { SongService } from 'src/app/core/services/api/song.service';
     templateUrl: './confirm-purchase.component.html',
     styleUrls: ['./confirm-purchase.component.scss']
 })
-export class ConfirmPurchaseComponent {
+export class ConfirmPurchaseComponent implements OnInit {
     songUrlDownload: string | undefined;
     songName: string | undefined;
 

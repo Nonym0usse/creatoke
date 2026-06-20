@@ -167,7 +167,9 @@ export class ModifyComponent implements OnInit, OnDestroy {
       try {
         a.pause();
         a.currentTime = 0;
-      } catch { }
+      } catch {
+        // ignore audio cleanup errors on teardown
+      }
     });
   }
 

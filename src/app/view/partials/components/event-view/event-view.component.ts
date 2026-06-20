@@ -1,5 +1,5 @@
 // Angular
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 // Services
@@ -9,7 +9,7 @@ import { AuthenticationService } from './../../../../core/services/global/authen
   selector: 'app-event-view',
   templateUrl: './event-view.component.html'
 })
-export class EventViewComponent implements OnInit {
+export class EventViewComponent {
 
   // Holds data to view
   @Input() data: any;
@@ -21,10 +21,6 @@ export class EventViewComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService
   ) { }
-
-  ngOnInit(): void {
-    //this.isUser = this.authenticationService.isUser;
-  }
 
   /**
    * Join event button click event

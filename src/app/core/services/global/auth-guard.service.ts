@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     return this.checkAuthStatus();
   }
 
-  canLoad(router: Route, segments: UrlSegment[]): Observable<boolean> {
+  canLoad(_router: Route, _segments: UrlSegment[]): Observable<boolean> {
     return this.checkAuthStatus();
   }
 

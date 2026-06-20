@@ -1,5 +1,5 @@
 // Angular
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { Song } from 'src/app/core/models/song.model';
   selector: 'app-song-details',
   templateUrl: './song-details.component.html'
 })
-export class SongDetailsComponent implements OnInit, OnDestroy {
+export class SongDetailsComponent implements OnDestroy {
 
   // Holds song data
   song: any;
@@ -28,10 +28,6 @@ export class SongDetailsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private playerService: PlayerService
   ) {}
-
-  ngOnInit(): void {
-    console.log("SongDetailsComponent initialized");
-  }
 
   ngOnDestroy(): void {
     this.routerSubscription?.unsubscribe();

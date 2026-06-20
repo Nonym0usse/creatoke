@@ -89,7 +89,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.attrPlayer = color;
     });
 
-    this.themeSubscription = this.themeService.themeMode.subscribe((value) => {
+    this.themeSubscription = this.themeService.themeMode.subscribe((_value) => {
       setTimeout(() => {
         this.playerService.volumeBackground();
       }, 10);

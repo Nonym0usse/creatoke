@@ -27,7 +27,7 @@ export class EditextComponent implements OnInit {
 
 
   onSubmit() {
-    this.categoryService.modifyText({id: this.text.id, text: this.editor}).then(() => alert('Texte modifié')).catch((e) => {
+    this.categoryService.modifyText({id: this.text.id, text: this.editor}).then(() => alert('Texte modifié')).catch((_e) => {
       alert('Erreur')
     })
   }

@@ -16,7 +16,7 @@
         <span class="search__title">Résultats</span>
       </div>
       <div class="row g-4 list">
-        <div class="alert alert-custom" *ngIf="results.length == 0">
+        <div class="alert alert-custom" *ngIf="results.length === 0">
           Aucun résultat
         </div>
         <div class="col-xl-3 col-md-4 col-sm-6" *ngFor="let song of results">

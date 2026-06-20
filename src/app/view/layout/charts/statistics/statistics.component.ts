@@ -48,7 +48,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.themeSubscription = this.themeService.themeMode.subscribe((value) => {
+    this.themeSubscription = this.themeService.themeMode.subscribe((_value) => {
       this.chartOptionsConfig();
     });
     this.sellingService.listSales().then((data) => {

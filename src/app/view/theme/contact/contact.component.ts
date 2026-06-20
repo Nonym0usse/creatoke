@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ContactService} from '../../../core/services/api/contact.service'
 import {CategoryService} from "../../../core/services/api/category.service";
 import { Title } from '@angular/platform-browser';

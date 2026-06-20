@@ -52,7 +52,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     });
       this.turnover = this.sumPricesForCurrentYear(this.turnOverData, currentYear);
     })
-    this.themeSubscription = this.themeService.themeMode.subscribe((value) => {
+    this.themeSubscription = this.themeService.themeMode.subscribe((_value) => {
       this.overrideChartDefaults();
     });
     this.getBackground();

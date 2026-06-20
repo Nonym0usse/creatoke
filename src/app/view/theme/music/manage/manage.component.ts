@@ -17,7 +17,7 @@ export class ManageComponent implements OnInit {
   constructor(private musicService: SongService, private router: Router, private categoryService: CategoryService, private title: Title) { }
 
     ngOnInit(): void {
-        this.musicService.getAllSongs().then((music) => this.songs = music.data).catch((err) => console.log(err));
+        this.musicService.getAllSongs().then((music) => this.songs = music.data).catch((err) => console.error(err));
         this.getBackground();
         this.title.setTitle('Créatoke | Gérer mes musiques');
     }
@@ -28,10 +28,9 @@ export class ManageComponent implements OnInit {
 
     delete(id: string, name: string) {
       this.musicService.deleteSong(id, name);
-      const objectsString = localStorage.getItem('songs'); // Replace 'yourLocalStorageKey' with the key you used to store the array
-      // @ts-ignore
-      let arrayOfObjects = JSON.parse(objectsString) || [];
-      const indexToDelete = arrayOfObjects.findIndex(obj => obj.id === id);
+      const objectsString = localStorage.getItem('songs');
+      const arrayOfObjects: any[] = JSON.parse(objectsString || '[]') || [];
+      const indexToDelete = arrayOfObjects.findIndex((obj) => obj.id === id);
       if (indexToDelete !== -1) {
         arrayOfObjects.splice(indexToDelete, 1);
       }

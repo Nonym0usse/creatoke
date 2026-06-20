@@ -34,7 +34,6 @@ export class SearchComponent implements OnInit {
       switchMap(newSearchTerm => this.searchService.searchSong(newSearchTerm.toUpperCase()))
     ).subscribe(
       (response) => {
-        console.log(response.data)
         this.results = response.data;
       },
       (error) => {

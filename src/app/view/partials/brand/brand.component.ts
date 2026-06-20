@@ -1,5 +1,5 @@
 // Angular
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 // Constant classes
 import { Constant } from './../../../core/constants/constant';
@@ -11,14 +11,11 @@ import { Constant } from './../../../core/constants/constant';
     <img [src]="brand.logo" [alt]="brand.name">
   </a>`
 })
-export class BrandComponent implements OnInit {
+export class BrandComponent {
 
   // Holds brand object
   brand = Constant.BRAND;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

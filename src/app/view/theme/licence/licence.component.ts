@@ -20,7 +20,6 @@ export class LicenceComponent implements OnInit {
     language: 'fr',
 
   };
-  //@ts-ignore
   public editorData: any;
   public editorData2: any;
   public editorData3: any;
@@ -57,7 +56,7 @@ export class LicenceComponent implements OnInit {
       premium: this.editorData3,
     }
     const entries = Object.entries(licenceData);
-    const filteredEntries = entries.filter(([key, value]) => value !== '' && value !== undefined);
+    const filteredEntries = entries.filter(([_key, value]) => value !== '' && value !== undefined);
     const result = Object.fromEntries(filteredEntries);
     this.licenceService.modifyLicence(result).then(() => alert('Licences modifiées'))
   }

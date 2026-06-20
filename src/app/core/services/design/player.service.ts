@@ -65,10 +65,7 @@ export class PlayerService {
    */
   get localSongs() {
     const songs = localStorage.getItem(Constant.SONG_KEY);
-    // @ts-ignore
-    const songList = JSON.parse(songs);
-    //console.log(songList)
-    return songList;
+    return songs ? JSON.parse(songs) : null;
   }
 
   /**
@@ -380,7 +377,7 @@ export class PlayerService {
   playSongs(event: any, data: any): void {
     if (data.songs && data.songs.length) {
       const songList: any = [];
-      data.songs.forEach((song: any, index: number) => {
+      data.songs.forEach((song: any, _index: number) => {
         songList.push(this.getSongObject(song));
       });
 

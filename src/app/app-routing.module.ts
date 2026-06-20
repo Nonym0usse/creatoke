@@ -11,7 +11,7 @@ import { ErrorComponent } from './view/pages/auth/error/error.component';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./view/theme/theme.module').then(m => m.ThemeModule).catch((e) => console.log(e)),
+    loadChildren: () => import('./view/theme/theme.module').then(m => m.ThemeModule).catch((e) => console.error(e)),
   },
   {
     path: '**',

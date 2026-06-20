@@ -1,5 +1,5 @@
 // Angular
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 // Services
 import { PlayerService } from './../../../../core/services/design/player.service';
@@ -9,7 +9,7 @@ import { PlayerService } from './../../../../core/services/design/player.service
   selector: 'app-list-view',
   templateUrl: './list-view.component.html'
 })
-export class ListViewComponent implements OnInit {
+export class ListViewComponent {
 
   // Holds data to view
   @Input() data: any;
@@ -38,9 +38,6 @@ export class ListViewComponent implements OnInit {
   constructor(
     private playerService: PlayerService
   ) { }
-
-  ngOnInit(): void {
-  }
 
   /**
    * Play song

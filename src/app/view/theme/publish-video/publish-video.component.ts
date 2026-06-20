@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { CategoryService } from 'src/app/core/services/api/category.service';
 import { n8nService } from 'src/app/core/services/api/n8n.service';
@@ -62,7 +62,7 @@ export class PublishVideoComponent implements OnInit {
     form.append('video', video);
 
     try {
-      const res = await this.n8nService.postVideoOnSocialNetwork(form).catch((e) => console.log(e));
+      const res = await this.n8nService.postVideoOnSocialNetwork(form);
       alert(res.status === 200 ? 'Vidéo publiée' : 'Erreur serveur');
     } catch (e) {
       console.error(e);

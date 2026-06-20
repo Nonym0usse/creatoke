@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {SongService} from "../../../../core/services/api/song.service";
@@ -9,7 +9,7 @@ import {CategoryService} from "../../../../core/services/api/category.service";
   templateUrl: './music-details.component.html',
   styleUrls: ['./music-details.component.scss']
 })
-export class MusicDetailsComponent implements OnInit {
+export class MusicDetailsComponent implements OnInit, OnDestroy {
 
   // Holds genre data
   genre: any;

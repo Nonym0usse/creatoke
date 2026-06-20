@@ -10,11 +10,10 @@ export class PaypalService {
   firebaseToken = "";
 
   constructor(private axiosInterceptorService: InterceptorService) {
-    // @ts-ignore
-    this.firebaseToken = localStorage.getItem('firebaseToken');
+    this.firebaseToken = localStorage.getItem('firebaseToken') ?? '';
   }
 
-  createSale(data) {
+  createSale(data: any) {
     return this.axiosInterceptorService.getAxiosInstance().post(ApiConstant.API + '/payment/create', data);
   }
 

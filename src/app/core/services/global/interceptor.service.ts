@@ -1,23 +1,10 @@
 // Angular
-import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpHandler,
-  HttpHeaders,
-  HttpInterceptor,
-  HttpRequest
-} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom, Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { firstValueFrom, throwError } from 'rxjs';
 
 // Services
 import { AuthenticationService } from './authentication.service';
-import { LoginService } from '../api/login.service';
 
-// Constant classes
-import { Constant } from '../../constants/constant';
-import { HttpStatus } from './../../constants/http-status';
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 
 @Injectable({
@@ -52,7 +39,7 @@ export class InterceptorService {
         return response;
       },
       (error: AxiosError<any>) => {
-        console.log(error.response);
+        console.error('HTTP response error:', error.response);
         if (error.response && error.response.status === 401) {
           // Log user out or perform other actions
           this.authService.logOut(); // Call your logout method

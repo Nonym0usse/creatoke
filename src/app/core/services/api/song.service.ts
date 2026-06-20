@@ -127,7 +127,6 @@ export class SongService {
   async deleteSong(id: string, name: string): Promise<void> {
     try {
       const token = await this.getValidToken();
-      console.log('Retrieved token:', token);
 
       await this.axiosInterceptorService.getAxiosInstance().delete(ApiConstant.API + '/admin/delete-music/' + id, {
         headers: {

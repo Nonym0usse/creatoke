@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { PlayerService } from "../../../../core/services/design/player.service";
 import { Song } from "src/app/core/models/song.model";
 
@@ -6,7 +6,7 @@ import { Song } from "src/app/core/models/song.model";
   selector: "app-cover-view",
   templateUrl: "./cover-view.component.html",
 })
-export class CoverViewComponent implements OnChanges {
+export class CoverViewComponent {
   @Input() songs: Song[] = [];
   @Input() isHome: boolean = false;
   @Input() coverLink = false;
@@ -17,16 +17,6 @@ export class CoverViewComponent implements OnChanges {
   @Input() viewPlaylist = true;
 
   constructor(private playerService: PlayerService) {}
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes["songs"]) {
-      console.log("songs updated:");
-    }
-  }
-
-  ngOnInit(): void {
-    console.log("CoverViewComponent initialized with songs:", this.songs, typeof this.songs);
-  }
 
   play(event: any, song: Song): void {
     const newSong = { ...song, url: song.url || (song as any).creatoke };

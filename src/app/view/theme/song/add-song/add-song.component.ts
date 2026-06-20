@@ -137,9 +137,9 @@ export class AddSongComponent implements OnInit, OnDestroy {
     };
 
     // Remplace les autres champs vides par 'vide'
-    Object.keys(payload).forEach((k) => {
-      // @ts-ignore — on sait que payload est un index signature ici
-      payload[k] = ensureValue(payload[k], k === 'image' ? placeholderImage : 'vide');
+    const indexedPayload = payload as Record<string, any>;
+    Object.keys(indexedPayload).forEach((k) => {
+      indexedPayload[k] = ensureValue(indexedPayload[k], k === 'image' ? placeholderImage : 'vide');
     });
 
     return payload;
@@ -168,7 +168,7 @@ export class AddSongComponent implements OnInit, OnDestroy {
     if (!this.songFile) {
       alert('Merci de sélectionner un fichier audio avant de générer du contenu avec l\'IA.');
       return;
-    };
+    }
 
     const prompt = this.generatePrompt(action);
     const payload = { file: this.songFile, prompt, isImage: action === 'image' ? true : false };

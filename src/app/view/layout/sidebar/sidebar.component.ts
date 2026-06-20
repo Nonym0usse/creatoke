@@ -48,8 +48,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
       this.isAuthenticated = isAuthenticated
       if(!isAuthenticated){
-        // @ts-ignore
-        this.navbar = Constant.navbar.filter(obj => !obj.auth);
+        this.navbar = Constant.navbar.filter((obj: any) => !obj.auth);
       }else{
         this.navbar = Constant.navbar;
       }

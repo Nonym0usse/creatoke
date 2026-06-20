@@ -34,7 +34,7 @@ export class TabsDirective implements OnInit {
     // Change position on tab click
     const links = this.tabs.querySelectorAll('button[data-bs-toggle="tab"]');
     Array.from(links).forEach((link: any) => {
-      link.addEventListener('shown.bs.tab', (event: any) => {
+      link.addEventListener('shown.bs.tab', (_event: any) => {
         this.setLinePosition();
       });
     });

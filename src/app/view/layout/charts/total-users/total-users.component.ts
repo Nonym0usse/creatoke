@@ -37,8 +37,6 @@ export class TotalUsersComponent implements OnInit {
     this.chartOptionsConfig();
     this.chartDataConfig();
     this.sellingService.listSales().then((data) => {
-      const currentDate = new Date();
-      const currentYear = currentDate.getFullYear();
       this.nbUsr = this.countObjectsByMonth(data.data)
       this.chartDataConfig();
     })

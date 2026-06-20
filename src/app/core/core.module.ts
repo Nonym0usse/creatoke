@@ -2,16 +2,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // NPM modules
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { SwiperModule } from 'swiper/angular';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { NgChartsModule } from 'ng2-charts';
-
-// Services
-import { AuthGuard } from './services/global/auth-guard.service';
 
 // Directives
 import { ValidationDirective } from './directives/validation.directive';

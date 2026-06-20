@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { CategoryService } from "../../../core/services/api/category.service";
 import { AngularFireStorage, AngularFireUploadTask } from "@angular/fire/compat/storage";
 import { finalize } from "rxjs/operators";
@@ -12,8 +12,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class BackgroundimageComponent implements OnInit {
     imageForm: FormGroup;
-    //@ts-ignore
-    files: File;
+    files?: File;
     isLoading = false
     picturebackground: any;
     progress: { [key: string]: number } = {};
@@ -27,7 +26,6 @@ export class BackgroundimageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.categoryService.getBackgroundImg().then((url) => console.log(url.data[0]))
         this.getBackground();
         this.title.setTitle('Créatoke | Modifier l\'image de fond');
     }
@@ -43,8 +41,7 @@ export class BackgroundimageComponent implements OnInit {
     modifyImage() {
         this.imageForm.patchValue({ picture: this.downloadUrls['picture'].url });
         this.imageForm.patchValue({ picture_name: this.downloadUrls['picture'].fileName });
-        console.log(this.imageForm.value)
-        this.categoryService.createBackground(this.imageForm.value).then(r => alert('OK, image de fond changée'));
+        this.categoryService.createBackground(this.imageForm.value).then(_r => alert('OK, image de fond changée'));
     }
 
     async getBackground() {
@@ -57,10 +54,8 @@ export class BackgroundimageComponent implements OnInit {
 
         const task: AngularFireUploadTask = this.storage.upload(filePath, file);
         this.progress[fileType] = 0;
-        //@ts-ignore
-        task.percentageChanges().subscribe((progress: number) => {
-            //@ts-ignore
-            this.progress[fileType] = progress.toFixed(2);
+        task.percentageChanges().subscribe((progress) => {
+            this.progress[fileType] = Number((progress ?? 0).toFixed(2));
         });
 
         task.snapshotChanges().pipe(

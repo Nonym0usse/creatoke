@@ -15,8 +15,7 @@ export class n8nService {
     firebaseToken = "";
 
     constructor(private authenticationService: AuthenticationService, private axiosInterceptorService: InterceptorService, private router: Router) {
-        // @ts-ignore
-        this.firebaseToken = localStorage.getItem('firebaseToken');
+        this.firebaseToken = localStorage.getItem('firebaseToken') ?? '';
         this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
             if (!isAuthenticated) {
                 this.router.navigate(['/']);
@@ -27,7 +26,7 @@ export class n8nService {
      * Get playlist data
      * @returns {object}
      */
-    postVideoOnSocialNetwork(body): Promise<any> {
+    postVideoOnSocialNetwork(body: FormData): Promise<any> {
         return this.axiosInterceptorService.getAxiosInstance().post(ApiConstant.API + '/n8n/api/upload', body, {
             headers: {
                 Authorization: `Bearer ${this.firebaseToken}`,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { TextService } from 'src/app/core/services/api/text.service';
 import { CategoryService } from "../../../core/services/api/category.service";
 

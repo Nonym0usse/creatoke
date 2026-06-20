@@ -1,11 +1,10 @@
 // Angular
-import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 // Constant classes
 import { ApiConstant } from '../../constants/api-constant';
 import axios from "axios";
-import { Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'

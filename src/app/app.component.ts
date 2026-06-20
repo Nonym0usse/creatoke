@@ -1,5 +1,5 @@
 // Angular
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 // Services
@@ -13,7 +13,7 @@ import { Constant } from './core/constants/constant';
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements AfterViewInit {
 
   constant = Constant;
   // Theme subscription
@@ -23,9 +23,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     private loaderService: LoaderService
   ) { 
     this.loaderService.startLoading();
-  }
-
-  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {

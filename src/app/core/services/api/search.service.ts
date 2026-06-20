@@ -2,7 +2,6 @@
 import { Injectable } from '@angular/core';
 
 // Constant classes
-import { Observable } from 'rxjs';
 import { ApiConstant } from '../../constants/api-constant';
 import {InterceptorService} from "../global/interceptor.service";
 
@@ -15,15 +14,14 @@ export class SearchService {
     private axiosInterceptorService: InterceptorService
   ) { }
 
-  //@ts-ignore
-  searchSong(term: string): Observable<any> {
-    if(term !== ""){
-      //@ts-ignore
+  searchSong(term: string): Promise<any> {
+    if (term !== "") {
       return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + `/admin/searching/${term}`);
     }
+    return Promise.resolve({ data: [] });
   }
 
-  previewSongs(limit): Promise<any> {
+  previewSongs(limit: number): Promise<any> {
     return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/admin/preview-searching/' + limit);
   }
 }
