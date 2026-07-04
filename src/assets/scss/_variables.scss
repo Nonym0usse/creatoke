@@ -74,7 +74,9 @@ $colors: (
 // Theme colors
 //
 // scss-docs-start theme-color-variables
-$primary:       $blue;
+// Couleur de marque Créatoké (dégradé #5438d1 → #8938d1) : les boutons/textes
+// "primary" reprennent la teinte du dégradé au lieu du bleu Bootstrap.
+$primary:       #5438d1;
 $secondary:     $gray-600;
 $success:       $green;
 $info:          $cyan;

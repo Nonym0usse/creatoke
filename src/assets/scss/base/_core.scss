@@ -51,11 +51,31 @@ a:hover {
     }
 }
 
+// Bouton principal du site (action primaire : achat, envoi, enregistrement).
+// Secondaire : .btn-outline-secondary · Tableaux admin : .btn-light-primary / .btn-light-danger
 .btn-custom {
     border: 1px solid;
     background-color: #1d1e22;
+    color: #fff;
     border-image: linear-gradient(90deg, #5438d1, #8938d1 60%);
     border-image-slice: 1;
+    transition: background-color .15s ease, opacity .15s ease;
+
+    &:hover:not(:disabled):not(.disabled) {
+        color: #fff;
+        background-color: #2c2650;
+    }
+
+    &:focus-visible {
+        color: #fff;
+        box-shadow: 0 0 0 3px rgba(84, 56, 209, .45);
+    }
+
+    &:disabled,
+    &.disabled {
+        color: #fff;
+        opacity: .55;
+    }
 }
 
 .text-custom {

@@ -156,4 +156,118 @@
     transform: scale(1);
     opacity: 1;
   }
+}// --- Modale d'aide Spotify ---
+.help-modal {
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
+
+  &__content {
+    position: relative;
+    background: #1d1e22;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #5438d1, #8938d1 60%);
+    }
+  }
+
+  .modal-header,
+  .modal-footer {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .modal-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    i {
+      color: #1DB954; // vert Spotify
+      font-size: 24px;
+    }
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    line-height: 1;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: opacity .15s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__steps {
+    list-style: none;
+    counter-reset: step;
+    margin: 0 0 24px;
+    padding: 0;
+
+    li {
+      position: relative;
+      padding: 8px 0 8px 42px;
+      counter-increment: step;
+
+      &::before {
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        top: 7px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(90deg, #5438d1, #8938d1);
+        font-size: 13px;
+        font-weight: 600;
+      }
+    }
+
+    code {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 1px 7px;
+      border-radius: 4px;
+    }
+  }
+
+  &__figure {
+    margin: 0;
+    text-align: center;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    figcaption {
+      margin-top: 10px;
+      font-size: 12.5px;
+      opacity: 0.6;
+
+      code {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1px 5px;
+        border-radius: 4px;
+      }
+    }
+  }
 }

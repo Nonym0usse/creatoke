@@ -28,6 +28,16 @@
             @include size(100%);
             object-fit: cover;
         }
+        // Pochette cliquable : le lien remplace l'img en enfant direct,
+        // il doit occuper tout le bloc et dimensionner l'image comme avant.
+        .list__cover-link {
+            display: block;
+            @include size(100%);
+            img {
+                @include size(100%);
+                object-fit: cover;
+            }
+        }
         .btn-play {
             @include absolute(top 50% left 50%);
             transform: translate(-50%, -50%);

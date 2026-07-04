@@ -3,8 +3,8 @@
 
     <ng-container *ngIf="songUrlDownload">
       <p>Votre achat a été confirmé. Vous pouvez télécharger votre chanson ci-dessous :</p>
-      <button (click)="downloadFile()" [disabled]="downloading" class="download-btn">
-        {{ downloading ? 'Téléchargement en cours…' : '📥 Télécharger' }}
+      <button (click)="downloadFile()" [disabled]="downloading" class="btn btn-custom btn-lg mt-3">
+        {{ downloading ? 'Téléchargement en cours…' : '📥 Télécharger ma musique' }}
       </button>
       <p *ngIf="downloadError" class="error">
         Le téléchargement a échoué. Réessayez dans quelques instants — votre lien de téléchargement et votre

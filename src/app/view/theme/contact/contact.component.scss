@@ -1,0 +1,119 @@
+// Carte contact : barre d'accent dégradée en haut
+.contact-card {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #5438d1, #8938d1 60%);
+  }
+
+  .card-body {
+    padding: 40px;
+
+    @media (max-width: 575px) {
+      padding: 24px;
+    }
+  }
+}
+
+// En-tête : titre fort + chips d'infos
+.contact-head {
+  margin-bottom: 36px;
+
+  &__title {
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 18px;
+  }
+
+  &__chips {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+.contact-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px;
+  border-radius: 30px;
+  font-size: 13.5px;
+  color: #fff;
+  background: rgba(108, 92, 231, 0.14);
+  border: 1px solid rgba(108, 92, 231, 0.4);
+  text-decoration: none;
+  transition: background-color .15s ease;
+
+  i {
+    font-size: 15px;
+  }
+
+  &[href]:hover {
+    background: rgba(108, 92, 231, 0.3);
+    color: #fff;
+  }
+}
+
+// Champs : fond légèrement contrasté + glow indigo au focus
+.contact-form {
+  .form-label {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .form-control {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 12px 16px;
+    transition: border-color .15s ease, box-shadow .15s ease;
+
+    &:focus {
+      border-color: #5438d1;
+      box-shadow: 0 0 0 3px rgba(84, 56, 209, 0.25);
+    }
+  }
+}
+
+// CTA : dégradé de marque, forme pilule
+.btn-send {
+  background: linear-gradient(90deg, #5438d1, #8938d1 60%);
+  border: none;
+  color: #fff;
+  padding: 13px 40px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: filter .15s ease, opacity .15s ease;
+
+  i {
+    margin-left: 8px;
+    vertical-align: -1px;
+  }
+
+  &:hover:not(:disabled) {
+    color: #fff;
+    filter: brightness(1.15);
+  }
+
+  &:disabled {
+    color: #fff;
+    opacity: .55;
+  }
+}
+
+// État succès
+.contact-success {
+  i {
+    font-size: 56px;
+    color: #2ecc71;
+  }
+}

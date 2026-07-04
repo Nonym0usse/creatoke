@@ -1,0 +1,13 @@
+.section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.category-count {
+  font-size: 14px;
+  opacity: 0.6;
+  white-space: nowrap;
+}

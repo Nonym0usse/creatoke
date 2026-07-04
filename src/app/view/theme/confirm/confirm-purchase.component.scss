@@ -20,23 +20,4 @@
     font-size: 14px;
     opacity: 0.8;
   }
-
-  .download-btn:disabled {
-    opacity: 0.6;
-    cursor: wait;
-  }
   
-  .download-btn {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 15px;
-  }
-  
-  .download-btn:hover {
-    background-color: #218838;
-  }

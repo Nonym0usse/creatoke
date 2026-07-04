@@ -1,7 +1,9 @@
 
 <div class="list__item">
     <div class="list__cover">
-        <img [src]="data.image" [alt]="data.title" loading="lazy">
+        <a class="list__cover-link" [routerLink]="data.slug" [attr.aria-label]="'Voir ' + data.title">
+            <img [src]="data.image" [alt]="data.title" loading="lazy">
+        </a>
         <a (click)="play($event)" class="btn btn-play btn-sm btn-default btn-icon rounded-pill" *ngIf="viewPlayButton" aria-label="Play pause" [attr.data-play-id]="data.id">
             <i class="ri-play-fill icon-play"></i>
             <i class="ri-pause-fill icon-pause"></i>
@@ -10,18 +12,10 @@
 
     <div class="list__content">
         <a [routerLink]="data.slug" class="list__title text-truncate">{{data.title}}</a>
-        <p class="list__subtitle text-truncate" *ngIf="data.artist">
-        </p>
+        <p class="list__subtitle text-truncate" *ngIf="data.artist">{{ data.artist }}</p>
     </div>
 
     <ul class="list__option">
-        <li>
-            <a role="button" class="d-inline-flex" [ngClass]="{'active': data.favorite}" aria-label="Favorite" data-favorite-id>
-                <i class="ri-heart-line heart-empty"></i>
-                <i class="ri-heart-fill heart-fill"></i>
-            </a>
-        </li>
         <li *ngIf="viewTime && data.duration">{{data.duration}}</li>
-        
     </ul>
 </div>

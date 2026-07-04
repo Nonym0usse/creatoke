@@ -7,41 +7,75 @@
     <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
     <div class="section">
         <div class="row">
-            <div class="col-xl-12 col-md-10 mx-auto">
-                <div class="card">
+            <div class="col-xl-8 col-lg-10 mx-auto">
+                <div class="card contact-card">
+
                     <div class="card-body">
-                        <div class="section__head">
-                            <h4 class="mb-0">Une question ? Une collaboration ? Contactez-nous !</h4>
+
+                        <!-- État succès -->
+                        <div class="contact-success text-center py-5" *ngIf="success">
+                            <i class="ri-checkbox-circle-fill"></i>
+                            <h4 class="mt-3 mb-2">Message envoyé !</h4>
+                            <p class="mb-4">{{ success }}</p>
+                            <button type="button" class="btn btn-outline-secondary"
+                                (click)="success = undefined">Envoyer un autre message</button>
                         </div>
-                        <form action="#" class="row" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-                            <div class="col-12 mb-4">
-                                <input type="text" formControlName="name" class="form-control"
-                                    placeholder="Votre nom & prénom">
+
+                        <ng-container *ngIf="!success">
+                            <div class="contact-head text-center">
+                                <h2 class="contact-head__title">
+                                    Une question ? Une collaboration ?<br>
+                                    <span class="text-custom">Contactez-nous !</span>
+                                </h2>
+                                <div class="contact-head__chips">
+                                    <a class="contact-chip" href="mailto:contact@creatoke.fr">
+                                        <i class="ri-mail-line"></i> contact&#64;creatoke.fr
+                                    </a>
+                                    <span class="contact-chip">
+                                        <i class="ri-time-line"></i> Réponse sous 24 à 48 h
+                                    </span>
+                                </div>
                             </div>
-                            <div class="col-12 mb-4">
-                                <input type="email" class="form-control" formControlName="email" placeholder="E-mail">
-                            </div>
-                            <div class="col-12 mb-4">
-                                <input type="tel" class="form-control" formControlName="tel" placeholder="Téléphone">
-                            </div>
-                            <div class="col-12 mb-4">
-                                <textarea name="description" id="description" formControlName="message" cols="30"
-                                    rows="4" class="form-control" placeholder="Votre message..."></textarea>
-                            </div>
-                            <div class="col-12 mb-4">
-                                <re-captcha (resolved)="resolved($event)"></re-captcha>
-                            </div>
-                            <div class="col-12 mb-4" *ngIf="error">
-                                <div class="alert alert-danger">{{error}}</div>
-                            </div>
-                            <div class="col-12 mb-4" *ngIf="success">
-                                <div class="alert alert-success">{{success}}</div>
-                            </div>
-                            <div class="col-12 mb-4">
-                                <button [disabled]="!contactForm.valid || sending" class="btn btn-custom">
-                                    {{ sending ? 'Envoi en cours…' : 'Envoyer votre message' }}</button>
-                            </div>
-                        </form>
+
+                            <form class="row contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label" for="contact_name">Nom &amp; prénom *</label>
+                                    <input type="text" id="contact_name" formControlName="name" class="form-control"
+                                        placeholder="Jean Dupont" appValidation>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label" for="contact_email">E-mail *</label>
+                                    <input type="email" id="contact_email" class="form-control" formControlName="email"
+                                        placeholder="jean@exemple.fr" appValidation>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label" for="contact_tel">Téléphone *</label>
+                                    <input type="tel" id="contact_tel" class="form-control" formControlName="tel"
+                                        placeholder="0612345678" appValidation>
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <label class="form-label" for="description">Votre message *</label>
+                                    <textarea name="description" id="description" formControlName="message" cols="30"
+                                        rows="5" class="form-control" appValidation
+                                        placeholder="Parlez-nous de votre projet…"></textarea>
+                                    <div class="form-text text-end">
+                                        {{ contactForm.get('message')?.value?.length || 0 }} / 2000
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-4 d-flex justify-content-center">
+                                    <re-captcha (resolved)="resolved($event)"></re-captcha>
+                                </div>
+                                <div class="col-12 mb-2" *ngIf="error">
+                                    <div class="alert alert-danger">{{error}}</div>
+                                </div>
+                                <div class="col-12 text-center">
+                                    <button [disabled]="!contactForm.valid || sending" class="btn btn-send">
+                                        {{ sending ? 'Envoi en cours…' : 'Envoyer votre message' }}
+                                        <i class="ri-send-plane-fill" *ngIf="!sending"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </ng-container>
                     </div>
                 </div>
             </div>

@@ -276,23 +276,29 @@
 </div>
 <!-- End:: under hero -->
 
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ 'display': display }">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content custom">
+<div class="modal help-modal" tabindex="-1" role="dialog" [ngStyle]="{ 'display': display }"
+  (click)="onCloseHandled()">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document" (click)="$event.stopPropagation()">
+    <div class="modal-content help-modal__content">
       <div class="modal-header">
-        <h4 class="modal-title text-center w-100">Aide</h4>
-        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h4 class="modal-title"><i class="ri-spotify-fill"></i> Intégrer un titre Spotify</h4>
+        <button type="button" class="help-modal__close" aria-label="Fermer" (click)="onCloseHandled()">&times;</button>
       </div>
       <div class="modal-body">
-        <div class="col-sm-6 offset-sm-3">
-          <p>Récupérer tout ce qui a entre src=" ... " sans les guillemets</p>
-          <img src="./assets/images/spotify.png" alt="Image" style="width:500px;">
-        </div>
+        <ol class="help-modal__steps">
+          <li>Sur Spotify, faites un <strong>clic droit</strong> sur le titre → <strong>Partager</strong> →
+            <strong>Intégrer le titre</strong>.</li>
+          <li>Choisissez la taille <strong>compacte</strong>.</li>
+          <li>Copiez <strong>uniquement l'URL</strong> contenue dans <code>src="…"</code>, sans les guillemets.</li>
+          <li>Collez-la dans le champ « Lien d'intégration Spotify ».</li>
+        </ol>
+        <figure class="help-modal__figure">
+          <img src="./assets/images/spotify.png" alt="Exemple : l'URL à copier dans le code d'intégration Spotify">
+          <figcaption>L'URL à copier se trouve entre les guillemets de <code>src="…"</code></figcaption>
+        </figure>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-custom" (click)="onCloseHandled()">Fermer</button>
+        <button type="button" class="btn btn-custom" (click)="onCloseHandled()">J'ai compris</button>
       </div>
     </div>
   </div>
