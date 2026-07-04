@@ -1,0 +1,17 @@
+.actions {
+  white-space: nowrap;
+
+  .btn {
+    margin-bottom: 4px;
+  }
+}
+
+.history-row {
+  background-color: rgba(255, 255, 255, 0.03);
+
+  ul {
+    margin-bottom: 0;
+    padding-left: 20px;
+    list-style: disc;
+  }
+}

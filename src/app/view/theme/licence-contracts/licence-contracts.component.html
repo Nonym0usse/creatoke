@@ -1,0 +1,32 @@
+<div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
+
+<!-- Start:: under hero -->
+<div class="under-hero container">
+
+    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
+    <div class="section">
+        <div class="row">
+            <div class="col-xl-12 col-md-10 mx-auto">
+                <div class="card">
+                    <div class="legal-container">
+                        <div class="legal-title">Contrats de licence</div>
+
+                        <div class="legal-section-title">Contrat de licence — Format MP3</div>
+                        <div *ngIf="contractMp3; else emptyMp3" [innerHTML]="contractMp3"></div>
+                        <ng-template #emptyMp3>
+                            <p>Le contrat de licence MP3 sera bientôt disponible.</p>
+                        </ng-template>
+
+                        <div class="legal-section-title">Contrat de licence — Format WAV</div>
+                        <div *ngIf="contractWav; else emptyWav" [innerHTML]="contractWav"></div>
+                        <ng-template #emptyWav>
+                            <p>Le contrat de licence WAV sera bientôt disponible.</p>
+                        </ng-template>
+
+                        <p class="back"><a routerLink="/">Retour à l'accueil</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

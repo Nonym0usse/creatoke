@@ -1,0 +1,36 @@
+
+.legal-container {
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  line-height: 1.6;
+  color: #FFF;
+  .legal-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    
+  }
+
+  .legal-section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  .legal-subsection-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 20px;
+  }
+
+  ul {
+    padding-left: 20px;
+    list-style: disc;
+  }
+
+  .back {
+    margin-top: 30px;
+  }
+}

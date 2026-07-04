@@ -30,6 +30,9 @@ import { EditextComponent } from './editext/editext.component';
 import { CommentsAdminComponent } from "./comments-admin/comments-admin.component";
 import { BackgroundimageComponent } from "./backgroundimage/backgroundimage.component";
 import { AboutComponent } from './about/about.component';
+import { RgpdComponent } from './rgpd/rgpd.component';
+import { LicenceContractsComponent } from './licence-contracts/licence-contracts.component';
+import { ProspectsComponent } from './prospects/prospects.component';
 import { PublishVideoComponent } from './publish-video/publish-video.component';
 import { ModalComponent } from '../partials/modal/modal.component';
 
@@ -84,6 +87,14 @@ const routes: Routes = [
         component: AboutComponent
       },
       {
+        path: 'rgpd',
+        component: RgpdComponent
+      },
+      {
+        path: 'contrats-licence',
+        component: LicenceContractsComponent
+      },
+      {
         path: 'manage',
         component: ManageComponent,
         canActivate: [AuthGuard]
@@ -111,6 +122,11 @@ const routes: Routes = [
         path: 'publish-video',
         component: PublishVideoComponent,
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'prospects',
+        component: ProspectsComponent,
+        canActivate: [AuthGuard]
       }
     ]
   }
@@ -129,6 +145,9 @@ const routes: Routes = [
     AddSongComponent,
     MusicComponent,
     AboutComponent,
+    RgpdComponent,
+    LicenceContractsComponent,
+    ProspectsComponent,
     MusicViewComponent,
     ContactComponent,
     TextsComponent,

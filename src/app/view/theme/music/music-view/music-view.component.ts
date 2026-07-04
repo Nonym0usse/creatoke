@@ -175,6 +175,7 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
       month: month,
       titre_chanson: this.song.title,
       id_song: this.song.id,
+      licence_name: licence_name,
       songUrlDownload: songUrlDownload,
       date: this.getCurrentFormattedDate()
     }
@@ -217,7 +218,8 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
         actions.order.get().then(details => {
           const payer = details.payer;
           const email = payer.email_address;
-          const copyCustomerInfos = { ...formatDataForSelling, email_client: email }
+          const nomClient = [payer.name?.given_name, payer.name?.surname].filter(Boolean).join(' ');
+          const copyCustomerInfos = { ...formatDataForSelling, email_client: email, nom_client: nomClient }
 
           this.paypalService.createSale(copyCustomerInfos)
             .then((response) => {

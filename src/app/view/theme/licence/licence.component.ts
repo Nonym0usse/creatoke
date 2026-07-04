@@ -15,6 +15,8 @@ export class LicenceComponent implements OnInit {
   public Editor = ClassicEditor;
   public Editor2 = ClassicEditor;
   public Editor3 = ClassicEditor;
+  public Editor4 = ClassicEditor;
+  public Editor5 = ClassicEditor;
 
   public config = {
     language: 'fr',
@@ -23,6 +25,8 @@ export class LicenceComponent implements OnInit {
   public editorData: any;
   public editorData2: any;
   public editorData3: any;
+  public editorData4: any;
+  public editorData5: any;
   picturebackground: any;
 
   public data: any;
@@ -48,12 +52,22 @@ export class LicenceComponent implements OnInit {
     this.editorData3 = editor.data.get();
   }
 
+  public onChange4( { editor }: ChangeEvent ) {
+    this.editorData4 = editor.data.get();
+  }
+
+  public onChange5( { editor }: ChangeEvent ) {
+    this.editorData5 = editor.data.get();
+  }
+
   submit(){
     const licenceData = {
       id: this.data.id,
       basic: this.editorData,
       base_plus: this.editorData2,
       premium: this.editorData3,
+      contract_mp3: this.editorData4,
+      contract_wav: this.editorData5,
     }
     const entries = Object.entries(licenceData);
     const filteredEntries = entries.filter(([_key, value]) => value !== '' && value !== undefined);

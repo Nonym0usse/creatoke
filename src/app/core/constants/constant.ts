@@ -62,6 +62,18 @@ export class Constant {
       auth: false,
     },
     {
+      name: 'Contrats de licence',
+      icon: '<i class="ri-file-text-line fs-5"></i>',
+      link: '/contrats-licence',
+      auth: false,
+    },
+    {
+      name: 'Données personnelles (RGPD)',
+      icon: '<i class="ri-shield-user-line fs-5"></i>',
+      link: '/rgpd',
+      auth: false,
+    },
+    {
       head: 'Tableau de bord',
       auth: true,
 
@@ -88,6 +100,12 @@ export class Constant {
       name: 'Commentaires',
       icon: '<i class="ri-user-line fs-5"></i>',
       link: '/comments',
+      auth: true,
+    },
+    {
+      name: 'Contacts',
+      icon: '<i class="ri-contacts-line fs-5"></i>',
+      link: '/prospects',
       auth: true,
     },
     {
