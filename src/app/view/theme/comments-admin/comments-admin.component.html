@@ -23,6 +23,9 @@
           <td> <i class="ri-star-fill" style="color: gold" *ngFor="let i of getStarsArray(com.ratings)"></i></td>
           <td><button class="btn btn-light-danger" (click)="delete(com.id)">Supprimer</button></td>
         </tr>
+        <tr *ngIf="!comms.length">
+          <td colspan="4" class="text-center">Aucun commentaire pour le moment.</td>
+        </tr>
         </tbody>
       </table>
     </div>

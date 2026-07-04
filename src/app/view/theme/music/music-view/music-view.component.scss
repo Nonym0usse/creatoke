@@ -51,3 +51,20 @@
   -webkit-background-clip: text;
   color: transparent;
 }
+
+.payment-reassurance {
+  margin: 15px 0 0;
+  font-size: 13px;
+  opacity: 0.75;
+
+  i {
+    margin-right: 4px;
+    vertical-align: -1px;
+  }
+}
+
+.payment-processing {
+  p {
+    font-size: 14px;
+  }
+}

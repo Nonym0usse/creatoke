@@ -14,6 +14,7 @@ export class ContactComponent implements OnInit {
   recaptchaResponse: string = '';
   error: string | undefined;
   success: string | undefined;
+  sending = false;
   picturebackground: any;
 
   constructor(private fb: FormBuilder, private contactService: ContactService, private categoryService: CategoryService, private docTitle: Title) {
@@ -36,12 +37,20 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit(){
+    if (this.sending) return;
     if (this.recaptchaResponse) {
       this.error = "";
-      this.contactService.sendEmail(this.contactForm.value).then(() => this.success = "Merci votre message à été envoyé.").catch(() => {
-        this.error = "Une erreur s'est produite."
-        this.success = "";
-      })
+      this.sending = true;
+      this.contactService.sendEmail(this.contactForm.value)
+        .then(() => {
+          this.success = "Merci, votre message a été envoyé.";
+          this.contactForm.reset();
+        })
+        .catch(() => {
+          this.error = "Une erreur s'est produite."
+          this.success = "";
+        })
+        .finally(() => this.sending = false);
     }
     else{
       this.error = "Merci de valider le captcha";

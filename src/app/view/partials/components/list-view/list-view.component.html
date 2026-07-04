@@ -1,7 +1,7 @@
 
 <div class="list__item">
     <div class="list__cover">
-        <img [src]="data.image" [alt]="data.title">
+        <img [src]="data.image" [alt]="data.title" loading="lazy">
         <a (click)="play($event)" class="btn btn-play btn-sm btn-default btn-icon rounded-pill" *ngIf="viewPlayButton" aria-label="Play pause" [attr.data-play-id]="data.id">
             <i class="ri-play-fill icon-play"></i>
             <i class="ri-pause-fill icon-pause"></i>

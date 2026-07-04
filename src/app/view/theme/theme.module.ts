@@ -9,15 +9,12 @@ import { LayoutModule } from '../layout/layout.module';
 // Components
 import { ThemeComponent } from './theme.component';
 import { HomeComponent } from './home/home.component';
-import { SongComponent } from './song/song.component';
-import { SongDetailsComponent } from './song/song-details/song-details.component';
 import { AddSongComponent } from './song/add-song/add-song.component';
 import { AnalyticsComponent } from './user/analytics/analytics.component';
 import { MusicComponent } from './music/music.component';
 import { MusicViewComponent } from './music/music-view/music-view.component';
 import { ConfirmPurchaseComponent } from './confirm/confirm-purchase.component';
 import { ContactComponent } from './contact/contact.component';
-import { TextsComponent } from './texts/texts.component';
 import { ManageComponent } from './music/manage/manage.component';
 import { ModifyComponent } from './music/modify/modify.component';
 import { RecaptchaModule } from "ng-recaptcha";
@@ -71,11 +68,6 @@ const routes: Routes = [
       {
         path: 'comments',
         component: CommentsAdminComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'background',
-        component: BackgroundimageComponent,
         canActivate: [AuthGuard]
       },
       {
@@ -136,8 +128,6 @@ const routes: Routes = [
   declarations: [
     ThemeComponent,
     HomeComponent,
-    SongComponent,
-    SongDetailsComponent,
     ModifyComponent,
     ConfirmPurchaseComponent,
     AnalyticsComponent,
@@ -150,7 +140,6 @@ const routes: Routes = [
     ProspectsComponent,
     MusicViewComponent,
     ContactComponent,
-    TextsComponent,
     ManageComponent,
     EditextComponent,
     ModalComponent,

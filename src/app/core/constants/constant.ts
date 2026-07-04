@@ -128,64 +128,6 @@ export class Constant {
     }
   ];
 
-  public static AUTH_ERROR_MESSAGES_FR = {
-    'auth/invalid-email': 'Adresse e-mail invalide.',
-    'auth/user-disabled': 'L\'utilisateur est désactivé.',
-    'auth/user-not-found': 'L\'utilisateur n\'existe pas.',
-    'auth/wrong-password': 'Adresse e-mail ou mot de passe invalides.'
-  };
-
-
-  // Login user dropdown options
-  //
-  // Start: options array
-  public static options = [
-    {
-      name: 'Profile',
-      icon: '<i class="ri-user-3-line fs-5"></i>',
-      link: '/app/profile'
-    },
-    {
-      name: 'Favorites',
-      icon: '<i class="ri-heart-line fs-5"></i>',
-      link: '/app/favorites'
-    },
-    {
-      name: 'Settings',
-      icon: '<i class="ri-settings-line fs-5"></i>',
-      link: '/app/settings'
-    },
-    {
-      name: 'Plan',
-      icon: '<i class="ri-money-dollar-circle-line fs-5"></i>',
-      link: '/app/plan'
-    }
-  ];
- 
-  public static social = [
-    {
-      icon: '<i class="ri-facebook-fill fs-6"></i>',
-      link: '#'
-    },
-    {
-      icon: '<i class="ri-twitter-fill fs-6"></i>',
-      link: '#'
-    },
-    {
-      icon: '<i class="ri-instagram-fill fs-6"></i>',
-      link: '#'
-    },
-    {
-      icon: '<i class="ri-pinterest-fill fs-6"></i>',
-      link: '#'
-    },
-    {
-      icon: '<i class="ri-youtube-fill fs-6"></i>',
-      link: '#'
-    }
-  ];
-
-
   // Brand object
   public static BRAND = {
     name: 'Listen app',
@@ -193,21 +135,6 @@ export class Constant {
     logo: './assets/images/logos/logo.png',
     email: 'contact@creatoke.com'
   };
-
-
-  // Mobile app data
-  public static APP = [
-    {
-      name: 'Google Play',
-      icon: '<i class="ri-google-play-fill"></i>',
-      link: '#',
-    },
-    {
-      name: 'App Store',
-      icon: '<i class="ri-app-store-fill"></i>',
-      link: '#',
-    }
-  ];
 
 
   // Objects to view header & footer for landing and app pages.

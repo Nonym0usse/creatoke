@@ -27,11 +27,15 @@
               <div class="tab-pane fade show active" id="music_pane" role="tabpanel" aria-labelledby="music"
                 tabindex="0">
                 <form [formGroup]="musicForm" (ngSubmit)="addMusic()">
-                  <div class="col-12 mb-4" [hidden]="!musicForm.get('category')?.value">
-                    <input type="text" formControlName="title" class="form-control" placeholder="Titre de la chanson">
-                  </div>
+
+                  <p class="text-muted small mb-4">Les champs marqués d'un * sont obligatoires.</p>
+
+                  <hr>
+                  <h5>Informations</h5>
+                  <hr>
+
                   <div class="col-sm-12 mb-4">
-                    <label class="form-label">Dans quelle catégorie ?</label>
+                    <label class="form-label">Dans quelle catégorie ? *</label>
                     <select class="form-select" formControlName="category" aria-label="Select category">
                       <option value="" selected disabled hidden>Merci de choisir</option>
                       <option value="chansons-a-chanter">Publier dans les chansons à chanter</option>
@@ -44,154 +48,182 @@
                     </select>
                   </div>
 
-                  <div>
+                  <div [hidden]="!musicForm.get('category')?.value">
+
+                    <div class="col-12 mb-4">
+                      <label class="form-label" for="song_title">Titre de la chanson *</label>
+                      <input type="text" id="song_title" formControlName="title" class="form-control"
+                        placeholder="Titre de la chanson">
+                    </div>
+
+                    <div class="col-sm-12 mb-4">
+                      <label class="form-label">Artiste *</label>
+                      <input type="text" class="form-control" formControlName="artist" placeholder="Artiste">
+                    </div>
+
                     <div class="col-sm-12 mb-4">
                       <label class="form-label">Votre chanson est une exclusivité</label>
-                      <select class="form-select" formControlName="exclu" aria-label="Select exclusivité"
-                        [(ngModel)]='isExclu'>
+                      <select class="form-select" formControlName="exclu" aria-label="Select exclusivité">
                         <option value="non">Non</option>
                         <option value="oui">Oui</option>
                       </select>
                     </div>
 
                     <div class="col-sm-12 mb-4">
-                      <label class="form-label">Est-elle un coup de coeur?</label>
-                      <select class="form-select" formControlName="isHeartStroke" aria-label="Select exclusivité"
-                        [(ngModel)]='isHeartStroke'>
+                      <label class="form-label">Est-elle un coup de coeur ?</label>
+                      <select class="form-select" formControlName="isHeartStroke" aria-label="Select coup de coeur">
                         <option value="non">Non</option>
                         <option value="oui">Oui</option>
                       </select>
                     </div>
 
-                    <div class="col-12 mb-4" [hidden]="musicForm.get('exclu')?.value === 'oui'">
-                      <label for="song_file_1" class="form-label">Chanson (player client web) .mp3</label>
-                      <input type="file" id="song_file_1" class="form-control" (change)="onFileSelected($event, 'url')"
-                        multiple>
-                      <div class="progress" [hidden]="progress['url'] === undefined">
-                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['url']"
-                          [attr.aria-valuenow]="progress['url']" aria-valuemin="0" aria-valuemax="100">
-                          {{ progress['url'] }}%
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-12 mb-4"
-                      [hidden]="musicForm.get('category')?.value === 'instrumentaux' || musicForm.get('category')?.value === 'musique-de-contenus' || musicForm.get('category')?.value === 'virgules-sonores'">
-                      <label for="song_file_4" class="form-label">Creatoke (player client)</label>
-                      <input type="file" id="song_file_4" class="form-control"
-                        (change)="onFileSelected($event, 'creatoke')" multiple>
-                      <div class="progress" [hidden]="progress['creatoke'] === undefined">
-                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke']"
-                          [attr.aria-valuenow]="progress['creatoke']" aria-valuemin="0" aria-valuemax="100">
-                          {{ progress['creatoke'] }}%
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-12 mb-4">
-                      <label for="song_file_10" class="form-label">Chanson au format wav
-                        (téléchargement)</label>
-                      <input type="file" id="song_file_10" class="form-control"
-                        (change)="onFileSelected($event, 'chanson_wav')" multiple>
-                      <div class="progress" [hidden]="progress['chanson_wav'] === undefined">
-                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['chanson_wav']"
-                          [attr.aria-valuenow]="progress['chanson_wav']" aria-valuemin="0" aria-valuemax="100">
-                          {{ progress['chanson_wav'] }}%
-                        </div>
-                      </div>
-                    </div>
+                    <hr>
+                    <h5>Fichiers audio</h5>
+                    <hr>
 
-                    <div class="col-12 mb-4"
-                      [hidden]="musicForm.get('category')?.value === 'instrumentaux' || musicForm.get('category')?.value === 'musique-de-contenus' || musicForm.get('category')?.value === 'virgules-sonores'">
-                      <label for="song_file_5" class="form-label">Creatoke au format wav
-                        (téléchargement)</label>
-                      <input type="file" id="song_file_5" class="form-control"
-                        (change)="onFileSelected($event, 'creatoke_wav')" multiple>
-                      <div class="progress" [hidden]="progress['creatoke_wav'] === undefined">
-                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke_wav']"
-                          [attr.aria-valuenow]="progress['creatoke_wav']" aria-valuemin="0" aria-valuemax="100">
-                          {{ progress['creatoke_wav'] }}%
-                        </div>
-                      </div>
-                    </div>
+                    <ng-container *ngFor="let block of mediaBlocks; trackBy: trackByBlock">
+                      <div class="media-block" *ngIf="showBlock(block)">
 
-                    <div class="col-12 mb-4" [hidden]="musicForm.get('exclu')?.value === 'oui'">
-                      <label for="song_file_19" class="form-label">Chanson au format mp3
-                        (téléchargement)</label>
-                      <input type="file" id="song_file_19" class="form-control"
-                        (change)="onFileSelected($event, 'chanson_mp3')" multiple>
-                      <div class="progress" [hidden]="progress['chanson_mp3'] === undefined">
-                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['chanson_mp3']"
-                          [attr.aria-valuenow]="progress['chanson_mp3']" aria-valuemin="0" aria-valuemax="100">
-                          {{ progress['chanson_mp3'] }}%
+                        <div class="media-block__row">
+                          <div class="media-block__icon">
+                            <i class="ri-music-2-line"></i>
+                          </div>
+                          <div class="media-block__infos">
+                            <div class="media-block__title">{{ block.label }}</div>
+                            <div class="media-block__filename" *ngIf="fileNames[block.key]"
+                              [title]="fileNames[block.key]">
+                              {{ fileNames[block.key] }}
+                            </div>
+                            <div class="media-block__filename media-block__filename--empty"
+                              *ngIf="!fileNames[block.key]">
+                              Aucun fichier
+                            </div>
+                          </div>
+                          <div class="media-block__actions" *ngIf="downloadUrls[block.key]">
+                            <button type="button" class="btn btn-sm"
+                              [class.btn-primary]="!playingMap[block.key]"
+                              [class.btn-danger]="playingMap[block.key]"
+                              (click)="togglePlay(block.key)">
+                              <i class="ri-play-fill" *ngIf="!playingMap[block.key]"></i>
+                              <i class="ri-stop-fill" *ngIf="playingMap[block.key]"></i>
+                              {{ playingMap[block.key] ? 'Arrêter' : 'Écouter' }}
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="col-12 mb-4"
-                      [hidden]="musicForm.get('category')?.value === 'instrumentaux' || musicForm.get('category')?.value === 'musique-de-contenus' || musicForm.get('category')?.value === 'virgules-sonores'">
-                      <label for="song_file_5" class="form-label">Creatoke au format mp3
-                        (téléchargement)</label>
-                      <input type="file" id="song_file_11" class="form-control"
-                        (change)="onFileSelected($event, 'creatoke_mp3')" multiple>
-                      <div class="progress" [hidden]="progress['creatoke_mp3'] === undefined">
-                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['creatoke_mp3']"
-                          [attr.aria-valuenow]="progress['creatoke_mp3']" aria-valuemin="0" aria-valuemax="100">
-                          {{ progress['creatoke_mp3'] }}%
+
+                        <div class="media-block__upload">
+                          <label class="form-label" [for]="'song_file_' + block.key">Choisir le fichier</label>
+                          <input type="file" class="form-control form-control-sm" [id]="'song_file_' + block.key"
+                            [attr.accept]="block.accept" (change)="onFileSelected($event, block.key)">
                         </div>
+
+                        <div class="progress media-block__progress"
+                          *ngIf="progress[block.key] !== undefined && !downloadUrls[block.key]">
+                          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            [style.width.%]="progress[block.key]"
+                            [attr.aria-valuenow]="progress[block.key]" aria-valuemin="0" aria-valuemax="100">
+                            {{ progress[block.key] }}%
+                          </div>
+                        </div>
+                        <p class="media-block__success" *ngIf="downloadUrls[block.key]">
+                          <i class="ri-checkbox-circle-fill"></i>
+                          Fichier envoyé.
+                        </p>
+
                       </div>
-                    </div>
+                    </ng-container>
 
-                    <div class="col-12 mb-4">
-                      <label for="img" class="form-label">Image</label>
-                      <div class="d-flex gap-2">
-                        <input type="file" id="img" class="form-control" (change)="onFileSelected($event, 'image')"
-                          multiple>
+                    <hr>
+                    <h5>Image de la chanson</h5>
+                    <hr>
 
-                        <button type="button" class="btn btn-custom" (click)="generateContentWithIA('image')">
-                          I.A
-                        </button>
+                    <div class="media-block">
+                      <div class="media-block__row">
+                        <div class="media-block__icon" *ngIf="!downloadUrls['image']">
+                          <i class="ri-image-line"></i>
+                        </div>
+                        <img class="media-block__thumb" *ngIf="downloadUrls['image']" [src]="downloadUrls['image']"
+                          alt="Aperçu de l'image">
+                        <div class="media-block__infos">
+                          <div class="media-block__title">Image de couverture</div>
+                          <div class="media-block__filename" *ngIf="fileNames['image']" [title]="fileNames['image']">
+                            {{ fileNames['image'] }}
+                          </div>
+                          <div class="media-block__filename media-block__filename--empty" *ngIf="!fileNames['image']">
+                            Aucune image — une image par défaut sera utilisée
+                          </div>
+                        </div>
+                        <div class="media-block__actions">
+                          <button type="button" class="btn btn-sm btn-custom"
+                            (click)="generateContentWithIA('image')">
+                            ✨ Générer avec l'IA
+                          </button>
+                        </div>
                       </div>
 
-                      <div class="progress mt-2" [hidden]="progress['image'] === undefined">
-                        <div class="progress-bar" role="progressbar" [style.width.%]="progress['image']"
+                      <div class="media-block__upload">
+                        <label class="form-label" for="img">Choisir une image</label>
+                        <input type="file" id="img" class="form-control form-control-sm" accept="image/*"
+                          (change)="onFileSelected($event, 'image')">
+                      </div>
+
+                      <div class="progress media-block__progress"
+                        *ngIf="progress['image'] !== undefined && !downloadUrls['image']">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                          [style.width.%]="progress['image']"
                           [attr.aria-valuenow]="progress['image']" aria-valuemin="0" aria-valuemax="100">
                           {{ progress['image'] }}%
                         </div>
                       </div>
+                      <p class="media-block__success" *ngIf="downloadUrls['image']">
+                        <i class="ri-checkbox-circle-fill"></i>
+                        Image envoyée.
+                      </p>
+                    </div>
+
+                    <hr>
+                    <h5>Liens externes</h5>
+                    <hr>
+
+                    <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value === 'oui'">
+                      <label class="form-label">Identifiant YouTube</label>
+                      <input type="text" class="form-control" formControlName="youtubeURL"
+                        placeholder="Ex : Aq1NJxJZo6E">
+                      <div class="form-text">
+                        Pour https://www.youtube.com/watch?v=<strong>Aq1NJxJZo6E</strong>, saisir uniquement
+                        <strong>Aq1NJxJZo6E</strong>.
+                      </div>
                     </div>
 
                     <div class="col-sm-12 mb-4">
-                      <label class="form-label">Artiste</label>
-                      <input type="text" class="form-control" formControlName="artist" placeholder="Artiste">
-                    </div>
-                    <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value === 'oui'">
-                      <label class="form-label">Youtube</label>
-                      <input type="text" class="form-control" formControlName="youtubeURL"
-                        placeholder="Youtube URL ex: (https://www.youtube.com/watch?v=Aq1NJxJZo6E) -> Mettre uniquement 'Aq1NJxJZo6E' ici ">
-                    </div>
-                    <div class="col-sm-12 mb-4">
-                      <button type="button" (click)="openModal()" class="btn btn-custom w-10"
-                        style="margin-bottom: 20px; margin-right: 10px;">Aide</button>
-                      <label class="form-label">Spotify (Click droit sur le titre Spotify -> Partager -> Intégrer le
-                        titre
-                        -> Choisir taille compacte -> <span style="color: red">Copier url dans SRC=""
-                          (uniquement)</span>
-                        -> Coller sur creatoke)</label>
+                      <label class="form-label">Lien d'intégration Spotify</label>
                       <input type="text" class="form-control" formControlName="spotifyURL"
-                        placeholder="Exemple : https://open.spotify.com/embed/track/6yqwxY8qifBBhyryjZutxk?utm_source=generator">
+                        placeholder="https://open.spotify.com/embed/track/…">
+                      <div class="form-text">
+                        Clic droit sur le titre Spotify → Partager → Intégrer le titre → taille compacte →
+                        copier uniquement l'URL contenue dans <code>src=""</code>.
+                        <button type="button" (click)="openModal()" class="btn btn-sm btn-outline-secondary ms-2">
+                          Voir l'exemple
+                        </button>
+                      </div>
                     </div>
+
+                    <hr>
+                    <h5>Contenus</h5>
+                    <hr>
 
                     <div class="col-12 mb-4">
                       <div class="d-flex justify-content-between align-items-center">
-                        <label class="form-label mb-0">Description</label>
+                        <label class="form-label mb-0">Description *</label>
 
                         <button type="button" class="btn btn-sm btn-custom"
                           (click)="generateContentWithIA('description')">
-                          I.A
+                          ✨ Générer avec l'IA
                         </button>
                       </div>
 
                       <textarea name="description" id="description" formControlName="description" rows="4"
-                        class="form-control mt-2" placeholder="Description">
-  </textarea>
+                        class="form-control mt-2" placeholder="Description"></textarea>
                     </div>
 
                     <div class="col-12 mb-4"
@@ -201,7 +233,7 @@
                         <label class="form-label">Lyrics</label>
                         <button type="button" class="btn btn-sm btn-custom mb-2"
                           (click)="generateContentWithIA('lyrics')">
-                          I.A
+                          ✨ Générer avec l'IA
                         </button>
                       </div>
 
@@ -227,8 +259,7 @@
                       <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value === 'oui'">
                         <label class="form-label">Afficher licence de base - <span style="color: green">chanson</span>
                         </label>
-                        <select class="form-select" formControlName="isLicenceBase" aria-label="Select licence base"
-                          [(ngModel)]='isLicenceBase'>
+                        <select class="form-select" formControlName="isLicenceBase" aria-label="Select licence base">
                           <option value="non">Non</option>
                           <option value="oui">Oui</option>
                         </select>
@@ -249,8 +280,7 @@
                       <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value === 'oui'">
                         <label class="form-label">Afficher licence premium - <span
                             style="color: green">chanson</span></label>
-                        <select class="form-select" formControlName="isPremium" aria-label="Select licence premium"
-                          [(ngModel)]='isPremium'>
+                        <select class="form-select" formControlName="isPremium" aria-label="Select licence premium">
                           <option value="non">Non</option>
                           <option value="oui">Oui</option>
                         </select>
@@ -263,7 +293,7 @@
                           <span class="input-group-text">
                             <i class="ri-money-euro-circle-line"></i>
                           </span>
-                          <input type="number" formControlName="price_premium_creatoke" class="form-control"
+                          <input type="number" formControlName="price_premium" class="form-control"
                             placeholder="Prix licence premium - chanson">
                         </div>
                       </div>
@@ -280,7 +310,7 @@
                         <label class="form-label">Afficher licence de base <span
                             style="color: red">créatoké</span></label>
                         <select class="form-select" formControlName="isLicenceBaseCreatoke"
-                          aria-label="Select licence base" [(ngModel)]='isLicenceBaseCreatoke'>
+                          aria-label="Select licence base">
                           <option value="non">Non</option>
                           <option value="oui">Oui</option>
                         </select>
@@ -301,7 +331,7 @@
                         <label class="form-label">Afficher licence premium - <span
                             style="color: red">créatoké</span></label>
                         <select class="form-select" formControlName="isPremiumCreatoke"
-                          aria-label="Select licence premium" [(ngModel)]='isPremiumCreatoke'>
+                          aria-label="Select licence premium">
                           <option value="non">Non</option>
                           <option value="oui">Oui</option>
                         </select>
@@ -321,8 +351,14 @@
                   </div>
 
                   <div class="col-sm-12 mb-4">
-                    <button class="btn btn-custom" style="min-width: 140px;" type="submit" [disabled]="!musicForm.valid">Enregistrer</button>
-                    <a href="/" class="btn btn-outline-secondary ms-2">Annuler</a>
+                    <button class="btn btn-custom" style="min-width: 140px;" type="submit"
+                      [disabled]="!musicForm.valid || isLoading || activeUploads > 0">
+                      {{ activeUploads > 0 ? 'Envoi des fichiers…' : (isLoading ? 'Enregistrement…' : 'Enregistrer') }}
+                    </button>
+                    <a routerLink="/manage" class="btn btn-outline-secondary ms-2">Annuler</a>
+                    <div class="form-text mt-2" *ngIf="activeUploads > 0">
+                      Merci de patienter : l'envoi des fichiers doit se terminer avant l'enregistrement.
+                    </div>
                   </div>
                 </form>
               </div>
@@ -339,7 +375,7 @@
     <div class="modal-content custom">
       <div class="modal-header">
         <h4 class="modal-title text-center w-100">Aide</h4>
-        <button type="btn btn-custom" class="close" aria-label="Close" (click)="onCloseHandled()"><span
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span
             aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
@@ -386,7 +422,7 @@
 
 <div class="fullscreen-loader" *ngIf="isLoading">
   <div class="ai-loader">
-    <p>Chargement ...</p>
+    <p>Traitement en cours…</p>
     <div class="dots">
       <span></span>
       <span></span>

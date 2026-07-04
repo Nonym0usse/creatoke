@@ -26,8 +26,11 @@ export class ManageComponent implements OnInit {
         this.router.navigate(['/modify-song', id]);
     }
 
-    delete(id: string, name: string) {
-      this.musicService.deleteSong(id, name);
+    async delete(id: string, name: string) {
+      if (!confirm(`Supprimer définitivement la chanson « ${name} » ?`)) return;
+      await this.musicService.deleteSong(id, name);
+      // Retire la ligne du tableau sans attendre un rechargement.
+      this.songs = this.songs.filter((song: any) => song.id !== id);
       const objectsString = localStorage.getItem('songs');
       const arrayOfObjects: any[] = JSON.parse(objectsString || '[]') || [];
       const indexToDelete = arrayOfObjects.findIndex((obj) => obj.id === id);

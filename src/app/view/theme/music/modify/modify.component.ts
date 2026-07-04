@@ -1,7 +1,8 @@
 // modify.component.ts (refactor complet)
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Title } from "@angular/platform-browser";
 import { AngularFireStorage, AngularFireUploadTask } from "@angular/fire/compat/storage";
 import { finalize, Subject, takeUntil } from "rxjs";
 
@@ -55,6 +56,10 @@ export class ModifyComponent implements OnInit, OnDestroy {
   playingMap: Record<string, boolean> = {};
 
   isLoading = false;
+
+  // Uploads en cours : bloque l'enregistrement tant qu'un fichier n'est pas
+  // complètement envoyé (sinon l'ancienne URL serait sauvegardée).
+  activeUploads = 0;
 
 
   // Options category (utilisées en HTML)
@@ -112,10 +117,12 @@ export class ModifyComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private categoryService: CategoryService,
     private songService: SongService,
     private activatedRoute: ActivatedRoute,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private docTitle: Title
   ) {
     this.musicForm = this.fb.group({
       title: ["", Validators.required],
@@ -154,6 +161,7 @@ export class ModifyComponent implements OnInit, OnDestroy {
 
     // background
     this.getBackground();
+    this.docTitle.setTitle('Créatoke | Modifier une chanson');
   }
 
   ngOnDestroy(): void {
@@ -217,7 +225,8 @@ export class ModifyComponent implements OnInit, OnDestroy {
 
     if (!this.song || Object.keys(this.song).length === 0) {
       alert("Chanson non trouvée");
-      window.location.href = "/manage";
+      this.router.navigate(["/manage"]);
+      return;
     }
 
     this.musicForm.patchValue({
@@ -306,6 +315,15 @@ export class ModifyComponent implements OnInit, OnDestroy {
     this.playingMap[key] = false;
   }
 
+  // Un seul bouton lecture/arrêt par bloc.
+  togglePlay(key: UploadKey) {
+    if (this.playingMap[key]) {
+      this.stopSong(key);
+    } else {
+      this.playSong(key, this.getMediaUrl(key));
+    }
+  }
+
   // ------------ Upload ------------
   onFileSelected(event: Event, fileType: UploadKey) {
     const input = event.target as HTMLInputElement;
@@ -331,6 +349,7 @@ export class ModifyComponent implements OnInit, OnDestroy {
     const task: AngularFireUploadTask = this.storage.upload(filePath, file);
 
     this.progress[fileType] = 0;
+    this.activeUploads++;
     task
       .percentageChanges()
       .pipe(takeUntil(this.destroy$))
@@ -346,8 +365,17 @@ export class ModifyComponent implements OnInit, OnDestroy {
           fileRef
             .getDownloadURL()
             .pipe(takeUntil(this.destroy$))
-            .subscribe((url: string) => {
-              this.downloadUrls[fileType] = url;
+            .subscribe({
+              next: (url: string) => {
+                this.downloadUrls[fileType] = url;
+                this.activeUploads--;
+              },
+              error: (err) => {
+                console.error('Upload error:', err);
+                this.activeUploads--;
+                delete this.progress[fileType];
+                alert("L'envoi du fichier a échoué. Merci de réessayer.");
+              },
             });
         })
       )
@@ -390,8 +418,11 @@ export class ModifyComponent implements OnInit, OnDestroy {
 
     try {
       await this.songService.modifySong(payload);
+      alert('Chanson modifiée avec succès.');
+      this.router.navigate(['/manage']);
     } catch (error) {
       console.error('Error modifying song:', error);
+      alert('Erreur lors de la modification de la chanson. Merci de réessayer.');
     } finally {
       this.isLoading = false;
     }

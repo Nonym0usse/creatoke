@@ -1,0 +1,6 @@
+{
+  // Utiliser le TypeScript du projet (4.6, requis par Angular 13) plutôt que
+  // celui de VS Code (6.x), qui signale à tort des options dépréciées dans tsconfig.json.
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}

@@ -42,6 +42,21 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
   imgLoading = true;
   isModalOpen = false;
   copied = false;
+  pageLoading = true;
+  loadError = false;
+  // Paiement validé côté PayPal, création de la vente en cours :
+  // on l'affiche à l'acheteur et on bloque la fermeture de la modale.
+  paymentProcessing = false;
+  categoryLabel = '';
+
+  private readonly CATEGORY_LABELS: Record<string, string> = {
+    'chansons-a-chanter': 'Chansons à chanter',
+    'creacourcis': 'Créacourcis',
+    'virgules-sonores': 'Virgules sonores',
+    'instrumentaux': 'Instrumentaux',
+    'musique-de-contenus': 'Musique de contenus',
+    'chansons-cherche-auteur': 'Chanson(s) cherche auteur',
+  };
   private destroy$ = new Subject<void>();
   private promoTriggeredForUrl = new Set<string>();
 
@@ -215,6 +230,7 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
         layout: "vertical"
       },
       onApprove: (data, actions) => {
+        this.paymentProcessing = true;
         actions.order.get().then(details => {
           const payer = details.payer;
           const email = payer.email_address;
@@ -223,18 +239,19 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
 
           this.paypalService.createSale(copyCustomerInfos)
             .then((response) => {
-              if (response.status === 200) {
-                if (response.data?.songUrlDownload) {
-                  this.router.navigate(['/confirm-purchase'], { state: { songUrlDownload: response.data.songUrlDownload, songName: this.song.title } });
-                } else {
-                  console.error('songUrlDownload is undefined!');
-                }
+              if (response.status === 200 && response.data?.songUrlDownload) {
+                this.router.navigate(['/confirm-purchase'], { state: { songUrlDownload: response.data.songUrlDownload, songName: this.song.title } });
               } else {
-                alert('Une erreur est survenue lors de l\'approbation de la transaction.');
+                console.error('songUrlDownload is undefined!');
+                alert('Votre paiement a bien été reçu, mais un problème technique est survenu lors de la préparation de votre téléchargement. Contactez-nous à contact@creatoke.fr en indiquant votre email PayPal : nous vous enverrons votre musique au plus vite.');
               }
             })
             .catch((error) => {
               console.error('PayPal Sale Error:', error);
+              alert('Votre paiement a bien été reçu, mais un problème technique est survenu lors de la préparation de votre téléchargement. Contactez-nous à contact@creatoke.fr en indiquant votre email PayPal : nous vous enverrons votre musique au plus vite.');
+            })
+            .finally(() => {
+              this.paymentProcessing = false;
             });
         });
       },
@@ -255,6 +272,8 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   closePaypalModal() {
+    // Ne pas fermer pendant la finalisation : l'acheteur a déjà payé.
+    if (this.paymentProcessing) return;
     this.isModalOpen = false;
   }
 
@@ -290,14 +309,26 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
    * @param slug
    */
   getSongs(slug: string): void {
+    this.pageLoading = true;
+    this.loadError = false;
     this.songService.getSongBySlug(slug).then(response => {
       this.song = response.data;
+      if (!this.song || Object.keys(this.song).length === 0) {
+        this.loadError = true;
+        return;
+      }
       this.getParams(this.song.category || "");
+      this.categoryLabel = this.CATEGORY_LABELS[this.song.category || ''] ?? (this.song.category || '');
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.song?.youtubeURL}`);
       this.sanitizeHtml(this.song.spotifyURL);
       this.audioElement = new Audio(this.song?.creatoke ?? "");
       this.checkPromoteAndOpenCalendly(this.song.title || "");
       this.title.setTitle(`Créatoke | ${this.song.title || ''}`);
+    }).catch((error) => {
+      console.error('getSongBySlug error:', error);
+      this.loadError = true;
+    }).finally(() => {
+      this.pageLoading = false;
     });
   }
 
@@ -354,7 +385,7 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
       this.audioElement.pause();
       this.isPlaying = false;
     } else {
-      this.audioElement.play();
+      this.audioElement.play().catch(() => this.isPlaying = false);
       this.isPlaying = true;
     }
 

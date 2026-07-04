@@ -2,7 +2,22 @@
 
 <div class="under-hero container">
 
-    <div class="section">
+    <!-- Chargement de la chanson -->
+    <div class="section text-center py-5" *ngIf="pageLoading">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Chargement…</span>
+        </div>
+    </div>
+
+    <!-- Chanson introuvable / erreur -->
+    <div class="section" *ngIf="!pageLoading && loadError">
+        <div class="alert alert-custom">
+            Cette chanson est introuvable ou n'est plus disponible.
+        </div>
+        <a routerLink="/" class="btn btn-custom">Retour à l'accueil</a>
+    </div>
+
+    <div class="section" *ngIf="!pageLoading && !loadError">
         <div class="row">
             <div class="col-xl-3 col-md-4">
                 <div class="cover cover--round">
@@ -21,12 +36,7 @@
                             {{song?.exclu === 'oui' ? ' (Exclusivité plateforme)' : '' }}</span></span>
                 </div>
                 <ul class="info-list info-list--dotted mb-3">
-                    <li *ngIf="song?.category">
-                        <ng-container *ngFor="let cat of song?.category; last as isLast">
-                            {{cat}}{{!isLast ? ', ' : ''}}
-                        </ng-container>
-                    </li>
-
+                    <li *ngIf="categoryLabel">{{ categoryLabel }}</li>
                 </ul>
                 <div class="mb-4">
                     <p class="mb-2">Interprète:
@@ -104,7 +114,7 @@
             </div>
         </div>
     </div>
-    <div class="section">
+    <div class="section" *ngIf="!pageLoading && !loadError">
         <div *ngIf="(song?.spotifyURL ?? '').trim() !== '' && song?.spotifyURL !== 'vide'">
             <div class="section__head">
                 <h3 class="mb-0">Spotify</h3>
@@ -288,7 +298,8 @@
                                     (click)="openPaypalModal(song.price_premium_creatoke, 'price_premium_creatoke', song.title)"
                                     class="btn btn-custom w-100">Choisir</button>
 
-                                <button type="button" class="btn btn-custom w-100" *ngIf="song?.price_premium === 0"
+                                <button type="button" class="btn btn-custom w-100"
+                                    *ngIf="song?.price_premium_creatoke === 0"
                                     (click)="downloadSong(song?.creatoke_wav + '.wav')">Télécharger en Wav</button>
                             </div>
                         </div>
@@ -320,11 +331,27 @@
 
     </div>
 
-    <app-modal [(open)]="isModalOpen" title="Paiement sécurisé avec PayPal" [showFooter]="false">
+    <app-modal [(open)]="isModalOpen" title="Paiement sécurisé avec PayPal" [showFooter]="false"
+        [closeOnBackdrop]="!paymentProcessing" [closeOnEsc]="!paymentProcessing"
+        [showCloseBtn]="!paymentProcessing">
         <div class="modal-body">
-            <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+            <div [hidden]="paymentProcessing">
+                <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                <p class="payment-reassurance">
+                    <i class="ri-lock-line"></i>
+                    Paiement sécurisé par PayPal. Après validation, votre téléchargement démarre immédiatement
+                    et vous recevez par email votre lien ainsi que votre facture.
+                </p>
+            </div>
+            <div class="payment-processing text-center py-4" *ngIf="paymentProcessing">
+                <div class="spinner-border mb-3" role="status">
+                    <span class="visually-hidden">Traitement…</span>
+                </div>
+                <p class="mb-1 fw-semi-bold">Paiement validé ✅</p>
+                <p class="mb-0">Préparation de votre téléchargement, merci de ne pas fermer cette fenêtre…</p>
+            </div>
         </div>
-        <div class="d-flex justify-content-end mt-3">
+        <div class="d-flex justify-content-end mt-3" [hidden]="paymentProcessing">
             <button type="button" class="btn btn-custom" (click)="closePaypalModal()">Fermer</button>
         </div>
     </app-modal>

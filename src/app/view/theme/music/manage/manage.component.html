@@ -23,6 +23,9 @@
                       <td><button class="btn btn-light-primary" (click)="modify(song.slug)">Modifier</button></td>
                         <td><button class="btn btn-light-danger" (click)="delete(song.id, song.title)">Supprimer</button></td>
                     </tr>
+                    <tr *ngIf="!songs.length">
+                        <td colspan="4" class="text-center">Aucune chanson pour le moment.</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

@@ -38,8 +38,8 @@
                                 <div class="alert alert-success">{{success}}</div>
                             </div>
                             <div class="col-12 mb-4">
-                                <button [disabled]="!contactForm.valid" class="btn btn-custom">Envoyer votre
-                                    message</button>
+                                <button [disabled]="!contactForm.valid || sending" class="btn btn-custom">
+                                    {{ sending ? 'Envoi en cours…' : 'Envoyer votre message' }}</button>
                             </div>
                         </form>
                     </div>

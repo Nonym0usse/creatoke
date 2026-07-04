@@ -1,10 +1,24 @@
 <div class="container">
     <h2 style="color: white;">Confirmation d'achat</h2>
-  
-    <p *ngIf="songUrlDownload">Votre achat a été confirmé. Vous pouvez télécharger votre chanson ci-dessous :</p>
-    <p *ngIf="!songUrlDownload" class="error">Aucun lien de téléchargement disponible.</p>
-  
-    <button *ngIf="songUrlDownload" (click)="downloadFile()" class="download-btn">
-      📥 Télécharger
-    </button>
+
+    <ng-container *ngIf="songUrlDownload">
+      <p>Votre achat a été confirmé. Vous pouvez télécharger votre chanson ci-dessous :</p>
+      <button (click)="downloadFile()" [disabled]="downloading" class="download-btn">
+        {{ downloading ? 'Téléchargement en cours…' : '📥 Télécharger' }}
+      </button>
+      <p *ngIf="downloadError" class="error">
+        Le téléchargement a échoué. Réessayez dans quelques instants — votre lien de téléchargement et votre
+        facture vous ont également été envoyés par email.
+      </p>
+      <p class="hint">Un email contenant votre lien de téléchargement et votre facture vous a été envoyé.</p>
+    </ng-container>
+
+    <ng-container *ngIf="!songUrlDownload">
+      <p class="error">Aucun lien de téléchargement disponible sur cette page.</p>
+      <p>
+        Pas d'inquiétude : si votre achat a bien été effectué, un email contenant votre lien de téléchargement
+        et votre facture vous a été envoyé. Sinon, contactez-nous à
+        <a href="mailto:contact@creatoke.fr">contact&#64;creatoke.fr</a> en indiquant votre email PayPal.
+      </p>
+    </ng-container>
   </div>

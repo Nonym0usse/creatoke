@@ -21,7 +21,12 @@ export class CommentsAdminComponent implements OnInit {
   }
 
   delete(id){
-    this.commentService.deleteComment(id).then(() => alert('Commentaire supprimé'))
+    if (!confirm('Supprimer définitivement ce commentaire ?')) return;
+    this.commentService.deleteComment(id)
+      .then(() => {
+        this.comms = this.comms.filter((comment: any) => comment.id !== id);
+      })
+      .catch(() => alert('Erreur lors de la suppression du commentaire.'));
   }
 
   // Inside your component class

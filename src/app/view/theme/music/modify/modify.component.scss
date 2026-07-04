@@ -1,3 +1,103 @@
+// --- Blocs fichiers audio (player + upload) ---
+.media-block {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: border-color 0.15s ease;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__icon {
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+
+    i {
+      font-size: 20px;
+    }
+  }
+
+  &__infos {
+    flex: 1 1 auto;
+    min-width: 0; // permet l'ellipsis
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__filename {
+    display: inline-block;
+    max-width: 100%;
+    margin-top: 5px;
+    padding: 3px 12px;
+    border-radius: 20px;
+    background: rgba(108, 92, 231, 0.22);
+    border: 1px solid rgba(108, 92, 231, 0.45);
+    color: #fff;
+    font-size: 13.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__filename--empty {
+    font-style: italic;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  &__actions {
+    flex: 0 0 auto;
+
+    .btn {
+      min-width: 100px;
+    }
+  }
+
+  &__upload {
+    margin-top: 12px;
+
+    .form-label {
+      font-size: 13px;
+      margin-bottom: 4px;
+      opacity: 0.7;
+    }
+  }
+
+  &__progress {
+    margin-top: 10px;
+    height: 10px;
+  }
+
+  &__success {
+    margin: 10px 0 0;
+    font-size: 13px;
+    color: #2ecc71;
+
+    i {
+      margin-right: 4px;
+      vertical-align: -1px;
+    }
+  }
+}
+
 .fullscreen-loader {
   position: fixed;
   inset: 0;

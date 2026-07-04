@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import axios from 'axios';
-import { ApiConstant } from 'src/app/core/constants/api-constant';
+import { LicenceService } from 'src/app/core/services/api/licence.service';
 import { CategoryService } from 'src/app/core/services/api/category.service';
 
 @Component({
@@ -14,7 +13,11 @@ export class LicenceContractsComponent implements OnInit {
     contractMp3: string | undefined;
     contractWav: string | undefined;
 
-    constructor(private categoryService: CategoryService, private docTitle: Title) { }
+    constructor(
+        private licenceService: LicenceService,
+        private categoryService: CategoryService,
+        private docTitle: Title
+    ) { }
 
     ngOnInit() {
         this.getBackground();
@@ -22,9 +25,8 @@ export class LicenceContractsComponent implements OnInit {
         this.docTitle.setTitle("Contrats de licence | Creatoke");
     }
 
-    // Appel direct (endpoint public) : LicenceService redirige les visiteurs non authentifiés.
     async getContracts() {
-        axios.get(ApiConstant.API + '/licence/list-licence').then(r => {
+        this.licenceService.listLicence().then(r => {
             const licence = r.data[0];
             this.contractMp3 = licence?.contract_mp3;
             this.contractWav = licence?.contract_wav;

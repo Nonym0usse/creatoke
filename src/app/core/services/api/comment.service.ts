@@ -11,9 +11,7 @@ export class CommentService {
     private authenticationService: AuthenticationService,
     private axiosInterceptorService: InterceptorService,
     private apiCache: ApiCacheService
-  ) {
-    this.authenticationService.isAuthenticated().subscribe(() => {});
-  }
+  ) { }
 
   private async getValidToken(): Promise<string | null> {
     try {
@@ -31,14 +29,12 @@ export class CommentService {
   }
 
   // CREATE (invalidate)
+  // Endpoint public côté API : pas de header auth, sinon les visiteurs
+  // anonymes ne peuvent pas commenter (authHeaders lève une erreur).
   async createComment(data: any): Promise<any> {
-    // si ton backend exige auth: active headers
-    // sinon tu peux enlever ces 2 lignes
-    const headers = await this.authHeaders();
-
     const res = await this.axiosInterceptorService
       .getAxiosInstance()
-      .post(ApiConstant.API + "/comment/create", data, { headers });
+      .post(ApiConstant.API + "/comment/create", data);
 
     this.apiCache.invalidateTags("comment");
     return res;

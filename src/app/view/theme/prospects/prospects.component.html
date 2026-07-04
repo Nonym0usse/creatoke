@@ -71,7 +71,7 @@
                             <td>{{ prospect.email }}</td>
                             <td>{{ prospect.societe || '—' }}</td>
                             <td>
-                                <a *ngIf="prospect.lien_musique" [href]="prospect.lien_musique" target="_blank">{{ prospect.titre_chanson }}</a>
+                                <a *ngIf="prospect.lien_musique" [href]="prospect.lien_musique" target="_blank" rel="noopener noreferrer">{{ prospect.titre_chanson }}</a>
                                 <span *ngIf="!prospect.lien_musique">—</span>
                             </td>
                             <td>{{ stepLabels[prospect.currentStep] || '—' }}</td>

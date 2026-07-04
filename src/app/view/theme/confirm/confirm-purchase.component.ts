@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SongService } from 'src/app/core/services/api/song.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-confirm-purchase',
@@ -10,18 +10,27 @@ import { SongService } from 'src/app/core/services/api/song.service';
 export class ConfirmPurchaseComponent implements OnInit {
     songUrlDownload: string | undefined;
     songName: string | undefined;
+    downloading = false;
+    downloadError = false;
 
-    constructor(private router: Router, private songService: SongService) {
+    constructor(private router: Router, private docTitle: Title) {
         const navigation = this.router.getCurrentNavigation();
         this.songUrlDownload = navigation?.extras.state?.['songUrlDownload'];
         this.songName = navigation?.extras.state?.['songName'];
     }
 
     ngOnInit(): void {
+        this.docTitle.setTitle('Confirmation d\'achat | Creatoke');
+        // Persistance pour survivre à un rechargement de la page.
         if (this.songUrlDownload) {
             sessionStorage.setItem('songUrlDownload', this.songUrlDownload);
         } else {
             this.songUrlDownload = sessionStorage.getItem('songUrlDownload') || undefined;
+        }
+        if (this.songName) {
+            sessionStorage.setItem('songName', this.songName);
+        } else {
+            this.songName = sessionStorage.getItem('songName') || undefined;
         }
     }
 
@@ -31,8 +40,11 @@ export class ConfirmPurchaseComponent implements OnInit {
             return;
         }
 
+        this.downloading = true;
+        this.downloadError = false;
         try {
             const response = await fetch(this.songUrlDownload);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const blob = await response.blob();
             const url = URL.createObjectURL(blob);
 
@@ -47,6 +59,9 @@ export class ConfirmPurchaseComponent implements OnInit {
             URL.revokeObjectURL(url);
         } catch (error) {
             console.error('Error downloading file:', error);
+            this.downloadError = true;
+        } finally {
+            this.downloading = false;
         }
     }
 }

@@ -4,13 +4,13 @@
       <div class="cover__image">
         <ng-container *ngIf="coverLink; else coverImage">
           <a [routerLink]="'/song/' + song.category + '/' + song.slug">
-            <img [src]="song.image" [alt]="song.title || ''">
+            <img [src]="song.image" [alt]="song.title || ''" loading="lazy">
           </a>
         </ng-container>
 
         <ng-template #coverImage>
           <a [routerLink]="'/song/' + song.category + '/' + song.slug">
-            <img [src]="song.image" [alt]="song.title || ''">
+            <img [src]="song.image" [alt]="song.title || ''" loading="lazy">
           </a>
         </ng-template>
 

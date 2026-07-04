@@ -10,12 +10,22 @@
     <!-- Start:: list [[ Find at scss/components/list.scss ]] -->
     <div class="list">
       <div class="row">
-        <div class="col-xl-6" *ngFor="let song of songs">
-          <app-list-view [data]="song"></app-list-view>
+        <div class="col-12 text-center py-5" *ngIf="loading">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Chargement…</span>
+          </div>
         </div>
-        <div class="alert alert-custom" *ngIf="songs.length === 0">
-          Aucune chanson dans cette catégorie.
+        <div class="alert alert-danger" *ngIf="!loading && error">
+          {{ error }}
         </div>
+        <ng-container *ngIf="!loading && !error">
+          <div class="col-xl-6" *ngFor="let song of songs">
+            <app-list-view [data]="song"></app-list-view>
+          </div>
+          <div class="alert alert-custom" *ngIf="songs.length === 0">
+            Aucune chanson dans cette catégorie.
+          </div>
+        </ng-container>
       </div>
     </div>
 

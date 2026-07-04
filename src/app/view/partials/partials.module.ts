@@ -13,7 +13,6 @@ import { EventViewComponent } from './components/event-view/event-view.component
 import { CoverViewComponent } from './components/cover-view/cover-view.component';
 import { ListViewComponent } from './components/list-view/list-view.component';
 import { CommentComponent } from './comment/comment.component';
-import { MusicDetailsComponent } from '../theme/music/music-details/music-details.component';
 
 
 @NgModule({
@@ -22,7 +21,6 @@ import { MusicDetailsComponent } from '../theme/music/music-details/music-detail
     CarouselComponent,
     EventViewComponent,
     CoverViewComponent,
-    MusicDetailsComponent,
     ListViewComponent,
     CommentComponent,
   ],
@@ -41,7 +39,6 @@ import { MusicDetailsComponent } from '../theme/music/music-details/music-detail
     EventViewComponent,
     CoverViewComponent,
     ListViewComponent,
-    MusicDetailsComponent,
     CommentComponent,
     // Modules
     CoreModule

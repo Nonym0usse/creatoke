@@ -88,7 +88,8 @@ export class SongService {
       });
     } catch (error) {
       console.error('Error creating song:', error);
-      alert('Erreur lors de la création de la chanson.');
+      // L'appelant gère le feedback utilisateur.
+      throw error;
     }
   }
 
@@ -151,7 +152,8 @@ export class SongService {
       });
     } catch (error) {
       console.error('Error modifying song:', error);
-      alert('Erreur lors de la modification de la chanson.');
+      // L'appelant gère le feedback utilisateur.
+      throw error;
     }
   }
 

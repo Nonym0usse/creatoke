@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // NPM modules
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { SwiperModule } from 'swiper/angular';
-import { NgxDropzoneModule } from 'ngx-dropzone';
 import { NgChartsModule } from 'ng2-charts';
 
 // Directives
@@ -39,7 +38,6 @@ const SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // NPM modules
     PerfectScrollbarModule,
     SwiperModule,
-    NgxDropzoneModule,
     NgChartsModule,
 
     // Directives

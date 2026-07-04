@@ -11,9 +11,7 @@ export class CategoryService {
     private authenticationService: AuthenticationService,
     private axiosInterceptorService: InterceptorService,
     private apiCache: ApiCacheService
-  ) {
-    this.authenticationService.isAuthenticated().subscribe(() => {});
-  }
+  ) { }
 
   // ✅ token toujours à jour
   private async getValidToken(): Promise<string | null> {

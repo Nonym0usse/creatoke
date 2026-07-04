@@ -12,8 +12,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { PlayerComponent } from './player/player.component';
 import { SearchComponent } from './search/search.component';
 import { TotalUsersComponent } from './charts/total-users/total-users.component';
-import { TotalSongsComponent } from './charts/total-songs/total-songs.component';
-import { PurchasesComponent } from './charts/purchases/purchases.component';
 import { StatisticsComponent } from './charts/statistics/statistics.component';
 
 
@@ -25,8 +23,6 @@ import { StatisticsComponent } from './charts/statistics/statistics.component';
     PlayerComponent,
     SearchComponent,
     TotalUsersComponent,
-    TotalSongsComponent,
-    PurchasesComponent,
     StatisticsComponent
   ],
   imports: [
@@ -43,8 +39,6 @@ import { StatisticsComponent } from './charts/statistics/statistics.component';
     SidebarComponent,
     PlayerComponent,
     TotalUsersComponent,
-    TotalSongsComponent,
-    PurchasesComponent,
     StatisticsComponent,
 
 

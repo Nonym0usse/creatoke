@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 
 // Constant classes
 import { ApiConstant } from '../../constants/api-constant';
-import { AuthenticationService } from "../global/authentication.service";
 import { InterceptorService } from "../global/interceptor.service";
-import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -14,13 +12,10 @@ export class n8nService {
 
     firebaseToken = "";
 
-    constructor(private authenticationService: AuthenticationService, private axiosInterceptorService: InterceptorService, private router: Router) {
+    // NB : la protection d'accès est assurée par AuthGuard sur la route,
+    // pas par une redirection dans le constructeur du service.
+    constructor(private axiosInterceptorService: InterceptorService) {
         this.firebaseToken = localStorage.getItem('firebaseToken') ?? '';
-        this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
-            if (!isAuthenticated) {
-                this.router.navigate(['/']);
-            }
-        });
     }
     /**
      * Get playlist data
