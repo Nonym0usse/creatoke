@@ -1,0 +1,48 @@
+name: Déploiement
+
+# Se déclenche à chaque push sur master, ou manuellement depuis
+# l'onglet Actions de GitHub (bouton « Run workflow »).
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build (production)
+        run: npm run build
+
+      # Transfert incrémental : seuls les fichiers modifiés depuis le
+      # dernier déploiement sont envoyés (état stocké sur le serveur dans
+      # .ftp-deploy-sync-state.json).
+      - name: Déploiement FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: dist/listen/
+          # Dossier de destination sur le serveur (doit finir par /).
+          # « ./ » = racine du compte FTP ; à adapter si votre compte
+          # n'atterrit pas directement dans le dossier web du site.
+          server-dir: ./
+          # Si votre hébergeur supporte le FTP sécurisé, remplacez par : ftps
+          protocol: ftp
