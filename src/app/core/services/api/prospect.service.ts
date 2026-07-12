@@ -44,4 +44,16 @@ export class ProspectService {
   runSequence() {
     return this.axiosInterceptorService.getAxiosInstance().post(ApiConstant.API + '/prospect/run-sequence', {}, this.headers());
   }
+
+  listTemplates() {
+    return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/prospect/templates', this.headers());
+  }
+
+  updateTemplate(key: string, data: { subject: string; body: string }) {
+    return this.axiosInterceptorService.getAxiosInstance().put(ApiConstant.API + '/prospect/templates/' + key, data, this.headers());
+  }
+
+  resetTemplate(key: string) {
+    return this.axiosInterceptorService.getAxiosInstance().delete(ApiConstant.API + '/prospect/templates/' + key, this.headers());
+  }
 }

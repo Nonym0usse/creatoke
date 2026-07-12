@@ -22,6 +22,14 @@ export class ProspectsComponent implements OnInit {
 
     expandedId: string | null = null;
 
+    // Édition des emails de la séquence (sujet + corps texte).
+    showTemplates = false;
+    templates: any[] = [];
+    selectedTemplateKey = '';
+    templateForm = { subject: '', body: '' };
+    templateLoading = false;
+    placeholders = ['{prenom}', '{nom}', '{societe}', '{titre}', '{lien}'];
+
     statusLabels: any = {
         draft: 'Brouillon',
         active: 'Séquence en cours',
@@ -72,9 +80,11 @@ export class ProspectsComponent implements OnInit {
         this.editingId = null;
         this.form = this.emptyForm();
         this.showForm = true;
+        this.showTemplates = false;
     }
 
     openEdit(prospect: any) {
+        this.showTemplates = false;
         this.editingId = prospect.id;
         this.form = {
             nom: prospect.nom ?? '',
@@ -144,6 +154,73 @@ export class ProspectsComponent implements OnInit {
         this.prospectService.deleteProspect(prospect.id)
             .then(() => this.loadProspects())
             .catch(() => alert('Erreur lors de la suppression.'));
+    }
+
+    toggleTemplates() {
+        if (this.showTemplates) {
+            this.showTemplates = false;
+            return;
+        }
+        this.showForm = false;
+        this.templateLoading = true;
+        this.prospectService.listTemplates()
+            .then(r => {
+                this.templates = r.data;
+                this.showTemplates = true;
+                this.selectTemplate(this.selectedTemplateKey || this.templates[0]?.key);
+            })
+            .catch(() => alert('Erreur lors du chargement des modèles d\'emails.'))
+            .finally(() => this.templateLoading = false);
+    }
+
+    selectTemplate(key: string) {
+        const template = this.templates.find(t => t.key === key);
+        if (!template) return;
+        this.selectedTemplateKey = key;
+        this.templateForm = { subject: template.subject, body: template.body };
+    }
+
+    get selectedTemplate() {
+        return this.templates.find(t => t.key === this.selectedTemplateKey);
+    }
+
+    saveTemplate() {
+        if (!this.templateForm.subject.trim() || !this.templateForm.body.trim()) {
+            alert('Le sujet et le contenu ne peuvent pas être vides.');
+            return;
+        }
+        this.templateLoading = true;
+        this.prospectService.updateTemplate(this.selectedTemplateKey, {
+            subject: this.templateForm.subject.trim(),
+            body: this.templateForm.body.trim()
+        })
+            .then(() => {
+                const template = this.selectedTemplate;
+                if (template) {
+                    template.subject = this.templateForm.subject.trim();
+                    template.body = this.templateForm.body.trim();
+                    template.custom = true;
+                }
+                alert('Modèle enregistré. Les prochains envois utiliseront ce texte.');
+            })
+            .catch(() => alert('Erreur lors de l\'enregistrement du modèle.'))
+            .finally(() => this.templateLoading = false);
+    }
+
+    resetTemplate() {
+        const template = this.selectedTemplate;
+        if (!template) return;
+        if (!confirm(`Rétablir le texte par défaut pour « ${template.label} » ?\nVotre version personnalisée sera supprimée.`)) return;
+        this.templateLoading = true;
+        this.prospectService.resetTemplate(this.selectedTemplateKey)
+            .then(r => {
+                template.subject = r.data.subject;
+                template.body = r.data.body;
+                template.custom = false;
+                this.templateForm = { subject: r.data.subject, body: r.data.body };
+            })
+            .catch(() => alert('Erreur lors de la réinitialisation du modèle.'))
+            .finally(() => this.templateLoading = false);
     }
 
     toggleHistory(prospect: any) {

@@ -10,7 +10,47 @@
 
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="mb-0">Contacts éditeurs</h4>
-                <button class="btn btn-custom" (click)="openCreate()">Ajouter un contact</button>
+                <div>
+                    <button class="btn btn-outline-secondary me-2" [disabled]="templateLoading" (click)="toggleTemplates()">Modifier les emails</button>
+                    <button class="btn btn-custom" (click)="openCreate()">Ajouter un contact</button>
+                </div>
+            </div>
+
+            <!-- Édition des emails de la séquence -->
+            <div class="card mb-4" *ngIf="showTemplates">
+                <div class="card-body">
+                    <h5>Emails de la séquence</h5>
+                    <p class="text-muted small mb-3">
+                        Personnalisez le sujet et le texte de chaque email. Les variables suivantes seront
+                        remplacées automatiquement à l'envoi par les informations du contact :
+                        <code *ngFor="let p of placeholders" class="me-1">{{ p }}</code>
+                    </p>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Email à modifier</label>
+                            <select class="form-select" [ngModel]="selectedTemplateKey" (ngModelChange)="selectTemplate($event)" name="templateKey">
+                                <option *ngFor="let template of templates" [value]="template.key">
+                                    {{ template.label }}{{ template.custom ? ' — personnalisé' : '' }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            <label class="form-label">Sujet</label>
+                            <input type="text" class="form-control" [(ngModel)]="templateForm.subject" name="templateSubject">
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label">Contenu (texte uniquement)</label>
+                            <textarea class="form-control" rows="12" [(ngModel)]="templateForm.body" name="templateBody"></textarea>
+                            <small class="text-muted">
+                                Le texte est mis en page automatiquement dans le gabarit Créatoké (logo et pied de page).
+                                La variable {{ '{lien}' }} devient un lien cliquable vers la musique.
+                            </small>
+                        </div>
+                    </div>
+                    <button class="btn btn-custom me-2" [disabled]="templateLoading" (click)="saveTemplate()">Enregistrer</button>
+                    <button class="btn btn-outline-secondary me-2" [disabled]="templateLoading || !selectedTemplate?.custom" (click)="resetTemplate()">Rétablir le texte par défaut</button>
+                    <button class="btn btn-outline-secondary" (click)="showTemplates = false">Fermer</button>
+                </div>
             </div>
 
             <!-- Formulaire création / édition -->
