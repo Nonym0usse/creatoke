@@ -10,6 +10,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th scope="col">Pochette</th>
                         <th scope="col">Titre</th>
                         <th scope="col">Catégorie</th>
                         <th scope="col">Modifier</th>
@@ -18,13 +19,17 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let song of songs">
+                        <td>
+                            <img *ngIf="song.image" class="song-thumb" [src]="song.image" [alt]="song.title" loading="lazy">
+                            <span *ngIf="!song.image" class="song-thumb song-thumb--empty">—</span>
+                        </td>
                         <td>{{song.title}}</td>
                         <td>{{song.category}}</td>
                       <td><button class="btn btn-light-primary" (click)="modify(song.slug)">Modifier</button></td>
                         <td><button class="btn btn-light-danger" (click)="delete(song.id, song.title)">Supprimer</button></td>
                     </tr>
                     <tr *ngIf="!songs.length">
-                        <td colspan="4" class="text-center">Aucune chanson pour le moment.</td>
+                        <td colspan="5" class="text-center">Aucune chanson pour le moment.</td>
                     </tr>
                 </tbody>
             </table>
