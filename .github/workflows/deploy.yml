@@ -40,9 +40,10 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/listen/
-          # Dossier de destination sur le serveur (doit finir par /).
-          # « ./ » = racine du compte FTP ; à adapter si votre compte
-          # n'atterrit pas directement dans le dossier web du site.
-          server-dir: ./
+          server-dir: /public_html/creatoke/
           # Si votre hébergeur supporte le FTP sécurisé, remplacez par : ftps
           protocol: ftp
+          # Le .htaccess du serveur fait référence : celui généré par le
+          # build (copie de src/.htaccess) n'est jamais transféré.
+          exclude: |
+            **/.htaccess
