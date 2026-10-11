@@ -81,7 +81,6 @@ export class StatisticsComponent implements OnInit, OnDestroy {
         },
         y: {
           min: 0,
-          max: 80,
           grid: {
             borderColor: Constant.DARK_MODE ? '#34343e' : '#EFF2F5'
           }
@@ -101,7 +100,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
    */
   chartDataConfig(): void {
     this.chartData = {
-      labels: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Jui', 'Août', 'Sep', 'Nov', 'Déc'],
+      labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'],
       datasets: [{
         label: 'C.A',
         data: this.turnover,
@@ -120,9 +119,9 @@ export class StatisticsComponent implements OnInit, OnDestroy {
     const monthlySelling = new Array(12).fill(0); // Initialize the array with zeros for each month.
 
     for (const item of data) {
-      if (item.year === currentYear) {
-        const monthIndex = item.month - 1; // Convert month (1 to 12) to array index (0 to 11)
-        monthlySelling[monthIndex] += item.price;
+      if (Number(item.year) === currentYear) {
+        const monthIndex = Number(item.month) - 1; // Convert month (1 to 12) to array index (0 to 11)
+        if (monthIndex >= 0 && monthIndex < 12) monthlySelling[monthIndex] += Number(item.price) || 0;
       }
     }
 

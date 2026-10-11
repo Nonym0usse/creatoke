@@ -51,7 +51,7 @@ export class PublishVideoComponent implements OnInit {
   }
 
   async validatePublishing() {
-    if (this.videoForm.invalid) return;
+    if (this.videoForm.invalid || this.isLoading) return;
 
     this.isLoading = true;
 

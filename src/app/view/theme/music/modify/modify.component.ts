@@ -234,7 +234,7 @@ export class ModifyComponent implements OnInit, OnDestroy {
       artist: this.song.artist ?? "",
       lyrics: this.song.lyrics ?? "",
       description: this.song.description ?? "",
-      price_base: Number(this.song.price_base_chanson ?? 0),
+      price_base: Number(this.song.price_base ?? 0),
       price_premium: Number(this.song.price_premium ?? 0),
       price_base_creatoke: Number(this.song.price_base_creatoke ?? 0),
       price_premium_creatoke: Number(this.song.price_premium_creatoke ?? 0),

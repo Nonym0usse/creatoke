@@ -115,8 +115,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     let sum = 0;
 
     for (const item of array) {
-      if (item.year === currentYear) {
-        sum += item.price;
+      if (Number(item.year) === currentYear) {
+        sum += Number(item.price) || 0;
       }
     }
 

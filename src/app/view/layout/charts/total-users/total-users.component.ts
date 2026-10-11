@@ -19,6 +19,8 @@ export class TotalUsersComponent implements OnInit {
   // Holds chart type
   chartType: ChartType = 'line';
   nbUsr: any = [];
+  // Nombre de ventes de l'année en cours
+  salesCount = 0;
   // Chart config object
   chartData: ChartConfiguration<ChartType>['data'] = {
     datasets: []
@@ -37,7 +39,8 @@ export class TotalUsersComponent implements OnInit {
     this.chartOptionsConfig();
     this.chartDataConfig();
     this.sellingService.listSales().then((data) => {
-      this.nbUsr = this.countObjectsByMonth(data.data)
+      this.nbUsr = this.countObjectsByMonth(data.data);
+      this.salesCount = this.nbUsr.reduce((total: number, n: number) => total + n, 0);
       this.chartDataConfig();
     })
   }
@@ -56,8 +59,7 @@ export class TotalUsersComponent implements OnInit {
         x: { display: false },
         y: {
           display: false,
-          min: 0,
-          max: 85
+          min: 0
         }
       },
       layout: {
@@ -74,9 +76,9 @@ export class TotalUsersComponent implements OnInit {
    */
   chartDataConfig(): void {
     this.chartData = {
-      labels: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Jui', 'Août', 'Sep', 'Nov', 'Déc'],
+      labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'],
       datasets: [{
-        label: 'Utilisateurs',
+        label: 'Ventes',
         data: this.nbUsr,
         backgroundColor: Utils.getCSSVarValue('purple'),
         borderColor: Utils.getCSSVarValue('purple'),
@@ -98,8 +100,10 @@ export class TotalUsersComponent implements OnInit {
 
     for (const item of array) {
       const { year, month } = item;
-      if (year === currentYear && month >= 1 && month <= 12) {
-        monthCounts[month - 1]++;
+      // month est stocké en texte ("01"…"12") : conversion explicite
+      const m = Number(month);
+      if (Number(year) === currentYear && m >= 1 && m <= 12) {
+        monthCounts[m - 1]++;
       }
     }
 

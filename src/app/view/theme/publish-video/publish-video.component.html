@@ -82,7 +82,7 @@
 
                                     <div class="card-footer text-center">
                                         <button class="btn btn-custom" style="min-width: 140px;" type="submit"
-                                            [disabled]="videoForm.invalid">
+                                            [disabled]="videoForm.invalid || isLoading">
                                             {{ isLoading ? 'Chargement...' : 'Publier votre vidéo' }}
                                         </button>
                                         <button class="btn btn-outline-secondary ms-2" type="button"

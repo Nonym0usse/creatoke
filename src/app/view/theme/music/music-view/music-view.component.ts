@@ -147,7 +147,7 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
         { key: 'price_premium_creatoke', title: 'Licence premium créatoké', format: 'WAV', price: s?.price_premium_creatoke, feature: 'base_plus', free: s?.creatoke_wav, on: s?.isPremiumCreatoke },
       ]
       : [
-        { key: 'price_base', title: 'Licence de base', format: 'MP3', price: s?.price_base, feature: 'basic', free: s?.creatoke_mp3, on: s?.isLicenceBase },
+        { key: 'price_base', title: 'Licence de base', format: 'MP3', price: s?.price_base, feature: 'basic', free: s?.chanson_mp3, on: s?.isLicenceBase },
         { key: 'price_premium', title: 'Licence premium', format: 'WAV', price: s?.price_premium, feature: 'base_plus', free: s?.chanson_wav, on: s?.isPremium },
       ];
     return all.filter(p => p.on === 'oui');

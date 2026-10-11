@@ -21,12 +21,12 @@
         </div>
         <div class="col-xl-3 col-md-4 col-sm-6" *ngFor="let song of results">
           <div class="list__item">
-            <a class="list__cover" [routerLink]="['/song', song.category, song.id]">
+            <a class="list__cover" [routerLink]="['/song', song.category, song.slug]">
               <img [src]="song.image" [alt]="song.title">
             </a>
 
             <div class="list__content">
-              <a class="list__title text-truncate" [routerLink]="['/song', song.category, song.id]">
+              <a class="list__title text-truncate" [routerLink]="['/song', song.category, song.slug]">
                 {{ song.title }}
               </a>
               <p class="list__subtitle text-truncate">{{ song.artist }}</p>
