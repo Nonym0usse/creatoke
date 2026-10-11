@@ -167,16 +167,16 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
     let songUrlDownload = "";
     switch (licence_name) {
       case "price_base":
-        songUrlDownload = this.song.chanson_mp3 + '.mp3'
+        songUrlDownload = String(this.song.chanson_mp3 ?? '')
         break;
       case "price_premium":
-        songUrlDownload = this.song.chanson_wav + '.wav'
+        songUrlDownload = String(this.song.chanson_wav ?? '')
         break;
       case "price_base_creatoke":
-        songUrlDownload = this.song.creatoke_mp3 + '.mp3'
+        songUrlDownload = String(this.song.creatoke_mp3 ?? '')
         break;
       case "price_premium_creatoke":
-        songUrlDownload = this.song.creatoke_wav + '.wav'
+        songUrlDownload = String(this.song.creatoke_wav ?? '')
         break;
     }
 
@@ -287,11 +287,18 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
     this.destroy$.complete();
   }
 
-  downloadSong(songUrl: string) {
+  downloadSong(url: unknown) {
+    const songUrl = String(url ?? '');
+    if (!songUrl) return;
     const link = document.createElement('a');
     link.href = songUrl;
     link.target = '_blank';
-    link.download = songUrl.split('/').pop() || 'song.mp3'; // Extract the filename from the URL
+    const fileName = songUrl.split('/').pop() || 'song.mp3'; // Extract the filename from the URL
+    try {
+      link.download = decodeURIComponent(fileName);
+    } catch {
+      link.download = fileName;
+    }
     link.style.display = 'none';
 
     document.body.appendChild(link);

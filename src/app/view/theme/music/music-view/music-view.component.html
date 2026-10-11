@@ -178,7 +178,7 @@
                                     class="btn btn-custom w-100">Choisir</button>
 
                                 <button type="button" class="btn btn-custom w-100" *ngIf="song?.price_base === 0"
-                                    (click)="downloadSong(song?.creatoke_mp3 + '.mp3')">Télécharger en MP3</button>
+                                    (click)="downloadSong(song?.creatoke_mp3)">Télécharger en MP3</button>
                             </div>
                         </div>
                     </ng-container>
@@ -206,7 +206,7 @@
                                     class="btn btn-custom w-100">Choisir</button>
 
                                 <button type="button" class="btn btn-custom w-100" *ngIf="song?.price_premium === 0"
-                                    (click)="downloadSong(song?.chanson_wav + '.wav')">Télécharger en Wav</button>
+                                    (click)="downloadSong(song?.chanson_wav)">Télécharger en Wav</button>
                             </div>
                         </div>
                     </ng-container>
@@ -269,7 +269,7 @@
 
                                 <button type="button" class="btn btn-custom w-100"
                                     *ngIf="song?.price_base_creatoke === 0"
-                                    (click)="downloadSong(song?.creatoke_mp3 + '.mp3')">Télécharger en MP3</button>
+                                    (click)="downloadSong(song?.creatoke_mp3)">Télécharger en MP3</button>
                             </div>
                         </div>
                     </ng-container>
@@ -300,7 +300,7 @@
 
                                 <button type="button" class="btn btn-custom w-100"
                                     *ngIf="song?.price_premium_creatoke === 0"
-                                    (click)="downloadSong(song?.creatoke_wav + '.wav')">Télécharger en Wav</button>
+                                    (click)="downloadSong(song?.creatoke_wav)">Télécharger en Wav</button>
                             </div>
                         </div>
                     </ng-container>
