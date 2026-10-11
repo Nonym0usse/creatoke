@@ -236,9 +236,11 @@ export class ProspectsComponent implements OnInit {
 
     formatDate(timestamp: any): string {
         if (!timestamp) return '—';
+        // L'API renvoie des dates ISO ; l'ancien format Firestore reste accepté.
         const seconds = timestamp._seconds ?? timestamp.seconds;
-        if (seconds === undefined) return '—';
-        return new Date(seconds * 1000).toLocaleDateString('fr-FR');
+        const date = seconds !== undefined ? new Date(seconds * 1000) : new Date(timestamp);
+        if (Number.isNaN(date.getTime())) return '—';
+        return date.toLocaleDateString('fr-FR');
     }
 
     async getBackground() {

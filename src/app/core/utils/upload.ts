@@ -1,20 +1,32 @@
-// src/app/core/services/upload.service.ts
+// src/app/core/utils/upload.ts
 import { Injectable } from '@angular/core';
-import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
-import { Observable, of } from 'rxjs';
-import { map, last, switchMap, shareReplay } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable, of } from 'rxjs';
+import { finalize, map, shareReplay, switchMap } from 'rxjs/operators';
+
+import { ApiConstant } from '../constants/api-constant';
+import { InterceptorService } from '../services/global/interceptor.service';
+
+export type UploadDir = 'songs' | 'background' | 'category' | 'users';
+
+export interface UploadedFile {
+  /** URL publique du fichier sur le serveur */
+  url: string;
+  /** Nom du fichier tel qu'enregistré sur le serveur */
+  fileName: string;
+}
 
 export interface UploadResult {
-  task: AngularFireUploadTask;
   /** Progression en % (0–100) arrondie à 2 décimales */
   progress$: Observable<number>;
   /** URL de téléchargement quand c’est fini */
   downloadUrl$: Observable<string>;
+  /** URL + nom du fichier enregistré quand c’est fini */
+  result$: Observable<UploadedFile>;
 }
 
 @Injectable({ providedIn: 'root' })
 export class UploadService {
-  constructor(private storage: AngularFireStorage) {}
+  constructor(private interceptor: InterceptorService) {}
 
   /** Redimensionne une image côté client et renvoie un Blob */
   private resizeImage$(file: File, maxW = 800, maxH = 600): Observable<Blob> {
@@ -43,49 +55,36 @@ export class UploadService {
   }
 
   /**
-   * Démarre l’upload vers Firebase Storage, gère le resize si image,
-   * et renvoie progress$ + downloadUrl$ + la tâche.
+   * Envoie le fichier à l'API (stockage sur le serveur), redimensionne les
+   * images si demandé, et renvoie progress$ + downloadUrl$ + result$.
+   * L'envoi démarre à la première souscription à downloadUrl$ ou result$.
    */
-  startUpload(file: File, fileType: string, dir = 'songs'): UploadResult {
-    const safeName = file.name.replace(/\s+/g, '_');
-    const filePath = `${dir}/${Date.now()}_${safeName}`;
-    const fileRef = this.storage.ref(filePath);
+  startUpload(file: File, _fileType: string, dir: UploadDir = 'songs', options: { resizeImages?: boolean } = {}): UploadResult {
+    const resize = (options.resizeImages ?? true) && file.type.startsWith('image/');
+    const source$: Observable<Blob> = resize ? this.resizeImage$(file) : of(file);
+    const progress = new BehaviorSubject<number>(0);
 
-    // Détermine la source d’upload (image redimensionnée ou fichier brut)
-    const source$ = file.type.startsWith('image/')
-      ? this.resizeImage$(file)
-      : of(file);
+    const result$ = source$.pipe(
+      switchMap((payload) => {
+        const formData = new FormData();
+        formData.append('file', payload, file.name);
+        return from(
+          this.interceptor.getAxiosInstance().post<UploadedFile>(`${ApiConstant.API}/upload/${dir}`, formData, {
+            onUploadProgress: (e) => {
+              if (e.total) progress.next(+((e.loaded / e.total) * 100).toFixed(2));
+            },
+          }),
+        );
+      }),
+      map((res) => res.data),
+      finalize(() => progress.complete()),
+      shareReplay({ bufferSize: 1, refCount: false }),
+    );
 
-    // On instancie la tâche une seule fois et on partage les streams
-    let task!: AngularFireUploadTask;
-
-    const progress$ = new Observable<number>((subscriber) => {
-      const sub = source$.subscribe({
-        next: (payload) => {
-          task = this.storage.upload(filePath, payload);
-          task.percentageChanges()
-            ?.pipe(map(p => +(Number(p ?? 0).toFixed(2))))
-            .subscribe(subscriber);
-        },
-        error: (e) => subscriber.error(e),
-      });
-      return () => sub.unsubscribe();
-    }).pipe(shareReplay({ bufferSize: 1, refCount: true }));
-
-    const downloadUrl$ = new Observable<string>((subscriber) => {
-      const sub = source$.subscribe({
-        next: (payload) => {
-          task = this.storage.upload(filePath, payload);
-          task.snapshotChanges().pipe(
-            last(),
-            switchMap(() => fileRef.getDownloadURL()),
-          ).subscribe(subscriber);
-        },
-        error: (e) => subscriber.error(e),
-      });
-      return () => sub.unsubscribe();
-    }).pipe(shareReplay({ bufferSize: 1, refCount: true }));
-
-    return { task, progress$, downloadUrl$ };
+    return {
+      progress$: progress.asObservable(),
+      downloadUrl$: result$.pipe(map((r) => r.url)),
+      result$,
+    };
   }
 }

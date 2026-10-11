@@ -3,11 +3,11 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Title } from "@angular/platform-browser";
-import { AngularFireStorage, AngularFireUploadTask } from "@angular/fire/compat/storage";
-import { finalize, Subject, takeUntil } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 
 import { SongService } from "../../../../core/services/api/song.service";
 import { CategoryService } from "../../../../core/services/api/category.service";
+import { UploadService } from "../../../../core/utils/upload";
 
 type OuiNon = "oui" | "non";
 
@@ -121,7 +121,7 @@ export class ModifyComponent implements OnInit, OnDestroy {
     private categoryService: CategoryService,
     private songService: SongService,
     private activatedRoute: ActivatedRoute,
-    private storage: AngularFireStorage,
+    private uploader: UploadService,
     private docTitle: Title
   ) {
     this.musicForm = this.fb.group({
@@ -343,43 +343,26 @@ export class ModifyComponent implements OnInit, OnDestroy {
   }
 
   private startUpload(file: File, fileType: UploadKey): void {
-    const filePath = `songs/${file.name}`;
-    const fileRef = this.storage.ref(filePath);
-
-    const task: AngularFireUploadTask = this.storage.upload(filePath, file);
+    const { progress$, downloadUrl$ } = this.uploader.startUpload(file, fileType, "songs", { resizeImages: false });
 
     this.progress[fileType] = 0;
     this.activeUploads++;
-    task
-      .percentageChanges()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((p) => {
-        const val = p ?? 0;
-        this.progress[fileType] = Math.round(val * 100) / 100;
-      });
+    progress$.pipe(takeUntil(this.destroy$)).subscribe((p) => {
+      this.progress[fileType] = p;
+    });
 
-    task
-      .snapshotChanges()
-      .pipe(
-        finalize(() => {
-          fileRef
-            .getDownloadURL()
-            .pipe(takeUntil(this.destroy$))
-            .subscribe({
-              next: (url: string) => {
-                this.downloadUrls[fileType] = url;
-                this.activeUploads--;
-              },
-              error: (err) => {
-                console.error('Upload error:', err);
-                this.activeUploads--;
-                delete this.progress[fileType];
-                alert("L'envoi du fichier a échoué. Merci de réessayer.");
-              },
-            });
-        })
-      )
-      .subscribe();
+    downloadUrl$.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (url: string) => {
+        this.downloadUrls[fileType] = url;
+        this.activeUploads--;
+      },
+      error: (err) => {
+        console.error('Upload error:', err);
+        this.activeUploads--;
+        delete this.progress[fileType];
+        alert("L'envoi du fichier a échoué. Merci de réessayer.");
+      },
+    });
   }
 
   // ------------ Modal ------------

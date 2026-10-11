@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { CategoryService } from "../../../core/services/api/category.service";
-import { AngularFireStorage, AngularFireUploadTask } from "@angular/fire/compat/storage";
-import { finalize } from "rxjs/operators";
+import { UploadService } from "../../../core/utils/upload";
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -18,7 +17,7 @@ export class BackgroundimageComponent implements OnInit {
     progress: { [key: string]: number } = {};
     downloadUrls: { [key: string]: { url: string, fileName: string } } = {};
     image = "";
-    constructor(private fb: FormBuilder, private categoryService: CategoryService, private storage: AngularFireStorage, private title: Title) {
+    constructor(private fb: FormBuilder, private categoryService: CategoryService, private uploader: UploadService, private title: Title) {
         this.imageForm = this.fb.group({
             picture: [''],
             picture_name: ['']
@@ -49,22 +48,20 @@ export class BackgroundimageComponent implements OnInit {
     }
 
     startUpload(file: File, fileType: string): void {
-        const filePath = `background/${file.name}`;
-        const fileRef = this.storage.ref(filePath);
-
-        const task: AngularFireUploadTask = this.storage.upload(filePath, file);
+        const { progress$, result$ } = this.uploader.startUpload(file, fileType, 'background', { resizeImages: false });
         this.progress[fileType] = 0;
-        task.percentageChanges().subscribe((progress) => {
-            this.progress[fileType] = Number((progress ?? 0).toFixed(2));
+        progress$.subscribe((progress) => {
+            this.progress[fileType] = progress;
         });
 
-        task.snapshotChanges().pipe(
-            finalize(() => {
-                fileRef.getDownloadURL().subscribe((url: string) => {
-                    this.handleDownloadURL(url, fileType, file.name);
-                });
-            })
-        ).subscribe();
+        result$.subscribe({
+            next: ({ url, fileName }) => this.handleDownloadURL(url, fileType, fileName),
+            error: (err) => {
+                console.error('Upload error:', err);
+                delete this.progress[fileType];
+                alert("L'envoi de l'image a échoué. Merci de réessayer.");
+            },
+        });
     }
 
     handleDownloadURL(url: string, fileType: string, fileName: string): void {

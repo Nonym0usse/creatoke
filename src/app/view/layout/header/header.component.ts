@@ -9,6 +9,7 @@ import { ThemeService } from './../../../core/services/design/theme.service';
 
 // Constant classes
 import { Constant } from './../../../core/constants/constant';
+import { ApiConstant } from './../../../core/constants/api-constant';
 
 
 @Component({
@@ -49,7 +50,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
       this.isAuthenticated = isAuthenticated
-      this.imgProfile = "https://firebasestorage.googleapis.com/v0/b/creatoke-a8611.appspot.com/o/users%2Fadmin%2FIMG_8469.JPG?alt=media&token=93738ee8-b4de-4910-bd0f-4135ac195f12"
+      this.imgProfile = ApiConstant.API + "/uploads/users/admin/IMG_8469.JPG"
       this.user = this.authenticationService.getCurrentUser();
     });
 
