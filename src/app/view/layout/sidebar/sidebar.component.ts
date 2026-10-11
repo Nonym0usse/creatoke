@@ -8,7 +8,6 @@ import { ThemeService } from './../../../core/services/design/theme.service';
 
 // Constant classes
 import { Constant } from './../../../core/constants/constant';
-import {AuthenticationService} from "../../../core/services/global/authentication.service";
 
 
 @Component({
@@ -18,10 +17,9 @@ import {AuthenticationService} from "../../../core/services/global/authenticatio
 export class SidebarComponent implements OnInit, OnDestroy {
 
 
-  isAuthenticated: boolean = false;
-
-  // Holds navbar object
-  navbar: any;
+  // Navigation publique (l'administration est dans le menu du compte, en haut à droite)
+  navbar = Constant.navbar;
+  legalLinks = Constant.legalLinks;
 
   // Active class name
   active = Constant.ACTIVE;
@@ -38,20 +36,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
   constructor(
     private togglerService: TogglerService,
     private themeService: ThemeService,
-    private authenticationService: AuthenticationService,
   ) { }
 
   ngOnInit(): void {
     this.sidebarSubscription = this.themeService.sidebar.subscribe((color) => {
       this.sidebar?.nativeElement.setAttribute(Constant.SIDEBAR, color);
-    });
-    this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
-      this.isAuthenticated = isAuthenticated
-      if(!isAuthenticated){
-        this.navbar = Constant.navbar.filter((obj: any) => !obj.auth);
-      }else{
-        this.navbar = Constant.navbar;
-      }
     });
   }
 

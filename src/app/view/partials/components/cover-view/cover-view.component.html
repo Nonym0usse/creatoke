@@ -1,5 +1,5 @@
 <div class="row g-4">
-  <div [ngClass]="isHome ? 'col-12' : 'col-6 col-md-4 col-xl-3'" *ngFor="let song of songs; trackBy: trackById">
+  <div [ngClass]="isHome ? 'col-12' : colClass" *ngFor="let song of songs; trackBy: trackById">
     <div class="cover cover--round">
       <div class="cover__image">
         <ng-container *ngIf="coverLink; else coverImage">

@@ -1,0 +1,541 @@
+<div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
+
+<div class="under-hero container">
+    <div class="section">
+        <!-- Styles partagés : scss/framework/_legal.scss -->
+        <div class="legal">
+
+            <header class="card legal__header">
+                <span class="legal__eyebrow"><i class="ri-book-open-line"></i> Administration</span>
+                <h1 class="legal__title">Guide <span class="text-primary">d'administration</span></h1>
+                <p class="legal__intro">
+                    Tout ce qu'il faut savoir pour gérer Créatoké au quotidien : ajouter et modifier des chansons,
+                    régler les prix et les licences, suivre les ventes et relancer les éditeurs.
+                </p>
+                <a class="legal__more" routerLink="/aide"><i class="ri-question-line"></i> Voir l'aide destinée aux
+                    clients</a>
+            </header>
+
+            <div class="legal__layout">
+
+                <nav class="legal__toc" aria-label="Sommaire">
+                    <p class="legal__toc-title">Sommaire</p>
+                    <button type="button" *ngFor="let entry of toc" class="legal__toc-link" (click)="scrollTo(entry.id)">
+                        <i [class]="entry.icon"></i><span>{{ entry.label }}</span>
+                    </button>
+                </nav>
+
+                <div class="legal__content">
+
+                    <!-- ============================================================ -->
+                    <section class="card legal__section" id="connexion">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-login-box-line"></i></span>
+                            <h2>Connexion et compte</h2>
+                        </div>
+                        <h3>Se connecter</h3>
+                        <ol class="legal__steps">
+                            <li>Ouvrez la page <code>/login</code> du site (« Espace Admin »).</li>
+                            <li>Saisissez votre <strong>adresse e-mail</strong> et votre <strong>mot de passe</strong>,
+                                puis cliquez sur <strong>« Connexion »</strong>.</li>
+                            <li>Vous revenez sur l'accueil : le menu <strong>« Admin »</strong> apparaît en haut à droite.
+                            </li>
+                        </ol>
+                        <p>La session reste ouverte <strong>7 jours</strong> sur cet appareil et se prolonge
+                            automatiquement tant que vous utilisez l'administration. En navigation privée, elle
+                            s'arrête à la fermeture de l'onglet.</p>
+                        <h3>Messages possibles</h3>
+                        <ul class="legal__bullets">
+                            <li><strong>« Email ou mot de passe incorrect. »</strong> : vérifiez la saisie (les
+                                majuscules comptent dans le mot de passe).</li>
+                            <li><strong>« Trop de tentatives. Réessayez dans 15 minutes. »</strong> : après 10 essais
+                                ratés, la connexion est bloquée 15 minutes par sécurité.</li>
+                            <li><strong>« Connexion impossible. Réessayez plus tard. »</strong> : le serveur ne répond
+                                pas ; réessayez dans quelques minutes.</li>
+                        </ul>
+                        <h3>Se déconnecter</h3>
+                        <p>Menu <strong>« Admin »</strong> → <strong>« Déconnexion »</strong>. Pensez-y sur un
+                            ordinateur partagé.</p>
+                        <h3>Mot de passe oublié ou à changer</h3>
+                        <p>Il n'y a pas de bouton « mot de passe oublié » sur le site : le mot de passe se change sur
+                            le serveur, par la personne qui gère l'hébergement (script <code>create-admin</code>,
+                            10 caractères minimum). C'est aussi elle qui peut créer un compte administrateur
+                            supplémentaire.</p>
+                    </section>
+
+                    <!-- ============================================================ -->
+                    <section class="card legal__section" id="menu">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-menu-line"></i></span>
+                            <h2>Le menu Admin</h2>
+                        </div>
+                        <p>Une fois connecté, cliquez sur <strong>« Admin »</strong> en haut à droite. Les outils sont
+                            regroupés en quatre rubriques :</p>
+                        <div class="legal__table-wrap">
+                            <table class="legal__table">
+                                <thead>
+                                    <tr><th>Rubrique</th><th>Entrées</th><th>À quoi ça sert</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Catalogue</td><td>Ajouter une musique, Chansons, Licences</td><td>Publier,
+                                            modifier et supprimer les titres ; textes des licences et contrats.</td></tr>
+                                    <tr><td>Site</td><td>Texte d'accueil, Image de fond</td><td>Le texte « A propos » de
+                                            l'accueil et la photo en haut de toutes les pages.</td></tr>
+                                    <tr><td>Relations</td><td>Commentaires, Contacts</td><td>Supprimer des avis ;
+                                            prospection des éditeurs avec relances automatiques.</td></tr>
+                                    <tr><td>Outils</td><td>Statistiques, Publier une vidéo</td><td>Ventes de l'année ;
+                                            publication d'une vidéo sur les réseaux sociaux.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>Le menu de gauche reste celui des visiteurs : il permet de vérifier le site tel qu'ils le
+                            voient.</p>
+                    </section>
+
+                    <!-- ============================================================ -->
+                    <section class="card legal__section" id="ajouter">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-upload-cloud-line"></i></span>
+                            <h2>Ajouter une chanson</h2>
+                        </div>
+                        <p>Menu <strong>Admin → Catalogue → « Ajouter une musique »</strong>. Les champs marqués d'un
+                            <strong>*</strong> sont obligatoires.</p>
+
+                        <h3>1. Informations</h3>
+                        <ol class="legal__steps">
+                            <li>Choisissez d'abord <strong>« Dans quelle catégorie ? »</strong> : le reste du formulaire
+                                n'apparaît qu'après ce choix, et les champs proposés dépendent de la catégorie.</li>
+                            <li><strong>« Titre de la chanson »</strong> : il sera enregistré en MAJUSCULES et sert à
+                                fabriquer l'adresse de la fiche (ex. « Ma chanson » → <code>/song/…/ma-chanson</code>).
+                            </li>
+                            <li><strong>« Artiste »</strong> : affiché comme « Interprète » sur la fiche.</li>
+                            <li><strong>« Votre chanson est une exclusivité »</strong> : choisissez
+                                <strong>toujours</strong> « Non » ou « Oui » (voir l'encadré ci-dessous).</li>
+                            <li><strong>« Est-elle un coup de coeur ? »</strong> : « Oui » l'affiche dans le carrousel
+                                « Nos coups de coeur » de l'accueil.</li>
+                        </ol>
+                        <div class="legal__callout legal__callout--warn">
+                            <i class="ri-error-warning-line"></i>
+                            <div><strong>Exclusivité : ne laissez jamais ce champ vide.</strong> S'il n'est pas choisi,
+                                la fiche publique masque les offres et affiche le mot « vide ». « Oui » signifie que la
+                                chanson est sous contrat avec un distributeur : elle n'est pas vendue sur Créatoké, seul
+                                son créatoké l'est, et le champ « Message » explique pourquoi aux visiteurs.</div>
+                        </div>
+                        <div class="legal__callout">
+                            <i class="ri-lightbulb-line"></i>
+                            <div>Deux chansons ne doivent pas avoir le même titre : elles auraient la même adresse, et
+                                la fiche afficherait toujours la première. Changer le titre plus tard ne change pas
+                                l'adresse de la fiche.</div>
+                        </div>
+
+                        <h3>2. Fichiers audio</h3>
+                        <p>Chaque fichier s'envoie <strong>dès qu'il est choisi</strong> (barre de progression, puis
+                            « Fichier envoyé. » et un bouton « Écouter » pour vérifier). Jusqu'à 500 Mo par fichier.
+                        </p>
+                        <div class="legal__table-wrap">
+                            <table class="legal__table">
+                                <thead>
+                                    <tr><th>Bloc</th><th>Format</th><th>Sert à</th><th>Absent si…</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Chanson (player client web)</td><td>MP3</td><td>l'écoute sur le site
+                                            (« Écouter la chanson », lecteur du bas)</td><td>exclusivité = Oui</td></tr>
+                                    <tr><td>Creatoke (player client web)</td><td>MP3</td><td>l'écoute du créatoké sur
+                                            la fiche</td><td>instrumentaux, musique de contenus, virgules sonores</td>
+                                    </tr>
+                                    <tr><td>Chanson au format .mp3 (téléchargement)</td><td>MP3</td><td>le fichier livré
+                                            avec la licence de base</td><td>exclusivité = Oui</td></tr>
+                                    <tr><td>Chanson au format .wav (téléchargement)</td><td>WAV</td><td>le fichier livré
+                                            avec la licence premium</td><td>—</td></tr>
+                                    <tr><td>Creatoke au format .mp3 (téléchargement)</td><td>MP3</td><td>le fichier livré
+                                            avec la licence de base créatoké</td><td>instrumentaux, musique de
+                                            contenus, virgules sonores</td></tr>
+                                    <tr><td>Creatoke au format .wav (téléchargement)</td><td>WAV</td><td>le fichier livré
+                                            avec la licence premium créatoké</td><td>instrumentaux, musique de
+                                            contenus, virgules sonores</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="legal__callout legal__callout--warn">
+                            <i class="ri-error-warning-line"></i>
+                            <div><strong>Chaque licence affichée doit avoir son fichier de téléchargement.</strong> Si,
+                                par exemple, la licence premium est affichée sans fichier WAV, le client paie mais reçoit
+                                un lien qui ne fonctionne pas.</div>
+                        </div>
+
+                        <h3>3. Image de la chanson</h3>
+                        <p>« Choisir une image » : l'image est réduite automatiquement (800 × 600 px maximum) puis
+                            envoyée. Sans image, une image générique est utilisée. Préférez une image
+                            <strong>carrée</strong>, c'est le format des pochettes du site.</p>
+
+                        <h3>4. Liens externes</h3>
+                        <ul class="legal__bullets">
+                            <li><strong>Identifiant YouTube</strong> : seulement la fin de l'adresse. Pour
+                                <code>https://www.youtube.com/watch?v=Aq1NJxJZo6E</code>, saisissez
+                                <code>Aq1NJxJZo6E</code>.</li>
+                            <li><strong>Lien d'intégration Spotify</strong> : sur Spotify, clic droit sur le titre →
+                                Partager → Intégrer le titre → taille compacte, puis copiez uniquement l'adresse entre
+                                les guillemets de <code>src="…"</code>. Le bouton « Voir l'exemple » le montre en image.
+                            </li>
+                        </ul>
+
+                        <h3>5. Contenus</h3>
+                        <ul class="legal__bullets">
+                            <li><strong>Description</strong> (obligatoire) : le texte de présentation sous le titre.</li>
+                            <li><strong>Lyrics</strong> : les paroles (bouton « Voir les paroles » sur la fiche). Absent
+                                pour les instrumentaux et la musique de contenus.</li>
+                            <li><strong>Message</strong> : pour une exclusivité, le texte affiché à la place des offres de
+                                la chanson (ex. « Cette chanson est disponible sur les plateformes ; vous pouvez acheter
+                                son créatoké ci-dessous »). À remplir obligatoirement si exclusivité = Oui.</li>
+                        </ul>
+                        <h3>Générer avec l'IA</h3>
+                        <p>Les boutons <strong>« ✨ Générer avec l'IA »</strong> (description, paroles, image) analysent
+                            le <strong>dernier fichier audio choisi</strong> : ajoutez donc un fichier audio avant. Le
+                            texte généré <strong>remplace</strong> le contenu du champ : relisez-le toujours. Pour
+                            l'image, une prévisualisation propose « ✓ Utiliser cette image » ou « ↻ Générer une autre ».
+                            L'IA n'est disponible que sur cette page, pas dans « Modifier ».</p>
+
+                        <h3>6. Prix</h3>
+                        <p>Voir la section <a role="button" (click)="scrollTo('prix')">Prix et licences affichées</a>.
+                        </p>
+
+                        <h3>7. Enregistrer</h3>
+                        <ol class="legal__steps">
+                            <li>Attendez la fin de tous les envois : le bouton affiche « Envoi des fichiers… » et reste
+                                bloqué tant qu'un fichier est en cours.</li>
+                            <li>Cliquez sur <strong>« Enregistrer »</strong> : « Chanson enregistrée avec succès. » puis
+                                retour à la liste des chansons.</li>
+                            <li>Ouvrez la fiche publique pour vérifier : écoute, prix, boutons d'achat.</li>
+                        </ol>
+                    </section>
+
+                    <!-- ============================================================ -->
+                    <section class="card legal__section" id="modifier">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-edit-line"></i></span>
+                            <h2>Modifier ou supprimer une chanson</h2>
+                        </div>
+                        <p>Menu <strong>Admin → Catalogue → « Chansons »</strong> : la liste de tous les titres (pochette,
+                            titre, catégorie) avec les boutons « Modifier » et « Supprimer ».</p>
+                        <h3>Modifier</h3>
+                        <ul class="legal__bullets">
+                            <li>Les champs sont les mêmes qu'à l'ajout, dans un ordre un peu différent.</li>
+                            <li>Section <strong>« Player de la chanson »</strong> : « Remplacer le fichier » envoie un
+                                nouveau fichier (<strong>80 Mo maximum</strong> sur cette page). Il n'est pris en compte
+                                qu'après <strong>« Enregistrer »</strong>.</li>
+                            <li>L'<strong>image de couverture ne peut pas être changée</strong> depuis cette page.</li>
+                            <li>Le <strong>message</strong> d'une chanson exclusive n'est pas modifiable ici.</li>
+                            <li>« Enregistrer » → « Chanson modifiée avec succès. »</li>
+                        </ul>
+                        <div class="legal__callout legal__callout--warn">
+                            <i class="ri-error-warning-line"></i>
+                            <div><strong>Vérifiez les prix avant d'enregistrer.</strong> Le prix de la « Licence de base
+                                — chanson » s'affiche à 0 à l'ouverture de la page : ressaisissez-le, sinon la licence
+                                devient gratuite. Les prix vides sont aussi chargés à 0.</div>
+                        </div>
+                        <h3>Supprimer</h3>
+                        <p>« Supprimer » demande une confirmation, puis efface la chanson <strong>et ses
+                                fichiers</strong> (audio et image) du serveur, sauf ceux qu'une autre chanson utilise.
+                            <strong>C'est définitif.</strong> Les commentaires de la chanson ne sont pas supprimés.</p>
+                    </section>
+
+                    <!-- ============================================================ -->
+                    <section class="card legal__section" id="prix">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-price-tag-3-line"></i></span>
+                            <h2>Prix et licences affichées</h2>
+                        </div>
+                        <p>Chaque licence a deux réglages : <strong>« Afficher … »</strong> (Oui / Non) et son
+                            <strong>prix</strong> en euros.</p>
+                        <div class="legal__table-wrap">
+                            <table class="legal__table">
+                                <thead>
+                                    <tr><th>Prix saisi</th><th>Ce que voit le client</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Un montant (ex. 4)</td><td>« 4 € » et un bouton « Choisir » qui ouvre le
+                                            paiement PayPal.</td></tr>
+                                    <tr><td>0</td><td>« Gratuit » et un bouton « Télécharger » direct (ni vente, ni email,
+                                            ni facture).</td></tr>
+                                    <tr><td>Vide</td><td>« — » et aucun bouton : la licence n'est pas achetable.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul class="legal__bullets">
+                            <li><strong>Prix Chanson</strong> : licence de base (MP3) et premium (WAV) de la chanson.
+                                Section masquée pour une exclusivité dans « Chansons à chanter » / « cherche auteur ».</li>
+                            <li><strong>Prix créatoké</strong> : licence de base et premium du créatoké. Section absente
+                                pour les instrumentaux, la musique de contenus et les virgules sonores.</li>
+                            <li>La <strong>Licence pro et exclusivité</strong> (« À la carte », bouton « Contactez-nous »)
+                                est toujours affichée, sauf sur une exclusivité.</li>
+                        </ul>
+                        <p>Sur la fiche, quand une chanson a un créatoké, le client choisit la version avec le
+                            sélecteur « La chanson / Le créatoké » au-dessus des offres.</p>
+                    </section>
+
+                    <!-- ============================================================ -->
+                    <section class="card legal__section" id="licences">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-file-list-3-line"></i></span>
+                            <h2>Textes des licences et contrats</h2>
+                        </div>
+                        <p>Menu <strong>Admin → Catalogue → « Licences »</strong> : cinq onglets, chacun avec un éditeur
+                            de texte.</p>
+                        <div class="legal__table-wrap">
+                            <table class="legal__table">
+                                <thead>
+                                    <tr><th>Onglet</th><th>Où le texte apparaît</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Licence de base</td><td>« Ce qui est inclus » des offres Licence de base
+                                            (chanson et créatoké), sur toutes les fiches.</td></tr>
+                                    <tr><td>Licence premium</td><td>« Ce qui est inclus » des offres premium.</td></tr>
+                                    <tr><td>Licence pro et exclusivité</td><td>L'offre « Licence pro et exclusivité ».</td>
+                                    </tr>
+                                    <tr><td>Contrat MP3</td><td>Page publique « Contrats de licence », onglet MP3.</td></tr>
+                                    <tr><td>Contrat WAV</td><td>Même page, onglet WAV.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>Cliquez sur <strong>« Enregistrer »</strong> en bas de page (message « Licences modifiées »).
+                            Seuls les onglets que vous avez modifiés sont enregistrés. Ces textes sont communs à
+                            toutes les chansons. Les visiteurs voient le nouveau texte au bout d'une minute environ.
+                        </p>
+                    </section>
+
+                    <!-- ============================================================ -->
+                    <section class="card legal__section" id="site">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-layout-line"></i></span>
+                            <h2>Texte d'accueil et image de fond</h2>
+                        </div>
+                        <h3>Texte d'accueil</h3>
+                        <ol class="legal__steps">
+                            <li>Menu <strong>Admin → Site → « Texte d'accueil »</strong>.</li>
+                            <li><strong>Attendez que le texte actuel apparaisse</strong> dans l'éditeur (environ une
+                                seconde) avant de le modifier, sinon vous risquez d'enregistrer un texte vide.</li>
+                            <li>Modifiez puis cliquez sur <strong>« Enregistrer »</strong> (« Texte modifié »).</li>
+                        </ol>
+                        <p>Il s'affiche sur l'accueil, dans la section « A propos de Creatoke ».</p>
+                        <h3>Image de fond</h3>
+                        <ol class="legal__steps">
+                            <li>Menu <strong>Admin → Site → « Image de fond »</strong>.</li>
+                            <li>Choisissez une image : l'envoi démarre, attendez <strong>100 %</strong>.</li>
+                            <li>Cliquez sur <strong>« Ajouter image »</strong> (« OK, image de fond changée »).</li>
+                        </ol>
+                        <p>L'image s'affiche en bandeau en haut de toutes les pages et remplace l'ancienne, qui est
+                            supprimée. Choisissez une image large (paysage) et pas trop lourde : elle n'est pas
+                            redimensionnée. Les visiteurs la voient changer au bout de quelques minutes.</p>
+                        <div class="legal__callout legal__callout--warn">
+                            <i class="ri-error-warning-line"></i>
+                            <div>Si vous cliquez sur « Ajouter image » avant la fin de l'envoi, rien ne se passe, sans
+                                message : attendez la fin de la barre de progression.</div>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================ -->
+                    <section class="card legal__section" id="commentaires">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-chat-3-line"></i></span>
+                            <h2>Commentaires</h2>
+                        </div>
+                        <p>Les avis des visiteurs sont <strong>publiés immédiatement</strong> sous chaque fiche (pas de
+                            validation préalable). Menu <strong>Admin → Relations → « Commentaires »</strong> : la liste
+                            (pseudo, commentaire, nombre d'étoiles) avec un bouton « Supprimer » pour retirer un avis
+                            indésirable (suppression définitive après confirmation).</p>
+                    </section>
+
+                    <!-- ============================================================ -->
+                    <section class="card legal__section" id="contacts">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-user-search-line"></i></span>
+                            <h2>Contacts éditeurs et relances automatiques</h2>
+                        </div>
+                        <p>Menu <strong>Admin → Relations → « Contacts »</strong>. Cet outil sert à présenter une
+                            musique à un éditeur (maison d'édition, label…) puis à le relancer automatiquement.</p>
+
+                        <h3>Ajouter un contact</h3>
+                        <ol class="legal__steps">
+                            <li>Cliquez sur <strong>« Ajouter un contact »</strong>.</li>
+                            <li>Renseignez au minimum un <strong>email</strong> et un <strong>nom ou prénom</strong>,
+                                puis la société.</li>
+                            <li>Choisissez la <strong>« Musique à présenter »</strong> : son lien sera inséré dans les
+                                emails.</li>
+                            <li><strong>« Enregistrer »</strong> : le contact apparaît avec le statut
+                                <strong>« Brouillon »</strong>. Aucun email n'est encore parti.</li>
+                        </ol>
+
+                        <h3>Démarrer la séquence</h3>
+                        <p>Cliquez sur <strong>« Envoyer présentation »</strong> (disponible une fois une musique
+                            associée) et confirmez : l'email de présentation part aussitôt (J0) et le statut passe à
+                            <strong>« Séquence en cours »</strong>. Les relances suivantes sont ensuite
+                            <strong>automatiques</strong>, chaque jour à 9h :</p>
+                        <div class="legal__timeline">
+                            <div><strong>J0</strong>Présentation (envoi manuel)</div>
+                            <div><strong>J+10</strong>1er rappel</div>
+                            <div><strong>J+30</strong>2e rappel</div>
+                            <div><strong>J+60</strong>3e et dernier rappel</div>
+                            <div><strong>J+90</strong>Clôture « En attente », sans email</div>
+                        </div>
+                        <div class="legal__callout">
+                            <i class="ri-lightbulb-line"></i>
+                            <div>Dès qu'un éditeur répond, cliquez sur <strong>« A répondu »</strong> : les relances
+                                s'arrêtent pour ce contact. Une séquence arrêtée ne peut pas être relancée.</div>
+                        </div>
+
+                        <h3>Statuts</h3>
+                        <div class="legal__table-wrap">
+                            <table class="legal__table">
+                                <tbody>
+                                    <tr><td>Brouillon</td><td>Contact créé, rien n'a été envoyé.</td></tr>
+                                    <tr><td>Séquence en cours</td><td>Présentation envoyée, relances programmées.</td></tr>
+                                    <tr><td>A répondu</td><td>Vous avez marqué la réponse : plus aucune relance.</td></tr>
+                                    <tr><td>En attente (J+90)</td><td>Séquence terminée sans réponse.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>« Historique » affiche chaque envoi avec sa date (un échec y apparaît en rouge et l'envoi est
+                            retenté le lendemain). « Modifier » et « Supprimer » gèrent la fiche du contact.</p>
+
+                        <h3>Personnaliser les emails</h3>
+                        <ol class="legal__steps">
+                            <li>Cliquez sur <strong>« Modifier les emails »</strong>.</li>
+                            <li>Choisissez l'email à modifier (présentation ou l'un des trois rappels).</li>
+                            <li>Modifiez le <strong>sujet</strong> et le <strong>contenu</strong> (texte simple : une
+                                ligne vide crée un nouveau paragraphe), puis <strong>« Enregistrer »</strong>.</li>
+                        </ol>
+                        <p>Variables remplacées automatiquement à l'envoi :</p>
+                        <ul class="legal__bullets">
+                            <li><code>{{ '{prenom}' }}</code>, <code>{{ '{nom}' }}</code>,
+                                <code>{{ '{societe}' }}</code> : les informations du contact ;</li>
+                            <li><code>{{ '{titre}' }}</code> : le titre de la musique présentée ;</li>
+                            <li><code>{{ '{lien}' }}</code> : un lien cliquable vers sa fiche.</li>
+                        </ul>
+                        <p>Le logo et le pied de page Créatoké sont ajoutés automatiquement. « Rétablir le texte par
+                            défaut » annule votre personnalisation.</p>
+                    </section>
+
+                    <!-- ============================================================ -->
+                    <section class="card legal__section" id="ventes">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-bill-line"></i></span>
+                            <h2>Ventes, factures et emails clients</h2>
+                        </div>
+                        <p>Quand un client achète une licence :</p>
+                        <ol class="legal__steps">
+                            <li>Il paie par PayPal (compte PayPal ou carte bancaire).</li>
+                            <li>La vente est enregistrée (prix, titre, licence, email PayPal du client) et visible dans
+                                les <a role="button" (click)="scrollTo('stats')">Statistiques</a>.</li>
+                            <li>Il télécharge son fichier sur la page de confirmation.</li>
+                            <li>Il reçoit l'email « CREATOKE : 🎵 Votre musique et votre facture » (expéditeur
+                                no-reply&#64;creatoke.com) avec un lien de téléchargement et la <strong>facture PDF</strong>
+                                numérotée <code>CREA-AAAA-NNNN</code> (« TVA non applicable, art. 293 B du CGI »).</li>
+                        </ol>
+                        <p>Les factures sont conservées sur le serveur, dans un dossier privé.</p>
+                        <div class="legal__callout">
+                            <i class="ri-lightbulb-line"></i>
+                            <div>Un client n'a pas reçu son email ? Demandez-lui de vérifier ses courriers indésirables.
+                                Retrouvez sa vente dans les Statistiques (email client, titre, date) pour lui renvoyer le
+                                fichier.</div>
+                        </div>
+                        <p>Les téléchargements gratuits (prix 0) ne sont pas enregistrés comme des ventes.</p>
+                    </section>
+
+                    <!-- ============================================================ -->
+                    <section class="card legal__section" id="stats">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-bar-chart-2-line"></i></span>
+                            <h2>Statistiques</h2>
+                        </div>
+                        <p>Menu <strong>Admin → Outils → « Statistiques »</strong> :</p>
+                        <ul class="legal__bullets">
+                            <li><strong>Chiffre d'affaire année en cours</strong> : total des ventes depuis le 1er janvier.
+                            </li>
+                            <li><strong>Total des ventes</strong> : graphique du chiffre d'affaires par mois.</li>
+                            <li>Le <strong>tableau des ventes</strong> : montant, email du client, titre, date (les plus
+                                récentes en premier).</li>
+                        </ul>
+                        <div class="legal__callout legal__callout--warn">
+                            <i class="ri-error-warning-line"></i>
+                            <div>Le compteur « Total nb. utilisateurs » ne reflète pas le nombre de clients, et le
+                                graphique mensuel peut être décalé en fin d'année : fiez-vous au tableau des ventes.
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================ -->
+                    <section class="card legal__section" id="video">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-video-upload-line"></i></span>
+                            <h2>Publier une vidéo sur les réseaux</h2>
+                        </div>
+                        <ol class="legal__steps">
+                            <li>Menu <strong>Admin → Outils → « Publier une vidéo »</strong>.</li>
+                            <li>Renseignez le <strong>titre</strong>, la <strong>description</strong> (seuls les 280
+                                premiers caractères sont publiés) et choisissez la <strong>vidéo</strong> (512 Mo
+                                maximum).</li>
+                            <li>Cliquez <strong>une seule fois</strong> sur « Publier votre vidéo » et patientez : la vidéo
+                                est compressée puis publiée en <strong>Reel Instagram</strong> et sur
+                                <strong>Bluesky</strong>. Cela peut prendre plusieurs minutes.</li>
+                            <li>Attendez le message « Vidéo publiée » avant de quitter la page.</li>
+                        </ol>
+                        <div class="legal__callout legal__callout--warn">
+                            <i class="ri-error-warning-line"></i>
+                            <div>Le bouton n'est pas bloqué pendant l'envoi : un second clic publierait la vidéo deux
+                                fois. Si Instagram échoue, rien n'est publié sur Bluesky non plus.</div>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================ -->
+                    <section class="card legal__section" id="problemes">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-tools-line"></i></span>
+                            <h2>Problèmes fréquents</h2>
+                        </div>
+                        <details class="legal__faq">
+                            <summary>La fiche d'une chanson affiche « vide » et aucune offre.</summary>
+                            <div>Le champ « exclusivité » n'a pas été choisi, ou le « Message » d'une exclusivité est
+                                vide. Ouvrez la chanson dans « Modifier », choisissez Oui ou Non et enregistrez.</div>
+                        </details>
+                        <details class="legal__faq">
+                            <summary>Une licence affiche « — » sans bouton d'achat.</summary>
+                            <div>Son prix est vide. Saisissez un montant (ou 0 pour la rendre gratuite) dans « Modifier ».
+                            </div>
+                        </details>
+                        <details class="legal__faq">
+                            <summary>Un client a payé mais son téléchargement ne marche pas.</summary>
+                            <div>Le fichier de téléchargement de cette licence n'a sans doute pas été envoyé (voir le
+                                tableau des fichiers audio). Ajoutez-le dans « Modifier », puis envoyez au client le lien
+                                de la fiche ou le fichier par email.</div>
+                        </details>
+                        <details class="legal__faq">
+                            <summary>« Enregistrer » reste grisé.</summary>
+                            <div>Un champ obligatoire (*) est vide, ou un fichier est encore en cours d'envoi
+                                (« Envoi des fichiers… »). Attendez la fin des barres de progression.</div>
+                        </details>
+                        <details class="legal__faq">
+                            <summary>« L'envoi du fichier a échoué. »</summary>
+                            <div>Vérifiez la connexion internet et le format (audio ou image), puis réessayez. Sur la page
+                                « Modifier », un fichier est limité à 80 Mo.</div>
+                        </details>
+                        <details class="legal__faq">
+                            <summary>Je ne vois pas mes changements sur le site.</summary>
+                            <div>Certains contenus sont gardés en mémoire quelques instants (textes des licences : environ
+                                1 minute ; image de fond : quelques minutes). Rechargez la page après ce délai.</div>
+                        </details>
+                        <details class="legal__faq">
+                            <summary>J'ai été déconnecté.</summary>
+                            <div>La session dure 7 jours sans utilisation de l'administration. Reconnectez-vous sur
+                                <code>/login</code>.</div>
+                        </details>
+                        <details class="legal__faq">
+                            <summary>L'IA ne génère rien.</summary>
+                            <div>Ajoutez d'abord un fichier audio dans la page « Ajouter une chanson » : l'IA analyse le
+                                dernier fichier audio choisi. En cas d'échec, réessayez quelques instants plus tard.</div>
+                        </details>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

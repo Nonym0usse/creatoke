@@ -16,6 +16,11 @@
     }
 
 
+    // Mobile : bandeau plus court (la barre de recherche y est plus compacte)
+    @include media-breakpoint-down(sm) {
+        height: $hero-height-mobile;
+    }
+
     // Desktop & Tablet
     // Bootstrap mixin
     @include media-breakpoint-up(sm) {

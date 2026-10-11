@@ -11,121 +11,95 @@ export class Constant {
       name: 'Accueil',
       icon: '<i class="ri-home-4-line fs-5"></i>',
       link: '/',
-      auth: false,
     },
+    { head: 'Catalogue' },
     {
       name: 'Chansons à chanter',
-      icon: '<i class="ri-disc-line fs-5"></i>',
+      icon: '<i class="ri-mic-line fs-5"></i>',
       link: '/song/chansons-a-chanter',
-      auth: false,
+    },
+    {
+      name: 'Chanson(s) cherche auteur',
+      icon: '<i class="ri-quill-pen-line fs-5"></i>',
+      link: '/song/chansons-cherche-auteur',
     },
     {
       name: 'Instrumentaux',
       icon: '<i class="ri-music-2-line fs-5"></i>',
       link: '/song/instrumentaux',
-      auth: false,
-    },
-    {
-      name: 'Chanson(s) cherche auteur',
-      icon: '<i class="ri-disc-line fs-5"></i>',
-      link: '/song/chansons-cherche-auteur',
-      auth: false,
     },
     {
       name: 'Musique de contenus',
-      icon: '<i class="ri-youtube-line fs-5"></i>',
+      icon: '<i class="ri-film-line fs-5"></i>',
       link: '/song/musique-de-contenus',
-      auth: false,
     },
     {
       name: 'Créacourcis',
-      icon: '<i class="ri-star-line fs-5"></i>',
+      icon: '<i class="ri-flashlight-line fs-5"></i>',
       link: '/song/creacourcis',
-      auth: false,
     },
     {
       name: 'Virgules sonores',
-      icon: '<i class="ri-music-2-line fs-5"></i>',
+      icon: '<i class="ri-sound-module-line fs-5"></i>',
       link: '/song/virgules-sonores',
-      auth: false,
     },
+    { head: 'Créatoké' },
     {
       name: 'Contact',
-      icon: '<i class="ri-mail-send-line fs-5"></i>',
+      icon: '<i class="ri-mail-line fs-5"></i>',
       link: '/contact',
-      auth: false,
     },
     {
-      name: 'A propos de Créatoké',
-      icon: '<i class="ri-information-line fs-5"></i>',
-      link: '/about',
-      auth: false,
+      name: 'Aide',
+      icon: '<i class="ri-question-line fs-5"></i>',
+      link: '/aide',
     },
-    {
-      name: 'Contrats de licence',
-      icon: '<i class="ri-file-text-line fs-5"></i>',
-      link: '/contrats-licence',
-      auth: false,
-    },
-    {
-      name: 'Données personnelles (RGPD)',
-      icon: '<i class="ri-shield-user-line fs-5"></i>',
-      link: '/rgpd',
-      auth: false,
-    },
-    {
-      head: 'Tableau de bord',
-      auth: true,
+  ];
 
+  // Liens légaux : petits liens en pied de barre latérale.
+  public static legalLinks = [
+    { name: 'À propos', link: '/about' },
+    { name: 'Contrats de licence', link: '/contrats-licence' },
+    { name: 'Données personnelles', link: '/rgpd' },
+  ];
+
+  // Menu d'administration (menu du compte, en haut à droite), regroupé par rubrique.
+  public static adminMenu = [
+    {
+      head: 'Aide',
+      items: [
+        { name: "Guide d'administration", icon: 'ri-book-open-line', link: '/aide-admin' },
+      ],
     },
     {
-      name: 'Statistiques',
-      icon: '<i class="ri-pie-chart-line fs-5"></i>',
-      link: '/analytics',
-      auth: true,
+      head: 'Catalogue',
+      items: [
+        { name: 'Ajouter une musique', icon: 'ri-add-circle-line', link: '/add-song' },
+        { name: 'Chansons', icon: 'ri-disc-line', link: '/manage' },
+        { name: 'Licences', icon: 'ri-money-euro-circle-line', link: '/licence' },
+      ],
     },
     {
-      name: 'Chansons',
-      icon: '<i class="ri-edit-2-fill fs-5"></i>',
-      link: '/manage',
-      auth: true,
+      head: 'Site',
+      items: [
+        { name: 'Texte d\'accueil', icon: 'ri-text', link: '/text-accueil' },
+        { name: 'Image de fond', icon: 'ri-image-2-line', link: '/image-background' },
+      ],
     },
     {
-      name: 'Licences',
-      icon: '<i class="ri-money-euro-circle-line fs-5"></i>',
-      link: '/licence',
-      auth: true,
+      head: 'Relations',
+      items: [
+        { name: 'Commentaires', icon: 'ri-chat-3-line', link: '/comments' },
+        { name: 'Contacts', icon: 'ri-user-search-line', link: '/prospects' },
+      ],
     },
     {
-      name: 'Commentaires',
-      icon: '<i class="ri-user-line fs-5"></i>',
-      link: '/comments',
-      auth: true,
+      head: 'Outils',
+      items: [
+        { name: 'Statistiques', icon: 'ri-bar-chart-2-line', link: '/analytics' },
+        { name: 'Publier une vidéo', icon: 'ri-video-upload-line', link: '/publish-video' },
+      ],
     },
-    {
-      name: 'Contacts',
-      icon: '<i class="ri-contacts-line fs-5"></i>',
-      link: '/prospects',
-      auth: true,
-    },
-    {
-      name: 'Texte accueil',
-      icon: '<i class="ri-edit-2-fill fs-5"></i>',
-      link: '/text-accueil',
-      auth: true,
-    },
-    {
-      name: 'Image de fond',
-      icon: '<i class="ri-image-2-fill fs-5"></i>',
-      link: '/image-background',
-      auth: true,
-    },
-    {
-      name: 'Publier une vidéo',
-      icon: '<i class="ri-video-fill fs-5"></i>',
-      link: '/publish-video',
-      auth: true,
-    }
   ];
 
   // Brand object

@@ -1,0 +1,414 @@
+// Pages légales (mentions légales, RGPD) : styles partagés.
+$legal-primary: $primary;
+$legal-light: #8f7be4;
+$legal-soft: rgba(84, 56, 209, 0.16);
+$legal-muted: rgba(255, 255, 255, 0.55);
+$legal-line: 1px solid rgba(255, 255, 255, 0.07);
+
+.legal {
+  color: rgba(255, 255, 255, 0.86);
+  line-height: 1.7;
+
+  .card { border: $legal-line; }
+  h1, h2, h3, dt { color: #fff; }
+  p { margin: 0; }
+
+  &__header {
+    padding: 2.5rem;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+    background-image: linear-gradient(135deg, rgba(84, 56, 209, 0.22), transparent 60%);
+  }
+
+  &__eyebrow, &__toc-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__eyebrow, &__icon, &__checklist i, &__rights i, &__note a { color: $legal-light; }
+
+  &__title { font-size: clamp(1.75rem, 3vw, 2.5rem); margin: 0; }
+  &__intro { max-width: 52rem; font-size: 1rem; }
+
+  &__badge, &__pill {
+    align-self: flex-start;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+  }
+
+  &__badge { display: inline-flex; align-items: center; gap: 0.4rem; color: $legal-muted; background: rgba(255, 255, 255, 0.05); }
+  &__pill { font-weight: 600; color: #b3a6ef; background: $legal-soft; }
+
+  // Sommaire + contenu (pas de sticky : un conteneur global du layout est en overflow: hidden)
+  &__layout {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  &__toc, &__content { display: flex; flex-direction: column; gap: 0.15rem; }
+  &__content { gap: 1rem; }
+  &__toc-title { color: $legal-muted; margin: 0 0 0.5rem 0.75rem; }
+
+  &__toc-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.75rem;
+    border: 0;
+    border-left: 2px solid transparent;
+    border-radius: 0 0.375rem 0.375rem 0;
+    background: none;
+    color: $legal-muted;
+    text-align: left;
+
+    &:hover { color: #fff; background: $legal-soft; border-left-color: $legal-primary; }
+  }
+
+  &__section { padding: 1.75rem 2rem; scroll-margin-top: 6rem; }
+
+  &__section-head, &__checklist li, &__rights li, &__links a, &__cta-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__section-head { margin-bottom: 1rem; }
+  &__section-head h2 { font-size: 1.25rem; margin: 0; }
+
+  &__icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.6rem;
+    font-size: 1.25rem;
+    background: $legal-soft;
+  }
+
+  &__checklist, &__rights { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.5rem; }
+
+  &__retention { margin: 0; }
+
+  &__retention-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.4rem 1rem;
+    padding: 0.75rem 0;
+    border-bottom: $legal-line;
+
+    &:last-child { border: 0; }
+    dd { margin: 0; }
+  }
+
+  &__rights {
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+
+    li {
+      padding: 0.85rem 1rem;
+      border: $legal-line;
+      border-radius: 0.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      color: #fff;
+    }
+  }
+
+  &__note { color: $legal-muted; }
+
+  // Fiches d'identité (mentions légales)
+  &__facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 0.75rem;
+  }
+
+  &__fact {
+    padding: 1.1rem 1.25rem;
+    border: $legal-line;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+
+    dl { margin: 0; }
+    dt { font-size: 0.75rem; font-weight: 400; color: $legal-muted; }
+    dd { margin: 0 0 0.6rem; }
+    dd:last-child { margin-bottom: 0; }
+    a { color: $legal-light; }
+  }
+
+  // Sélecteur p.… : doit l'emporter sur `.legal p { margin: 0 }`.
+  p.legal__fact-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+
+    i { color: $legal-light; font-size: 1.1rem; }
+  }
+
+  // Sélecteur de format (contrats de licence)
+  &__tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  &__tab {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 1.15rem;
+    border: $legal-line;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    color: inherit;
+    text-align: left;
+    transition: border-color 0.15s, background-color 0.15s;
+
+    &:hover { border-color: rgba(84, 56, 209, 0.6); }
+
+    &.is-active {
+      border-color: $legal-primary;
+      background: $legal-soft;
+      box-shadow: inset 0 0 0 1px $legal-primary;
+    }
+  }
+
+  &__tab-label { display: block; font-weight: 600; color: #fff; }
+  &__tab-hint { display: block; font-size: 0.75rem; color: $legal-muted; }
+
+  // Texte riche saisi dans l'admin (CKEditor)
+  .legal__prose {
+    p { margin: 0 0 1rem; }
+    p:last-child { margin-bottom: 0; }
+    h1, h2, h3, h4 { font-size: 1.05rem; margin: 1.5rem 0 0.5rem; }
+    ul, ol { padding-left: 1.25rem; margin: 0 0 1rem; }
+    a { color: $legal-light; }
+  }
+
+  &__empty {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.15rem;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 0.5rem;
+    color: $legal-muted;
+
+    i { font-size: 1.25rem; color: $legal-light; }
+  }
+
+  // Lien d'action dans une section
+  &__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.75rem;
+    font-weight: 600;
+    color: $legal-light;
+    text-decoration: none;
+
+    &:hover { color: #fff; }
+  }
+
+  &__cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.75rem 2rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, $legal-primary, #3c25a3);
+
+    h3 { font-size: 1.25rem; margin: 0 0 0.25rem; }
+  }
+
+  &__cta-btn {
+    gap: 0.5rem;
+    background: #fff;
+    border-color: #fff;
+    color: $legal-primary;
+    font-weight: 600;
+
+    &:hover { background: #ece8fb; border-color: #ece8fb; color: #3c25a3; }
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+
+    a { gap: 0.4rem; color: $legal-muted; text-decoration: none; }
+    a:hover { color: #fff; }
+  }
+
+  @media (max-width: 991.98px) {
+    &__layout { grid-template-columns: minmax(0, 1fr); }
+    &__toc { flex-direction: row; overflow-x: auto; gap: 0.5rem; }
+    &__toc-title { display: none; }
+    &__toc-link { flex: none; border: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.05); white-space: nowrap; }
+  }
+
+  @media (max-width: 575.98px) {
+    &__header, &__section, &__cta { padding: 1.5rem 1.25rem; }
+    &__cta-btn { width: 100%; justify-content: center; }
+  }
+
+  // ---- Aide (pages /aide et /aide-admin) ----
+  .legal__section h3 {
+    font-size: 1rem;
+    margin: 1.5rem 0 0.6rem;
+    color: #fff;
+  }
+
+  // Espacement entre blocs d'une section (sauf juste après le titre de section)
+  .legal__section > :not(.legal__section-head) + p,
+  .legal__section > p + ul,
+  .legal__section > p + .legal__table-wrap { margin-top: 0.75rem; }
+
+  // Étapes numérotées
+  .legal__steps {
+    list-style: none;
+    counter-reset: step;
+    padding: 0;
+    margin: 0.75rem 0 0;
+    display: grid;
+    gap: 0.6rem;
+
+    > li {
+      counter-increment: step;
+      position: relative;
+      padding-left: 2.4rem;
+
+      &::before {
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        top: 0.05rem;
+        display: grid;
+        place-items: center;
+        width: 1.6rem;
+        height: 1.6rem;
+        border-radius: 50%;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #fff;
+        background: $legal-primary;
+      }
+    }
+  }
+
+  // Liste à puces simple
+  .legal__bullets {
+    padding-left: 1.2rem;
+    margin: 0.5rem 0 0;
+
+    li { margin-bottom: 0.35rem; }
+  }
+
+  // Encadrés astuce / attention
+  .legal__callout {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    border-left: 3px solid $legal-primary;
+    background: $legal-soft;
+
+    > i { font-size: 1.2rem; color: $legal-light; line-height: 1.5; }
+
+    &--warn {
+      border-left-color: #f0a33a;
+      background: rgba(240, 163, 58, 0.1);
+
+      > i { color: #f0a33a; }
+    }
+  }
+
+  // Tableau de champs
+  .legal__table {
+    width: 100%;
+    margin-top: 0.75rem;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+
+    th, td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: $legal-line;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { color: $legal-muted; font-weight: 600; white-space: nowrap; }
+    td:first-child { color: #fff; font-weight: 600; }
+  }
+
+  .legal__table-wrap { overflow-x: auto; }
+
+  // Questions fréquentes (repliables)
+  .legal__faq {
+    border-bottom: $legal-line;
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 0;
+      cursor: pointer;
+      list-style: none;
+      font-weight: 600;
+      color: #fff;
+
+      &::-webkit-details-marker { display: none; }
+
+      &::after {
+        content: '+';
+        font-size: 1.25rem;
+        color: $legal-light;
+      }
+    }
+
+    &[open] summary::after { content: '–'; }
+
+    > div { padding: 0 0 1rem; }
+
+    &:last-child { border-bottom: 0; }
+  }
+
+  // Frise (séquence de relances)
+  .legal__timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+
+    > div {
+      padding: 0.75rem;
+      border: $legal-line;
+      border-radius: 0.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 0.8rem;
+    }
+
+    strong { display: block; font-size: 0.95rem; color: $legal-light; }
+  }
+
+  kbd, code {
+    padding: 0.1rem 0.35rem;
+    border-radius: 0.25rem;
+    font-size: 0.85em;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+  }
+}

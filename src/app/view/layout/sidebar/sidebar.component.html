@@ -30,13 +30,8 @@
     </nav>
   </perfect-scrollbar>
 
-  <div class="sidebar-foot" *ngIf="isAuthenticated">
-    <a routerLink="/add-song" class="btn btn-custom d-flex">
-      <div class="btn__wrap">
-        <i style="color: #F5F7FA" class="ri-music-fill"></i>
-        <span style="color: #F5F7FA">Ajouter musique</span>
-      </div>
-    </a>
+  <div class="sidebar-foot sidebar-legal">
+    <a *ngFor="let link of legalLinks" [routerLink]="link.link" routerLinkActive="active">{{ link.name }}</a>
   </div>
 </aside>
 <!-- End:: sidebar -->

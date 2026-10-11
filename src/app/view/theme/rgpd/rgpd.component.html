@@ -2,70 +2,120 @@
 
 <!-- Start:: under hero -->
 <div class="under-hero container">
-
-    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
     <div class="section">
-        <div class="row">
-            <div class="col-xl-12 col-md-10 mx-auto">
-                <div class="card">
-                    <div class="legal-container">
-                        <div class="legal-title">Politique de confidentialité (RGPD)</div>
+        <div class="legal">
 
-                        <p>
-                            Creatoke accorde une importance primordiale à la protection des données personnelles.
-                            Conformément
-                            au Règlement Général sur la Protection des Données (RGPD), nous nous engageons à garantir la
-                            transparence, la sécurité et le respect des droits des individus.
-                        </p>
+            <!-- En-tête -->
+            <header class="card legal__header">
+                <span class="legal__eyebrow"><i class="ri-shield-user-line"></i> Données personnelles · RGPD</span>
+                <h1 class="legal__title">Politique de <span class="text-primary">confidentialité</span></h1>
+                <p class="legal__intro">
+                    Creatoke accorde une importance primordiale à la protection des données personnelles.
+                    Conformément au Règlement Général sur la Protection des Données (RGPD), nous nous engageons à
+                    garantir la transparence, la sécurité et le respect des droits des individus.
+                </p>
+                <span class="legal__badge"><i class="ri-time-line"></i> Dernière mise à jour : {{ lastUpdate }}</span>
+            </header>
 
-                        <div class="legal-section-title">Catégories de données collectées</div>
+            <div class="legal__layout">
+
+                <!-- Sommaire -->
+                <nav class="legal__toc" aria-label="Sommaire">
+                    <p class="legal__toc-title">Sommaire</p>
+                    <button type="button" *ngFor="let entry of toc" class="legal__toc-link" (click)="scrollTo(entry.id)">
+                        <i [class]="entry.icon"></i><span>{{ entry.label }}</span>
+                    </button>
+                </nav>
+
+                <div class="legal__content">
+
+                    <section class="card legal__section" id="donnees">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-database-2-line"></i></span>
+                            <h2>Catégories de données collectées</h2>
+                        </div>
                         <p>Nous collectons uniquement les adresses emails des utilisateurs.</p>
+                    </section>
 
-                        <div class="legal-section-title">Finalité du traitement des données</div>
-                        <ul>
-                            <li>Gestion des achats</li>
-                            <li>Envoi d’offres promotionnelles</li>
+                    <section class="card legal__section" id="finalite">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-focus-3-line"></i></span>
+                            <h2>Finalité du traitement des données</h2>
+                        </div>
+                        <ul class="legal__checklist">
+                            <li *ngFor="let purpose of purposes"><i class="ri-checkbox-circle-fill"></i>{{ purpose }}</li>
                         </ul>
+                    </section>
 
-                        <div class="legal-section-title">Base légale du traitement</div>
-                        <ul>
-                            <li>Consentement explicite de l'utilisateur</li>
-                            <li>Exécution d’un contrat (achat de musique)</li>
-                            <li>Obligation légale (facturation)</li>
-                            <li>Intérêt légitime (amélioration des services, sécurité)</li>
+                    <section class="card legal__section" id="base-legale">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-scales-3-line"></i></span>
+                            <h2>Base légale du traitement</h2>
+                        </div>
+                        <ul class="legal__checklist">
+                            <li *ngFor="let basis of legalBases"><i class="ri-checkbox-circle-fill"></i>{{ basis }}</li>
                         </ul>
+                    </section>
 
-                        <div class="legal-section-title">Conservation des données</div>
-                        <ul>
-                            <li>Comptes clients : jusqu’à suppression par l’utilisateur</li>
-                            <li>Facturation : 10 ans</li>
-                            <li>Historique : 2 ans maximum</li>
+                    <section class="card legal__section" id="conservation">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-archive-line"></i></span>
+                            <h2>Conservation des données</h2>
+                        </div>
+                        <dl class="legal__retention">
+                            <div *ngFor="let item of retention" class="legal__retention-row">
+                                <dt>{{ item.label }}</dt>
+                                <dd><span class="legal__pill">{{ item.duration }}</span></dd>
+                            </div>
+                        </dl>
+                    </section>
+
+                    <section class="card legal__section" id="droits">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-user-settings-line"></i></span>
+                            <h2>Droits des utilisateurs</h2>
+                        </div>
+                        <ul class="legal__rights">
+                            <li *ngFor="let right of rights"><i [class]="right.icon"></i><span>{{ right.label }}</span></li>
                         </ul>
-
-                        <div class="legal-section-title">Droits des utilisateurs</div>
-                        <ul>
-                            <li>Droit d’accès</li>
-                            <li>Droit de rectification</li>
-                            <li>Droit à l’effacement</li>
-                            <li>Droit à la portabilité</li>
-                            <li>Droit d’opposition</li>
-                            <li>Droit à la limitation</li>
-                        </ul>
-
-                        <p>Pour exercer vos droits : <a href="mailto:contact@creatoke.fr">contact@creatoke.fr</a></p>
-
-                        <div class="legal-section-title">Sécurité et partage</div>
-                        <p>Les données ne sont jamais partagées sauf obligation légale. Toutes les mesures nécessaires
-                            sont
-                            prises pour assurer leur sécurité.</p>
-
-                        <div class="legal-section-title">Modifications</div>
-                        <p>Cette politique peut être mise à jour. Dernière mise à jour : 22/06/2025.</p>
-
-                        <p class="back">
-                            <a routerLink="/about">Consulter les mentions légales</a><br>
-                            <a routerLink="/">Retour à l'accueil</a>
+                        <p class="legal__note">
+                            Pour exercer vos droits : <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>
                         </p>
+                    </section>
+
+                    <section class="card legal__section" id="securite">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-lock-2-line"></i></span>
+                            <h2>Sécurité et partage</h2>
+                        </div>
+                        <p>
+                            Les données ne sont jamais partagées sauf obligation légale. Toutes les mesures nécessaires
+                            sont prises pour assurer leur sécurité.
+                        </p>
+                    </section>
+
+                    <section class="card legal__section" id="modifications">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-refresh-line"></i></span>
+                            <h2>Modifications</h2>
+                        </div>
+                        <p>Cette politique peut être mise à jour. Dernière mise à jour : {{ lastUpdate }}.</p>
+                    </section>
+
+                    <!-- Appel à l'action -->
+                    <aside class="legal__cta">
+                        <div>
+                            <h3>Une question sur vos données ?</h3>
+                            <p>Écrivez-nous pour exercer vos droits ou obtenir des précisions.</p>
+                        </div>
+                        <a class="btn btn-primary legal__cta-btn" href="mailto:{{ contactEmail }}">
+                            <i class="ri-mail-send-line"></i> {{ contactEmail }}
+                        </a>
+                    </aside>
+
+                    <div class="legal__links">
+                        <a routerLink="/about"><i class="ri-file-text-line"></i> Consulter les mentions légales</a>
+                        <a routerLink="/"><i class="ri-arrow-left-line"></i> Retour à l'accueil</a>
                     </div>
                 </div>
             </div>

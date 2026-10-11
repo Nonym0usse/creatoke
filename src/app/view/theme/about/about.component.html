@@ -2,68 +2,146 @@
 
 <!-- Start:: under hero -->
 <div class="under-hero container">
-
-    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
     <div class="section">
-        <div class="row">
-            <div class="col-xl-12 col-md-10 mx-auto">
-                <div class="card">
-                    <div class="legal-container">
-                        <div class="legal-title">Mentions Légales</div>
+        <div class="legal">
 
-                        <div class="legal-section-title">1. Éditeur du site</div>
-                        <p>
-                            Nom de l'entreprise : <strong>CREATOKE</strong><br>
-                            Adresse : Arcades des Citeaux, Le Sénanque, 13127 Vitrolles, France<br>
-                            Email : contact@creatoke.fr<br>
-                            Hébergement : <strong>o2Switch</strong><br>
-                            Adresse : Chem. des Pardiaux, 63000 Clermont-Ferrand, France<br>
-                            Téléphone : +33 02 036 950 543<br>
-                            Développeur du site web : <strong>Cyril VELLA - <a href="https://www.cyrilvella.com" target="_blank" rel="noopener noreferrer">Visiter le site</a></strong>
-                        </p>
+            <!-- En-tête -->
+            <header class="card legal__header">
+                <span class="legal__eyebrow"><i class="ri-information-line"></i> Informations légales</span>
+                <h1 class="legal__title">Mentions <span class="text-primary">légales</span></h1>
+                <p class="legal__intro">
+                    Éditeur, hébergement, propriété intellectuelle et conditions d'utilisation du site
+                    <strong>Creatoke</strong>.
+                </p>
+            </header>
 
-                        <div class="legal-section-title">2. Propriété intellectuelle</div>
+            <div class="legal__layout">
+
+                <!-- Sommaire -->
+                <nav class="legal__toc" aria-label="Sommaire">
+                    <p class="legal__toc-title">Sommaire</p>
+                    <button type="button" *ngFor="let entry of toc" class="legal__toc-link" (click)="scrollTo(entry.id)">
+                        <i [class]="entry.icon"></i><span>{{ entry.label }}</span>
+                    </button>
+                </nav>
+
+                <div class="legal__content">
+
+                    <section class="card legal__section" id="editeur">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-building-line"></i></span>
+                            <h2>1. Éditeur du site</h2>
+                        </div>
+                        <div class="legal__facts">
+                            <div class="legal__fact">
+                                <p class="legal__fact-title"><i class="ri-building-line"></i> Éditeur</p>
+                                <dl>
+                                    <dt>Nom de l'entreprise</dt>
+                                    <dd><strong>CREATOKE</strong></dd>
+                                    <dt>Adresse</dt>
+                                    <dd>Arcades des Citeaux, Le Sénanque, 13127 Vitrolles, France</dd>
+                                    <dt>Email</dt>
+                                    <dd><a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a></dd>
+                                </dl>
+                            </div>
+                            <div class="legal__fact">
+                                <p class="legal__fact-title"><i class="ri-server-line"></i> Hébergement</p>
+                                <dl>
+                                    <dt>Hébergeur</dt>
+                                    <dd><strong>o2Switch</strong></dd>
+                                    <dt>Adresse</dt>
+                                    <dd>Chem. des Pardiaux, 63000 Clermont-Ferrand, France</dd>
+                                    <dt>Téléphone</dt>
+                                    <dd>+33 02 036 950 543</dd>
+                                </dl>
+                            </div>
+                            <div class="legal__fact">
+                                <p class="legal__fact-title"><i class="ri-code-s-slash-line"></i> Développement</p>
+                                <dl>
+                                    <dt>Développeur du site web</dt>
+                                    <dd><strong>Cyril VELLA</strong></dd>
+                                </dl>
+                                <a class="legal__more" href="https://www.cyrilvella.com" target="_blank" rel="noopener noreferrer">
+                                    Visiter le site <i class="ri-external-link-line"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="card legal__section" id="propriete">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-copyright-line"></i></span>
+                            <h2>2. Propriété intellectuelle</h2>
+                        </div>
                         <p>
                             Le contenu du site <strong>Creatoke</strong> (musiques, textes, images, vidéos, logos, etc.)
-                            est
-                            protégé par le droit de la propriété intellectuelle et reste la propriété exclusive de
+                            est protégé par le droit de la propriété intellectuelle et reste la propriété exclusive de
                             Creatoke.
                         </p>
+                    </section>
 
-                        <div class="legal-section-title">3. Collecte des données personnelles</div>
+                    <section class="card legal__section" id="donnees">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-database-2-line"></i></span>
+                            <h2>3. Collecte des données personnelles</h2>
+                        </div>
                         <p>
                             Les informations recueillies sur ce site sont utilisées uniquement dans le cadre de la
-                            gestion de la
-                            relation client et ne sont en aucun cas revendues à des tiers. Seules les adresses emails
-                            sont
-                            collectées sur creatoke.fr.
+                            gestion de la relation client et ne sont en aucun cas revendues à des tiers. Seules les
+                            adresses emails sont collectées sur creatoke.fr.
                         </p>
+                    </section>
 
-                        <div class="legal-section-title">4. Cookies</div>
-                        <p>
-                            Ce site n’utilise pas de cookies.
-                        </p>
+                    <section class="card legal__section" id="cookies">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-eye-off-line"></i></span>
+                            <h2>4. Cookies</h2>
+                        </div>
+                        <p>Ce site n’utilise pas de cookies.</p>
+                    </section>
 
-                        <div class="legal-section-title">5. Droit applicable</div>
+                    <section class="card legal__section" id="droit">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-scales-3-line"></i></span>
+                            <h2>5. Droit applicable</h2>
+                        </div>
                         <p>
                             Les présentes mentions légales sont régies par la loi française. En cas de litige, les
-                            tribunaux
-                            compétents seront ceux de Paris.
+                            tribunaux compétents seront ceux de Paris.
                         </p>
+                    </section>
 
-                        <div class="legal-section-title">6. Politique de confidentialité (RGPD)</div>
-                        <p>
-                            Notre politique de confidentialité est disponible sur une page dédiée :
-                            <a routerLink="/rgpd">Données personnelles (RGPD)</a>.
-                        </p>
+                    <section class="card legal__section" id="rgpd">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-shield-user-line"></i></span>
+                            <h2>6. Politique de confidentialité (RGPD)</h2>
+                        </div>
+                        <p>Notre politique de confidentialité est disponible sur une page dédiée :</p>
+                        <a class="legal__more" routerLink="/rgpd">Données personnelles (RGPD) <i class="ri-arrow-right-line"></i></a>
+                    </section>
 
-                        <div class="legal-section-title">7. Contrats de licence</div>
-                        <p>
-                            Les contrats de licence relatifs aux formats MP3 et WAV sont consultables sur la page :
-                            <a routerLink="/contrats-licence">Contrats de licence</a>.
-                        </p>
+                    <section class="card legal__section" id="licences">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-file-list-3-line"></i></span>
+                            <h2>7. Contrats de licence</h2>
+                        </div>
+                        <p>Les contrats de licence relatifs aux formats MP3 et WAV sont consultables sur la page :</p>
+                        <a class="legal__more" routerLink="/contrats-licence">Contrats de licence <i class="ri-arrow-right-line"></i></a>
+                    </section>
 
-                        <p class="back"><a routerLink="/">Retour à l'accueil</a></p>
+                    <!-- Appel à l'action -->
+                    <aside class="legal__cta">
+                        <div>
+                            <h3>Une question ?</h3>
+                            <p>Notre équipe vous répond par email.</p>
+                        </div>
+                        <a class="btn btn-primary legal__cta-btn" href="mailto:{{ contactEmail }}">
+                            <i class="ri-mail-send-line"></i> {{ contactEmail }}
+                        </a>
+                    </aside>
+
+                    <div class="legal__links">
+                        <a routerLink="/"><i class="ri-arrow-left-line"></i> Retour à l'accueil</a>
                     </div>
                 </div>
             </div>

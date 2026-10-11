@@ -2,29 +2,67 @@
 
 <!-- Start:: under hero -->
 <div class="under-hero container">
-
-    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
     <div class="section">
-        <div class="row">
-            <div class="col-xl-12 col-md-10 mx-auto">
-                <div class="card">
-                    <div class="legal-container">
-                        <div class="legal-title">Contrats de licence</div>
+        <!-- Styles partagés avec les autres pages légales : scss/framework/_legal.scss -->
+        <div class="legal">
 
-                        <div class="legal-section-title">Contrat de licence — Format MP3</div>
-                        <div *ngIf="contractMp3; else emptyMp3" [innerHTML]="contractMp3"></div>
-                        <ng-template #emptyMp3>
-                            <p>Le contrat de licence MP3 sera bientôt disponible.</p>
-                        </ng-template>
+            <!-- En-tête -->
+            <header class="card legal__header">
+                <span class="legal__eyebrow"><i class="ri-file-list-3-line"></i> Licences</span>
+                <h1 class="legal__title">Contrats de <span class="text-primary">licence</span></h1>
+                <p class="legal__intro">
+                    Les conditions d'utilisation de nos musiques, selon le format que vous achetez.
+                </p>
+            </header>
 
-                        <div class="legal-section-title">Contrat de licence — Format WAV</div>
-                        <div *ngIf="contractWav; else emptyWav" [innerHTML]="contractWav"></div>
-                        <ng-template #emptyWav>
-                            <p>Le contrat de licence WAV sera bientôt disponible.</p>
-                        </ng-template>
+            <div class="legal__content">
 
-                        <p class="back"><a routerLink="/">Retour à l'accueil</a></p>
+                <!-- Choix du format -->
+                <div class="legal__tabs" role="tablist" aria-label="Format du contrat">
+                    <button type="button" *ngFor="let format of formats" role="tab" class="legal__tab"
+                        [class.is-active]="activeFormat === format.key"
+                        [attr.aria-selected]="activeFormat === format.key"
+                        (click)="activeFormat = format.key">
+                        <span class="legal__icon"><i [class]="format.icon"></i></span>
+                        <span>
+                            <span class="legal__tab-label">{{ format.label }}</span>
+                            <span class="legal__tab-hint">{{ format.hint }}</span>
+                        </span>
+                    </button>
+                </div>
+
+                <!-- Contrat -->
+                <section class="card legal__section" role="tabpanel">
+                    <div class="legal__section-head">
+                        <span class="legal__icon"><i class="ri-file-text-line"></i></span>
+                        <h2>Contrat de licence — Format {{ activeFormat | uppercase }}</h2>
                     </div>
+
+                    <p *ngIf="loading" class="legal__note">Chargement du contrat…</p>
+
+                    <div *ngIf="!loading && activeContract" class="legal__prose" [innerHTML]="activeContract"></div>
+
+                    <div *ngIf="!loading && !activeContract" class="legal__empty">
+                        <i class="ri-time-line"></i>
+                        <p>Le contrat de licence {{ activeFormat | uppercase }} sera bientôt disponible.</p>
+                    </div>
+                </section>
+
+                <!-- Appel à l'action -->
+                <aside class="legal__cta">
+                    <div>
+                        <h3>Licence pro ou exclusivité ?</h3>
+                        <p>Pour un usage commercial ou une exclusivité, parlons de votre projet.</p>
+                    </div>
+                    <a class="btn btn-primary legal__cta-btn" routerLink="/contact">
+                        <i class="ri-mail-send-line"></i> Nous contacter
+                    </a>
+                </aside>
+
+                <div class="legal__links">
+                    <a routerLink="/about"><i class="ri-information-line"></i> Mentions légales</a>
+                    <a routerLink="/rgpd"><i class="ri-shield-user-line"></i> Données personnelles</a>
+                    <a routerLink="/"><i class="ri-arrow-left-line"></i> Retour à l'accueil</a>
                 </div>
             </div>
         </div>

@@ -9,6 +9,8 @@ import { Song } from "src/app/core/models/song.model";
 export class CoverViewComponent {
   @Input() songs: Song[] = [];
   @Input() isHome: boolean = false;
+  // Classes de colonne des cartes (hors accueil) : surchargeable pour une grille plus dense.
+  @Input() colClass = "col-6 col-md-4 col-xl-3";
   @Input() coverLink = false;
   @Input() viewDropdown = true;
   @Input() viewPlayButton = true;

@@ -1,4 +1,7 @@
-<div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
+<!-- Bandeau : pochette de la chanson floutée par-dessus l'image de fond du site -->
+<div class="hero song-hero" [style.background-image]="'url(' + picturebackground + ')'">
+    <div class="song-hero__cover" *ngIf="song?.image" [style.background-image]="'url(&quot;' + song.image + '&quot;)'"></div>
+</div>
 
 <div class="under-hero container">
 
@@ -17,319 +20,164 @@
         <a routerLink="/" class="btn btn-custom">Retour à l'accueil</a>
     </div>
 
-    <div class="section" *ngIf="!pageLoading && !loadError">
-        <div class="row">
-            <div class="col-xl-3 col-md-4">
-                <div class="cover cover--round">
-                    <div class="cover__image">
-                        <div class="spinner" *ngIf="imgLoading" aria-label="Chargement"></div>
-                        <img [class.is-hidden]="imgLoading" [src]="song?.image" [alt]="song?.title || ''"
-                            (load)="imgLoading = false" />
-                    </div>
+    <ng-container *ngIf="!pageLoading && !loadError">
+
+        <!-- Fiche chanson -->
+        <div class="card song-card">
+            <div class="song-card__cover cover cover--round">
+                <div class="cover__image">
+                    <div class="spinner" *ngIf="imgLoading" aria-label="Chargement"></div>
+                    <img [class.is-hidden]="imgLoading" [src]="song?.image" [alt]="song?.title || ''"
+                        (load)="imgLoading = false" />
                 </div>
             </div>
-            <div class="col-1 d-none d-xl-block"></div>
-            <div class="col-md-8 mt-5 mt-md-0">
-                <div class="d-flex flex-wrap mb-2">
 
-                    <span class="text-dark fs-4 fw-semi-bold pe-2">{{song?.title}}<span class="exclu">
-                            {{song?.exclu === 'oui' ? ' (Exclusivité plateforme)' : '' }}</span></span>
+            <div class="song-card__body">
+                <div class="song-tags">
+                    <span class="song-tag" *ngIf="categoryLabel"><i class="ri-music-2-line"></i>{{ categoryLabel }}</span>
+                    <span class="song-tag song-tag--accent" *ngIf="song?.exclu === 'oui'">
+                        <i class="ri-vip-crown-line"></i>Exclusivité plateforme
+                    </span>
+                    <span class="song-tag" *ngIf="song?.ratings"><i class="ri-star-fill"></i>{{ song?.ratings }}</span>
                 </div>
-                <ul class="info-list info-list--dotted mb-3">
-                    <li *ngIf="categoryLabel">{{ categoryLabel }}</li>
-                </ul>
-                <div class="mb-4">
-                    <p class="mb-2">Interprète:
-                        <span class="text-dark fw-medium">
-                            {{song?.artist}}
-                        </span>
-                    </p>
-                    <p class="mb-4">Description:
-                        <span class="text-dark fw-medium" style="word-wrap: break-word;">
-                            {{song?.description}}
-                        </span>
-                    </p>
-                    <p class="mb-4" [hidden]="song?.exclu === 'non'" *ngIf="song?.exclu">
-                        <span class="text-dark fw-medium" style="word-wrap: break-word;">
-                            🎤☀️ Chanson en contrat avec un distributeur , vous pouvez la télécharger sur n'importe
-                            quelle
-                            plateforme (Spotify, Deezer, etc...)
-                        </span>
-                    </p>
 
+                <h1 class="song-card__title">{{ song?.title }}</h1>
+
+                <dl class="song-meta">
+                    <dt><i class="ri-mic-line"></i> Interprète</dt>
+                    <dd>{{ song?.artist }}</dd>
+                    <dt><i class="ri-file-text-line"></i> Description</dt>
+                    <dd>{{ song?.description }}</dd>
+                </dl>
+
+                <p class="song-notice" *ngIf="song?.exclu && song?.exclu !== 'non'">
+                    🎤☀️ Chanson en contrat avec un distributeur , vous pouvez la télécharger sur n'importe quelle
+                    plateforme (Spotify, Deezer, etc...)
+                </p>
+
+                <!-- Écoute -->
+                <div class="song-players"
+                    [hidden]="song?.exclu === 'oui' && (song?.category === 'instrumentaux' || song?.category === 'createurs-de-contenu')">
+                    <div class="song-player">
+                        <button type="button" class="btn btn-icon btn-player rounded-pill"
+                            (click)="play($event)" [attr.data-play-id]="song?.id"
+                            [attr.aria-label]="song?.exclu === 'oui' ? 'Écouter le créatoké' : 'Écouter la chanson'">
+                            <i class="ri-play-fill icon-play"></i>
+                            <i class="ri-pause-fill icon-pause"></i>
+                        </button>
+                        <span>{{ song?.exclu === 'oui' ? 'Écouter le créatoké' : 'Écouter la chanson' }}</span>
+                    </div>
+                    <div class="song-player"
+                        *ngIf="(song?.category === 'chansons-a-chanter' || song?.category === 'chansons-cherche-auteur') && song?.exclu === 'non'">
+                        <button type="button" class="btn btn-icon btn-player rounded-pill" (click)="toggleAudio()"
+                            aria-label="Écouter le créatoké">
+                            <ng-container *ngIf="isPlaying; else pauseIcon">
+                                <i class="ri-pause-fill icon-pause"></i>
+                            </ng-container>
+                            <ng-template #pauseIcon>
+                                <i class="ri-play-fill icon-play"></i>
+                            </ng-template>
+                        </button>
+                        <span>Écouter le créatoké</span>
+                    </div>
+                    <span class="song-played" *ngIf="song?.played"><i class="ri-headphone-line"></i>{{ song?.played }}</span>
                 </div>
-                <ul class="info-list mb-5">
-                    <li
-                        [hidden]="song?.exclu === 'oui' && (song?.category === 'instrumentaux' || song?.category === 'createurs-de-contenu')">
-                        <div class="d-flex align-items-center">
-                            <div class="chanson-player">
-                                <button type="button" class="btn btn-icon btn-player rounded-pill"
-                                    (click)="play($event)" [attr.data-play-id]="song?.id">
-                                    <i class="ri-play-fill icon-play"></i>
-                                    <i class="ri-pause-fill icon-pause"></i>
-                                </button>
-                                <span class="text-extrait">{{ song?.exclu === 'oui' ? 'Écouter le créatoké' : 'Écouter la
-                                    chanson'}}</span>
-                            </div>
-                            <div class="chanson-player"
-                                *ngIf="(song?.category === 'chansons-a-chanter' || song?.category === 'chansons-cherche-auteur') && song?.exclu === 'non'">
-                                <button type="button" class="btn btn-icon btn-player rounded-pill"
-                                    (click)="toggleAudio()">
-                                    <ng-container *ngIf="isPlaying; else pauseIcon">
-                                        <i class="ri-pause-fill icon-pause"></i>
-                                    </ng-container>
-                                    <ng-template #pauseIcon>
-                                        <i class="ri-play-fill icon-play"></i>
-                                    </ng-template>
-                                </button>
-                                <span class="text-extrait">Écouter le créatoké</span>
-                            </div>
-                            <span class="ps-2 fw-semi-bold" *ngIf="song?.played">{{song?.played}}</span>
-                        </div>
-                    </li>
-                    <li *ngIf="song?.ratings">
-                        <span class="text-dark d-flex align-items-center">
-                            <i class="ri-star-fill text-warning"></i>
-                            <span class="ps-2 fw-medium">{{song?.ratings}}</span>
-                        </span>
-                    </li>
-                </ul>
-                <div class="d-flex gap-2 mt-2 flex-wrap">
-                    <button class="btn btn-custom" type="button" (click)="showLyricsBtn()" [hidden]="!song?.lyrics">
-                        {{ showLyrics ? 'Cacher les paroles' : 'Voir les paroles' }}
+
+                <div class="song-actions">
+                    <button class="btn song-btn-ghost" type="button" (click)="showLyricsBtn()" [hidden]="!song?.lyrics">
+                        <i class="ri-file-text-line"></i> {{ showLyrics ? 'Cacher les paroles' : 'Voir les paroles' }}
                     </button>
-
-                    <button class="btn btn-custom" type="button" (click)="copySongUrl()">
-                        {{copied ? "Copiée dans le presse-papier ✅" : "Partager la chanson 📝"}}
+                    <button class="btn song-btn-ghost" type="button" (click)="copySongUrl()">
+                        <i [class]="copied ? 'ri-check-line' : 'ri-share-line'"></i>
+                        {{ copied ? 'Lien copié' : 'Partager la chanson' }}
                     </button>
                 </div>
-
-
-                <!-- Lyrics -->
-                <div class="mt-2" *ngIf="showLyrics && (song?.lyrics ?? '').trim().length > 0">
-                    <span class="d-block text-dark fs-6 fw-semi-bold mb-3">Lyrics</span>
-                    <p style="word-wrap: break-word;" [innerHTML]="song?.lyrics"></p>
-                </div>
-
             </div>
         </div>
-    </div>
-    <div class="section" *ngIf="!pageLoading && !loadError">
-        <div *ngIf="(song?.spotifyURL ?? '').trim() !== '' && song?.spotifyURL !== 'vide'">
-            <div class="section__head">
-                <h3 class="mb-0">Spotify</h3>
+
+        <!-- Paroles -->
+        <div class="card song-lyrics" *ngIf="showLyrics && (song?.lyrics ?? '').trim().length > 0">
+            <h2 class="song-section-title"><i class="ri-file-text-line"></i> Paroles</h2>
+            <div class="song-lyrics__text" [innerHTML]="song?.lyrics"></div>
+        </div>
+
+        <!-- Écouter ailleurs -->
+        <div class="song-embeds"
+            *ngIf="((song?.spotifyURL ?? '').trim() !== '' && song?.spotifyURL !== 'vide') || ((song?.youtubeURL ?? '').trim() !== '' && song?.youtubeURL !== 'vide')">
+            <div class="card song-embed" *ngIf="(song?.spotifyURL ?? '').trim() !== '' && song?.spotifyURL !== 'vide'">
+                <h2 class="song-section-title"><i class="ri-spotify-fill"></i> Spotify</h2>
+                <iframe style="border-radius:12px" [src]="this.trustedDashboardUrl" width="100%" height="152"
+                    frameBorder="0" allowfullscreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"></iframe>
             </div>
-            <div class="plan bg-light large">
-                <div class="plan__data">
-                    <div class="iframe-container">
-                        <iframe style="border-radius:12px" [src]="this.trustedDashboardUrl" width="100%" height="152"
-                            frameBorder="0" allowfullscreen=""
-                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                            loading="lazy"></iframe>
+            <div class="card song-embed" *ngIf="(song?.youtubeURL ?? '').trim() !== '' && song?.youtubeURL !== 'vide'">
+                <h2 class="song-section-title"><i class="ri-youtube-fill"></i> YouTube</h2>
+                <div class="song-embed__video">
+                    <iframe [src]="videoUrl" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achat -->
+        <section class="song-buy">
+            <div class="song-buy__head">
+                <h2 class="mb-0">Acheter<span class="exclu">{{ purchaseTab === 'creatoke' ? ' le créatoké' : categoryName }}</span></h2>
+                <div class="song-switch" role="tablist" *ngIf="hasCreatoke">
+                    <button type="button" role="tab" [class.is-active]="purchaseTab === 'song'"
+                        [attr.aria-selected]="purchaseTab === 'song'" (click)="purchaseTab = 'song'">La chanson</button>
+                    <button type="button" role="tab" [class.is-active]="purchaseTab === 'creatoke'"
+                        [attr.aria-selected]="purchaseTab === 'creatoke'" (click)="purchaseTab = 'creatoke'">Le créatoké</button>
+                </div>
+            </div>
+
+            <!-- Message d'exclusivité : remplace les offres de la chanson, reste visible au-dessus du créatoké -->
+            <div class="alert alert-custom" [innerHTML]="song?.message" *ngIf="!songForSale"></div>
+
+            <ng-container *ngIf="purchaseTab === 'creatoke' || songForSale">
+                <div class="song-plans">
+                    <div class="card song-plan" *ngFor="let plan of plans">
+                        <div class="song-plan__head">
+                            <span class="song-plan__format">{{ plan.format }}</span>
+                            <h3>{{ plan.title }}</h3>
+                            <p class="song-plan__price">{{ formatPrice(plan.price) }}</p>
+                        </div>
+                        <p class="song-plan__included">Ce qui est inclus</p>
+                        <ul class="song-plan__features">
+                            <li *ngFor="let feature of licences">
+                                <i class="ri-checkbox-circle-fill"></i><span [innerHTML]="feature[plan.feature]"></span>
+                            </li>
+                        </ul>
+                        <button type="button" *ngIf="isPaid(plan.price)"
+                            (click)="openPaypalModal(plan.price, plan.key, song.title)"
+                            class="btn song-btn-primary w-100"><i class="ri-shopping-bag-3-line"></i> Choisir</button>
+                        <button type="button" *ngIf="isFree(plan.price)" class="btn song-btn-primary w-100"
+                            (click)="downloadSong(plan.free)"><i class="ri-download-2-line"></i> Télécharger en {{ plan.format === 'WAV' ? 'Wav' : plan.format }}</button>
+                    </div>
+
+                    <div class="card song-plan song-plan--pro">
+                        <div class="song-plan__head">
+                            <span class="song-plan__format">Sur mesure</span>
+                            <h3>Licence pro et exclusivité</h3>
+                            <p class="song-plan__price">À la carte</p>
+                        </div>
+                        <p class="song-plan__included">Ce qui est inclus</p>
+                        <ul class="song-plan__features">
+                            <li *ngFor="let feature of licences">
+                                <i class="ri-checkbox-circle-fill"></i><span [innerHTML]="feature.premium"></span>
+                            </li>
+                        </ul>
+                        <button type="button" (click)="contact()" class="btn song-btn-ghost w-100">
+                            <i class="ri-customer-service-2-line"></i> Contactez-nous
+                        </button>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div *ngIf="(song?.youtubeURL ?? '').trim() !== '' && song?.youtubeURL !== 'vide'">
-            <div class="section__head">
-                <h3 class="mb-0">Youtube</h3>
-            </div>
-            <div class="plan bg-light large">
-                <div class="plan__data">
-                    <div class="iframe-container">
-                        <iframe width="640" height="315" [src]="videoUrl">
-                        </iframe>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="section">
-            <div class="section__head">
-                <h3 class="mb-0" style="padding-top: 20px">Acheter<span class="exclu">{{categoryName}}</span></h3>
-            </div>
-            <div class="plan bg-light" *ngIf="song?.message?.length === 0 || song?.exclu === 'non'; else elseBlock">
-                <div class="plan__data">
-                    <ng-container *ngIf="song?.isLicenceBase === 'oui'">
-                        <div class="card plan__col">
-                            <div class="card-body fw-medium">
-                                <div class="d-flex align-items-center text-dark mb-4">
-                                    <span></span>
-                                    <h4 class="mb-0 ps-3">Licence de base</h4>
-                                </div>
-                                <p class="fs-6 opacity-50">Ce qui est inclus</p>
-                                <div class="d-flex mb-3" *ngFor="let feature of licences">
-                                    <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
-                                    <span class="ps-2" [innerHTML]="feature.basic"></span>
-                                </div>
-                            </div>
-                            <div class="card-footer pb-4 pb-sm-0">
-                                <div class="text-dark mb-3">
-                                    <span class="fs-4 fw-bold">{{song?.price_base === 0
-                                        ?
-                                        'Gratuit' : song?.price_base + '€'}}</span>
-                                </div>
-
-                                <button type="button" [hidden]="+(song?.price_base ?? 0) === 0"
-                                    (click)="openPaypalModal(song.price_base, 'price_base', song.title)"
-                                    class="btn btn-custom w-100">Choisir</button>
-
-                                <button type="button" class="btn btn-custom w-100" *ngIf="song?.price_base === 0"
-                                    (click)="downloadSong(song?.creatoke_mp3)">Télécharger en MP3</button>
-                            </div>
-                        </div>
-                    </ng-container>
-
-                    <ng-container *ngIf="song?.isPremium === 'oui'">
-                        <div class="card plan__col">
-                            <div class="card-body fw-medium">
-                                <div class="d-flex align-items-center text-dark mb-4">
-                                    <span></span>
-                                    <h4 class="mb-0 ps-3">Licence premium</h4>
-                                </div>
-                                <p class="fs-6 opacity-50">Ce qui est inclus</p>
-                                <div class="d-flex mb-3" *ngFor="let feature of licences">
-                                    <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
-                                    <span class="ps-2" [innerHTML]="feature.base_plus"></span>
-                                </div>
-                            </div>
-                            <div class="card-footer pb-4 pb-sm-0">
-                                <div class="text-dark mb-3"><span class="fs-4 fw-bold">{{song?.price_premium === 0
-                                        ?
-                                        'Gratuit' : song?.price_premium + '€'}}</span>
-                                </div>
-                                <button type="button" [hidden]="+(song?.price_premium ?? 0) === 0"
-                                    (click)="openPaypalModal(song.price_premium, 'price_premium', song.title)"
-                                    class="btn btn-custom w-100">Choisir</button>
-
-                                <button type="button" class="btn btn-custom w-100" *ngIf="song?.price_premium === 0"
-                                    (click)="downloadSong(song?.chanson_wav)">Télécharger en Wav</button>
-                            </div>
-                        </div>
-                    </ng-container>
-
-                    <div class="card plan__col">
-                        <div class="card-body fw-medium">
-                            <div class="d-flex align-items-center text-dark mb-4">
-                                <span></span>
-                                <h4 class="mb-0 ps-3">Licence pro et exclusivité</h4>
-                            </div>
-                            <p class="fs-6 opacity-50">Ce qui est inclus</p>
-                            <div class="d-flex mb-3" *ngFor="let feature of licences">
-                                <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
-                                <span class="ps-2" [innerHTML]="feature.premium"></span>
-                            </div>
-                        </div>
-                        <div class="card-footer pb-4 pb-sm-0">
-                            <div class="text-dark mb-3"><span class="fs-4 fw-bold">À la carte</span></div>
-                            <button type="button" (click)="contact()"
-                                class="btn btn-custom w-100">Contactez-nous</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <ng-template #elseBlock>
-                <div class="alert alert-custom" [innerHTML]="song?.message"></div>
-            </ng-template>
-        </div>
-
-        <div class="section"
-            *ngIf="song?.category === 'chansons-a-chanter' || song?.category === 'chansons-cherche-auteur'">
-            <div class="section__head">
-                <h3 class="mb-0" style="padding-top: 20px">Acheter<span class="exclu"> le créatoké</span></h3>
-            </div>
-
-            <div class="plan bg-light">
-                <div class="plan__data">
-                    <ng-container *ngIf="song.isLicenceBaseCreatoke === 'oui'">
-                        <div class="card plan__col">
-                            <div class="card-body fw-medium">
-                                <div class="d-flex align-items-center text-dark mb-4">
-                                    <span></span>
-                                    <h4 class="mb-0 ps-3">Licence de base créatoké</h4>
-                                </div>
-                                <p class="fs-6 opacity-50">Ce qui est inclus</p>
-                                <div class="d-flex mb-3" *ngFor="let feature of licences">
-                                    <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
-                                    <span class="ps-2" [innerHTML]="feature.basic"></span>
-                                </div>
-                            </div>
-                            <div class="card-footer pb-4 pb-sm-0">
-                                <div class="text-dark mb-3">
-                                    <span class="fs-4 fw-bold">{{song?.price_base_creatoke === 0
-                                        ?
-                                        'Gratuit' : song?.price_base_creatoke + '€'}}</span>
-                                </div>
-                                <button type="button" [hidden]="+(song?.price_base_creatoke ?? 0) === 0"
-                                    (click)="openPaypalModal(song.price_base_creatoke, 'price_base_creatoke', song.title)"
-                                    class="btn btn-custom w-100">Choisir</button>
-
-                                <button type="button" class="btn btn-custom w-100"
-                                    *ngIf="song?.price_base_creatoke === 0"
-                                    (click)="downloadSong(song?.creatoke_mp3)">Télécharger en MP3</button>
-                            </div>
-                        </div>
-                    </ng-container>
-
-                    <ng-container *ngIf="song.isPremiumCreatoke === 'oui'">
-                        <div class="card plan__col">
-                            <div class="card-body fw-medium">
-                                <div class="d-flex align-items-center text-dark mb-4">
-                                    <span></span>
-                                    <h4 class="mb-0 ps-3">Licence premium créatoké</h4>
-                                </div>
-                                <p class="fs-6 opacity-50">Ce qui est inclus</p>
-                                <div class="d-flex mb-3" *ngFor="let feature of licences">
-                                    <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
-                                    <span class="ps-2" [innerHTML]="feature.base_plus"></span>
-                                </div>
-                            </div>
-                            <div class="card-footer pb-4 pb-sm-0">
-                                <div class="text-dark mb-3">
-                                    <span class="fs-4 fw-bold">{{song?.price_premium_creatoke === 0
-                                        ?
-                                        'Gratuit' : song?.price_premium_creatoke + '€'}}</span>
-                                </div>
-
-                                <button type="button" [hidden]="+(song?.price_premium_creatoke ?? 0) === 0"
-                                    (click)="openPaypalModal(song.price_premium_creatoke, 'price_premium_creatoke', song.title)"
-                                    class="btn btn-custom w-100">Choisir</button>
-
-                                <button type="button" class="btn btn-custom w-100"
-                                    *ngIf="song?.price_premium_creatoke === 0"
-                                    (click)="downloadSong(song?.creatoke_wav)">Télécharger en Wav</button>
-                            </div>
-                        </div>
-                    </ng-container>
-
-                    <div class="card plan__col">
-                        <div class="card-body fw-medium">
-                            <div class="d-flex align-items-center text-dark mb-4">
-                                <span></span>
-                                <h4 class="mb-0 ps-3">Licence pro et exclusivité</h4>
-                            </div>
-                            <p class="fs-6 opacity-50">Ce qui est inclus</p>
-                            <div class="d-flex mb-3" *ngFor="let feature of licences">
-                                <i class="ri-checkbox-circle-fill text-primary opacity-75 fs-6"></i>
-                                <span class="ps-2" [innerHTML]="feature.premium"></span>
-                            </div>
-                        </div>
-                        <div class="card-footer pb-4 pb-sm-0">
-                            <div class="text-dark mb-3"><span class="fs-4 fw-bold">À la carte</span></div>
-                            <button type="button" (click)="contact()"
-                                class="btn btn-custom w-100">Contactez-nous</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </ng-container>
+        </section>
 
         <app-comment [data]="song"></app-comment>
 
-    </div>
+    </ng-container>
 
     <app-modal [(open)]="isModalOpen" title="Paiement sécurisé avec PayPal" [showFooter]="false"
         [closeOnBackdrop]="!paymentProcessing" [closeOnEsc]="!paymentProcessing"

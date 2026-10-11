@@ -1,0 +1,232 @@
+<div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
+
+<div class="under-hero container">
+    <div class="section">
+        <!-- Styles partagés : scss/framework/_legal.scss -->
+        <div class="legal">
+
+            <header class="card legal__header">
+                <span class="legal__eyebrow"><i class="ri-question-line"></i> Aide</span>
+                <h1 class="legal__title">Comment utiliser <span class="text-primary">Créatoké</span> ?</h1>
+                <p class="legal__intro">
+                    Écouter, choisir une licence, acheter et télécharger vos musiques : tout ce qu'il faut savoir,
+                    étape par étape.
+                </p>
+                <a *ngIf="isAdmin" class="legal__more" routerLink="/aide-admin">
+                    <i class="ri-book-open-line"></i> Vous êtes administrateur : ouvrir le guide d'administration
+                </a>
+            </header>
+
+            <div class="legal__layout">
+
+                <nav class="legal__toc" aria-label="Sommaire">
+                    <p class="legal__toc-title">Sommaire</p>
+                    <button type="button" *ngFor="let entry of toc" class="legal__toc-link" (click)="scrollTo(entry.id)">
+                        <i [class]="entry.icon"></i><span>{{ entry.label }}</span>
+                    </button>
+                </nav>
+
+                <div class="legal__content">
+
+                    <!-- Catalogue -->
+                    <section class="card legal__section" id="catalogue">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-compass-3-line"></i></span>
+                            <h2>Découvrir le catalogue</h2>
+                        </div>
+                        <p>Le catalogue est classé en six catégories, accessibles depuis le menu de gauche (rubrique
+                            « Catalogue ») :</p>
+                        <ul class="legal__bullets">
+                            <li><strong>Chansons à chanter</strong> : des chansons originales à interpréter, avec leur
+                                version créatoké.</li>
+                            <li><strong>Chanson(s) cherche auteur</strong> : des chansons en quête d'auteur.</li>
+                            <li><strong>Instrumentaux</strong> : des compositions instrumentales originales.</li>
+                            <li><strong>Musique de contenus</strong> : des musiques pour vos vidéos, podcasts et
+                                contenus.</li>
+                            <li><strong>Créacourcis</strong> et <strong>Virgules sonores</strong> : des formats
+                                courts.</li>
+                        </ul>
+                        <h3>Qu'est-ce qu'un « créatoké » ?</h3>
+                        <p>C'est la version d'accompagnement d'une chanson, sans la voix principale, pour chanter
+                            vous-même dessus — à la maison, sur scène ou en vidéo. Elle existe pour les catégories
+                            « Chansons à chanter » et « Chanson(s) cherche auteur ».</p>
+                        <h3>Trouver un titre</h3>
+                        <ul class="legal__bullets">
+                            <li>La barre <strong>« Rechercher sur le site… »</strong> en haut de page cherche par début
+                                de titre (sans tenir compte des majuscules ni des accents).</li>
+                            <li>La page d'accueil présente nos <strong>coups de cœur</strong>.</li>
+                            <li>Dans une catégorie, cliquez sur une pochette pour ouvrir la fiche de la chanson.</li>
+                        </ul>
+                    </section>
+
+                    <!-- Écouter -->
+                    <section class="card legal__section" id="ecouter">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-play-circle-line"></i></span>
+                            <h2>Écouter</h2>
+                        </div>
+                        <ul class="legal__bullets">
+                            <li>Le bouton <i class="ri-play-fill"></i> sur une pochette ou <strong>« Écouter la
+                                    chanson »</strong> sur une fiche lance la lecture dans le <strong>lecteur en bas de
+                                    l'écran</strong> (pause, piste précédente / suivante, répétition, aléatoire,
+                                volume). Chaque titre lancé s'ajoute à la file d'écoute.</li>
+                            <li><strong>« Écouter le créatoké »</strong> fait entendre la version d'accompagnement.</li>
+                            <li><strong>« Voir les paroles »</strong> affiche les paroles quand elles sont disponibles.</li>
+                            <li><strong>« Partager la chanson »</strong> copie le lien de la fiche, à coller dans un
+                                message ou sur les réseaux.</li>
+                        </ul>
+                        <p>Certaines fiches proposent aussi l'écoute sur <strong>Spotify</strong> ou
+                            <strong>YouTube</strong>.</p>
+                    </section>
+
+                    <!-- Licences -->
+                    <section class="card legal__section" id="licences">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-price-tag-3-line"></i></span>
+                            <h2>Choisir une licence</h2>
+                        </div>
+                        <p>Acheter une musique, c'est acheter une <strong>licence d'utilisation</strong> : elle
+                            précise ce que vous avez le droit d'en faire. Le détail « Ce qui est inclus » est affiché sur
+                            chaque offre de la fiche.</p>
+                        <div class="legal__table-wrap">
+                            <table class="legal__table">
+                                <thead>
+                                    <tr><th>Licence</th><th>Format</th><th>Pour qui ?</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Licence de base</td><td>MP3</td><td>Usage personnel et familial, réseaux
+                                            sociaux, plateformes.</td></tr>
+                                    <tr><td>Licence premium</td><td>WAV (qualité studio)</td><td>Concerts, production de
+                                            CD… usages plus larges.</td></tr>
+                                    <tr><td>Licence pro et exclusivité</td><td>Sur mesure</td><td>Usage commercial,
+                                            stems, exclusivité : prix à la carte, sur demande.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>Pour les chansons qui ont une version créatoké, le sélecteur <strong>« La chanson / Le
+                                créatoké »</strong> au-dessus des offres permet de choisir la version à acheter.</p>
+                        <div class="legal__callout">
+                            <i class="ri-lightbulb-line"></i>
+                            <div>Le texte complet des contrats est consultable sur la page
+                                <a routerLink="/contrats-licence">Contrats de licence</a>. En cas de doute, demandez-nous
+                                conseil avant d'acheter.</div>
+                        </div>
+                    </section>
+
+                    <!-- Acheter -->
+                    <section class="card legal__section" id="acheter">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-shopping-cart-line"></i></span>
+                            <h2>Acheter et payer</h2>
+                        </div>
+                        <ol class="legal__steps">
+                            <li>Sur la fiche de la chanson, descendez jusqu'à la section <strong>« Acheter »</strong>.</li>
+                            <li>Choisissez la version (chanson ou créatoké) puis cliquez sur <strong>« Choisir »</strong>
+                                sous la licence voulue.</li>
+                            <li>Une fenêtre <strong>« Paiement sécurisé avec PayPal »</strong> s'ouvre : payez avec
+                                votre compte PayPal ou par <strong>carte bancaire</strong>, sans compte PayPal.</li>
+                            <li>Une fois le paiement validé, le message « Préparation de votre téléchargement… »
+                                s'affiche : <strong>ne fermez pas la fenêtre</strong>, la page de téléchargement s'ouvre
+                                automatiquement.</li>
+                        </ol>
+                        <p>Aucun compte n'est nécessaire sur Créatoké : l'email de votre paiement PayPal sert à vous
+                            envoyer votre musique et votre facture.</p>
+                        <h3>Musiques gratuites</h3>
+                        <p>Quand une licence affiche <strong>« Gratuit »</strong>, le bouton « Télécharger » récupère
+                            directement le fichier, sans paiement (et donc sans email ni facture).</p>
+                        <h3>Licence pro ou exclusivité</h3>
+                        <p>Cliquez sur <strong>« Contactez-nous »</strong> sous l'offre « Licence pro et exclusivité » :
+                            nous établissons un devis selon votre projet.</p>
+                    </section>
+
+                    <!-- Télécharger -->
+                    <section class="card legal__section" id="telecharger">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-download-cloud-line"></i></span>
+                            <h2>Téléchargement et facture</h2>
+                        </div>
+                        <ol class="legal__steps">
+                            <li>Sur la page <strong>« Confirmation d'achat »</strong>, cliquez sur <strong>« 📥
+                                    Télécharger ma musique »</strong>.</li>
+                            <li>Vous recevez en parallèle un email <strong>« CREATOKE : 🎵 Votre musique et votre
+                                    facture »</strong> avec un bouton « Télécharger ma musique » et votre
+                                <strong>facture PDF</strong> (numéro CREA-AAAA-NNNN) en pièce jointe.</li>
+                            <li>Conservez cet email : il vous permet de retélécharger votre musique plus tard.</li>
+                        </ol>
+                        <div class="legal__callout">
+                            <i class="ri-lightbulb-line"></i>
+                            <div>Pas d'email après quelques minutes ? Vérifiez vos <strong>courriers indésirables</strong>
+                                (l'email vient de no-reply&#64;creatoke.com). Sinon, écrivez-nous en indiquant
+                                l'<strong>adresse email de votre compte PayPal</strong> : nous vous renvoyons votre
+                                musique et votre facture.</div>
+                        </div>
+                    </section>
+
+                    <!-- Commentaires -->
+                    <section class="card legal__section" id="commentaires">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-chat-3-line"></i></span>
+                            <h2>Laisser un avis</h2>
+                        </div>
+                        <p>En bas de chaque fiche, la section <strong>« Commentaires »</strong> permet de donner une
+                            note de 1 à 5 étoiles, un pseudo et un commentaire (1000 caractères maximum). Votre email
+                            est demandé mais n'est jamais affiché. L'avis est publié immédiatement.</p>
+                    </section>
+
+                    <!-- FAQ -->
+                    <section class="card legal__section" id="faq">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-question-line"></i></span>
+                            <h2>Questions fréquentes</h2>
+                        </div>
+                        <details class="legal__faq">
+                            <summary>Que signifie « Exclusivité plateforme » ?</summary>
+                            <div>La chanson est sous contrat avec un distributeur : vous pouvez l'écouter et
+                                l'acheter sur les plateformes (Spotify, Deezer…). Sur Créatoké, c'est sa version
+                                créatoké qui est proposée à l'achat.</div>
+                        </details>
+                        <details class="legal__faq">
+                            <summary>Quelle est la différence entre MP3 et WAV ?</summary>
+                            <div>Le MP3 est un fichier compressé, léger, idéal pour l'écoute et les réseaux sociaux. Le
+                                WAV est en qualité studio, sans perte : préférez-le pour la scène ou un enregistrement.
+                            </div>
+                        </details>
+                        <details class="legal__faq">
+                            <summary>Le téléchargement ne démarre pas après le paiement.</summary>
+                            <div>Réessayez avec le bouton « Télécharger ma musique » de la page de confirmation, ou
+                                utilisez le lien reçu par email. Si le problème persiste,
+                                <a routerLink="/contact">contactez-nous</a> avec l'email de votre compte PayPal.</div>
+                        </details>
+                        <details class="legal__faq">
+                            <summary>Puis-je utiliser la musique pour un projet commercial ?</summary>
+                            <div>Cela dépend de la licence achetée : consultez « Ce qui est inclus » sur l'offre et les
+                                <a routerLink="/contrats-licence">contrats de licence</a>. Pour un usage commercial ou une
+                                exclusivité, demandez la licence pro via la page <a routerLink="/contact">contact</a>.
+                            </div>
+                        </details>
+                        <details class="legal__faq">
+                            <summary>Faut-il créer un compte ?</summary>
+                            <div>Non. Aucun compte n'est nécessaire pour écouter, commenter ou acheter.</div>
+                        </details>
+                        <details class="legal__faq">
+                            <summary>Comment obtenir une nouvelle facture ?</summary>
+                            <div>La facture est jointe à l'email reçu après l'achat. Si vous l'avez perdue,
+                                <a routerLink="/contact">écrivez-nous</a> avec l'email de votre compte PayPal et le titre
+                                acheté.</div>
+                        </details>
+                    </section>
+
+                    <aside class="legal__cta">
+                        <div>
+                            <h3>Vous n'avez pas trouvé votre réponse ?</h3>
+                            <p>Écrivez-nous, nous répondons sous 24 à 48 h.</p>
+                        </div>
+                        <a class="btn btn-primary legal__cta-btn" routerLink="/contact">
+                            <i class="ri-mail-send-line"></i> Nous contacter
+                        </a>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

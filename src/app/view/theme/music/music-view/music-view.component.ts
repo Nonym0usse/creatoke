@@ -48,6 +48,8 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
   // on l'affiche à l'acheteur et on bloque la fermeture de la modale.
   paymentProcessing = false;
   categoryLabel = '';
+  // Offres affichées : la chanson ou sa version créatoké.
+  purchaseTab: 'song' | 'creatoke' = 'song';
 
   private readonly CATEGORY_LABELS: Record<string, string> = {
     'chansons-a-chanter': 'Chansons à chanter',
@@ -124,6 +126,45 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
 
   showLyricsBtn() {
     this.showLyrics = !this.showLyrics;
+  }
+
+  // Sinon, le message d'exclusivité saisi dans l'admin remplace les offres de la chanson.
+  get songForSale(): boolean {
+    return this.song?.message?.length === 0 || this.song?.exclu === 'non';
+  }
+
+  // La version créatoké n'existe que pour les chansons à chanter / cherche auteur.
+  get hasCreatoke(): boolean {
+    return this.song?.category === 'chansons-a-chanter' || this.song?.category === 'chansons-cherche-auteur';
+  }
+
+  // Offres (hors licence pro) de l'onglet actif. `free` = fichier téléchargé quand le prix vaut 0.
+  get plans(): { key: string; title: string; format: string; price: unknown; feature: string; free: unknown }[] {
+    const s = this.song;
+    const all = this.purchaseTab === 'creatoke'
+      ? [
+        { key: 'price_base_creatoke', title: 'Licence de base créatoké', format: 'MP3', price: s?.price_base_creatoke, feature: 'basic', free: s?.creatoke_mp3, on: s?.isLicenceBaseCreatoke },
+        { key: 'price_premium_creatoke', title: 'Licence premium créatoké', format: 'WAV', price: s?.price_premium_creatoke, feature: 'base_plus', free: s?.creatoke_wav, on: s?.isPremiumCreatoke },
+      ]
+      : [
+        { key: 'price_base', title: 'Licence de base', format: 'MP3', price: s?.price_base, feature: 'basic', free: s?.creatoke_mp3, on: s?.isLicenceBase },
+        { key: 'price_premium', title: 'Licence premium', format: 'WAV', price: s?.price_premium, feature: 'base_plus', free: s?.chanson_wav, on: s?.isPremium },
+      ];
+    return all.filter(p => p.on === 'oui');
+  }
+
+  // Prix absent (NULL en base) : « — » plutôt que « null€ ».
+  formatPrice(price: unknown): string {
+    if (price === null || price === undefined || price === '' || isNaN(Number(price))) return '—';
+    return Number(price) === 0 ? 'Gratuit' : `${Number(price)} €`;
+  }
+
+  isFree(price: unknown): boolean {
+    return price !== null && price !== undefined && price !== '' && Number(price) === 0;
+  }
+
+  isPaid(price: unknown): boolean {
+    return Number(price) > 0;
   }
 
   getParams(sub) {
@@ -326,6 +367,8 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
       }
       this.getParams(this.song.category || "");
       this.categoryLabel = this.CATEGORY_LABELS[this.song.category || ''] ?? (this.song.category || '');
+      // Chanson non vendue directement (exclusivité) : on ouvre sur les offres créatoké.
+      this.purchaseTab = !this.songForSale && this.hasCreatoke ? 'creatoke' : 'song';
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.song?.youtubeURL}`);
       this.sanitizeHtml(this.song.spotifyURL);
       this.audioElement = new Audio(this.song?.creatoke ?? "");

@@ -30,8 +30,12 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   // Header element reference
   @ViewChild('header') header: ElementRef<any> | undefined;
 
-  // Holds login user object
-  user: any;
+  // Email de l'admin connecté (affiché dans le menu du compte)
+  userEmail = '';
+  // Photo de profil indisponible : on affiche l'initiale à la place
+  imgError = false;
+  // Liens d'administration, regroupés par rubrique
+  adminMenu = Constant.adminMenu;
 
   // Holds brand object
   brand = Constant.BRAND;
@@ -51,7 +55,9 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.authenticationService.isAuthenticated().subscribe((isAuthenticated) => {
       this.isAuthenticated = isAuthenticated
       this.imgProfile = ApiConstant.API + "/uploads/users/admin/IMG_8469.JPG"
-      this.user = this.authenticationService.getCurrentUser();
+    });
+    this.authenticationService.getCurrentUser().subscribe((user) => {
+      this.userEmail = user?.email ?? '';
     });
 
     // Timeout for header color subscription.

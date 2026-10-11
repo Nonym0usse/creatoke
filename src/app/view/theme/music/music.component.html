@@ -3,44 +3,62 @@
 
 <!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="under-hero container">
-
-  <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
   <div class="section">
 
-    <div class="section__head">
-      <h3 class="mb-0">{{ title }}</h3>
-      <span class="category-count" *ngIf="!loading && !error && songs.length > 0">
-        {{ songs.length }} {{ songs.length > 1 ? 'chansons' : 'chanson' }}
-      </span>
+    <!-- En-tête de catégorie : une ligne sobre -->
+    <div class="category-head">
+      <div class="category-head__title">
+        <i [class]="category.icon"></i>
+        <h1>{{ category.label }}</h1>
+        <span class="category-count" *ngIf="!loading && !error && songs.length > 0">
+          {{ songs.length }} {{ songs.length > 1 ? 'titres' : 'titre' }}
+        </span>
+      </div>
+      <p class="category-head__desc" *ngIf="category.description">{{ category.description }}</p>
     </div>
 
-    <!-- Start:: list [[ Find at scss/components/list.scss ]] -->
-    <div class="list">
-      <div class="row">
-        <div class="col-12 text-center py-5" *ngIf="loading">
-          <div class="spinner-border" role="status">
-            <span class="visually-hidden">Chargement…</span>
-          </div>
-        </div>
-        <div class="alert alert-danger" *ngIf="!loading && error">
-          {{ error }}
-        </div>
-        <ng-container *ngIf="!loading && !error">
-          <div class="col-xl-6" *ngFor="let song of songs">
-            <app-list-view [data]="song"></app-list-view>
-          </div>
-          <div class="col-12" *ngIf="songs.length === 0">
-            <div class="alert alert-custom">
-              Aucune chanson dans cette catégorie pour le moment — revenez bientôt, le catalogue s'enrichit
-              régulièrement !
-            </div>
-            <a routerLink="/" class="btn btn-custom mt-2">Découvrir les autres catégories</a>
-          </div>
-        </ng-container>
+    <!-- Filtre (catalogue fourni uniquement) -->
+    <div class="category-filter" *ngIf="!loading && !error && songs.length > FILTER_THRESHOLD">
+      <i class="ri-search-line"></i>
+      <input type="search" class="form-control" [(ngModel)]="filter"
+        [placeholder]="'Filtrer les ' + category.label.toLowerCase() + '…'" aria-label="Filtrer par titre ou interprète">
+    </div>
+
+    <div class="text-center py-5" *ngIf="loading">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Chargement…</span>
       </div>
     </div>
 
+    <div class="alert alert-danger" *ngIf="!loading && error">{{ error }}</div>
+
+    <ng-container *ngIf="!loading && !error">
+      <div class="category-grid" *ngIf="filteredSongs.length > 0">
+        <app-cover-view [songs]="filteredSongs" colClass="col-6 col-sm-4 col-md-3 col-xxl-2"></app-cover-view>
+      </div>
+
+      <div class="card category-empty" *ngIf="songs.length > 0 && filteredSongs.length === 0">
+        <i class="ri-search-line"></i>
+        <p>Aucun titre ne correspond à « {{ filter }} ».</p>
+      </div>
+
+      <div class="card category-empty" *ngIf="songs.length === 0">
+        <i [class]="category.icon"></i>
+        <p>Aucune chanson dans cette catégorie pour le moment — revenez bientôt, le catalogue s'enrichit
+          régulièrement !</p>
+      </div>
+    </ng-container>
+
+    <!-- Autres catégories -->
+    <nav class="category-others" aria-label="Autres catégories">
+      <p class="category-others__title">Explorer les autres catégories</p>
+      <div class="category-others__list">
+        <a *ngFor="let other of otherCategories" class="category-chip" [routerLink]="['/song', other.key]">
+          <i [class]="other.icon"></i>{{ other.label }}
+        </a>
+      </div>
+    </nav>
+
   </div>
-  <!-- End:: section -->
 </div>
 <!-- End:: under hero -->

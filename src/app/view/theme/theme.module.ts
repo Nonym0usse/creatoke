@@ -32,6 +32,8 @@ import { LicenceContractsComponent } from './licence-contracts/licence-contracts
 import { ProspectsComponent } from './prospects/prospects.component';
 import { PublishVideoComponent } from './publish-video/publish-video.component';
 import { ModalComponent } from '../partials/modal/modal.component';
+import { HelpComponent } from './help/help.component';
+import { AdminHelpComponent } from './help/admin-help.component';
 
 //
 // Theme routes
@@ -85,6 +87,15 @@ const routes: Routes = [
       {
         path: 'contrats-licence',
         component: LicenceContractsComponent
+      },
+      {
+        path: 'aide',
+        component: HelpComponent
+      },
+      {
+        path: 'aide-admin',
+        component: AdminHelpComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'manage',
@@ -143,6 +154,8 @@ const routes: Routes = [
     ManageComponent,
     EditextComponent,
     ModalComponent,
+    HelpComponent,
+    AdminHelpComponent,
   ],
   imports: [
     // Angular

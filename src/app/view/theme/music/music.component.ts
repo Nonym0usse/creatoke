@@ -8,6 +8,24 @@ import { SongService } from "../../../core/services/api/song.service";
 import { CategoryService } from "../../../core/services/api/category.service";
 import type { Song } from "src/app/core/models/song.model";
 
+interface CategoryInfo {
+  label: string;
+  icon: string;
+  description: string;
+}
+
+// Même icône que dans la barre latérale (core/constants/constant.ts).
+const CATEGORIES: Record<string, CategoryInfo> = {
+  "chansons-a-chanter": { label: "Chansons à chanter", icon: "ri-mic-line", description: "Des chansons originales à interpréter, avec leur version créatoké pour chanter dessus." },
+  "chansons-cherche-auteur": { label: "Chanson(s) cherche auteur", icon: "ri-quill-pen-line", description: "Des chansons en quête d'auteur." },
+  "instrumentaux": { label: "Instrumentaux", icon: "ri-music-2-line", description: "Des compositions instrumentales originales." },
+  "musique-de-contenus": { label: "Musique de contenus", icon: "ri-film-line", description: "Des musiques pour habiller vos vidéos, podcasts et contenus." },
+  "creacourcis": { label: "Créacourcis", icon: "ri-flashlight-line", description: "Des créations courtes et originales." },
+  "virgules-sonores": { label: "Virgules sonores", icon: "ri-sound-module-line", description: "De courtes signatures sonores pour ponctuer vos contenus." },
+};
+
+const DEFAULT_CATEGORY: CategoryInfo = { label: "Musiques", icon: "ri-music-2-line", description: "" };
+
 @Component({
   selector: "app-music",
   templateUrl: "./music.component.html",
@@ -17,6 +35,15 @@ export class MusicComponent implements OnInit, OnDestroy {
   songs: Song[] = [];
   title = "";
   picturebackground: string | null = null;
+
+  // Catégorie affichée (en-tête) et autres catégories (pastilles en bas de page)
+  category: CategoryInfo = DEFAULT_CATEGORY;
+  categoryKey = "";
+  readonly categories = Object.entries(CATEGORIES).map(([key, info]) => ({ key, ...info }));
+
+  // Filtre par titre / interprète (affiché au-delà de FILTER_THRESHOLD titres)
+  filter = "";
+  readonly FILTER_THRESHOLD = 6;
 
   loading = false;
   error: string | null = null;
@@ -54,10 +81,27 @@ export class MusicComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  get filteredSongs(): Song[] {
+    const q = this.normalize(this.filter);
+    if (!q) return this.songs;
+    return this.songs.filter((s) => this.normalize(`${s.title ?? ""} ${s.artist ?? ""}`).includes(q));
+  }
+
+  get otherCategories() {
+    return this.categories.filter((c) => c.key !== this.categoryKey);
+  }
+
+  private normalize(text: string): string {
+    return (text ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+  }
+
   private loadCategory(category: string) {
     this.loading = true;
     this.error = null;
     this.songs = [];
+    this.filter = "";
+    this.categoryKey = category;
+    this.category = CATEGORIES[category] ?? DEFAULT_CATEGORY;
 
     const t = this.mapTitle(category);
     this.title = t;

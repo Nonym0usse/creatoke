@@ -53,32 +53,45 @@
 
 
 
-<!-- Template for user dropdown -->
+<!-- Template for user dropdown : compte + administration -->
 <ng-container >
   <ng-template #userDropdown>
-    <a class="avatar header-text" role="button" id="user_menu" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="avatar header-text admin-trigger" role="button" id="user_menu" data-bs-toggle="dropdown" aria-expanded="false">
       <div class="avatar__image">
-        <img src="{{imgProfile}}" [alt]="user.name">
+        <img *ngIf="!imgError" [src]="imgProfile" alt="" (error)="imgError = true">
+        <span *ngIf="imgError" class="admin-initial">{{ (userEmail || 'A')[0] | uppercase }}</span>
       </div>
-      <span class="ps-2 d-none d-sm-block">{{user.name}}</span>
+      <span class="ps-2 d-none d-sm-block">Admin</span>
+      <i class="ri-arrow-down-s-line ps-1 d-none d-sm-block"></i>
     </a>
-    <ul class="dropdown-menu dropdown-menu-md dropdown-menu-end" aria-labelledby="user_menu">
+    <ul class="dropdown-menu dropdown-menu-md dropdown-menu-end admin-menu" aria-labelledby="user_menu">
       <li>
         <div class="py-2 px-3 avatar avatar--lg">
           <div class="avatar__image">
-            <img src="{{imgProfile}}" [alt]="user.email">
+            <img *ngIf="!imgError" [src]="imgProfile" alt="" (error)="imgError = true">
+            <span *ngIf="imgError" class="admin-initial">{{ (userEmail || 'A')[0] | uppercase }}</span>
           </div>
           <div class="avatar__content">
-            <span class="avatar__title">{{user.email}}</span>
-            <span class="avatar__subtitle">ADMIN</span>
+            <span class="avatar__title">{{ userEmail }}</span>
+            <span class="avatar__subtitle">Administrateur</span>
           </div>
         </div>
       </li>
+      <ng-container *ngFor="let group of adminMenu">
+        <li><div class="dropdown-divider"></div></li>
+        <li><span class="admin-menu__head">{{ group.head }}</span></li>
+        <li *ngFor="let item of group.items">
+          <a class="dropdown-item d-flex align-items-center" [routerLink]="item.link" routerLinkActive="active">
+            <i [class]="item.icon + ' fs-5'"></i>
+            <span class="ps-2">{{ item.name }}</span>
+          </a>
+        </li>
+      </ng-container>
       <li>
         <div class="dropdown-divider"></div>
       </li>
       <li>
-        <a class="dropdown-item d-flex align-items-center text-danger" (click)="logout()">
+        <a class="dropdown-item d-flex align-items-center text-danger" role="button" (click)="logout()">
           <i class="ri-logout-circle-line fs-5"></i>
           <span class="ps-2">Déconnexion</span>
         </a>

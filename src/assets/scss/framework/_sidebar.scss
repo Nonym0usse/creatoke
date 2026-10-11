@@ -150,6 +150,11 @@
                     @include padding-x($btn-padding-y);
                 }
             }
+
+            // Barre repliée : pas de place pour les liens légaux
+            .sidebar-legal {
+                display: none;
+            }
         }
     } 
 }
@@ -158,5 +163,25 @@
 @include media-breakpoint-down(lg) {
     #sidebar .sidebar-head {
         padding-top: $sidebar-head-padding-top-sm;
+    }
+}
+
+// Liens légaux en pied de barre latérale
+#sidebar .sidebar-legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.75rem;
+
+    a {
+        color: $sidebar-nav-item-head-color;
+        text-decoration: none;
+
+        &:hover,
+        &.active {
+            color: $sidebar-nav-link-active-color;
+        }
     }
 }
