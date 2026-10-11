@@ -22,7 +22,7 @@ export class CategoryService {
       return token ?? null;
     } catch (error) {
       console.error("Error fetching token:", error);
-      return localStorage.getItem("firebaseToken"); // fallback
+      return localStorage.getItem('authToken'); // fallback
     }
   }
 

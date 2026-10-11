@@ -12,7 +12,7 @@ export class ProspectService {
   private headers() {
     return {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('firebaseToken') ?? ''}`
+        Authorization: `Bearer ${localStorage.getItem('authToken') ?? ''}`
       }
     };
   }

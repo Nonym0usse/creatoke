@@ -10,12 +10,12 @@ import { InterceptorService } from "../global/interceptor.service";
 })
 export class n8nService {
 
-    firebaseToken = "";
+    authToken = "";
 
     // NB : la protection d'accès est assurée par AuthGuard sur la route,
     // pas par une redirection dans le constructeur du service.
     constructor(private axiosInterceptorService: InterceptorService) {
-        this.firebaseToken = localStorage.getItem('firebaseToken') ?? '';
+        this.authToken = localStorage.getItem('authToken') ?? '';
     }
     /**
      * Get playlist data
@@ -24,7 +24,7 @@ export class n8nService {
     postVideoOnSocialNetwork(body: FormData): Promise<any> {
         return this.axiosInterceptorService.getAxiosInstance().post(ApiConstant.API + '/n8n/api/upload', body, {
             headers: {
-                Authorization: `Bearer ${this.firebaseToken}`,
+                Authorization: `Bearer ${this.authToken}`,
             },
         });
     }

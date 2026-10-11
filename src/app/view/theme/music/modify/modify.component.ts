@@ -412,14 +412,13 @@ export class ModifyComponent implements OnInit, OnDestroy {
   }
 
 
-  getOriginalFilenameFromFirebaseUrl(url?: string) {
+  // Nom lisible d'un fichier à partir de son URL (/uploads/songs/<horodatage>_<id>_<nom>).
+  getOriginalFilename(url?: string) {
     const s = (url ?? "").trim();
     if (!s) return "";
     try {
-      const u = new URL(s);
-      const encodedPathPart = u.pathname.split("/o/")[1] || "";
-      const decodedFullPath = decodeURIComponent(encodedPathPart);
-      return decodedFullPath.split("/").pop() || "";
+      const fileName = decodeURIComponent(new URL(s).pathname.split("/").pop() || "");
+      return fileName.replace(/^\d{13}_[0-9a-f]{16}_/, "");
     } catch {
       return "";
     }

@@ -213,8 +213,8 @@
                         <div class="media-block__infos">
                           <div class="media-block__title">{{ block.label }}</div>
                           <div class="media-block__filename" *ngIf="hasMediaUrl(block.key)"
-                            [title]="getOriginalFilenameFromFirebaseUrl(getMediaUrl(block.key))">
-                            {{ getOriginalFilenameFromFirebaseUrl(getMediaUrl(block.key)) }}
+                            [title]="getOriginalFilename(getMediaUrl(block.key))">
+                            {{ getOriginalFilename(getMediaUrl(block.key)) }}
                           </div>
                           <div class="media-block__filename media-block__filename--empty" *ngIf="!hasMediaUrl(block.key)">
                             Aucun fichier

@@ -18,7 +18,7 @@ export class CommentService {
       const token = await firstValueFrom(this.authenticationService.getToken());
       return token ?? null;
     } catch (e) {
-      return localStorage.getItem("firebaseToken");
+      return localStorage.getItem('authToken');
     }
   }
 

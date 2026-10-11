@@ -10,9 +10,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 // Default component
 import { AppComponent } from './app.component';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { environment } from '../environments/environment';
 import { RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 import { NgxPayPalModule } from 'ngx-paypal';
 import {LicenceComponent} from "./view/theme/licence/licence.component";
@@ -33,8 +30,6 @@ import { PublishVideoComponent } from './view/theme/publish-video/publish-video.
   ],
   imports: [
     // Angular
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

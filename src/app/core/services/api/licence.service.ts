@@ -18,7 +18,7 @@ export class LicenceService {
       .getAxiosInstance()
       .put(ApiConstant.API + "/licence/update", body, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("firebaseToken") ?? ""}`,
+          Authorization: `Bearer ${localStorage.getItem('authToken') ?? ""}`,
         },
       })
       .then((res) => {

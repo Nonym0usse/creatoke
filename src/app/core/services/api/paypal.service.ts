@@ -7,10 +7,10 @@ import {InterceptorService} from "../global/interceptor.service";
 })
 export class PaypalService {
 
-  firebaseToken = "";
+  authToken = "";
 
   constructor(private axiosInterceptorService: InterceptorService) {
-    this.firebaseToken = localStorage.getItem('firebaseToken') ?? '';
+    this.authToken = localStorage.getItem('authToken') ?? '';
   }
 
   createSale(data: any) {
@@ -20,7 +20,7 @@ export class PaypalService {
   listSales(){
     return this.axiosInterceptorService.getAxiosInstance().get(ApiConstant.API + '/payment/list-sell' , {
       headers: {
-        Authorization: `Bearer ${this.firebaseToken}`
+        Authorization: `Bearer ${this.authToken}`
       }
     });
   }
