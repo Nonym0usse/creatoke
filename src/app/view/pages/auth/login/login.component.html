@@ -1,34 +1,49 @@
-<!-- Start:: wrapper [[ Find at scss/framework/wrapper.scss ]] -->
-<div id="wrapper">
-    <!-- Start:: auth [[ Find at scss/framework/auth.scss ]] -->
-    <div class="auth py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-5 col-lg-7 col-md-9 col-sm-11 mx-auto">
-                    <div class="card">
-                        <div class="card-body p-sm-5">
-                            <h4>Espace <span class="text-primary">Admin</span></h4>
-                            <p class="fs-6">Bienvenue dans l'espace administration. Connectez-vous afin de pouvoir gérer votre site internet.</p>
-                            <div class="alert alert-danger" *ngIf="message">{{message}}</div>
-                            <form class="mt-5" [formGroup]="form" (ngSubmit)="login()">
-                                <div class="mb-3">
-                                    <label for="email" class="form-label fw-medium">Adresse e-mail</label>
-                                    <input type="email" id="email" class="form-control" formControlName="email" appValidation>
-                                </div>
-                                <div class="mb-2">
-                                    <label for="password" class="form-label fw-medium">Mot de passe</label>
-                                    <input type="password" id="password" class="form-control" formControlName="password" appValidation>
-                                </div>
-                                <div class="mb-5">
-                                    <input type="submit" class="btn btn-primary w-100" value="Connexion" [disabled]="form.invalid">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Connexion à l'espace d'administration : carte centrée sur l'image de fond floutée -->
+<div class="login">
+    <div class="login__bg" *ngIf="picturebackground" [style.background-image]="'url(&quot;' + picturebackground + '&quot;)'"></div>
+
+    <div class="login__card">
+        <img src="./assets/images/logos/logo.png" alt="Créatoké" class="login__logo">
+        <h1>Administration</h1>
+        <p class="login__intro">Connectez-vous pour gérer le site.</p>
+
+        <div class="login__error" *ngIf="message" role="alert">
+            <i class="ri-error-warning-line"></i><span>{{ message }}</span>
         </div>
+
+        <form [formGroup]="form" (ngSubmit)="login()" novalidate>
+            <div>
+                <label class="login__input" [class.is-invalid]="showError('email')">
+                    <i class="ri-mail-line"></i>
+                    <input type="email" id="email" formControlName="email" autocomplete="username"
+                        placeholder="Adresse e-mail" aria-label="Adresse e-mail">
+                </label>
+                <p class="login__field-error" *ngIf="showError('email')">
+                    {{ form.get('email')?.hasError('required') ? 'Saisissez votre adresse e-mail.' : 'Adresse e-mail invalide.' }}
+                </p>
+            </div>
+
+            <div>
+                <label class="login__input" [class.is-invalid]="showError('password')">
+                    <i class="ri-lock-2-line"></i>
+                    <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+                        autocomplete="current-password" placeholder="Mot de passe" aria-label="Mot de passe">
+                    <button type="button" class="login__toggle" (click)="showPassword = !showPassword"
+                        [attr.aria-label]="showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'">
+                        <i [class]="showPassword ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                    </button>
+                </label>
+                <p class="login__field-error" *ngIf="showError('password')">Saisissez votre mot de passe.</p>
+            </div>
+
+            <button type="submit" class="login__submit" [disabled]="form.invalid || loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                {{ loading ? 'Connexion…' : 'Se connecter' }}
+            </button>
+        </form>
+
+        <p class="login__hint">Mot de passe oublié ? Contactez la personne qui gère l'hébergement.</p>
     </div>
-    <!-- End:: auth -->
+
+    <a routerLink="/" class="login__back"><i class="ri-arrow-left-line"></i> Retour au site</a>
 </div>
-<!-- End:: wrapper -->
