@@ -49,8 +49,13 @@
         (function () {
             try {
                 if (localStorage.getItem('creatoke-mode') === 'light') {
+                    // L'hébergeur met les CSS en cache un an : on reprend le code de version
+                    // de la feuille principale (styles.<code>.css) pour changer d'adresse à
+                    // chaque mise à jour.
+                    var main = document.querySelector('link[href^="styles."]');
+                    var m = main && main.getAttribute('href').match(/^styles\.([^.]+)\.css/);
                     document.documentElement.setAttribute('data-mode', 'light');
-                    document.write('<link rel="stylesheet" id="theme-light" href="theme-light.css">');
+                    document.write('<link rel="stylesheet" id="theme-light" href="theme-light.css' + (m ? '?v=' + m[1] : '') + '">');
                 }
             } catch (e) { /* stockage indisponible : mode sombre */ }
         })();

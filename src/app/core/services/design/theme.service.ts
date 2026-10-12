@@ -34,6 +34,16 @@ export class ThemeService {
 
   constructor() { }
 
+  /**
+   * L'hébergeur met les CSS en cache un an : on reprend le code de version de la
+   * feuille principale (styles.<code>.css), qui change à chaque mise à jour.
+   */
+  private cacheBuster(): string {
+    const main = document.querySelector('link[href^="styles."]')?.getAttribute('href') ?? '';
+    const code = main.match(/^styles\.([^.]+)\.css/)?.[1];
+    return code ? `?v=${code}` : '';
+  }
+
   get lightMode() {
     return this.light$;
   }
@@ -48,7 +58,7 @@ export class ThemeService {
         link = document.createElement('link');
         link.rel = 'stylesheet';
         link.id = 'theme-light';
-        link.href = Constant.LIGHT_STYLESHEET;
+        link.href = Constant.LIGHT_STYLESHEET + this.cacheBuster();
         document.head.appendChild(link);
       }
     } else {
