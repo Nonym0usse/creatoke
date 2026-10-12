@@ -1,0 +1,241 @@
+// Page « Image de fond » (styles communs : ../song/song-form.scss).
+$ok: #2ecc71;
+$warn: #f3c848;
+
+// --- Aperçus du bandeau : reproduisent la hauteur et l'assombrissement du site ---
+.bg-previews {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+
+  @media (max-width: 767.98px) {
+    flex-direction: column;
+
+    .bg-preview:not(.bg-preview--phone) {
+      width: 100%;
+    }
+  }
+}
+
+.bg-preview {
+  flex: 1 1 auto;
+  min-width: 0;
+
+  &__screen {
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid rgba(var(--cr-ink-rgb), 0.14);
+    background: var(--cr-body);
+  }
+
+  // Bandeau du site : 256 px de haut pour ~1120 px de large sur ordinateur.
+  &__hero {
+    position: relative;
+    aspect-ratio: 1120 / 256;
+    background-color: var(--cr-placeholder);
+    background-size: cover;
+    background-position: center;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(0deg, rgb(var(--cr-body-rgb)) 0%, rgba(var(--cr-body-rgb), 0.25) 70%);
+    }
+  }
+
+  &__bar {
+    position: absolute;
+    z-index: 1;
+    top: 7%;
+    left: 3%;
+    right: 3%;
+    height: 17%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2%;
+    border-radius: 6px;
+    background: var(--cr-surface);
+    box-shadow: 0 2px 8px var(--cr-shadow);
+  }
+
+  &__search {
+    width: 30%;
+    height: 30%;
+    border-radius: 4px;
+    background: rgba(var(--cr-ink-rgb), 0.2);
+  }
+
+  &__avatar {
+    width: 4%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #6d3fd8;
+  }
+
+  &__empty {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    opacity: 0.35;
+  }
+
+  // Le contenu de la page, qui remonte un peu sur le bas du bandeau.
+  &__page {
+    position: relative;
+    z-index: 1;
+    margin: -3% 3% 0;
+    padding: 4% 3%;
+    border-radius: 6px 6px 0 0;
+    background: var(--cr-surface);
+
+    span {
+      display: block;
+      height: 6px;
+      margin-bottom: 6px;
+      border-radius: 3px;
+      background: rgba(var(--cr-ink-rgb), 0.12);
+
+      &:nth-child(1) {
+        width: 40%;
+        background: rgba(var(--cr-ink-rgb), 0.25);
+      }
+
+      &:nth-child(2) {
+        width: 85%;
+      }
+
+      &:nth-child(3) {
+        width: 65%;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__caption {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 8px 0 0;
+    font-size: 13.5px;
+    opacity: 0.7;
+  }
+
+  // Téléphone : 176 px de haut pour ~390 px de large.
+  &--phone {
+    flex: 0 0 200px;
+    width: 200px;
+
+    .bg-preview__screen {
+      border-radius: 16px;
+      border-width: 3px;
+    }
+
+    .bg-preview__hero {
+      aspect-ratio: 390 / 176;
+    }
+
+    .bg-preview__bar {
+      height: 20%;
+    }
+
+    .bg-preview__search {
+      width: 45%;
+    }
+
+    .bg-preview__avatar {
+      width: 9%;
+    }
+  }
+}
+
+// --- Choix de la nouvelle image ---
+.drop--big {
+  min-height: 160px;
+
+  > i {
+    font-size: 40px;
+  }
+
+  span {
+    font-size: 17px;
+  }
+}
+
+.new-file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.checks {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 14.5px;
+    color: var(--cr-ok);
+
+    i {
+      font-size: 18px;
+      line-height: 1.3;
+    }
+  }
+
+  &__warn {
+    color: var(--cr-warn) !important;
+  }
+}
+
+.compare-title {
+  margin: 24px 0 12px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+// « Annuler » : simple lien texte, aligné sur les boutons.
+.cancel-link {
+  align-self: center;
+  padding: 0 8px;
+  font-size: 16px;
+  color: inherit;
+  opacity: 0.75;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// « Choisir une autre image » : un vrai bouton qui ouvre le choix de fichier.
+.other-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  cursor: pointer;
+
+  input[type='file'] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+}

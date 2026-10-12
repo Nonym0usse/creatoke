@@ -37,7 +37,13 @@
                     <app-search></app-search>
 
                     <div class="d-flex align-items-center">
-
+                        <!-- Mode clair / sombre -->
+                        <button type="button" class="mode-toggle header-text ms-3 ms-sm-4" (click)="toggleColorMode()"
+                            *ngIf="{ light: lightMode$ | async } as m"
+                            [attr.aria-label]="m.light ? 'Passer en mode sombre' : 'Passer en mode clair'"
+                            [title]="m.light ? 'Passer en mode sombre' : 'Passer en mode clair'">
+                            <i [class]="m.light ? 'ri-moon-line' : 'ri-sun-line'"></i>
+                        </button>
 
                         <div class="dropdown ms-3 ms-sm-4" *ngIf="isAuthenticated">
                             <ng-container [ngTemplateOutlet]="userDropdown"></ng-container>

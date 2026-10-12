@@ -20,7 +20,7 @@
   &__note {
     margin: 0.25rem 0 0;
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(var(--cr-ink-rgb), 0.55);
 
     a { color: #8f7be4; }
   }
@@ -37,13 +37,13 @@
   &__label {
     display: block;
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(var(--cr-ink-rgb), 0.55);
   }
 
   &__value {
     display: block;
     font-weight: 600;
-    color: #fff;
+    color: var(--cr-ink);
   }
 
   &__arrow { margin-left: auto; color: #8f7be4; }
@@ -73,13 +73,13 @@
 
 // Champs : fond légèrement contrasté + glow indigo au focus
 .contact-form {
-  &__title { font-size: 1.25rem; margin: 0; color: #fff; }
+  &__title { font-size: 1.25rem; margin: 0; color: var(--cr-ink); }
 
   .form-label { font-weight: 600; font-size: 14px; }
 
   .form-control {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(var(--cr-ink-rgb), 0.04);
+    border: 1px solid rgba(var(--cr-ink-rgb), 0.14);
     padding: 12px 16px;
     transition: border-color .15s ease, box-shadow .15s ease;
 
@@ -109,5 +109,5 @@
 // État succès
 .contact-success i {
   font-size: 56px;
-  color: #2ecc71;
+  color: var(--cr-ok);
 }

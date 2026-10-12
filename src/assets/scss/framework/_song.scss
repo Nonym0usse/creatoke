@@ -1,9 +1,9 @@
 // Fiche chanson (music-view) : styles globaux pour ne pas dépasser le budget
 // de 4 Ko par composant.
-$song-light: #8f7be4;
+$song-light: if(isDarkMode(), #8f7be4, #6a4fd0);
 $song-soft: rgba(84, 56, 209, 0.16);
-$song-muted: rgba(255, 255, 255, 0.55);
-$song-line: 1px solid rgba(255, 255, 255, 0.07);
+$song-muted: rgba(var(--cr-ink-rgb), 0.55);
+$song-line: 1px solid rgba(var(--cr-ink-rgb), 0.07);
 $song-gradient: linear-gradient(90deg, #5438d1, #8938d1 60%);
 
 // Bandeau : pochette floutée au-dessus de l'image de fond
@@ -61,7 +61,7 @@ $song-gradient: linear-gradient(90deg, #5438d1, #8938d1 60%);
         font-size: clamp(1.35rem, 2.2vw, 1.85rem);
         font-weight: 600;
         letter-spacing: 0.01em;
-        color: #fff;
+        color: var(--cr-ink);
         margin: 0.75rem 0 1.25rem;
         word-break: break-word;
     }
@@ -81,8 +81,8 @@ $song-gradient: linear-gradient(90deg, #5438d1, #8938d1 60%);
     border-radius: 999px;
     font-size: 0.8rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.8);
-    background: rgba(255, 255, 255, 0.06);
+    color: rgba(var(--cr-ink-rgb), 0.8);
+    background: rgba(var(--cr-ink-rgb), 0.06);
 
     i { color: $song-light; }
 
@@ -104,7 +104,7 @@ $song-gradient: linear-gradient(90deg, #5438d1, #8938d1 60%);
         white-space: nowrap;
     }
 
-    dd { margin: 0; color: #fff; font-weight: 500; word-break: break-word; }
+    dd { margin: 0; color: var(--cr-ink); font-weight: 500; word-break: break-word; }
 
     @include media-breakpoint-down(sm) {
         grid-template-columns: minmax(0, 1fr);
@@ -116,7 +116,7 @@ $song-gradient: linear-gradient(90deg, #5438d1, #8938d1 60%);
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
     background: $song-soft;
-    color: #fff;
+    color: var(--cr-ink);
 }
 
 .song-players {
@@ -135,7 +135,7 @@ $song-gradient: linear-gradient(90deg, #5438d1, #8938d1 60%);
     border-radius: 999px;
     border: 1px solid rgba(84, 56, 209, 0.45);
     background: $song-soft;
-    color: #fff;
+    color: var(--cr-ink);
     font-weight: 600;
 
     .btn-player { width: 2.75rem; height: 2.75rem; font-size: 1.35rem; }
@@ -166,11 +166,11 @@ $song-gradient: linear-gradient(90deg, #5438d1, #8938d1 60%);
 }
 
 .song-btn-ghost {
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    background: rgba(255, 255, 255, 0.04);
+    color: var(--cr-ink);
+    border: 1px solid rgba(var(--cr-ink-rgb), 0.18);
+    background: rgba(var(--cr-ink-rgb), 0.04);
 
-    &:hover { color: #fff; border-color: #5438d1; background: $song-soft; }
+    &:hover { color: var(--cr-ink); border-color: #5438d1; background: $song-soft; }
 }
 
 .song-btn-primary {
@@ -186,7 +186,7 @@ $song-gradient: linear-gradient(90deg, #5438d1, #8938d1 60%);
     align-items: center;
     gap: 0.5rem;
     font-size: 1.15rem;
-    color: #fff;
+    color: var(--cr-ink);
     margin-bottom: 1rem;
 
     i { color: $song-light; }
@@ -239,7 +239,7 @@ $song-gradient: linear-gradient(90deg, #5438d1, #8938d1 60%);
     display: inline-flex;
     padding: 0.25rem;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(var(--cr-ink-rgb), 0.06);
 
     button {
         padding: 0.45rem 1.1rem;
@@ -270,7 +270,7 @@ $song-gradient: linear-gradient(90deg, #5438d1, #8938d1 60%);
         margin-bottom: 1.25rem;
         border-bottom: $song-line;
 
-        h3 { font-size: 1.15rem; color: #fff; margin: 0.6rem 0 0.4rem; }
+        h3 { font-size: 1.15rem; color: var(--cr-ink); margin: 0.6rem 0 0.4rem; }
     }
 
     &__format {
@@ -289,7 +289,7 @@ $song-gradient: linear-gradient(90deg, #5438d1, #8938d1 60%);
         margin: 0;
         font-size: 1.75rem;
         font-weight: 700;
-        color: #fff;
+        color: var(--cr-ink);
     }
 
     &__included { font-size: 0.8rem; color: $song-muted; margin-bottom: 0.75rem; }

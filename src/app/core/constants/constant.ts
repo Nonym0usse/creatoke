@@ -140,6 +140,9 @@ export class Constant {
   public static SIDEBAR_TOGGLE = 'data-sidebar-toggle';
   public static SEARCH_RESULTS = 'data-search-results';
   public static THEME_DARK = 'data-theme';
+  // Mode clair / sombre choisi par le visiteur (voir ThemeService et index.html).
+  public static COLOR_MODE_KEY = 'creatoke-mode';
+  public static LIGHT_STYLESHEET = 'theme-light.css';
   public static HEADER = 'data-header';
   public static SIDEBAR = 'data-sidebar';
   public static PLAYER = 'data-player';

@@ -45,13 +45,6 @@ export class ManageComponent implements OnInit {
       this.notify.success(`« ${name} » a été supprimée.`);
       // Retire la ligne du tableau sans attendre un rechargement.
       this.songs = this.songs.filter((song: any) => song.id !== id);
-      const objectsString = localStorage.getItem('songs');
-      const arrayOfObjects: any[] = JSON.parse(objectsString || '[]') || [];
-      const indexToDelete = arrayOfObjects.findIndex((obj) => obj.id === id);
-      if (indexToDelete !== -1) {
-        arrayOfObjects.splice(indexToDelete, 1);
-      }
-      localStorage.setItem('songs', JSON.stringify(arrayOfObjects));
     }
 
     async getBackground() {

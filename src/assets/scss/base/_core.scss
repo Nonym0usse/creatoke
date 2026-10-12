@@ -55,25 +55,25 @@ a:hover {
 // Secondaire : .btn-outline-secondary · Tableaux admin : .btn-light-primary / .btn-light-danger
 .btn-custom {
     border: 1px solid;
-    background-color: #1d1e22;
-    color: #fff;
+    background-color: var(--cr-surface);
+    color: var(--cr-ink);
     border-image: linear-gradient(90deg, #5438d1, #8938d1 60%);
     border-image-slice: 1;
     transition: background-color .15s ease, opacity .15s ease;
 
     &:hover:not(:disabled):not(.disabled) {
-        color: #fff;
-        background-color: #2c2650;
+        color: var(--cr-ink);
+        background-color: rgba(84, 56, 209, 0.28);
     }
 
     &:focus-visible {
-        color: #fff;
+        color: var(--cr-ink);
         box-shadow: 0 0 0 3px rgba(84, 56, 209, .45);
     }
 
     &:disabled,
     &.disabled {
-        color: #fff;
+        color: var(--cr-ink);
         opacity: .55;
     }
 }
@@ -87,8 +87,8 @@ a:hover {
 }
 
 .alert-custom {
-    background-color: #1d1e22;
-    color: #fff;
+    background-color: var(--cr-surface);
+    color: var(--cr-ink);
     border-image: linear-gradient(90deg, #5438d1, #8938d1 60%);
     border-image-slice: 1;
 }

@@ -1,16 +1,16 @@
 // Pages légales (mentions légales, RGPD) : styles partagés.
 $legal-primary: $primary;
-$legal-light: #8f7be4;
+$legal-light: if(isDarkMode(), #8f7be4, #6a4fd0);
 $legal-soft: rgba(84, 56, 209, 0.16);
-$legal-muted: rgba(255, 255, 255, 0.55);
-$legal-line: 1px solid rgba(255, 255, 255, 0.07);
+$legal-muted: rgba(var(--cr-ink-rgb), 0.55);
+$legal-line: 1px solid rgba(var(--cr-ink-rgb), 0.07);
 
 .legal {
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(var(--cr-ink-rgb), 0.86);
   line-height: 1.7;
 
   .card { border: $legal-line; }
-  h1, h2, h3, dt { color: #fff; }
+  h1, h2, h3, dt { color: var(--cr-ink); }
   p { margin: 0; }
 
   &__header {
@@ -39,7 +39,7 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
     font-size: 0.8rem;
   }
 
-  &__badge { display: inline-flex; align-items: center; gap: 0.4rem; color: $legal-muted; background: rgba(255, 255, 255, 0.05); }
+  &__badge { display: inline-flex; align-items: center; gap: 0.4rem; color: $legal-muted; background: rgba(var(--cr-ink-rgb), 0.05); }
   &__pill { font-weight: 600; color: #b3a6ef; background: $legal-soft; }
 
   // Sommaire + contenu (pas de sticky : un conteneur global du layout est en overflow: hidden)
@@ -66,7 +66,7 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
     color: $legal-muted;
     text-align: left;
 
-    &:hover { color: #fff; background: $legal-soft; border-left-color: $legal-primary; }
+    &:hover { color: var(--cr-ink); background: $legal-soft; border-left-color: $legal-primary; }
   }
 
   &__section { padding: 1.75rem 2rem; scroll-margin-top: 6rem; }
@@ -115,8 +115,8 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
       padding: 0.85rem 1rem;
       border: $legal-line;
       border-radius: 0.5rem;
-      background: rgba(255, 255, 255, 0.03);
-      color: #fff;
+      background: rgba(var(--cr-ink-rgb), 0.03);
+      color: var(--cr-ink);
     }
   }
 
@@ -133,7 +133,7 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
     padding: 1.1rem 1.25rem;
     border: $legal-line;
     border-radius: 0.5rem;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(var(--cr-ink-rgb), 0.03);
 
     dl { margin: 0; }
     dt { font-size: 0.75rem; font-weight: 400; color: $legal-muted; }
@@ -149,7 +149,7 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
     gap: 0.5rem;
     margin-bottom: 0.75rem;
     font-weight: 600;
-    color: #fff;
+    color: var(--cr-ink);
 
     i { color: $legal-light; font-size: 1.1rem; }
   }
@@ -168,7 +168,7 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
     padding: 1rem 1.15rem;
     border: $legal-line;
     border-radius: 0.5rem;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(var(--cr-ink-rgb), 0.03);
     color: inherit;
     text-align: left;
     transition: border-color 0.15s, background-color 0.15s;
@@ -182,7 +182,7 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
     }
   }
 
-  &__tab-label { display: block; font-weight: 600; color: #fff; }
+  &__tab-label { display: block; font-weight: 600; color: var(--cr-ink); }
   &__tab-hint { display: block; font-size: 0.75rem; color: $legal-muted; }
 
   // Texte riche saisi dans l'admin (CKEditor)
@@ -199,7 +199,7 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
     align-items: center;
     gap: 0.75rem;
     padding: 1rem 1.15rem;
-    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border: 1px dashed rgba(var(--cr-ink-rgb), 0.15);
     border-radius: 0.5rem;
     color: $legal-muted;
 
@@ -216,7 +216,7 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
     color: $legal-light;
     text-decoration: none;
 
-    &:hover { color: #fff; }
+    &:hover { color: var(--cr-ink); }
   }
 
   &__cta {
@@ -248,14 +248,14 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
     gap: 1.5rem;
 
     a { gap: 0.4rem; color: $legal-muted; text-decoration: none; }
-    a:hover { color: #fff; }
+    a:hover { color: var(--cr-ink); }
   }
 
   @media (max-width: 991.98px) {
     &__layout { grid-template-columns: minmax(0, 1fr); }
     &__toc { flex-direction: row; overflow-x: auto; gap: 0.5rem; }
     &__toc-title { display: none; }
-    &__toc-link { flex: none; border: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.05); white-space: nowrap; }
+    &__toc-link { flex: none; border: 0; border-radius: 999px; background: rgba(var(--cr-ink-rgb), 0.05); white-space: nowrap; }
   }
 
   @media (max-width: 575.98px) {
@@ -267,7 +267,7 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
   .legal__section h3 {
     font-size: 1rem;
     margin: 1.5rem 0 0.6rem;
-    color: #fff;
+    color: var(--cr-ink);
   }
 
   // Espacement entre blocs d'une section (sauf juste après le titre de section)
@@ -350,7 +350,7 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
     }
 
     th { color: $legal-muted; font-weight: 600; white-space: nowrap; }
-    td:first-child { color: #fff; font-weight: 600; }
+    td:first-child { color: var(--cr-ink); font-weight: 600; }
   }
 
   .legal__table-wrap { overflow-x: auto; }
@@ -368,7 +368,7 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
       cursor: pointer;
       list-style: none;
       font-weight: 600;
-      color: #fff;
+      color: var(--cr-ink);
 
       &::-webkit-details-marker { display: none; }
 
@@ -397,7 +397,7 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
       padding: 0.75rem;
       border: $legal-line;
       border-radius: 0.5rem;
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(var(--cr-ink-rgb), 0.03);
       font-size: 0.8rem;
     }
 
@@ -408,7 +408,7 @@ $legal-line: 1px solid rgba(255, 255, 255, 0.07);
     padding: 0.1rem 0.35rem;
     border-radius: 0.25rem;
     font-size: 0.85em;
-    color: #fff;
-    background: rgba(255, 255, 255, 0.08);
+    color: var(--cr-ink);
+    background: rgba(var(--cr-ink-rgb), 0.08);
   }
 }

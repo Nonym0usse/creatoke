@@ -1,52 +1,138 @@
-<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
+<!-- Hero -->
 <div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
-<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
-<div class="under-hero container">
-
-    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
-    <div class="section">
-        <div class="row">
-            <div class="col-xl-12 col-md-10 mx-auto">
-                <div class="card">
-                    <div class="card-header pb-0">
-                        <!-- Start:: mat tabs [[ Find at scss/components/nav.scss ]] -->
-                        <div class="mat-tabs" appTabs>
-                            <ul class="nav nav-tabs" id="add_music" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="licence1" data-bs-toggle="tab"
-                                        data-bs-target="#licence_un" type="button" role="tab" aria-controls="licence_un"
-                                        aria-selected="true">Ajouter une image de fond
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- End:: mat tabs -->
-                    </div>
-                    <div class="card-body">
-                        <div class="tab-content" id="add_music_content">
-                            <div class="tab-pane fade show active" id="licence_un" role="tabpanel"
-                                aria-labelledby="licence1" tabindex="0">
-                                <form action="#" class="row" [formGroup]="imageForm">
-                                    <div class="col-12 mb-4">
-                                        <input type="file" class="form-control" (change)="onFileSelected($event, 'picture')">
-                                    </div>
-                                    <div class="card-footer text-center">
-                                        <app-progress-bar class="mb-3" label="Envoi de l'image…"
-                                            *ngIf="progress['picture'] !== undefined && !downloadUrls['picture']"
-                                            [value]="progress['picture']"></app-progress-bar>
-                                        <button class="btn btn-custom" style="min-width: 140px;" (click)="modifyImage()"
-                                            [disabled]="!imageForm.valid">Ajouter image</button>
-                                        <button class="btn btn-outline-secondary ms-2">Cancel</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Aperçu du bandeau tel qu'il s'affiche sur le site (ordinateur ou téléphone) -->
+<ng-template #preview let-src let-phone="phone">
+  <div class="bg-preview" [class.bg-preview--phone]="phone">
+    <div class="bg-preview__screen">
+      <div class="bg-preview__hero" [style.background-image]="src ? 'url(' + src + ')' : null">
+        <div class="bg-preview__bar">
+          <span class="bg-preview__search"></span>
+          <span class="bg-preview__avatar"></span>
         </div>
+        <i class="ri-image-line bg-preview__empty" *ngIf="!src"></i>
+      </div>
+      <div class="bg-preview__page">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-    <!-- End:: section -->
+    <p class="bg-preview__caption"><i [class]="phone ? 'ri-smartphone-line' : 'ri-computer-line'"></i>
+      {{ phone ? 'Sur téléphone' : 'Sur ordinateur' }}</p>
+  </div>
+</ng-template>
 
+<div class="under-hero container">
+  <div class="section">
+    <div class="song-form">
+
+      <header class="card song-form__intro">
+        <span class="song-form__eyebrow"><i class="ri-image-2-line"></i> Site</span>
+        <h1 class="song-form__title">Image de <span class="text-primary">fond</span></h1>
+        <p class="song-form__lead mb-0">
+          C'est la photo affichée <strong>en haut de toutes les pages</strong> du site, comme celle que vous voyez
+          au-dessus. Choisissez une nouvelle image, vérifiez l'aperçu, puis cliquez sur <strong>« Utiliser cette
+            image »</strong>. Tant que vous n'avez pas cliqué, rien ne change sur le site.
+        </p>
+      </header>
+
+      <!-- ============================================================ -->
+      <!-- Image actuelle                                                -->
+      <!-- ============================================================ -->
+      <section class="card step">
+        <div class="step__head">
+          <span class="step__num"><i class="ri-image-line"></i></span>
+          <div>
+            <h2 class="step__title">L'image actuelle</h2>
+            <p class="step__help">Voici comment le haut des pages s'affiche en ce moment. Le bas de l'image est
+              assombri et passe sous le contenu de la page.</p>
+          </div>
+        </div>
+        <app-progress-bar *ngIf="loadingCurrent" label="Chargement de l'image…"></app-progress-bar>
+        <div class="bg-previews" *ngIf="!loadingCurrent">
+          <ng-container *ngTemplateOutlet="preview; context: { $implicit: picturebackground }"></ng-container>
+          <ng-container *ngTemplateOutlet="preview; context: { $implicit: picturebackground, phone: true }"></ng-container>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- Nouvelle image                                                -->
+      <!-- ============================================================ -->
+      <section class="card step" [class.step--done]="uploaded">
+        <div class="step__head">
+          <span class="step__num"><i class="ri-image-add-line"></i></span>
+          <div>
+            <h2 class="step__title">Choisir une nouvelle image</h2>
+            <p class="step__help">Cliquez sur la case en pointillés pour choisir une photo sur votre ordinateur, ou
+              faites-la glisser dessus.</p>
+          </div>
+        </div>
+
+        <div class="callout" *ngIf="!newPreview">
+          <i class="ri-lightbulb-line"></i>
+          <div>
+            <strong>Ce qui rend bien :</strong>
+            <ul class="mb-0">
+              <li>une photo <strong>en largeur</strong> (paysage), d'au moins <strong>1920 pixels</strong> de
+                large ;</li>
+              <li>le sujet <strong>au centre</strong> : sur téléphone, les côtés de l'image sont coupés ;</li>
+              <li>une image plutôt <strong>sombre ou peu chargée</strong> : la barre de recherche s'affiche
+                par-dessus.</li>
+            </ul>
+          </div>
+        </div>
+
+        <label class="drop drop--big" *ngIf="!newPreview">
+          <input type="file" accept="image/jpeg,image/png,image/webp" (change)="onFileSelected($event)"
+            aria-label="Choisir une nouvelle image de fond">
+          <i class="ri-upload-cloud-2-line"></i>
+          <span><strong>Choisir une image</strong> sur l'ordinateur</span>
+          <small>JPG, PNG ou WebP</small>
+        </label>
+
+        <ng-container *ngIf="newPreview">
+          <p class="new-file"><i class="ri-image-line"></i> {{ newFileName }}</p>
+
+          <app-progress-bar *ngIf="uploading" label="Envoi de l'image…" [value]="progress"></app-progress-bar>
+
+          <ul class="checks" *ngIf="checks.length">
+            <li *ngFor="let c of checks" [class.checks__warn]="c.kind === 'warn'">
+              <i [class]="c.kind === 'ok' ? 'ri-checkbox-circle-fill' : 'ri-error-warning-fill'"></i>
+              <span>{{ c.text }}</span>
+            </li>
+          </ul>
+
+          <h3 class="compare-title">Aperçu avec la nouvelle image</h3>
+          <div class="bg-previews">
+            <ng-container *ngTemplateOutlet="preview; context: { $implicit: newPreview }"></ng-container>
+            <ng-container *ngTemplateOutlet="preview; context: { $implicit: newPreview, phone: true }"></ng-container>
+          </div>
+
+          <div class="publish mt-4">
+            <button type="button" class="btn btn-custom btn-lg publish__btn" (click)="apply()"
+              [disabled]="!uploaded || isSaving">
+              <i class="ri-check-line"></i>
+              {{ uploading ? 'Envoi en cours…' : (isSaving ? 'Mise en place…' : 'Utiliser cette image') }}
+            </button>
+            <label class="btn btn-outline-secondary btn-lg mb-0 other-btn">
+              <input type="file" accept="image/jpeg,image/png,image/webp" (change)="onFileSelected($event)"
+                aria-label="Choisir une autre image">
+              <i class="ri-image-edit-line"></i> Choisir une autre image
+            </label>
+            <button type="button" class="cancel-link" (click)="discard()" [disabled]="isSaving">Annuler, garder l'image
+              actuelle</button>
+          </div>
+          <p class="form-text mt-3 mb-0" *ngIf="uploading">
+            <i class="ri-time-line"></i> Le bouton « Utiliser cette image » devient cliquable à la fin de l'envoi.
+          </p>
+        </ng-container>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="fullscreen-loader" *ngIf="isSaving">
+  <div class="ai-loader">
+    <p>Mise en place de la nouvelle image…</p>
+    <app-progress-bar></app-progress-bar>
+  </div>
 </div>

@@ -27,7 +27,41 @@ export class ThemeService {
   // Player theme observer
   private player$ = new BehaviorSubject<string>(Constant.HEADER_THEME);
 
+  // Mode clair (feuille theme-light.css chargée par-dessus la feuille sombre)
+  private light$ = new BehaviorSubject<boolean>(
+    document.documentElement.getAttribute('data-mode') === 'light'
+  );
+
   constructor() { }
+
+  get lightMode() {
+    return this.light$;
+  }
+
+  /** Passe en mode clair ou sombre, et retient le choix sur cet appareil. */
+  setLightMode(light: boolean): void {
+    const root = document.documentElement;
+    let link = document.getElementById('theme-light') as HTMLLinkElement | null;
+    if (light) {
+      root.setAttribute('data-mode', 'light');
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.id = 'theme-light';
+        link.href = Constant.LIGHT_STYLESHEET;
+        document.head.appendChild(link);
+      }
+    } else {
+      root.removeAttribute('data-mode');
+      link?.remove();
+    }
+    try {
+      localStorage.setItem(Constant.COLOR_MODE_KEY, light ? 'light' : 'dark');
+    } catch {
+      // stockage indisponible : le choix vaut pour cette visite seulement
+    }
+    this.light$.next(light);
+  }
 
   /**
    * Emit theme

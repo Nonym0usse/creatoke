@@ -1,11 +1,11 @@
-// --- Page « Ajouter une chanson » : étapes guidées ---
+// --- Pages « Ajouter » et « Modifier une chanson » : étapes guidées ---
 $brand: #5438d1;
 $brand-2: #8938d1;
 $ok: #2ecc71;
 $warn: #f3c848;
-$line: rgba(255, 255, 255, 0.1);
+$line: rgba(var(--cr-ink-rgb), 0.1);
 
-.add-song {
+.song-form {
   max-width: 1040px;
   margin: 0 auto;
 
@@ -82,12 +82,12 @@ $line: rgba(255, 255, 255, 0.1);
   &__req {
     background: rgba($brand-2, 0.22);
     border: 1px solid rgba($brand-2, 0.5);
-    color: #e2d0ff;
+    color: var(--cr-brand-ink);
   }
 
   &__opt {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(var(--cr-ink-rgb), 0.2);
+    color: rgba(var(--cr-ink-rgb), 0.6);
     font-weight: 500;
   }
 }
@@ -189,7 +189,7 @@ $line: rgba(255, 255, 255, 0.1);
   padding: 18px;
   text-align: left;
   color: inherit;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(var(--cr-ink-rgb), 0.03);
   border: 2px solid $line;
   border-radius: 12px;
   cursor: pointer;
@@ -227,7 +227,7 @@ $line: rgba(255, 255, 255, 0.1);
     top: 12px;
     right: 12px;
     font-size: 24px;
-    color: $ok;
+    color: var(--cr-ok);
   }
 
   &--active {
@@ -271,7 +271,7 @@ $line: rgba(255, 255, 255, 0.1);
     font-size: 16px;
     font-weight: 600;
     color: inherit;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(var(--cr-ink-rgb), 0.04);
     border: 2px solid $line;
     border-radius: 10px;
     cursor: pointer;
@@ -330,10 +330,10 @@ $line: rgba(255, 255, 255, 0.1);
 
   &--warn {
     background: rgba($warn, 0.08);
-    border-left-color: $warn;
+    border-left-color: var(--cr-warn);
 
     > i {
-      color: $warn;
+      color: var(--cr-warn);
     }
   }
 }
@@ -377,7 +377,7 @@ $line: rgba(255, 255, 255, 0.1);
   padding: 16px;
   border: 1px solid $line;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(var(--cr-ink-rgb), 0.03);
 
   &__top {
     display: flex;
@@ -398,7 +398,7 @@ $line: rgba(255, 255, 255, 0.1);
     font-size: 12.5px;
     font-weight: 700;
     letter-spacing: 0.05em;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(var(--cr-ink-rgb), 0.1);
   }
 
   &__hint {
@@ -415,12 +415,13 @@ $line: rgba(255, 255, 255, 0.1);
 
   &__ok {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
     margin-top: 10px;
     font-size: 14px;
-    color: $ok;
+    color: var(--cr-ok);
     font-weight: 600;
 
     > span,
@@ -432,13 +433,18 @@ $line: rgba(255, 255, 255, 0.1);
 
     .btn {
       justify-content: center;
-      min-width: 100px;
+      min-width: 90px;
     }
 
     i {
       font-size: 17px;
       line-height: 1;
     }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 8px;
   }
 
   &--done {
@@ -459,7 +465,7 @@ $line: rgba(255, 255, 255, 0.1);
   padding: 14px;
   text-align: center;
   font-size: 15px;
-  border: 2px dashed rgba(255, 255, 255, 0.22);
+  border: 2px dashed rgba(var(--cr-ink-rgb), 0.22);
   border-radius: 10px;
   cursor: pointer;
   transition: border-color 0.15s ease, background 0.15s ease;
@@ -534,7 +540,7 @@ $line: rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(var(--cr-ink-rgb), 0.06);
     border: 1px solid $line;
 
     img {
@@ -622,7 +628,7 @@ $line: rgba(255, 255, 255, 0.1);
   align-items: center;
   gap: 12px;
   margin-top: 10px;
-  color: $ok;
+  color: var(--cr-ok);
   font-size: 14px;
   font-weight: 600;
 
@@ -637,7 +643,7 @@ $line: rgba(255, 255, 255, 0.1);
   align-items: flex-start;
   gap: 6px;
   margin-top: 8px;
-  color: $warn;
+  color: var(--cr-warn);
   font-size: 14px;
 
   i {
@@ -666,7 +672,7 @@ $line: rgba(255, 255, 255, 0.1);
   padding: 16px;
   border: 1px solid $line;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(var(--cr-ink-rgb), 0.03);
 
   &__label {
     font-weight: 700;
@@ -714,7 +720,7 @@ $line: rgba(255, 255, 255, 0.1);
 
     i {
       font-size: 18px;
-      color: #ff6b5b;
+      color: var(--cr-danger);
     }
   }
 }
@@ -736,7 +742,7 @@ $line: rgba(255, 255, 255, 0.1);
 }
 
 @media (max-width: 575.98px) {
-  .add-song__intro,
+  .song-form__intro,
   .step,
   .step-locked {
     padding-left: 18px;
@@ -778,9 +784,9 @@ $line: rgba(255, 255, 255, 0.1);
 
   &__content {
     position: relative;
-    background: #1d1e22;
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--cr-surface);
+    color: var(--cr-ink);
+    border: 1px solid rgba(var(--cr-ink-rgb), 0.12);
     border-radius: 14px;
     overflow: hidden;
 
@@ -797,7 +803,7 @@ $line: rgba(255, 255, 255, 0.1);
 
   .modal-header,
   .modal-footer {
-    border-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(var(--cr-ink-rgb), 0.08);
   }
 
   .modal-title {
@@ -814,7 +820,7 @@ $line: rgba(255, 255, 255, 0.1);
   &__close {
     background: none;
     border: none;
-    color: #fff;
+    color: var(--cr-ink);
     font-size: 28px;
     line-height: 1;
     opacity: 0.6;
@@ -855,8 +861,8 @@ $line: rgba(255, 255, 255, 0.1);
     }
 
     code {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
+      background: rgba(var(--cr-ink-rgb), 0.1);
+      color: var(--cr-ink);
       padding: 1px 7px;
       border-radius: 4px;
     }
@@ -870,7 +876,7 @@ $line: rgba(255, 255, 255, 0.1);
       max-width: 100%;
       height: auto;
       border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(var(--cr-ink-rgb), 0.12);
     }
 
     figcaption {
@@ -879,7 +885,7 @@ $line: rgba(255, 255, 255, 0.1);
       opacity: 0.6;
 
       code {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(var(--cr-ink-rgb), 0.1);
         padding: 1px 5px;
         border-radius: 4px;
       }

@@ -53,7 +53,12 @@
             "styles": [
               "node_modules/swiper/swiper-bundle.min.css",
               "src/assets/vendors/vendors.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              {
+                "input": "src/styles-light.scss",
+                "bundleName": "theme-light",
+                "inject": false
+              }
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"

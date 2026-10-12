@@ -1,0 +1,24 @@
+/* ---------------------------------------------------------------- *!
+ * Name: Listen App
+ * Version: 3.1.0
+ * ---------------------------------------------------------------- */
+
+// Theme mode
+// Mode clair : dans le modèle, « dark » désactive isDarkMode() (nom inversé).
+$mode: dark;
+
+// Import scss initialize
+@import "assets/scss/init";
+
+// Import core styles
+@import "assets/scss/base/core";
+
+// Import components
+@import "assets/scss/components/includes";
+
+// Import framework
+@import "assets/scss/framework/includes";
+
+// Import utilities
+@import "assets/scss/utilities/includes";
+

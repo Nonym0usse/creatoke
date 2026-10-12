@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiConstant } from '../../constants/api-constant';
+import { Constant } from '../../constants/constant';
 import { AuthenticationService } from '../global/authentication.service';
 import { InterceptorService } from '../global/interceptor.service';
 import { firstValueFrom } from 'rxjs';
@@ -134,10 +135,21 @@ export class SongService {
           Authorization: `Bearer ${token}`,
         },
       });
+      this.forgetCachedSong(id);
     } catch (error) {
       console.error('Error deleting song:', error);
       // L'appelant gère le feedback utilisateur.
       throw error;
+    }
+  }
+
+  // Retire la chanson de la liste mémorisée par le lecteur audio.
+  private forgetCachedSong(id: string): void {
+    try {
+      const cached: { id?: string }[] = JSON.parse(localStorage.getItem(Constant.SONG_KEY) || '[]') || [];
+      localStorage.setItem(Constant.SONG_KEY, JSON.stringify(cached.filter((song) => song?.id !== id)));
+    } catch {
+      localStorage.removeItem(Constant.SONG_KEY);
     }
   }
 

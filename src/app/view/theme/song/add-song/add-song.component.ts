@@ -10,42 +10,18 @@ import * as slug from 'slug';
 import { DomSanitizer, SafeUrl, Title } from '@angular/platform-browser';
 import { NotifyService } from '../../../../core/services/global/notify.service';
 
+import {
+  CATEGORIES, CREATOKE_OFFERS, MAX_UPLOAD_MB, MEDIA_BLOCKS, MediaBlock, NO_CREATOKE, NO_LYRICS, Offer, SONG_OFFERS,
+  blockVisible, spotifyEmbed, spotifyOk, youtubeId, youtubePreview,
+} from '../song-form';
+
 type UrlMap = Record<string, string>;
 type NumMap = Record<string, number>;
-
-interface MediaBlock {
-  key: string;
-  group: 'chanson' | 'creatoke';
-  label: string;
-  hint: string;
-  format: string;
-  accept: string;
-  hideWhenCategoryIn?: string[];
-  hideWhenExclu?: boolean;
-}
-
-interface CategoryChoice {
-  value: string;
-  label: string;
-  icon: string;
-  hint: string;
-}
-
-interface Offer {
-  show: string;
-  price: string;
-  file: string;
-  label: string;
-  fileLabel: string;
-}
-
-// Catégories sans créatoké (ni fichiers, ni prix créatoké).
-const NO_CREATOKE = ['instrumentaux', 'musique-de-contenus', 'virgules-sonores'];
 
 @Component({
   selector: 'app-add-song',
   templateUrl: './add-song.component.html',
-  styleUrls: ['./add-song.component.scss']
+  styleUrls: ['../song-form.scss']
 })
 export class AddSongComponent implements OnInit, OnDestroy {
   musicForm: FormGroup;
@@ -56,6 +32,7 @@ export class AddSongComponent implements OnInit, OnDestroy {
   picturebackground?: string;
 
   songFile: File | null = null;
+  private songFileKey = '';
   generatedImageFile: File | null = null;
   generatedImagePreview: SafeUrl | null = null;
   showImageModal = false;
@@ -68,34 +45,10 @@ export class AddSongComponent implements OnInit, OnDestroy {
   private audioMap: Record<string, HTMLAudioElement> = {};
   playingMap: Record<string, boolean> = {};
 
-  readonly categories: CategoryChoice[] = [
-    { value: 'chansons-a-chanter', label: 'Chansons à chanter', icon: 'ri-mic-line', hint: 'Une chanson originale, avec sa version créatoké pour chanter dessus.' },
-    { value: 'chansons-cherche-auteur', label: 'Chanson(s) cherche auteur', icon: 'ri-quill-pen-line', hint: 'Une chanson qui attend son auteur.' },
-    { value: 'instrumentaux', label: 'Instrumentaux', icon: 'ri-music-2-line', hint: 'Une musique sans chant.' },
-    { value: 'musique-de-contenus', label: 'Musique de contenus', icon: 'ri-film-line', hint: 'Une musique pour des vidéos, podcasts…' },
-    { value: 'creacourcis', label: 'Créacourcis', icon: 'ri-flashlight-line', hint: 'Un format court.' },
-    { value: 'virgules-sonores', label: 'Virgules sonores', icon: 'ri-sound-module-line', hint: 'Un très court jingle.' },
-  ];
-
-  // Fichiers audio, regroupés en « La chanson » et « Le créatoké ».
-  readonly mediaBlocks: MediaBlock[] = [
-    { key: 'url', group: 'chanson', label: 'Pour l\'écouter sur le site', hint: 'C\'est ce que les visiteurs entendent quand ils cliquent sur « Écouter ».', format: 'MP3', accept: '.mp3,audio/mpeg', hideWhenExclu: true },
-    { key: 'chanson_mp3', group: 'chanson', label: 'Fichier vendu — licence de base', hint: 'Le client le reçoit quand il achète la licence de base.', format: 'MP3', accept: '.mp3,audio/mpeg', hideWhenExclu: true },
-    { key: 'chanson_wav', group: 'chanson', label: 'Fichier vendu — licence premium', hint: 'Le client le reçoit quand il achète la licence premium (meilleure qualité).', format: 'WAV', accept: '.wav,audio/wav,audio/x-wav' },
-    { key: 'creatoke', group: 'creatoke', label: 'Pour l\'écouter sur le site', hint: 'La version sans la voix principale, que les visiteurs peuvent écouter.', format: 'MP3', accept: '.mp3,audio/mpeg', hideWhenCategoryIn: NO_CREATOKE },
-    { key: 'creatoke_mp3', group: 'creatoke', label: 'Fichier vendu — licence de base', hint: 'Le client le reçoit quand il achète la licence de base du créatoké.', format: 'MP3', accept: '.mp3,audio/mpeg', hideWhenCategoryIn: NO_CREATOKE },
-    { key: 'creatoke_wav', group: 'creatoke', label: 'Fichier vendu — licence premium', hint: 'Le client le reçoit quand il achète la licence premium du créatoké.', format: 'WAV', accept: '.wav,audio/wav,audio/x-wav', hideWhenCategoryIn: NO_CREATOKE },
-  ];
-
-  readonly songOffers: Offer[] = [
-    { show: 'isLicenceBase', price: 'price_base', file: 'chanson_mp3', label: 'Licence de base', fileLabel: 'le fichier MP3 de la chanson' },
-    { show: 'isPremium', price: 'price_premium', file: 'chanson_wav', label: 'Licence premium', fileLabel: 'le fichier WAV de la chanson' },
-  ];
-
-  readonly creatokeOffers: Offer[] = [
-    { show: 'isLicenceBaseCreatoke', price: 'price_base_creatoke', file: 'creatoke_mp3', label: 'Licence de base', fileLabel: 'le fichier MP3 du créatoké' },
-    { show: 'isPremiumCreatoke', price: 'price_premium_creatoke', file: 'creatoke_wav', label: 'Licence premium', fileLabel: 'le fichier WAV du créatoké' },
-  ];
+  readonly categories = CATEGORIES;
+  readonly mediaBlocks = MEDIA_BLOCKS;
+  readonly songOffers = SONG_OFFERS;
+  readonly creatokeOffers = CREATOKE_OFFERS;
 
   private subs = new Subscription();
 
@@ -156,10 +109,7 @@ export class AddSongComponent implements OnInit, OnDestroy {
 
   // ---- Blocs fichiers ----
   showBlock(block: MediaBlock): boolean {
-    if (block.hideWhenExclu && this.musicForm.get('exclu')?.value === 'oui') return false;
-    const c = (this.musicForm.get('category')?.value ?? '').toString();
-    if (block.hideWhenCategoryIn?.includes(c)) return false;
-    return true;
+    return blockVisible(block, this.category, this.isExclu);
   }
 
   trackByBlock(_: number, b: MediaBlock) {
@@ -214,7 +164,7 @@ export class AddSongComponent implements OnInit, OnDestroy {
   }
 
   get hasLyrics(): boolean {
-    return this.category !== 'instrumentaux' && this.category !== 'musique-de-contenus';
+    return !NO_LYRICS.includes(this.category);
   }
 
   // Mêmes règles que l'ancien formulaire : pas de prix « chanson » pour une exclusivité.
@@ -273,31 +223,12 @@ export class AddSongComponent implements OnInit, OnDestroy {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // ---- Liens : on accepte le lien tel que copié, on garde le format attendu ----
-
-  /** « https://www.youtube.com/watch?v=Aq1NJxJZo6E » → « Aq1NJxJZo6E ». */
-  static youtubeId(input: string): string {
-    const v = (input ?? '').trim();
-    const m = v.match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/|\/live\/)([\w-]{11})/);
-    return m ? m[1] : v;
-  }
-
-  /** Lien de partage ou code d'intégration Spotify → lien d'intégration. */
-  static spotifyEmbed(input: string): string {
-    let v = (input ?? '').trim();
-    const src = v.match(/src="([^"]+)"/);
-    if (src) v = src[1];
-    const m = v.match(/open\.spotify\.com\/(?:intl-[a-z]+\/)?(?:embed\/)?(track|album|playlist|episode|artist)\/([A-Za-z0-9]+)/);
-    return m ? `https://open.spotify.com/embed/${m[1]}/${m[2]}` : v;
-  }
-
   get youtubePreviewId(): string {
-    const id = AddSongComponent.youtubeId(this.value('youtubeURL'));
-    return /^[\w-]{11}$/.test(id) ? id : '';
+    return youtubePreview(this.value('youtubeURL'));
   }
 
   get spotifyLinkOk(): boolean {
-    return AddSongComponent.spotifyEmbed(this.value('spotifyURL')).startsWith('https://open.spotify.com/embed/');
+    return spotifyOk(this.value('spotifyURL'));
   }
 
   togglePlay(key: string) {
@@ -325,6 +256,11 @@ export class AddSongComponent implements OnInit, OnDestroy {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     if (!file) return;
+    if (file.size > MAX_UPLOAD_MB * 1024 * 1024) {
+      this.notify.warning(`Ce fichier est trop lourd (${Math.round(file.size / 1024 / 1024)} Mo). La limite est de ${MAX_UPLOAD_MB} Mo.`);
+      input.value = '';
+      return;
+    }
 
     this.fileNames[fileType] = file.name;
     delete this.downloadUrls[fileType];
@@ -356,6 +292,20 @@ export class AddSongComponent implements OnInit, OnDestroy {
     // Le fichier audio sert de source à la génération IA (pas l'image).
     if (fileType !== 'image') {
       this.songFile = file;
+      this.songFileKey = fileType;
+    }
+  }
+
+  /** Retire un fichier envoyé par erreur (la case redevient vide). */
+  removeFile(key: string): void {
+    if (this.playingMap[key]) this.togglePlay(key);
+    delete this.downloadUrls[key];
+    delete this.fileNames[key];
+    delete this.progress[key];
+    this.musicForm.patchValue({ [key]: '' });
+    if (this.songFileKey === key) {
+      this.songFile = null;
+      this.songFileKey = '';
     }
   }
 
@@ -377,8 +327,8 @@ export class AddSongComponent implements OnInit, OnDestroy {
       title: (raw.title ?? '').toString().toUpperCase(),
       created_at,
       slug: slug(raw.title ?? ''),
-      youtubeURL: AddSongComponent.youtubeId(raw.youtubeURL),
-      spotifyURL: AddSongComponent.spotifyEmbed(raw.spotifyURL),
+      youtubeURL: youtubeId(raw.youtubeURL),
+      spotifyURL: spotifyEmbed(raw.spotifyURL),
       image: this.downloadUrls['image'] ?? ensureValue(raw.image, placeholderImage),
       creatoke: this.downloadUrls['creatoke'] ?? ensureValue(raw.creatoke),
       url: this.downloadUrls['url'] ?? ensureValue(raw.url),

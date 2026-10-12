@@ -27,12 +27,12 @@ $colors: (
   gap: 12px;
   padding: 14px 14px 16px 16px;
   overflow: hidden;
-  color: #fff;
-  background: #24252b;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--cr-ink);
+  background: var(--cr-surface-2);
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.12);
   border-left-width: 4px;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 10px 30px var(--cr-shadow);
   pointer-events: auto;
   animation: toast-in 0.25s ease-out;
 
@@ -62,7 +62,7 @@ $colors: (
     padding: 0 4px;
     font-size: 24px;
     line-height: 1;
-    color: #fff;
+    color: var(--cr-ink);
     background: none;
     border: none;
     opacity: 0.6;
@@ -131,9 +131,9 @@ $colors: (
     width: min(460px, 100%);
     padding: 28px 28px 24px;
     text-align: center;
-    color: #fff;
-    background: #1d1e22;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--cr-ink);
+    background: var(--cr-surface);
+    border: 1px solid rgba(var(--cr-ink-rgb), 0.12);
     border-radius: 14px;
     overflow: hidden;
 
@@ -174,7 +174,7 @@ $colors: (
 
     &--danger {
       background: rgba(#ff5b4d, 0.15);
-      color: #ff5b4d;
+      color: var(--cr-danger);
     }
   }
 

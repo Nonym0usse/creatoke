@@ -1,265 +1,186 @@
-// --- Blocs fichiers audio (player + upload) ---
-.media-block {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 16px;
-  margin-bottom: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  transition: border-color 0.15s ease;
+// Compléments propres à la page « Modifier » (le reste : ../../song/song-form.scss).
+$ok: #2ecc71;
+$warn: #f3c848;
+$danger: #ff5b4d;
 
-  &:hover {
-    border-color: rgba(255, 255, 255, 0.22);
-  }
+.edit-head {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: flex-start;
 
-  &__row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  &__icon {
+  &__cover {
     flex: 0 0 auto;
-    width: 42px;
-    height: 42px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.08);
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid rgba(var(--cr-ink-rgb), 0.12);
+  }
 
-    i {
+  &__text {
+    min-width: 0;
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    font-size: 15px;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    flex-direction: column;
+
+    &__cover {
+      width: 88px;
+      height: 88px;
+    }
+  }
+}
+
+.not-found {
+  text-align: center;
+
+  > i {
+    font-size: 40px;
+    color: var(--cr-warn);
+  }
+}
+
+// Fichier déjà en place : nom, puis boutons Écouter / Retirer.
+.file-current {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(var(--cr-ink-rgb), 0.05);
+
+  &__file {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    > i {
       font-size: 20px;
-    }
-  }
-
-  &__infos {
-    flex: 1 1 auto;
-    min-width: 0; // permet l'ellipsis
-  }
-
-  &__title {
-    font-weight: 600;
-  }
-
-  &__filename {
-    display: inline-block;
-    max-width: 100%;
-    margin-top: 5px;
-    padding: 3px 12px;
-    border-radius: 20px;
-    background: rgba(108, 92, 231, 0.22);
-    border: 1px solid rgba(108, 92, 231, 0.45);
-    color: #fff;
-    font-size: 13.5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &__filename--empty {
-    font-style: italic;
-    background: transparent;
-    border-color: rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.45);
-  }
-
-  &__actions {
-    flex: 0 0 auto;
-
-    .btn {
-      min-width: 100px;
-    }
-  }
-
-  &__upload {
-    margin-top: 12px;
-
-    .form-label {
-      font-size: 13px;
-      margin-bottom: 4px;
+      line-height: 1.1;
       opacity: 0.7;
     }
   }
 
-  &__progress {
-    margin-top: 12px;
+  // Sur deux lignes : les noms de fichiers d'une même chanson se ressemblent
+  // souvent, et c'est la fin du nom qui les distingue.
+  &__name {
+    min-width: 0;
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.35;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  &__success {
-    margin: 10px 0 0;
-    font-size: 13px;
-    color: #2ecc71;
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
 
-    i {
-      margin-right: 4px;
-      vertical-align: -1px;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      flex: 1 1 0;
+      min-width: 100px;
     }
   }
 }
 
-.fullscreen-loader {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(6px);
+.file-removed {
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px dashed rgba($danger, 0.5);
+  background: rgba($danger, 0.07);
+  font-size: 14px;
+
+  p {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin: 0 0 8px;
+  }
+
+  i {
+    line-height: 1.4;
+  }
+
+  &__warn {
+    color: var(--cr-warn);
+    font-size: 13px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+.file-missing,
+.file-new {
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.ai-loader {
-  text-align: center;
-  color: white;
-  font-size: 18px;
-  font-weight: 500;
-}
-
-.dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
   gap: 6px;
+  margin: 0 0 10px;
+  font-size: 14px;
 }
 
-.dots span {
-  width: 10px;
-  height: 10px;
-  background: white;
-  border-radius: 50%;
-  animation: bounce 1.4s infinite ease-in-out;
+.file-missing {
+  color: var(--cr-warn);
 }
 
-.dots span:nth-child(2) {
-  animation-delay: 0.2s;
+.file-new {
+  margin: 10px 0 0;
+  color: var(--cr-ok);
+  font-weight: 600;
 }
 
-.dots span:nth-child(3) {
-  animation-delay: 0.4s;
+.file-card--empty {
+  border-style: dashed;
 }
 
-@keyframes bounce {
-  0%, 80%, 100% {
-    transform: scale(0.6);
-    opacity: 0.5;
+.drop--compact {
+  min-height: 56px;
+  flex-direction: row;
+  gap: 8px;
+
+  > i {
+    font-size: 22px;
   }
-  40% {
-    transform: scale(1);
-    opacity: 1;
-  }
 }
-// --- Modale d'aide Spotify ---
-.help-modal {
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(3px);
 
-  &__content {
-    position: relative;
-    background: #1d1e22;
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 14px;
-    overflow: hidden;
+.danger-zone {
+  border-color: rgba($danger, 0.35);
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #5438d1, #8938d1 60%);
-    }
+  .step__num {
+    background: rgba($danger, 0.18);
+    color: var(--cr-danger);
   }
 
-  .modal-header,
-  .modal-footer {
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-
-  .modal-title {
-    display: flex;
+  &__btn {
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
-
-    i {
-      color: #1DB954; // vert Spotify
-      font-size: 24px;
-    }
-  }
-
-  &__close {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 28px;
-    line-height: 1;
-    opacity: 0.6;
-    cursor: pointer;
-    transition: opacity .15s ease;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  &__steps {
-    list-style: none;
-    counter-reset: step;
-    margin: 0 0 24px;
-    padding: 0;
-
-    li {
-      position: relative;
-      padding: 8px 0 8px 42px;
-      counter-increment: step;
-
-      &::before {
-        content: counter(step);
-        position: absolute;
-        left: 0;
-        top: 7px;
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(90deg, #5438d1, #8938d1);
-        font-size: 13px;
-        font-weight: 600;
-      }
-    }
-
-    code {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      padding: 1px 7px;
-      border-radius: 4px;
-    }
-  }
-
-  &__figure {
-    margin: 0;
-    text-align: center;
-
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    figcaption {
-      margin-top: 10px;
-      font-size: 12.5px;
-      opacity: 0.6;
-
-      code {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 1px 5px;
-        border-radius: 4px;
-      }
-    }
+    align-self: flex-start;
+    gap: 8px;
+    font-weight: 600;
   }
 }

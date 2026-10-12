@@ -3,18 +3,18 @@
 
 <div class="under-hero container">
   <div class="section">
-    <div class="add-song">
+    <div class="song-form">
 
       <!-- En-tête : à quoi sert la page, comment s'y prendre -->
-      <header class="card add-song__intro">
-        <span class="add-song__eyebrow"><i class="ri-add-circle-line"></i> Catalogue</span>
-        <h1 class="add-song__title">Ajouter une <span class="text-primary">chanson</span></h1>
-        <p class="add-song__lead">
+      <header class="card song-form__intro">
+        <span class="song-form__eyebrow"><i class="ri-add-circle-line"></i> Catalogue</span>
+        <h1 class="song-form__title">Ajouter une <span class="text-primary">chanson</span></h1>
+        <p class="song-form__lead">
           Suivez les étapes de haut en bas, à votre rythme. <strong>Rien n'est publié</strong> tant que vous
           n'avez pas cliqué sur le bouton <strong>« Publier la chanson »</strong>, tout en bas de la page.
         </p>
-        <ul class="add-song__tips">
-          <li><i class="ri-asterisk"></i><span>Les champs marqués <span class="add-song__req">obligatoire</span> doivent
+        <ul class="song-form__tips">
+          <li><i class="ri-asterisk"></i><span>Les champs marqués <span class="song-form__req">obligatoire</span> doivent
               être remplis. Les autres peuvent attendre : vous pourrez les compléter plus tard avec
               « Modifier ».</span></li>
           <li><i class="ri-question-line"></i><span>Un doute ? Le <a routerLink="/aide-admin">guide
@@ -33,7 +33,7 @@
               <i class="ri-check-line" *ngIf="category"></i><ng-container *ngIf="!category">1</ng-container>
             </span>
             <div>
-              <h2 class="step__title">Où publier la chanson ? <span class="add-song__req">obligatoire</span></h2>
+              <h2 class="step__title">Où publier la chanson ? <span class="song-form__req">obligatoire</span></h2>
               <p class="step__help">Cliquez sur la rubrique du site où la chanson doit apparaître. La suite du
                 formulaire s'adapte à votre choix.</p>
             </div>
@@ -75,7 +75,7 @@
             <div class="row g-4">
               <div class="col-md-6">
                 <label class="form-label field-label" for="song_title">Titre de la chanson
-                  <span class="add-song__req">obligatoire</span></label>
+                  <span class="song-form__req">obligatoire</span></label>
                 <input type="text" id="song_title" formControlName="title" class="form-control form-control-lg"
                   placeholder="Ex : Un rendez-vous à Paris" autocomplete="off">
                 <div class="form-text">Écrivez-le normalement : il sera mis en MAJUSCULES automatiquement.
@@ -83,7 +83,7 @@
               </div>
               <div class="col-md-6">
                 <label class="form-label field-label" for="song_artist">Artiste
-                  <span class="add-song__req">obligatoire</span></label>
+                  <span class="song-form__req">obligatoire</span></label>
                 <input type="text" id="song_artist" formControlName="artist" class="form-control form-control-lg"
                   placeholder="Ex : Samantha" autocomplete="off">
                 <div class="form-text">Le nom affiché comme « Interprète » sur la fiche.</div>
@@ -178,12 +178,18 @@
 
                     <div class="file-card__ok" *ngIf="downloadUrls[block.key]">
                       <span><i class="ri-checkbox-circle-fill"></i> Fichier envoyé</span>
-                      <button type="button" class="btn btn-sm"
-                        [class.btn-primary]="!playingMap[block.key]" [class.btn-danger]="playingMap[block.key]"
-                        (click)="togglePlay(block.key)">
-                        <i [class]="playingMap[block.key] ? 'ri-stop-fill' : 'ri-play-fill'"></i>
-                        {{ playingMap[block.key] ? 'Arrêter' : 'Écouter' }}
-                      </button>
+                      <div class="file-card__buttons">
+                        <button type="button" class="btn btn-sm"
+                          [class.btn-primary]="!playingMap[block.key]" [class.btn-danger]="playingMap[block.key]"
+                          (click)="togglePlay(block.key)">
+                          <i [class]="playingMap[block.key] ? 'ri-stop-fill' : 'ri-play-fill'"></i>
+                          {{ playingMap[block.key] ? 'Arrêter' : 'Écouter' }}
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeFile(block.key)"
+                          [attr.aria-label]="'Retirer le fichier : ' + block.label">
+                          <i class="ri-delete-bin-line"></i> Retirer
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -200,7 +206,7 @@
                 <i class="ri-check-line" *ngIf="downloadUrls['image']"></i><ng-container *ngIf="!downloadUrls['image']">4</ng-container>
               </span>
               <div>
-                <h2 class="step__title">Choisissez la pochette <span class="add-song__opt">facultatif</span></h2>
+                <h2 class="step__title">Choisissez la pochette <span class="song-form__opt">facultatif</span></h2>
                 <p class="step__help">L'image affichée avec la chanson. Une image <strong>carrée</strong> rend le
                   mieux. Sans image, une image générique est utilisée.</p>
               </div>
@@ -263,7 +269,7 @@
             <div class="text-field">
               <div class="text-field__head">
                 <label class="form-label field-label mb-0" for="description">Description
-                  <span class="add-song__req">obligatoire</span></label>
+                  <span class="song-form__req">obligatoire</span></label>
                 <button type="button" class="btn btn-sm btn-custom" (click)="generateContentWithIA('description')"
                   [disabled]="!hasAudio">✨ Écrire avec l'IA</button>
               </div>
@@ -275,7 +281,7 @@
 
             <div class="text-field" [hidden]="!hasLyrics">
               <div class="text-field__head">
-                <span class="form-label field-label mb-0">Paroles <span class="add-song__opt">facultatif</span></span>
+                <span class="form-label field-label mb-0">Paroles <span class="song-form__opt">facultatif</span></span>
                 <button type="button" class="btn btn-sm btn-custom" (click)="generateContentWithIA('lyrics')"
                   [disabled]="!hasAudio">✨ Retrouver les paroles avec l'IA</button>
               </div>
@@ -287,7 +293,7 @@
             <div class="text-field" [hidden]="!isExclu">
               <div class="text-field__head">
                 <span class="form-label field-label mb-0">Message pour les visiteurs
-                  <span class="add-song__req">à remplir pour une exclusivité</span></span>
+                  <span class="song-form__req">à remplir pour une exclusivité</span></span>
               </div>
               <p class="form-text mt-0">Comme la chanson est une exclusivité, ce texte remplace ses offres sur la
                 fiche. Exemple : « Cette chanson est disponible sur les plateformes ; vous pouvez acheter son
@@ -308,7 +314,7 @@
                 <ng-container *ngIf="!youtubePreviewId && !spotifyLinkOk">6</ng-container>
               </span>
               <div>
-                <h2 class="step__title">Ajoutez la vidéo ou le titre Spotify <span class="add-song__opt">facultatif</span></h2>
+                <h2 class="step__title">Ajoutez la vidéo ou le titre Spotify <span class="song-form__opt">facultatif</span></h2>
                 <p class="step__help">Copiez le lien depuis YouTube ou Spotify et collez-le simplement ici
                   (clic droit → Coller). Le site s'occupe du reste.</p>
               </div>

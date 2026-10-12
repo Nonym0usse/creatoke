@@ -43,6 +43,18 @@
 </head>
 
 <body>
+    <!-- Mode clair : appliqué avant l'affichage pour éviter un flash sombre.
+         Placé dans <body> pour passer après la feuille de style principale. -->
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem('creatoke-mode') === 'light') {
+                    document.documentElement.setAttribute('data-mode', 'light');
+                    document.write('<link rel="stylesheet" id="theme-light" href="theme-light.css">');
+                }
+            } catch (e) { /* stockage indisponible : mode sombre */ }
+        })();
+    </script>
 
     <!-- App Root -->
     <app-root></app-root>

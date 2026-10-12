@@ -45,6 +45,9 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   // Header theme subscription
   headerSubscription: Subscription | undefined;
 
+  // Mode clair / sombre choisi par le visiteur
+  readonly lightMode$ = this.themeService.lightMode;
+
   constructor(
     private togglerService: TogglerService,
     private authenticationService: AuthenticationService,
@@ -66,6 +69,10 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         this.header?.nativeElement.setAttribute(Constant.HEADER, color);
       });
     }, 1);
+  }
+
+  toggleColorMode(): void {
+    this.themeService.setLightMode(!this.themeService.lightMode.value);
   }
 
   ngAfterViewInit(): void {

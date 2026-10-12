@@ -1,0 +1,57 @@
+//
+// Couleurs qui changent avec le mode (sombre / clair)
+//
+// Compilé deux fois : styles.scss (sombre) et styles-light.scss (clair, chargé
+// par-dessus quand le visiteur choisit le mode clair). Les styles des pages et
+// des composants utilisent ces variables plutôt que des couleurs en dur.
+//
+// --cr-ink-rgb : la couleur « encre » (blanc en sombre, quasi noir en clair),
+// à utiliser avec une transparence : rgba(var(--cr-ink-rgb), 0.1) pour une
+// bordure, 0.05 pour un fond léger, 0.7 pour un texte secondaire…
+//
+
+:root {
+    @if isDarkMode() {
+        --cr-ink-rgb: 255, 255, 255;
+        --cr-ink: #ffffff;
+        --cr-body: #{$body-bg};
+        --cr-body-rgb: #{red($body-bg)}, #{green($body-bg)}, #{blue($body-bg)};
+        --cr-header: #131416;
+        --cr-surface: #1d1e22;
+        --cr-surface-2: #24252b;
+        --cr-sunken: #1a1b1f;
+        --cr-placeholder: #2a2b31;
+        --cr-ok: #2ecc71;
+        --cr-warn: #f3c848;
+        --cr-danger: #ff5b4d;
+        --cr-brand-ink: #e2d0ff;
+        --cr-link: #b98cff;
+        --cr-shadow: rgba(0, 0, 0, 0.45);
+        color-scheme: dark;
+    } @else {
+        --cr-ink-rgb: 21, 23, 25;
+        --cr-ink: #151719;
+        --cr-body: #{$body-bg};
+        --cr-body-rgb: #{red($body-bg)}, #{green($body-bg)}, #{blue($body-bg)};
+        --cr-header: #ffffff;
+        --cr-surface: #ffffff;
+        --cr-surface-2: #f3f4f8;
+        --cr-sunken: #f7f8fa;
+        --cr-placeholder: #e9ebf0;
+        --cr-ok: #18874a;
+        --cr-warn: #9a6700;
+        --cr-danger: #d33a2c;
+        --cr-brand-ink: #5b2bb5;
+        --cr-link: #6a32d6;
+        --cr-shadow: rgba(21, 23, 25, 0.15);
+        color-scheme: light;
+    }
+}
+
+// Réglages propres au mode clair
+@if not isDarkMode() {
+    // Le logo est blanc : on l'inverse (noir, la cigale grise reste grise).
+    app-brand img {
+        filter: invert(1);
+    }
+}

@@ -134,7 +134,8 @@
                         <p>Les fichiers sont rangés en deux groupes, <strong>« La chanson »</strong> et <strong>« Le
                                 créatoké »</strong>. Cliquez sur une case (ou faites-y glisser le fichier) : l'envoi
                             démarre aussitôt, avec une barre de progression, puis une coche verte et un bouton
-                            « Écouter » pour vérifier. Le format attendu (MP3 ou WAV) est écrit sur chaque case.
+                            « Écouter » pour vérifier, et un bouton « Retirer » si vous vous êtes trompé de fichier. Le
+                            format attendu (MP3 ou WAV) est écrit sur chaque case.
                             Jusqu'à 500 Mo par fichier.</p>
                         <div class="legal__table-wrap">
                             <table class="legal__table">
@@ -221,22 +222,24 @@
                             titre, catégorie) avec les boutons « Modifier » et « Supprimer ».</p>
                         <h3>Modifier</h3>
                         <ul class="legal__bullets">
-                            <li>Les champs sont les mêmes qu'à l'ajout, dans un ordre un peu différent.</li>
-                            <li>Section <strong>« Player de la chanson »</strong> : « Remplacer le fichier » envoie un
-                                nouveau fichier (<strong>80 Mo maximum</strong> sur cette page). Il n'est pris en compte
-                                qu'après <strong>« Enregistrer »</strong>.</li>
-                            <li>L'<strong>image de couverture ne peut pas être changée</strong> depuis cette page.</li>
-                            <li>Le <strong>message</strong> d'une chanson exclusive n'est pas modifiable ici.</li>
-                            <li>« Enregistrer » → message « Chanson modifiée » en bas à droite.</li>
+                            <li>La page reprend les mêmes rubriques qu'à l'ajout, déjà remplies : changez seulement ce
+                                que vous voulez. Le lien « Voir la fiche sur le site » ouvre la fiche publique dans un
+                                nouvel onglet.</li>
+                            <li><strong>Fichiers audio</strong> : chaque case montre le fichier en place avec un bouton
+                                « Écouter ». « Remplacer par un autre fichier » envoie le nouveau (500 Mo maximum) ;
+                                « Retirer » enlève le fichier de la chanson (« Annuler, garder le fichier » le remet).
+                                Rien de cela n'est appliqué avant l'enregistrement. Pensez à ne plus proposer à la vente
+                                une offre dont vous retirez le fichier : la carte « Enregistrer » le signale.</li>
+                            <li><strong>Pochette</strong> : « Changer la pochette » remplace l'image.</li>
+                            <li><strong>Prix</strong> : un prix vide reste vide (l'offre affiche « — » et ne peut pas
+                                être achetée) ; écrivez 0 pour la rendre gratuite.</li>
+                            <li>Le bouton <strong>« Enregistrer les modifications »</strong> reste grisé tant que rien
+                                n'a changé ou qu'une information obligatoire manque. Après l'enregistrement, un message
+                                « Chanson modifiée » s'affiche en bas à droite.</li>
                         </ul>
-                        <div class="legal__callout legal__callout--warn">
-                            <i class="ri-error-warning-line"></i>
-                            <div><strong>Vérifiez les prix avant d'enregistrer.</strong> Un prix qui était vide
-                                s'affiche à 0 dans cette page : si vous enregistrez sans le changer, la licence
-                                correspondante devient gratuite (si elle est affichée).</div>
-                        </div>
                         <h3>Supprimer</h3>
-                        <p>« Supprimer » demande une confirmation, puis efface la chanson <strong>et ses
+                        <p>Depuis la liste des chansons (bouton « Supprimer ») ou en bas de la page « Modifier »
+                            (carte « Supprimer la chanson »). Une confirmation est demandée, puis la chanson est effacée <strong>avec ses
                                 fichiers</strong> (audio et image) du serveur, sauf ceux qu'une autre chanson utilise.
                             <strong>C'est définitif.</strong> Les commentaires de la chanson ne sont pas supprimés.</p>
                     </section>
@@ -322,18 +325,18 @@
                         <p>Il s'affiche sur l'accueil, dans la section « A propos de Creatoke ».</p>
                         <h3>Image de fond</h3>
                         <ol class="legal__steps">
-                            <li>Menu <strong>Admin → Site → « Image de fond »</strong>.</li>
-                            <li>Choisissez une image : l'envoi démarre, attendez <strong>100 %</strong>.</li>
-                            <li>Cliquez sur <strong>« Ajouter image »</strong> (« OK, image de fond changée »).</li>
+                            <li>Menu <strong>Admin → Site → « Image de fond »</strong>. La page montre l'image actuelle,
+                                telle qu'elle s'affiche sur ordinateur et sur téléphone.</li>
+                            <li>Cliquez sur <strong>« Choisir une image »</strong> (ou faites-la glisser) : l'envoi
+                                démarre, et la page vérifie l'image (taille, format en largeur, poids).</li>
+                            <li>Regardez l'<strong>aperçu avec la nouvelle image</strong>, puis cliquez sur
+                                <strong>« Utiliser cette image »</strong> et confirmez. « Annuler, garder l'image
+                                actuelle » abandonne sans rien changer.</li>
                         </ol>
                         <p>L'image s'affiche en bandeau en haut de toutes les pages et remplace l'ancienne, qui est
-                            supprimée. Choisissez une image large (paysage) et pas trop lourde : elle n'est pas
-                            redimensionnée. Les visiteurs la voient changer au bout de quelques minutes.</p>
-                        <div class="legal__callout legal__callout--warn">
-                            <i class="ri-error-warning-line"></i>
-                            <div>Si vous cliquez sur « Ajouter image » avant la fin de l'envoi, rien ne se passe, sans
-                                message : attendez la fin de la barre de progression.</div>
-                        </div>
+                            supprimée. Choisissez une image large (paysage, 1920 pixels de large ou plus), avec le
+                            sujet au centre, et pas trop lourde (moins de 4 Mo) : elle n'est pas redimensionnée. Les
+                            visiteurs la voient changer au bout de quelques minutes.</p>
                     </section>
 
                     <!-- ============================================================ -->
@@ -516,8 +519,8 @@
                         </details>
                         <details class="legal__faq">
                             <summary>Un message rouge dit que l'envoi d'un fichier a échoué.</summary>
-                            <div>Vérifiez la connexion internet et le format (audio ou image), puis réessayez. Sur la page
-                                « Modifier », un fichier est limité à 80 Mo.</div>
+                            <div>Vérifiez la connexion internet et le format (audio ou image), puis réessayez. Un
+                                fichier est limité à 500 Mo.</div>
                         </details>
                         <details class="legal__faq">
                             <summary>Je ne vois pas mes changements sur le site.</summary>

@@ -31,6 +31,12 @@
   <FilesMatch "\.(html|htm|js|css|json|woff|woff2|ttf|eot|svg|png|jpg|jpeg|gif|ico)$">
     Header set Cache-Control "max-age=31536000, public"
   </FilesMatch>
+  # Fichiers dont le nom ne change pas d'une version à l'autre : le navigateur
+  # revérifie à chaque visite (sinon une mise à jour du site reste invisible
+  # pendant un an pour qui est déjà venu).
+  <FilesMatch "^(index\.html|theme-light\.css)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
 </IfModule>
 
 # ✅ Allow Cross-Origin Requests (CORS) for JavaScript Downloads
