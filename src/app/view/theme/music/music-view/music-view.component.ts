@@ -3,12 +3,14 @@ import { SongService } from "../../../../core/services/api/song.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PlayerService } from "../../../../core/services/design/player.service";
 import { Subject, Subscription } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 import { LicenceService } from "../../../../core/services/api/licence.service";
 import { ICreateOrderRequest } from "ngx-paypal";
 import { PaypalService } from "../../../../core/services/api/paypal.service";
 import { DomSanitizer, SafeResourceUrl, SafeUrl, Title } from '@angular/platform-browser';
 import { CategoryService } from "../../../../core/services/api/category.service";
 import { Song } from 'src/app/core/models/song.model';
+import { SectionService } from 'src/app/core/services/api/section.service';
 import { NotifyService } from 'src/app/core/services/global/notify.service';
 
 declare global {
@@ -52,14 +54,7 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
   // Offres affichées : la chanson ou sa version créatoké.
   purchaseTab: 'song' | 'creatoke' = 'song';
 
-  private readonly CATEGORY_LABELS: Record<string, string> = {
-    'chansons-a-chanter': 'Chansons à chanter',
-    'creacourcis': 'Créacourcis',
-    'virgules-sonores': 'Virgules sonores',
-    'instrumentaux': 'Instrumentaux',
-    'musique-de-contenus': 'Musique de contenus',
-    'chansons-cherche-auteur': 'Chanson(s) cherche auteur',
-  };
+
   private destroy$ = new Subject<void>();
   private promoTriggeredForUrl = new Set<string>();
 
@@ -73,7 +68,8 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
     private sanitizer: DomSanitizer,
     private categoryService: CategoryService,
     private title: Title,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private sectionService: SectionService
   ) {
   }
 
@@ -86,6 +82,8 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
+    // Rubriques relues dans l'API : libellés mis à jour dès qu'elles arrivent.
+    this.sectionService.sections$.pipe(takeUntil(this.destroy$)).subscribe(() => this.applySection());
     this.routerSubscription = this.activatedRoute.paramMap.subscribe(pm => {
       const slug = pm.get("slug") || "";
       this.getSongs(slug);
@@ -143,9 +141,9 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
     return this.song?.message?.length === 0 || this.song?.exclu === 'non';
   }
 
-  // La version créatoké n'existe que pour les chansons à chanter / cherche auteur.
+  // La version créatoké n'existe que dans les rubriques qui la proposent (table sections).
   get hasCreatoke(): boolean {
-    return this.song?.category === 'chansons-a-chanter' || this.song?.category === 'chansons-cherche-auteur';
+    return Boolean(this.sectionService.find(this.song?.category)?.has_creatoke);
   }
 
   // Offres (hors licence pro) de l'onglet actif. `free` = fichier téléchargé quand le prix vaut 0.
@@ -177,31 +175,12 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
     return Number(price) > 0;
   }
 
-  getParams(sub) {
-    switch (sub) {
-      case "chansons-a-chanter":
-        this.categoryName = " la chanson à chanter";
-        break
-      case "creacourcis":
-        this.categoryName = " le créacourcis";
-        break
-      case "virgules-sonores":
-        this.categoryName = " la virgule sonore";
-        break
-      case "instrumentaux":
-        this.categoryName = " l'instrumental";
-        break
-      case "musique-de-contenus":
-        this.categoryName = " la musique de contenu";
-        break
-      case "chansons-cherche-auteur":
-        this.categoryName = " la chanson cherche auteur";
-        break
-      default:
-        this.categoryName = " la chanson"
-        break
-    }
-    return this.categoryName;
+  // Libellés de la rubrique (table sections) : nom et fin du titre « Acheter … ».
+  private applySection(): void {
+    if (!this.song) return;
+    const section = this.sectionService.find(this.song.category);
+    this.categoryName = ' ' + (section?.item_label ?? 'la chanson');
+    this.categoryLabel = section?.label ?? (this.song.category || '');
   }
 
   getCurrentFormattedDate(): string {
@@ -375,8 +354,7 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
         this.loadError = true;
         return;
       }
-      this.getParams(this.song.category || "");
-      this.categoryLabel = this.CATEGORY_LABELS[this.song.category || ''] ?? (this.song.category || '');
+      this.applySection();
       // Chanson non vendue directement (exclusivité) : on ouvre sur les offres créatoké.
       this.purchaseTab = !this.songForSale && this.hasCreatoke ? 'creatoke' : 'song';
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.song?.youtubeURL}`);

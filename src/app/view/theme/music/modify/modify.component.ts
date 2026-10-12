@@ -8,9 +8,10 @@ import { SongService } from '../../../../core/services/api/song.service';
 import { CategoryService } from '../../../../core/services/api/category.service';
 import { UploadService } from '../../../../core/utils/upload';
 import { NotifyService } from '../../../../core/services/global/notify.service';
+import { DEFAULT_SECTIONS, Section, SectionService } from '../../../../core/services/api/section.service';
 import {
-  CATEGORIES, CREATOKE_OFFERS, MAX_UPLOAD_MB, MEDIA_BLOCKS, MediaBlock, NO_CREATOKE, NO_LYRICS, Offer, SONG_OFFERS,
-  blockVisible, fileNameFromUrl, spotifyEmbed, spotifyOk, youtubeId, youtubePreview,
+  CREATOKE_OFFERS, CategoryChoice, MAX_UPLOAD_MB, MEDIA_BLOCKS, MediaBlock, Offer, SONG_OFFERS,
+  blockVisible, toChoices, fileNameFromUrl, spotifyEmbed, spotifyOk, youtubeId, youtubePreview,
 } from '../../song/song-form';
 
 type OuiNon = 'oui' | 'non';
@@ -34,7 +35,8 @@ export class ModifyComponent implements OnInit, OnDestroy {
   picturebackground = '';
   display = 'none';
 
-  readonly categories = CATEGORIES;
+  categories: CategoryChoice[] = toChoices(DEFAULT_SECTIONS);
+  private sections: Section[] = DEFAULT_SECTIONS;
   readonly mediaBlocks = MEDIA_BLOCKS;
   readonly songOffers = SONG_OFFERS;
   readonly creatokeOffers = CREATOKE_OFFERS;
@@ -61,7 +63,8 @@ export class ModifyComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private uploader: UploadService,
     private docTitle: Title,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private sectionService: SectionService
   ) {
     this.musicForm = this.fb.group({
       id: [''],
@@ -88,6 +91,11 @@ export class ModifyComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Rubriques lues dans l'API (une rubrique créée depuis l'assistant apparaît ici).
+    this.sectionService.sections$.pipe(takeUntil(this.destroy$)).subscribe((sections) => {
+      this.sections = sections;
+      this.categories = toChoices(sections);
+    });
     this.activatedRoute.params.pipe(takeUntil(this.destroy$)).subscribe((param) => {
       const slug = param['slug'];
       if (slug) this.loadSong(slug);
@@ -169,12 +177,17 @@ export class ModifyComponent implements OnInit, OnDestroy {
     return this.value('exclu') === 'oui';
   }
 
+  /** Rubrique choisie (réglages créatoké / paroles). */
+  get section(): Section | undefined {
+    return this.sections.find((s) => s.slug === this.category);
+  }
+
   get hasCreatoke(): boolean {
-    return !!this.category && !NO_CREATOKE.includes(this.category);
+    return Boolean(this.section?.has_creatoke);
   }
 
   get hasLyrics(): boolean {
-    return !NO_LYRICS.includes(this.category);
+    return this.section ? this.section.has_lyrics : true;
   }
 
   get showSongPrices(): boolean {
@@ -215,12 +228,12 @@ export class ModifyComponent implements OnInit, OnDestroy {
   // Un bloc masqué par les règles reste visible si la chanson a un fichier à cet
   // endroit (pour pouvoir l'écouter ou le retirer).
   showBlock(block: MediaBlock): boolean {
-    return blockVisible(block, this.category, this.isExclu) || !!this.savedUrl(block.key);
+    return blockVisible(block, this.section, this.isExclu) || !!this.savedUrl(block.key);
   }
 
   blocksOf(group: 'chanson' | 'creatoke'): MediaBlock[] {
     return this.cached('blocks-' + group,
-      [this.category, this.isExclu, ...FILE_FIELDS.map((k) => !!this.savedUrl(k))].join('|'),
+      [this.category, this.isExclu, Boolean(this.section?.has_creatoke), ...FILE_FIELDS.map((k) => !!this.savedUrl(k))].join('|'),
       () => this.mediaBlocks.filter((b) => b.group === group && this.showBlock(b)));
   }
 

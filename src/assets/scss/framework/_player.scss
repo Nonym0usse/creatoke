@@ -177,6 +177,14 @@
     flex: 1;
 }
 
+// Fermer le lecteur
+.player-close {
+    opacity: 0.6;
+    @include hover-focus-active {
+        opacity: 1;
+    }
+}
+
 
 // Player volume styles
 .player-volume {

@@ -7,22 +7,13 @@ import { distinctUntilChanged, map, takeUntil } from "rxjs/operators";
 import { SongService } from "../../../core/services/api/song.service";
 import { CategoryService } from "../../../core/services/api/category.service";
 import type { Song } from "src/app/core/models/song.model";
+import { SectionService, type Section } from "../../../core/services/api/section.service";
 
 interface CategoryInfo {
   label: string;
   icon: string;
   description: string;
 }
-
-// Même icône que dans la barre latérale (core/constants/constant.ts).
-const CATEGORIES: Record<string, CategoryInfo> = {
-  "chansons-a-chanter": { label: "Chansons à chanter", icon: "ri-mic-line", description: "Des chansons originales à interpréter, avec leur version créatoké pour chanter dessus." },
-  "chansons-cherche-auteur": { label: "Chanson(s) cherche auteur", icon: "ri-quill-pen-line", description: "Des chansons en quête d'auteur." },
-  "instrumentaux": { label: "Instrumentaux", icon: "ri-music-2-line", description: "Des compositions instrumentales originales." },
-  "musique-de-contenus": { label: "Musique de contenus", icon: "ri-film-line", description: "Des musiques pour habiller vos vidéos, podcasts et contenus." },
-  "creacourcis": { label: "Créacourcis", icon: "ri-flashlight-line", description: "Des créations courtes et originales." },
-  "virgules-sonores": { label: "Virgules sonores", icon: "ri-sound-module-line", description: "De courtes signatures sonores pour ponctuer vos contenus." },
-};
 
 const DEFAULT_CATEGORY: CategoryInfo = { label: "Musiques", icon: "ri-music-2-line", description: "" };
 
@@ -39,7 +30,9 @@ export class MusicComponent implements OnInit, OnDestroy {
   // Catégorie affichée (en-tête) et autres catégories (pastilles en bas de page)
   category: CategoryInfo = DEFAULT_CATEGORY;
   categoryKey = "";
-  readonly categories = Object.entries(CATEGORIES).map(([key, info]) => ({ key, ...info }));
+  // Autres rubriques (pastilles en bas de page), lues dans l'API (SectionService).
+  otherCategories: (CategoryInfo & { key: string })[] = [];
+  private sections: Section[] = [];
 
   // Filtre par titre / interprète (affiché au-delà de FILTER_THRESHOLD titres)
   filter = "";
@@ -54,7 +47,8 @@ export class MusicComponent implements OnInit, OnDestroy {
     private songService: SongService,
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-    private docTitle: Title
+    private docTitle: Title,
+    private sectionService: SectionService
   ) {}
 
   ngOnInit(): void {
@@ -63,6 +57,12 @@ export class MusicComponent implements OnInit, OnDestroy {
       .getBackgroundImg()
       .then((r) => (this.picturebackground = r?.data?.[0]?.picture ?? null))
       .catch(() => (this.picturebackground = null));
+
+    // rubriques : d'abord celles d'origine, puis celles de l'API
+    this.sectionService.sections$.pipe(takeUntil(this.destroy$)).subscribe((sections) => {
+      this.sections = sections;
+      this.applySection();
+    });
 
     // category -> fetch songs
     this.route.paramMap
@@ -87,8 +87,15 @@ export class MusicComponent implements OnInit, OnDestroy {
     return this.songs.filter((s) => this.normalize(`${s.title ?? ""} ${s.artist ?? ""}`).includes(q));
   }
 
-  get otherCategories() {
-    return this.categories.filter((c) => c.key !== this.categoryKey);
+  // En-tête, titre de l'onglet et pastilles d'après la rubrique affichée.
+  private applySection() {
+    const section = this.sections.find((s) => s.slug === this.categoryKey);
+    this.category = section ? { label: section.label, icon: section.icon, description: section.description } : DEFAULT_CATEGORY;
+    this.title = this.category.label;
+    this.docTitle.setTitle(`${this.category.label} | Creatoke`);
+    this.otherCategories = this.sections
+      .filter((s) => s.slug !== this.categoryKey)
+      .map((s) => ({ key: s.slug, label: s.label, icon: s.icon, description: s.description }));
   }
 
   private normalize(text: string): string {
@@ -101,11 +108,7 @@ export class MusicComponent implements OnInit, OnDestroy {
     this.songs = [];
     this.filter = "";
     this.categoryKey = category;
-    this.category = CATEGORIES[category] ?? DEFAULT_CATEGORY;
-
-    const t = this.mapTitle(category);
-    this.title = t;
-    this.docTitle.setTitle(`${t} | Creatoke`);
+    this.applySection();
 
     // ✅ payload: adapte si ton API attend autre chose
     this.songService
@@ -139,15 +142,4 @@ export class MusicComponent implements OnInit, OnDestroy {
     return ["/song", cat, `${slug}--${song?.id}`];
   }
 
-  private mapTitle(param: string): string {
-    switch (param) {
-      case "chansons-a-chanter": return "Chansons à chanter 🎤";
-      case "creacourcis": return "Créacourcis 🎤";
-      case "virgules-sonores": return "Virgules sonores 🎤";
-      case "instrumentaux": return "Instrumentaux 🎶";
-      case "musique-de-contenus": return "Musique de contenus 🖥️";
-      case "chansons-cherche-auteur": return "Chanson(s) cherche auteur 🎙️";
-      default: return "Musiques 🎶";
-    }
-  }
 }

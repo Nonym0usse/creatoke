@@ -1,4 +1,5 @@
 // Éléments communs aux pages « Ajouter une chanson » et « Modifier une chanson ».
+import type { Section } from '../../../core/services/api/section.service';
 // Les styles partagés sont dans song-form.scss.
 
 export interface CategoryChoice {
@@ -15,7 +16,8 @@ export interface MediaBlock {
   hint: string;
   format: string;
   accept: string;
-  hideWhenCategoryIn?: string[];
+  /** Seulement dans les rubriques qui proposent une version créatoké. */
+  creatokeOnly?: boolean;
   hideWhenExclu?: boolean;
 }
 
@@ -30,29 +32,19 @@ export interface Offer {
 // Taille maximale d'un fichier envoyé (limite du serveur).
 export const MAX_UPLOAD_MB = 500;
 
-// Catégories sans créatoké (ni fichiers, ni prix créatoké).
-export const NO_CREATOKE = ['instrumentaux', 'musique-de-contenus', 'virgules-sonores'];
-
-// Catégories sans paroles.
-export const NO_LYRICS = ['instrumentaux', 'musique-de-contenus'];
-
-export const CATEGORIES: CategoryChoice[] = [
-  { value: 'chansons-a-chanter', label: 'Chansons à chanter', icon: 'ri-mic-line', hint: 'Une chanson originale, avec sa version créatoké pour chanter dessus.' },
-  { value: 'chansons-cherche-auteur', label: 'Chanson(s) cherche auteur', icon: 'ri-quill-pen-line', hint: 'Une chanson qui attend son auteur.' },
-  { value: 'instrumentaux', label: 'Instrumentaux', icon: 'ri-music-2-line', hint: 'Une musique sans chant.' },
-  { value: 'musique-de-contenus', label: 'Musique de contenus', icon: 'ri-film-line', hint: 'Une musique pour des vidéos, podcasts…' },
-  { value: 'creacourcis', label: 'Créacourcis', icon: 'ri-flashlight-line', hint: 'Un format court.' },
-  { value: 'virgules-sonores', label: 'Virgules sonores', icon: 'ri-sound-module-line', hint: 'Un très court jingle.' },
-];
+/** Rubriques (lues dans l'API) → cases de choix des formulaires. */
+export function toChoices(sections: Section[]): CategoryChoice[] {
+  return sections.map((s) => ({ value: s.slug, label: s.label, icon: s.icon, hint: s.description }));
+}
 
 // Fichiers audio, regroupés en « La chanson » et « Le créatoké ».
 export const MEDIA_BLOCKS: MediaBlock[] = [
   { key: 'url', group: 'chanson', label: 'Pour l\'écouter sur le site', hint: 'C\'est ce que les visiteurs entendent quand ils cliquent sur « Écouter ».', format: 'MP3', accept: '.mp3,audio/mpeg', hideWhenExclu: true },
   { key: 'chanson_mp3', group: 'chanson', label: 'Fichier vendu — licence de base', hint: 'Le client le reçoit quand il achète la licence de base.', format: 'MP3', accept: '.mp3,audio/mpeg', hideWhenExclu: true },
   { key: 'chanson_wav', group: 'chanson', label: 'Fichier vendu — licence premium', hint: 'Le client le reçoit quand il achète la licence premium (meilleure qualité).', format: 'WAV', accept: '.wav,audio/wav,audio/x-wav' },
-  { key: 'creatoke', group: 'creatoke', label: 'Pour l\'écouter sur le site', hint: 'La version sans la voix principale, que les visiteurs peuvent écouter.', format: 'MP3', accept: '.mp3,audio/mpeg', hideWhenCategoryIn: NO_CREATOKE },
-  { key: 'creatoke_mp3', group: 'creatoke', label: 'Fichier vendu — licence de base', hint: 'Le client le reçoit quand il achète la licence de base du créatoké.', format: 'MP3', accept: '.mp3,audio/mpeg', hideWhenCategoryIn: NO_CREATOKE },
-  { key: 'creatoke_wav', group: 'creatoke', label: 'Fichier vendu — licence premium', hint: 'Le client le reçoit quand il achète la licence premium du créatoké.', format: 'WAV', accept: '.wav,audio/wav,audio/x-wav', hideWhenCategoryIn: NO_CREATOKE },
+  { key: 'creatoke', group: 'creatoke', label: 'Pour l\'écouter sur le site', hint: 'La version sans la voix principale, que les visiteurs peuvent écouter.', format: 'MP3', accept: '.mp3,audio/mpeg', creatokeOnly: true },
+  { key: 'creatoke_mp3', group: 'creatoke', label: 'Fichier vendu — licence de base', hint: 'Le client le reçoit quand il achète la licence de base du créatoké.', format: 'MP3', accept: '.mp3,audio/mpeg', creatokeOnly: true },
+  { key: 'creatoke_wav', group: 'creatoke', label: 'Fichier vendu — licence premium', hint: 'Le client le reçoit quand il achète la licence premium du créatoké.', format: 'WAV', accept: '.wav,audio/wav,audio/x-wav', creatokeOnly: true },
 ];
 
 export const SONG_OFFERS: Offer[] = [
@@ -65,10 +57,10 @@ export const CREATOKE_OFFERS: Offer[] = [
   { show: 'isPremiumCreatoke', price: 'price_premium_creatoke', file: 'creatoke_wav', label: 'Licence premium', fileLabel: 'le fichier WAV du créatoké' },
 ];
 
-/** Le bloc de fichier s'affiche-t-il pour cette catégorie / exclusivité ? */
-export function blockVisible(block: MediaBlock, category: string, exclu: boolean): boolean {
+/** Le bloc de fichier s'affiche-t-il pour cette rubrique / exclusivité ? */
+export function blockVisible(block: MediaBlock, section: Section | undefined, exclu: boolean): boolean {
   if (block.hideWhenExclu && exclu) return false;
-  return !block.hideWhenCategoryIn?.includes(category);
+  return !block.creatokeOnly || Boolean(section?.has_creatoke);
 }
 
 // ---- Liens : on accepte le lien tel que copié, on garde le format attendu ----

@@ -29,80 +29,123 @@
 
                 <div class="legal__content">
 
-                    <section class="card legal__section" id="donnees">
-                        <div class="legal__section-head">
+<section class="card legal__section" id="donnees">
+                          <div class="legal__section-head">
                             <span class="legal__icon"><i class="ri-database-2-line"></i></span>
-                            <h2>Catégories de données collectées</h2>
-                        </div>
-                        <p>Nous collectons uniquement les adresses emails des utilisateurs.</p>
-                    </section>
+                            <h2>Données collectées</h2>
+                          </div>
+                          <p>Le site ne demande aucun compte. Nous recueillons seulement les données nécessaires, selon ce que vous faites :</p>
+                          <dl class="legal__retention">
+                            <div *ngFor="let item of collected" class="legal__retention-row">
+                              <dt>{{ item.label }}</dt>
+                              <dd>{{ item.detail }}</dd>
+                            </div>
+                          </dl>
+                        </section>
 
-                    <section class="card legal__section" id="finalite">
-                        <div class="legal__section-head">
+                        <section class="card legal__section" id="finalite">
+                          <div class="legal__section-head">
                             <span class="legal__icon"><i class="ri-focus-3-line"></i></span>
-                            <h2>Finalité du traitement des données</h2>
-                        </div>
-                        <ul class="legal__checklist">
+                            <h2>Finalités du traitement</h2>
+                          </div>
+                          <ul class="legal__checklist">
                             <li *ngFor="let purpose of purposes"><i class="ri-checkbox-circle-fill"></i>{{ purpose }}</li>
-                        </ul>
-                    </section>
+                          </ul>
+                          <p>Nous n’envoyons pas de lettre d’information et ne revendons aucune donnée.</p>
+                        </section>
 
-                    <section class="card legal__section" id="base-legale">
-                        <div class="legal__section-head">
+                        <section class="card legal__section" id="base-legale">
+                          <div class="legal__section-head">
                             <span class="legal__icon"><i class="ri-scales-3-line"></i></span>
-                            <h2>Base légale du traitement</h2>
-                        </div>
-                        <ul class="legal__checklist">
+                            <h2>Bases légales du traitement</h2>
+                          </div>
+                          <ul class="legal__checklist">
                             <li *ngFor="let basis of legalBases"><i class="ri-checkbox-circle-fill"></i>{{ basis }}</li>
-                        </ul>
-                    </section>
+                          </ul>
+                        </section>
 
-                    <section class="card legal__section" id="conservation">
-                        <div class="legal__section-head">
+                        <section class="card legal__section" id="destinataires">
+                          <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-share-forward-line"></i></span>
+                            <h2>Destinataires et sous-traitants</h2>
+                          </div>
+                          <p>Vos données ne sont accessibles qu’à l’équipe de Créatoké et aux prestataires qui nous aident à faire fonctionner le
+                            site, chacun pour sa seule mission :</p>
+                          <dl class="legal__retention">
+                            <div *ngFor="let item of recipients" class="legal__retention-row">
+                              <dt>{{ item.name }}</dt>
+                              <dd>{{ item.role }}</dd>
+                            </div>
+                          </dl>
+                          <p>Elles ne sont jamais vendues ni communiquées à d’autres tiers, sauf obligation légale. Toutes les mesures nécessaires
+                            sont prises pour assurer leur sécurité.</p>
+                        </section>
+
+                        <section class="card legal__section" id="assistant-ia">
+                          <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-robot-line"></i></span>
+                            <h2>Utilisation d’un assistant d’intelligence artificielle</h2>
+                          </div>
+                          <p>Pour gérer le site, l’administrateur de Créatoké peut utiliser un assistant d’intelligence artificielle (ChatGPT
+                            d’OpenAI ou Claude d’Anthropic) relié au site par un connecteur sécurisé, réservé aux comptes administrateurs.</p>
+                          <p>Lorsqu’il l’interroge (par exemple sur les ventes du mois ou le suivi de la prospection), les données consultées
+                            — nom et adresse e-mail des acheteurs, des prospects ou des auteurs de commentaires — sont transmises à ce
+                            fournisseur, qui les traite pour produire la réponse. Ces fournisseurs peuvent être situés hors de l’Union
+                            européenne (États-Unis) ; les transferts sont encadrés par les garanties prévues par la réglementation européenne
+                            (clauses contractuelles types de la Commission européenne).</p>
+                          <p>Vous pouvez vous opposer à ce traitement en nous écrivant : vos données ne seront alors plus consultées par ce
+                            moyen.</p>
+                        </section>
+
+                        <section class="card legal__section" id="conservation">
+                          <div class="legal__section-head">
                             <span class="legal__icon"><i class="ri-archive-line"></i></span>
                             <h2>Conservation des données</h2>
-                        </div>
-                        <dl class="legal__retention">
+                          </div>
+                          <dl class="legal__retention">
                             <div *ngFor="let item of retention" class="legal__retention-row">
-                                <dt>{{ item.label }}</dt>
-                                <dd><span class="legal__pill">{{ item.duration }}</span></dd>
+                              <dt>{{ item.label }}</dt>
+                              <dd><span class="legal__pill">{{ item.duration }}</span></dd>
                             </div>
-                        </dl>
-                    </section>
+                          </dl>
+                        </section>
 
-                    <section class="card legal__section" id="droits">
-                        <div class="legal__section-head">
+                        <section class="card legal__section" id="navigateur">
+                          <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-computer-line"></i></span>
+                            <h2>Navigateur et cookies</h2>
+                          </div>
+                          <p>Le site ne dépose aucun cookie de mesure d’audience ni de publicité. Il garde seulement dans votre navigateur
+                            quelques réglages : mode clair ou sombre, état du lecteur audio et liste de lecture.</p>
+                          <p>Les services tiers utilisés au moment du paiement (PayPal), de l’envoi d’un message (Google reCAPTCHA) ou d’une
+                            prise de rendez-vous (Calendly) peuvent déposer leurs propres cookies, selon leurs politiques de confidentialité.</p>
+                        </section>
+
+                        <section class="card legal__section" id="droits">
+                          <div class="legal__section-head">
                             <span class="legal__icon"><i class="ri-user-settings-line"></i></span>
-                            <h2>Droits des utilisateurs</h2>
-                        </div>
-                        <ul class="legal__rights">
+                            <h2>Vos droits</h2>
+                          </div>
+                          <ul class="legal__rights">
                             <li *ngFor="let right of rights"><i [class]="right.icon"></i><span>{{ right.label }}</span></li>
-                        </ul>
-                        <p class="legal__note">
-                            Pour exercer vos droits : <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>
-                        </p>
-                    </section>
+                          </ul>
+                          <p class="legal__note">
+                            Pour exercer vos droits : <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>. Si vous estimez, après nous
+                            avoir contactés, que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL
+                            (<a href="https://www.cnil.fr" target="_blank" rel="noopener">cnil.fr</a>).
+                          </p>
+                        </section>
 
-                    <section class="card legal__section" id="securite">
-                        <div class="legal__section-head">
-                            <span class="legal__icon"><i class="ri-lock-2-line"></i></span>
-                            <h2>Sécurité et partage</h2>
-                        </div>
-                        <p>
-                            Les données ne sont jamais partagées sauf obligation légale. Toutes les mesures nécessaires
-                            sont prises pour assurer leur sécurité.
-                        </p>
-                    </section>
-
-                    <section class="card legal__section" id="modifications">
-                        <div class="legal__section-head">
+                        <section class="card legal__section" id="modifications">
+                          <div class="legal__section-head">
                             <span class="legal__icon"><i class="ri-refresh-line"></i></span>
                             <h2>Modifications</h2>
-                        </div>
-                        <p>Cette politique peut être mise à jour. Dernière mise à jour : {{ lastUpdate }}.</p>
-                    </section>
+                          </div>
+                          <p>Cette politique peut être mise à jour. Dernière mise à jour : {{ lastUpdate }}.</p>
+                        </section>
 
-                    <!-- Appel à l'action -->
+
+                        <!-- Appel à l'action -->
                     <aside class="legal__cta">
                         <div>
                             <h3>Une question sur vos données ?</h3>

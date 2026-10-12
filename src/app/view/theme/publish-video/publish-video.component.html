@@ -1,102 +1,132 @@
 <!-- Hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
-<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="under-hero container">
-
-    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
     <div class="section">
-        <div class="row">
-            <div class="col-xl-12 col-md-10 mx-auto">
-                <div class="card">
-                    <div class="card-header pb-0">
-                        <!-- Start:: mat tabs [[ Find at scss/components/nav.scss ]] -->
-                        <div class="mat-tabs" appTabs>
-                            <ul class="nav nav-tabs" id="add_music" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="licence1" data-bs-toggle="tab"
-                                        data-bs-target="#licence_un" type="button" role="tab" aria-controls="licence_un"
-                                        aria-selected="true">Publier une vidéo sur les réseaux sociaux
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- End:: mat tabs -->
-                    </div>
-                    <div class="card-body">
-                        <div class="tab-content" id="add_music_content">
-                            <div class="tab-pane fade show active" id="licence_un" role="tabpanel"
-                                aria-labelledby="licence1" tabindex="0">
-                                <form [formGroup]="videoForm" (submit)="validatePublishing()" class="row" novalidate>
+        <!-- En-tête : styles partagés scss/framework/_legal.scss -->
+        <div class="legal">
+            <header class="card legal__header">
+                <span class="legal__eyebrow"><i class="ri-video-upload-line"></i> Outils</span>
+                <h1 class="legal__title">Publier une <span class="text-primary">vidéo</span></h1>
+                <p class="legal__intro">Publiez une vidéo sur tous vos réseaux en une seule fois : Instagram, Facebook,
+                    YouTube, Bluesky, LinkedIn et X (Twitter).</p>
+            </header>
+        </div>
 
-                                    <!-- Titre -->
-                                    <div class="col-12 mb-4">
-                                        <input type="text" class="form-control" placeholder="Titre de la vidéo"
-                                            formControlName="title" />
-                                        <div class="text-danger mt-1"
-                                            *ngIf="videoForm.get('title')?.touched && videoForm.get('title')?.invalid">
-                                            Titre requis
-                                        </div>
-                                    </div>
+        <!-- Résultat de la dernière publication -->
+        <div class="pv-status" *ngIf="status !== 'idle'" [class.pv-status--error]="status === 'error'"
+            [class.pv-status--partial]="status === 'partial'" role="status">
+            <div class="pv-status__head">
+                <i [class]="status === 'success' ? 'ri-checkbox-circle-fill' : status === 'partial' ? 'ri-error-warning-line' : 'ri-close-circle-line'"></i>
+                <span>{{ statusMessage }}</span>
+                <button type="button" class="pv-status__close" (click)="status = 'idle'; results = []" aria-label="Fermer">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <!-- Détail par réseau -->
+            <ul class="pv-results" *ngIf="results.length">
+                <li *ngFor="let r of results" [class]="'pv-results__item is-' + r.status">
+                    <i [class]="r.icon"></i>
+                    <strong>{{ r.name }}</strong>
+                    <span class="pv-results__msg">
+                        <ng-container [ngSwitch]="r.status">
+                            <ng-container *ngSwitchCase="'ok'">Publiée</ng-container>
+                            <ng-container *ngSwitchCase="'error'">Échec : {{ r.message }}</ng-container>
+                            <ng-container *ngSwitchDefault>Ignoré : {{ r.message }}</ng-container>
+                        </ng-container>
+                    </span>
+                    <a *ngIf="r.url" [href]="r.url" target="_blank" rel="noopener">Voir <i class="ri-external-link-line"></i></a>
+                </li>
+            </ul>
+        </div>
 
-                                    <!-- Description -->
-                                    <div class="col-12 mb-4">
-                                        <input type="text" class="form-control" placeholder="Description de la vidéo"
-                                            formControlName="description" />
-                                        <div class="text-danger mt-1"
-                                            *ngIf="videoForm.get('description')?.touched && videoForm.get('description')?.invalid">
-                                            Description requise
-                                        </div>
-                                    </div>
+        <div class="pv-layout">
+            <form class="card pv-form" [formGroup]="videoForm" (ngSubmit)="validatePublishing()" novalidate>
 
-                                    <!-- Fichier vidéo -->
-                                    <div class="col-12 mb-4">
-                                        <input type="file" class="form-control" accept="video/*"
-                                            (change)="onFileChange($event)" />
-                                        <div class="text-danger mt-1"
-                                            *ngIf="videoForm.get('video')?.touched && videoForm.get('video')?.invalid">
-                                            Fichier vidéo requis
-                                        </div>
-                                    </div>
+                <div class="pv-field">
+                    <label for="pv_title" class="form-label">Titre de la vidéo *</label>
+                    <input id="pv_title" type="text" class="form-control" placeholder="Ex. Nouveau titre : MUITA"
+                        formControlName="title" />
+                    <p class="pv-error" *ngIf="videoForm.get('title')?.touched && videoForm.get('title')?.invalid">
+                        Saisissez un titre.</p>
+                </div>
 
-                                    <!-- 
-                                    <div class="col-sm-12 mb-4" formArrayName="platforms">
-                                        <label class="form-label">Sur quelles plateformes publier ?</label>
-
-                                        <div class="row">
-                                            <div class="col-6" *ngFor="let p of platformOptions; let i = index">
-                                                <div class="form-check form-switch my-2">
-                                                    <input class="form-check-input" type="checkbox" role="switch"
-                                                        [id]="'platform_'+i" [formControlName]="i" />
-                                                    <label class="form-check-label" [attr.for]="'platform_'+i">{{ p
-                                                        }}</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="text-danger mt-1"
-                                            *ngIf="platformsFA.touched && platformsFA.invalid">
-                                            Sélectionnez au moins une plateforme.
-                                        </div>
-                                    </div>Plateformes (FormArray) -->
-
-                                    <div class="card-footer text-center">
-                                        <button class="btn btn-custom" style="min-width: 140px;" type="submit"
-                                            [disabled]="videoForm.invalid || isLoading">
-                                            {{ isLoading ? 'Chargement...' : 'Publier votre vidéo' }}
-                                        </button>
-                                        <button class="btn btn-outline-secondary ms-2" type="button"
-                                            (click)="videoForm.reset()">Annuler</button>
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
+                <div class="pv-field">
+                    <label for="pv_description" class="form-label">Description *</label>
+                    <textarea id="pv_description" class="form-control" rows="4" [maxlength]="maxDescription"
+                        placeholder="Le texte publié avec la vidéo (hashtags compris)"
+                        formControlName="description"></textarea>
+                    <div class="pv-counter">
+                        <span class="pv-error"
+                            *ngIf="videoForm.get('description')?.touched && videoForm.get('description')?.hasError('required')">
+                            Saisissez une description.</span>
+                        <span class="ms-auto">{{ descriptionLength }} / {{ maxDescription }}</span>
                     </div>
                 </div>
-            </div>
+
+                <div class="pv-field">
+                    <span class="form-label d-block">Vidéo *</span>
+
+                    <!-- Zone de dépôt -->
+                    <label class="pv-drop" *ngIf="!previewUrl" (dragover)="$event.preventDefault()" (drop)="onDrop($event)">
+                        <input type="file" accept="video/*" (change)="onFileChange($event)" hidden />
+                        <i class="ri-upload-cloud-2-line"></i>
+                        <strong>Glissez votre vidéo ici</strong>
+                        <span>ou cliquez pour choisir un fichier — 512 Mo maximum</span>
+                    </label>
+
+                    <!-- Aperçu -->
+                    <div class="pv-preview" *ngIf="previewUrl">
+                        <video [src]="previewUrl" controls playsinline></video>
+                        <div class="pv-preview__info">
+                            <i class="ri-film-line"></i>
+                            <span class="pv-preview__name">{{ fileName }}</span>
+                            <span class="pv-preview__size">{{ fileSize }}</span>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="removeFile()"
+                                [disabled]="isLoading">Changer</button>
+                        </div>
+                    </div>
+                    <p class="pv-error" *ngIf="fileError">{{ fileError }}</p>
+                </div>
+
+                <div class="pv-actions">
+                    <button class="btn pv-submit" type="submit" [disabled]="videoForm.invalid || isLoading">
+                        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                        <i *ngIf="!isLoading" class="ri-send-plane-fill"></i>
+                        {{ isLoading ? 'Publication en cours…' : 'Publier la vidéo' }}
+                    </button>
+                    <button class="btn btn-outline-secondary" type="button" (click)="reset()"
+                        [disabled]="isLoading">Annuler</button>
+                </div>
+                <p class="pv-wait" *ngIf="isLoading">
+                    <i class="ri-time-line"></i> Compression puis publication : cela peut prendre plusieurs minutes. Ne
+                    quittez pas la page.
+                </p>
+            </form>
+
+            <aside class="pv-aside">
+                <div class="card pv-card">
+                    <h2>Où sera publiée la vidéo ?</h2>
+                    <ul class="pv-platforms">
+                        <li *ngFor="let p of platforms" [class.is-off]="p.configured === false">
+                            <i [class]="p.icon"></i>
+                            <span><strong>{{ p.name }}</strong> {{ p.detail }}</span>
+                            <span class="pv-badge" *ngIf="p.configured === false">Non configuré</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card pv-card">
+                    <h2>Comment ça marche</h2>
+                    <ol class="pv-steps">
+                        <li>La vidéo est compressée (HD 1080p maximum).</li>
+                        <li>Elle est envoyée en même temps sur Instagram, Facebook, YouTube et Bluesky.</li>
+                        <li>LinkedIn et X partagent ensuite le lien de la vidéo YouTube.</li>
+                        <li>Seuls les 280 premiers caractères de la description sont publiés.</li>
+                    </ol>
+                    <p class="pv-note">Si un réseau échoue, les autres sont quand même publiés : le résultat de chaque
+                        réseau s'affiche en haut de la page.</p>
+                </div>
+            </aside>
         </div>
     </div>
-    <!-- End:: section -->
-
 </div>

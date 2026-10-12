@@ -37,6 +37,9 @@ export class PlayerService {
   // Playlist observer
   private playlist$ = new BehaviorSubject<any>(null);
 
+  // Le lecteur fermé reste masqué (même après rechargement) jusqu'à la prochaine lecture
+  private static CLOSED_KEY = 'playerClosed';
+
   constructor(private songService: SongService) { }
 
   /**
@@ -233,11 +236,45 @@ export class PlayerService {
   }
 
   /**
+   * Player closed by the user
+   */
+  get isClosed(): boolean {
+    try {
+      return localStorage.getItem(PlayerService.CLOSED_KEY) === '1';
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Show player bar
+   */
+  showPlayer(): void {
+    try { localStorage.removeItem(PlayerService.CLOSED_KEY); } catch { }
+    const el = document.getElementById('player');
+    if (el) Utils.addClass(el, Constant.SHOW);
+  }
+
+  /**
+   * Pause and hide player bar
+   */
+  closePlayer(): void {
+    this.pause();
+    this.playButtonToggleClass();
+    this.buttonRemoveClass();
+    try { localStorage.setItem(PlayerService.CLOSED_KEY, '1'); } catch { }
+    const el = document.getElementById('player');
+    if (el) Utils.removeClass(el, Constant.SHOW);
+  }
+
+  /**
    * Initialize Amplitude audio player
    * @param isPlay
    */
   initPlayer(isPlay: boolean = true): void {
-    Utils.addClass(document.getElementById('player'), Constant.SHOW);
+    if (isPlay || !this.isClosed) {
+      this.showPlayer();
+    }
 
     if (this.playerSongs && this.playerSongs.length === 1) {
       this.pause();
@@ -298,6 +335,7 @@ export class PlayerService {
       this.playButtonToggleClass();
 
     } else {
+      this.showPlayer();
       const index = this.getSongIndex(data.id);
       // Add song if not exist
       if (index === -1) {
@@ -334,6 +372,7 @@ export class PlayerService {
     }
 
     this.songs.push(this.getSongObject(data));
+    this.showPlayer();
     // Initialize player
     if (this.songs.length === 1) {
       this.initPlayer();
@@ -359,6 +398,7 @@ export class PlayerService {
       if (index === -1) {
         this.songs.splice(activeIndex + 1, 0, this.getSongObject(data));
       }
+      this.showPlayer();
 
     } else { // Initialize player
       this.songs.push(this.getSongObject(data));
@@ -384,6 +424,7 @@ export class PlayerService {
       if (this.songs && this.songs.length) {
         this.songs.push(...songList);
         this.emitPlaylist = this.songs;
+        this.showPlayer();
 
       } else {
         this.songs = songList;

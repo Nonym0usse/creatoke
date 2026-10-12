@@ -1,0 +1,178 @@
+// Publier une vidéo : formulaire à gauche, informations à droite
+$primary: #5438d1;
+$light: #8f7be4;
+$muted: rgba(255, 255, 255, 0.55);
+$line: 1px solid rgba(255, 255, 255, 0.08);
+
+.pv-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 20rem;
+  gap: 1.5rem;
+  align-items: start;
+  margin-top: 1.5rem;
+
+  @media (max-width: 991.98px) { grid-template-columns: minmax(0, 1fr); }
+}
+
+.pv-form { padding: 1.75rem 2rem; border: $line; }
+
+.pv-field {
+  margin-bottom: 1.25rem;
+
+  .form-label { font-weight: 600; font-size: 0.875rem; }
+}
+
+.pv-error { margin: 0.35rem 0 0; font-size: 0.8rem; color: #ff8f8f; }
+
+.pv-counter {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: $muted;
+
+  .pv-error { margin: 0; }
+}
+
+.pv-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 2rem 1rem;
+  border: 2px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 0.75rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+
+  i { font-size: 2.25rem; color: $light; }
+  strong { color: #fff; }
+  span { font-size: 0.8rem; color: $muted; }
+
+  &:hover { border-color: $primary; background: rgba(84, 56, 209, 0.08); }
+}
+
+.pv-preview {
+  border: $line;
+  border-radius: 0.75rem;
+  overflow: hidden;
+
+  video { display: block; width: 100%; max-height: 22rem; background: #000; }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+
+    i { color: $light; }
+  }
+
+  &__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #fff; }
+  &__size { font-size: 0.8rem; color: $muted; white-space: nowrap; }
+}
+
+.pv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.pv-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.5rem;
+  border: 0;
+  border-radius: 999px;
+  font-weight: 600;
+  color: #fff;
+  background: $primary;
+
+  &:hover:not(:disabled) { color: #fff; background: #6448e0; }
+  &:disabled { color: #fff; opacity: 0.5; }
+}
+
+.pv-wait { display: flex; gap: 0.4rem; margin: 1rem 0 0; font-size: 0.85rem; color: $muted; }
+
+.pv-status {
+  margin-top: 1.5rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.6rem;
+  color: #b8f0c9;
+  background: rgba(46, 204, 113, 0.12);
+  border: 1px solid rgba(46, 204, 113, 0.35);
+
+  &__head { display: flex; align-items: center; gap: 0.6rem; > i { font-size: 1.2rem; } > span { flex: 1; } }
+
+  &--error { color: #ffb4b4; background: rgba(220, 53, 69, 0.12); border-color: rgba(220, 53, 69, 0.35); }
+  &--partial { color: #ffe0a3; background: rgba(255, 193, 7, 0.1); border-color: rgba(255, 193, 7, 0.35); }
+
+  &__close { border: 0; background: none; color: inherit; opacity: 0.7; }
+}
+
+.pv-aside { display: grid; gap: 1rem; }
+
+.pv-card {
+  padding: 1.25rem 1.4rem;
+  border: $line;
+
+  h2 { font-size: 1rem; color: #fff; margin-bottom: 0.85rem; }
+}
+
+.pv-platforms {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+
+  li { display: flex; gap: 0.65rem; font-size: 0.875rem; }
+
+  i {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+    color: $light;
+    background: rgba(84, 56, 209, 0.16);
+  }
+}
+
+.pv-steps { padding-left: 1.1rem; margin: 0; font-size: 0.875rem; li { margin-bottom: 0.4rem; } }
+
+.pv-note { margin: 0.75rem 0 0; font-size: 0.8rem; color: $muted; }
+
+.pv-results {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0.75rem 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+
+  &__item { display: flex; align-items: baseline; gap: 0.5rem; color: rgba(255, 255, 255, 0.8); }
+  &__msg { flex: 1; min-width: 0; color: $muted; }
+  .is-ok > i { color: #6fdc98; }
+  .is-error > i, .is-error .pv-results__msg { color: #ff8f8f; }
+  .is-skipped { opacity: 0.6; }
+  a { white-space: nowrap; color: $light; }
+}
+
+.pv-platforms .is-off { opacity: 0.5; }
+
+.pv-badge {
+  margin-left: auto;
+  align-self: center;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.08);
+}

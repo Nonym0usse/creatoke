@@ -13,36 +13,7 @@ export class Constant {
       link: '/',
     },
     { head: 'Catalogue' },
-    {
-      name: 'Chansons à chanter',
-      icon: '<i class="ri-mic-line fs-5"></i>',
-      link: '/song/chansons-a-chanter',
-    },
-    {
-      name: 'Chanson(s) cherche auteur',
-      icon: '<i class="ri-quill-pen-line fs-5"></i>',
-      link: '/song/chansons-cherche-auteur',
-    },
-    {
-      name: 'Instrumentaux',
-      icon: '<i class="ri-music-2-line fs-5"></i>',
-      link: '/song/instrumentaux',
-    },
-    {
-      name: 'Musique de contenus',
-      icon: '<i class="ri-film-line fs-5"></i>',
-      link: '/song/musique-de-contenus',
-    },
-    {
-      name: 'Créacourcis',
-      icon: '<i class="ri-flashlight-line fs-5"></i>',
-      link: '/song/creacourcis',
-    },
-    {
-      name: 'Virgules sonores',
-      icon: '<i class="ri-sound-module-line fs-5"></i>',
-      link: '/song/virgules-sonores',
-    },
+    // Les rubriques du catalogue sont insérées ici par la barre latérale (SectionService).
     { head: 'Créatoké' },
     {
       name: 'Contact',

@@ -136,6 +136,13 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
+   * Pause and hide player bar
+   */
+  closePlayer(): void {
+    this.playerService.closePlayer();
+  }
+
+  /**
    * Clear playlist
    */
   clearPlaylist(): void {

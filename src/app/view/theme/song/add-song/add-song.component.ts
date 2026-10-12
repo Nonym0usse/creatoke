@@ -9,10 +9,11 @@ import { UploadService } from '../../../../core/utils/upload';
 import * as slug from 'slug';
 import { DomSanitizer, SafeUrl, Title } from '@angular/platform-browser';
 import { NotifyService } from '../../../../core/services/global/notify.service';
+import { DEFAULT_SECTIONS, Section, SectionService } from '../../../../core/services/api/section.service';
 
 import {
-  CATEGORIES, CREATOKE_OFFERS, MAX_UPLOAD_MB, MEDIA_BLOCKS, MediaBlock, NO_CREATOKE, NO_LYRICS, Offer, SONG_OFFERS,
-  blockVisible, spotifyEmbed, spotifyOk, youtubeId, youtubePreview,
+  CREATOKE_OFFERS, CategoryChoice, MAX_UPLOAD_MB, MEDIA_BLOCKS, MediaBlock, Offer, SONG_OFFERS,
+  blockVisible, toChoices, spotifyEmbed, spotifyOk, youtubeId, youtubePreview,
 } from '../song-form';
 
 type UrlMap = Record<string, string>;
@@ -45,7 +46,8 @@ export class AddSongComponent implements OnInit, OnDestroy {
   private audioMap: Record<string, HTMLAudioElement> = {};
   playingMap: Record<string, boolean> = {};
 
-  readonly categories = CATEGORIES;
+  categories: CategoryChoice[] = toChoices(DEFAULT_SECTIONS);
+  private sections: Section[] = DEFAULT_SECTIONS;
   readonly mediaBlocks = MEDIA_BLOCKS;
   readonly songOffers = SONG_OFFERS;
   readonly creatokeOffers = CREATOKE_OFFERS;
@@ -60,7 +62,8 @@ export class AddSongComponent implements OnInit, OnDestroy {
     private uploader: UploadService,
     private sanitizer: DomSanitizer,
     private docTitle: Title,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private sectionService: SectionService
   ) {
     this.musicForm = this.fb.group({
       title: ['', Validators.required],
@@ -94,6 +97,11 @@ export class AddSongComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Rubriques lues dans l'API (une rubrique créée depuis l'assistant apparaît ici).
+    this.subs.add(this.sectionService.sections$.subscribe((sections) => {
+      this.sections = sections;
+      this.categories = toChoices(sections);
+    }));
     this.docTitle.setTitle('Créatoke | Ajouter une chanson');
     this.categoryService.getBackgroundImg().then(r => {
       this.picturebackground = r.data?.[0]?.picture;
@@ -109,7 +117,7 @@ export class AddSongComponent implements OnInit, OnDestroy {
 
   // ---- Blocs fichiers ----
   showBlock(block: MediaBlock): boolean {
-    return blockVisible(block, this.category, this.isExclu);
+    return blockVisible(block, this.section, this.isExclu);
   }
 
   trackByBlock(_: number, b: MediaBlock) {
@@ -129,7 +137,7 @@ export class AddSongComponent implements OnInit, OnDestroy {
   }
 
   blocksOf(group: 'chanson' | 'creatoke'): MediaBlock[] {
-    return this.cached('blocks-' + group, this.category + '|' + this.value('exclu'),
+    return this.cached('blocks-' + group, this.category + '|' + this.value('exclu') + '|' + Number(Boolean(this.section?.has_creatoke)),
       () => this.mediaBlocks.filter((b) => b.group === group && this.showBlock(b)));
   }
 
@@ -159,12 +167,17 @@ export class AddSongComponent implements OnInit, OnDestroy {
     return this.value('exclu') === 'oui';
   }
 
+  /** Rubrique choisie (réglages créatoké / paroles). */
+  get section(): Section | undefined {
+    return this.sections.find((s) => s.slug === this.category);
+  }
+
   get hasCreatoke(): boolean {
-    return !!this.category && !NO_CREATOKE.includes(this.category);
+    return Boolean(this.section?.has_creatoke);
   }
 
   get hasLyrics(): boolean {
-    return !NO_LYRICS.includes(this.category);
+    return this.section ? this.section.has_lyrics : true;
   }
 
   // Mêmes règles que l'ancien formulaire : pas de prix « chanson » pour une exclusivité.

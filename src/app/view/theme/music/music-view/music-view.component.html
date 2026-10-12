@@ -68,7 +68,7 @@
                         <span>{{ song?.exclu === 'oui' ? 'Écouter le créatoké' : 'Écouter la chanson' }}</span>
                     </div>
                     <div class="song-player"
-                        *ngIf="(song?.category === 'chansons-a-chanter' || song?.category === 'chansons-cherche-auteur') && song?.exclu === 'non'">
+                        *ngIf="hasCreatoke && song?.exclu === 'non'">
                         <button type="button" class="btn btn-icon btn-player rounded-pill" (click)="toggleAudio()"
                             aria-label="Écouter le créatoké">
                             <ng-container *ngIf="isPlaying; else pauseIcon">
