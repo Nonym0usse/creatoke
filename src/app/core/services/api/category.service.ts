@@ -4,13 +4,15 @@ import { AuthenticationService } from "../global/authentication.service";
 import { InterceptorService } from "../global/interceptor.service";
 import { firstValueFrom } from "rxjs";
 import { ApiCacheService } from "../global/api-global-cache";
+import { NotifyService } from "../global/notify.service";
 
 @Injectable({ providedIn: "root" })
 export class CategoryService {
   constructor(
     private authenticationService: AuthenticationService,
     private axiosInterceptorService: InterceptorService,
-    private apiCache: ApiCacheService
+    private apiCache: ApiCacheService,
+    private notify: NotifyService
   ) { }
 
   // ✅ token toujours à jour
@@ -44,11 +46,11 @@ export class CategoryService {
       .post(ApiConstant.API + "/category/create-category", data, { headers })
       .then((res) => {
         this.apiCache.invalidateTags("category");
-        alert("Sous catégorie créée avec succès");
+        this.notify.success("La sous-catégorie a été créée.");
         return res;
       })
       .catch((e) => {
-        alert("Erreur.");
+        this.notify.error("La sous-catégorie n'a pas pu être créée. Réessayez dans un instant.");
         throw e;
       });
   }

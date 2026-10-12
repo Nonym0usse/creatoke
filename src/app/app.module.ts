@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 // Modules
 import { AppRoutingModule } from './app-routing.module';
 import { PartialsModule } from './view/partials/partials.module';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 // Default component
 import { AppComponent } from './app.component';
@@ -37,7 +36,6 @@ import { PublishVideoComponent } from './view/theme/publish-video/publish-video.
     NgxPayPalModule,
     // Modules
     PartialsModule,
-    CKEditorModule,
   ],
   providers: [{
     provide: RECAPTCHA_SETTINGS,

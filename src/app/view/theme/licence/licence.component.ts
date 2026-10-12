@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import {LicenceService} from "../../../core/services/api/licence.service";
 import {CategoryService} from "../../../core/services/api/category.service";
 import { Title } from '@angular/platform-browser';
+import { NotifyService } from "../../../core/services/global/notify.service";
 
 @Component({
   selector: 'app-licence',
@@ -12,16 +11,6 @@ import { Title } from '@angular/platform-browser';
 })
 export class LicenceComponent implements OnInit {
 
-  public Editor = ClassicEditor;
-  public Editor2 = ClassicEditor;
-  public Editor3 = ClassicEditor;
-  public Editor4 = ClassicEditor;
-  public Editor5 = ClassicEditor;
-
-  public config = {
-    language: 'fr',
-
-  };
   public editorData: any;
   public editorData2: any;
   public editorData3: any;
@@ -31,33 +20,14 @@ export class LicenceComponent implements OnInit {
 
   public data: any;
   public id: string | undefined;
-  constructor(private licenceService: LicenceService, private categoryService: CategoryService, private title: Title) {
+  constructor(private licenceService: LicenceService, private categoryService: CategoryService, private title: Title,
+    private notify: NotifyService) {
   }
 
   ngOnInit(): void {
     this.licenceService.listLicence().then(r => this.data = r.data[0]);
     this.getBackground();
     this.title.setTitle('Créatoke | Gérer les licences');
-  }
-
-  public onChange( { editor }: ChangeEvent ) {
-    this.editorData = editor.data.get();
-  }
-
-  public onChange2( { editor }: ChangeEvent ) {
-    this.editorData2 = editor.data.get();
-  }
-
-  public onChange3( { editor }: ChangeEvent ) {
-    this.editorData3 = editor.data.get();
-  }
-
-  public onChange4( { editor }: ChangeEvent ) {
-    this.editorData4 = editor.data.get();
-  }
-
-  public onChange5( { editor }: ChangeEvent ) {
-    this.editorData5 = editor.data.get();
   }
 
   submit(){
@@ -72,7 +42,9 @@ export class LicenceComponent implements OnInit {
     const entries = Object.entries(licenceData);
     const filteredEntries = entries.filter(([_key, value]) => value !== '' && value !== undefined);
     const result = Object.fromEntries(filteredEntries);
-    this.licenceService.modifyLicence(result).then(() => alert('Licences modifiées'))
+    this.licenceService.modifyLicence(result)
+      .then(() => this.notify.success('Les textes des licences sont enregistrés.'))
+      .catch(() => this.notify.error('Les licences n\'ont pas pu être enregistrées. Réessayez dans un instant.'));
   }
   async getBackground() {
     this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture });

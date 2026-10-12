@@ -1,0 +1,53 @@
+:host {
+  display: block;
+}
+
+.pbar {
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 6px;
+    font-size: 13.5px;
+  }
+
+  &__label {
+    opacity: 0.8;
+  }
+
+  &__value {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__track {
+    position: relative;
+    height: 10px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &__fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #5438d1, #8938d1);
+    transition: width 0.25s ease;
+  }
+
+  &--indeterminate .pbar__fill {
+    position: absolute;
+    width: 40%;
+    animation: pbar-slide 1.2s ease-in-out infinite;
+  }
+}
+
+@keyframes pbar-slide {
+  from {
+    left: -40%;
+  }
+
+  to {
+    left: 100%;
+  }
+}

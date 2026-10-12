@@ -119,13 +119,13 @@ export class SongService {
       return res.data;
     } catch (error) {
       console.error('Error generating song with IA:', error);
-      alert('Erreur lors de la génération de la chanson.');
+      // L'appelant gère le feedback utilisateur.
       throw error;
     }
   }
 
   // Delete a song
-  async deleteSong(id: string, name: string): Promise<void> {
+  async deleteSong(id: string): Promise<void> {
     try {
       const token = await this.getValidToken();
 
@@ -134,10 +134,10 @@ export class SongService {
           Authorization: `Bearer ${token}`,
         },
       });
-      alert('Chanson ' + name + ' supprimée avec succès');
     } catch (error) {
       console.error('Error deleting song:', error);
-      alert('Erreur lors de la suppression de la chanson.');
+      // L'appelant gère le feedback utilisateur.
+      throw error;
     }
   }
 

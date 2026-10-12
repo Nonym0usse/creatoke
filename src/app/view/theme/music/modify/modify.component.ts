@@ -8,6 +8,7 @@ import { Subject, takeUntil } from "rxjs";
 import { SongService } from "../../../../core/services/api/song.service";
 import { CategoryService } from "../../../../core/services/api/category.service";
 import { UploadService } from "../../../../core/utils/upload";
+import { NotifyService } from "../../../../core/services/global/notify.service";
 
 type OuiNon = "oui" | "non";
 
@@ -122,7 +123,8 @@ export class ModifyComponent implements OnInit, OnDestroy {
     private songService: SongService,
     private activatedRoute: ActivatedRoute,
     private uploader: UploadService,
-    private docTitle: Title
+    private docTitle: Title,
+    private notify: NotifyService
   ) {
     this.musicForm = this.fb.group({
       title: ["", Validators.required],
@@ -224,7 +226,7 @@ export class ModifyComponent implements OnInit, OnDestroy {
     this.song = res.data ?? {};
 
     if (!this.song || Object.keys(this.song).length === 0) {
-      alert("Chanson non trouvée");
+      this.notify.error("Cette chanson est introuvable. Elle a peut-être été supprimée.");
       this.router.navigate(["/manage"]);
       return;
     }
@@ -333,7 +335,7 @@ export class ModifyComponent implements OnInit, OnDestroy {
     // garde-fous
     const maxMb = 80;
     if (file.size > maxMb * 1024 * 1024) {
-      alert(`Fichier trop lourd (max ${maxMb}MB)`);
+      this.notify.warning(`Ce fichier est trop lourd (${Math.round(file.size / 1024 / 1024)} Mo). La limite est de ${maxMb} Mo.`);
       input.value = "";
       return;
     }
@@ -360,7 +362,7 @@ export class ModifyComponent implements OnInit, OnDestroy {
         console.error('Upload error:', err);
         this.activeUploads--;
         delete this.progress[fileType];
-        alert("L'envoi du fichier a échoué. Merci de réessayer.");
+        this.notify.error(`L'envoi de « ${file.name} » a échoué. Vérifiez votre connexion internet et choisissez le fichier à nouveau.`);
       },
     });
   }
@@ -377,7 +379,7 @@ export class ModifyComponent implements OnInit, OnDestroy {
   // ------------ Save ------------
   async modifyMusic(): Promise<void> {
     if (!this.musicForm.valid) {
-      alert("Merci de remplir les champs");
+      this.notify.warning("Il manque des informations obligatoires (titre, artiste, catégorie, description).");
       return;
     }
 
@@ -401,11 +403,11 @@ export class ModifyComponent implements OnInit, OnDestroy {
 
     try {
       await this.songService.modifySong(payload);
-      alert('Chanson modifiée avec succès.');
+      this.notify.success('Les modifications sont enregistrées.', { title: 'Chanson modifiée' });
       this.router.navigate(['/manage']);
     } catch (error) {
       console.error('Error modifying song:', error);
-      alert('Erreur lors de la modification de la chanson. Merci de réessayer.');
+      this.notify.error('Les modifications n\'ont pas pu être enregistrées. Réessayez dans un instant.', { title: 'Enregistrement impossible' });
     } finally {
       this.isLoading = false;
     }

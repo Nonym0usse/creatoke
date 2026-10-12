@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 // Modules
 import { CoreModule } from './../../core/core.module';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 // Components
 import { BrandComponent } from './brand/brand.component';
@@ -13,6 +14,9 @@ import { EventViewComponent } from './components/event-view/event-view.component
 import { CoverViewComponent } from './components/cover-view/cover-view.component';
 import { ListViewComponent } from './components/list-view/list-view.component';
 import { CommentComponent } from './comment/comment.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { RichEditorComponent } from './rich-editor/rich-editor.component';
 
 
 @NgModule({
@@ -23,6 +27,9 @@ import { CommentComponent } from './comment/comment.component';
     CoverViewComponent,
     ListViewComponent,
     CommentComponent,
+    NotificationsComponent,
+    ProgressBarComponent,
+    RichEditorComponent,
   ],
   imports: [
     // Angular
@@ -30,7 +37,8 @@ import { CommentComponent } from './comment/comment.component';
     RouterModule,
 
     // Modules
-    CoreModule
+    CoreModule,
+    CKEditorModule
   ],
   exports: [
     // Components
@@ -40,6 +48,9 @@ import { CommentComponent } from './comment/comment.component';
     CoverViewComponent,
     ListViewComponent,
     CommentComponent,
+    NotificationsComponent,
+    ProgressBarComponent,
+    RichEditorComponent,
     // Modules
     CoreModule
   ]

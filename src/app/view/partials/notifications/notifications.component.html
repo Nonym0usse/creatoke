@@ -1,0 +1,31 @@
+<!-- Toasts : en bas à droite, au-dessus du lecteur -->
+<div class="toasts" aria-live="polite">
+  <div class="toast-item" *ngFor="let t of (toasts$ | async); trackBy: trackById"
+    [ngClass]="'toast-item--' + t.kind" [attr.role]="t.kind === 'error' ? 'alert' : 'status'">
+    <i class="toast-item__icon" [ngClass]="icons[t.kind]"></i>
+    <div class="toast-item__body">
+      <strong *ngIf="t.title">{{ t.title }}</strong>
+      <p>{{ t.message }}</p>
+    </div>
+    <button type="button" class="toast-item__close" aria-label="Fermer le message" (click)="dismiss(t)">&times;</button>
+    <span class="toast-item__timer" *ngIf="t.duration" [style.animation-duration.ms]="t.duration"></span>
+  </div>
+</div>
+
+<!-- Fenêtre de confirmation -->
+<div class="confirm" *ngIf="confirm$ | async as c" (click)="answer(false)">
+  <div class="confirm__box" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title"
+    (click)="$event.stopPropagation()">
+    <div class="confirm__icon" [class.confirm__icon--danger]="c.danger">
+      <i [ngClass]="c.danger ? 'ri-delete-bin-line' : 'ri-question-line'"></i>
+    </div>
+    <h3 id="confirm-title">{{ c.title }}</h3>
+    <p *ngIf="c.message">{{ c.message }}</p>
+    <div class="confirm__actions">
+      <button type="button" class="btn btn-outline-secondary" (click)="answer(false)">
+        {{ c.cancelLabel || 'Annuler' }}</button>
+      <button type="button" class="btn" [ngClass]="c.danger ? 'btn-danger' : 'btn-custom'" (click)="answer(true)">
+        {{ c.confirmLabel || 'Confirmer' }}</button>
+    </div>
+  </div>
+</div>

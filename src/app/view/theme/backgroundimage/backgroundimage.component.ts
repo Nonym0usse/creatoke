@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { CategoryService } from "../../../core/services/api/category.service";
 import { UploadService } from "../../../core/utils/upload";
 import { Title } from '@angular/platform-browser';
+import { NotifyService } from "../../../core/services/global/notify.service";
 
 @Component({
     selector: 'app-backgroundimage',
@@ -17,7 +18,8 @@ export class BackgroundimageComponent implements OnInit {
     progress: { [key: string]: number } = {};
     downloadUrls: { [key: string]: { url: string, fileName: string } } = {};
     image = "";
-    constructor(private fb: FormBuilder, private categoryService: CategoryService, private uploader: UploadService, private title: Title) {
+    constructor(private fb: FormBuilder, private categoryService: CategoryService, private uploader: UploadService, private title: Title,
+        private notify: NotifyService) {
         this.imageForm = this.fb.group({
             picture: [''],
             picture_name: ['']
@@ -38,9 +40,18 @@ export class BackgroundimageComponent implements OnInit {
 
 
     modifyImage() {
+        if (!this.downloadUrls['picture']) {
+            this.notify.info("Choisissez d'abord une image et attendez la fin de l'envoi.");
+            return;
+        }
         this.imageForm.patchValue({ picture: this.downloadUrls['picture'].url });
         this.imageForm.patchValue({ picture_name: this.downloadUrls['picture'].fileName });
-        this.categoryService.createBackground(this.imageForm.value).then(_r => alert('OK, image de fond changée'));
+        this.categoryService.createBackground(this.imageForm.value)
+            .then(_r => {
+                this.picturebackground = this.downloadUrls['picture'].url;
+                this.notify.success("La nouvelle image de fond est en place.");
+            })
+            .catch(() => this.notify.error("L'image de fond n'a pas pu être changée. Réessayez dans un instant."));
     }
 
     async getBackground() {
@@ -59,7 +70,7 @@ export class BackgroundimageComponent implements OnInit {
             error: (err) => {
                 console.error('Upload error:', err);
                 delete this.progress[fileType];
-                alert("L'envoi de l'image a échoué. Merci de réessayer.");
+                this.notify.error(`L'envoi de « ${file.name} » a échoué. Vérifiez votre connexion internet et réessayez.`);
             },
         });
     }

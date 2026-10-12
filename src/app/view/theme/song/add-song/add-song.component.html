@@ -1,395 +1,499 @@
 <!-- Hero -->
 <div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
-<!-- Start:: under hero -->
 <div class="under-hero container">
-  <!-- Start:: section -->
   <div class="section">
-    <div class="row">
-      <div class="col-xl-12 col-md-10 mx-auto">
-        <div class="card">
-          <div class="card-header pb-0">
-            <!-- Start:: mat tabs -->
-            <div class="mat-tabs" appTabs>
-              <ul class="nav nav-tabs" id="add_music" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="music" data-bs-toggle="tab" data-bs-target="#music_pane"
-                    type="button" role="tab" aria-controls="music_pane" aria-selected="true">Ajouter une
-                    chanson</button>
-                </li>
-                <!-- Add more tabs if needed -->
-              </ul>
+    <div class="add-song">
+
+      <!-- En-tête : à quoi sert la page, comment s'y prendre -->
+      <header class="card add-song__intro">
+        <span class="add-song__eyebrow"><i class="ri-add-circle-line"></i> Catalogue</span>
+        <h1 class="add-song__title">Ajouter une <span class="text-primary">chanson</span></h1>
+        <p class="add-song__lead">
+          Suivez les étapes de haut en bas, à votre rythme. <strong>Rien n'est publié</strong> tant que vous
+          n'avez pas cliqué sur le bouton <strong>« Publier la chanson »</strong>, tout en bas de la page.
+        </p>
+        <ul class="add-song__tips">
+          <li><i class="ri-asterisk"></i><span>Les champs marqués <span class="add-song__req">obligatoire</span> doivent
+              être remplis. Les autres peuvent attendre : vous pourrez les compléter plus tard avec
+              « Modifier ».</span></li>
+          <li><i class="ri-question-line"></i><span>Un doute ? Le <a routerLink="/aide-admin">guide
+                d'administration</a> explique tout en détail.</span></li>
+        </ul>
+      </header>
+
+      <form [formGroup]="musicForm" (ngSubmit)="addMusic()">
+
+        <!-- ================================================================== -->
+        <!-- Étape 1 : catégorie                                                 -->
+        <!-- ================================================================== -->
+        <section class="card step" id="step-category" [class.step--done]="!!category">
+          <div class="step__head">
+            <span class="step__num">
+              <i class="ri-check-line" *ngIf="category"></i><ng-container *ngIf="!category">1</ng-container>
+            </span>
+            <div>
+              <h2 class="step__title">Où publier la chanson ? <span class="add-song__req">obligatoire</span></h2>
+              <p class="step__help">Cliquez sur la rubrique du site où la chanson doit apparaître. La suite du
+                formulaire s'adapte à votre choix.</p>
             </div>
-            <!-- End:: mat tabs -->
           </div>
-          <div class="card-body">
-            <div class="tab-content" id="add_music_content">
-              <div class="tab-pane fade show active" id="music_pane" role="tabpanel" aria-labelledby="music"
-                tabindex="0">
-                <form [formGroup]="musicForm" (ngSubmit)="addMusic()">
 
-                  <p class="text-muted small mb-4">Les champs marqués d'un * sont obligatoires.</p>
+          <div class="choice-grid" role="radiogroup" aria-label="Catégorie">
+            <button type="button" class="choice" *ngFor="let c of categories" role="radio"
+              [attr.aria-checked]="category === c.value" [class.choice--active]="category === c.value"
+              (click)="setValue('category', c.value)">
+              <i class="choice__icon" [class]="c.icon"></i>
+              <span class="choice__label">{{ c.label }}</span>
+              <span class="choice__hint">{{ c.hint }}</span>
+              <i class="ri-checkbox-circle-fill choice__check" *ngIf="category === c.value"></i>
+            </button>
+          </div>
+        </section>
 
-                  <hr>
-                  <h5>Informations</h5>
-                  <hr>
+        <div class="step-locked card" *ngIf="!category">
+          <i class="ri-arrow-up-line"></i>
+          Choisissez d'abord une catégorie ci-dessus : les étapes suivantes apparaîtront ensuite.
+        </div>
 
-                  <div class="col-sm-12 mb-4">
-                    <label class="form-label">Dans quelle catégorie ? *</label>
-                    <select class="form-select" formControlName="category" aria-label="Select category">
-                      <option value="" selected disabled hidden>Merci de choisir</option>
-                      <option value="chansons-a-chanter">Publier dans les chansons à chanter</option>
-                      <option value="chansons-cherche-auteur">Publier dans les chansons cherche
-                        auteur</option>
-                      <option value="creacourcis">Publier dans les creacourcis</option>
-                      <option value="virgules-sonores">Publier dans virgules sonores</option>
-                      <option value="instrumentaux">Publier dans les instrumentaux</option>
-                      <option value="musique-de-contenus">Publier dans musique de contenus</option>
-                    </select>
-                  </div>
+        <div [hidden]="!category">
 
-                  <div [hidden]="!musicForm.get('category')?.value">
-
-                    <div class="col-12 mb-4">
-                      <label class="form-label" for="song_title">Titre de la chanson *</label>
-                      <input type="text" id="song_title" formControlName="title" class="form-control"
-                        placeholder="Titre de la chanson">
-                    </div>
-
-                    <div class="col-sm-12 mb-4">
-                      <label class="form-label">Artiste *</label>
-                      <input type="text" class="form-control" formControlName="artist" placeholder="Artiste">
-                    </div>
-
-                    <div class="col-sm-12 mb-4">
-                      <label class="form-label">Votre chanson est une exclusivité</label>
-                      <select class="form-select" formControlName="exclu" aria-label="Select exclusivité">
-                        <option value="non">Non</option>
-                        <option value="oui">Oui</option>
-                      </select>
-                    </div>
-
-                    <div class="col-sm-12 mb-4">
-                      <label class="form-label">Est-elle un coup de coeur ?</label>
-                      <select class="form-select" formControlName="isHeartStroke" aria-label="Select coup de coeur">
-                        <option value="non">Non</option>
-                        <option value="oui">Oui</option>
-                      </select>
-                    </div>
-
-                    <hr>
-                    <h5>Fichiers audio</h5>
-                    <hr>
-
-                    <ng-container *ngFor="let block of mediaBlocks; trackBy: trackByBlock">
-                      <div class="media-block" *ngIf="showBlock(block)">
-
-                        <div class="media-block__row">
-                          <div class="media-block__icon">
-                            <i class="ri-music-2-line"></i>
-                          </div>
-                          <div class="media-block__infos">
-                            <div class="media-block__title">{{ block.label }}</div>
-                            <div class="media-block__filename" *ngIf="fileNames[block.key]"
-                              [title]="fileNames[block.key]">
-                              {{ fileNames[block.key] }}
-                            </div>
-                            <div class="media-block__filename media-block__filename--empty"
-                              *ngIf="!fileNames[block.key]">
-                              Aucun fichier
-                            </div>
-                          </div>
-                          <div class="media-block__actions" *ngIf="downloadUrls[block.key]">
-                            <button type="button" class="btn btn-sm"
-                              [class.btn-primary]="!playingMap[block.key]"
-                              [class.btn-danger]="playingMap[block.key]"
-                              (click)="togglePlay(block.key)">
-                              <i class="ri-play-fill" *ngIf="!playingMap[block.key]"></i>
-                              <i class="ri-stop-fill" *ngIf="playingMap[block.key]"></i>
-                              {{ playingMap[block.key] ? 'Arrêter' : 'Écouter' }}
-                            </button>
-                          </div>
-                        </div>
-
-                        <div class="media-block__upload">
-                          <label class="form-label" [for]="'song_file_' + block.key">Choisir le fichier</label>
-                          <input type="file" class="form-control form-control-sm" [id]="'song_file_' + block.key"
-                            [attr.accept]="block.accept" (change)="onFileSelected($event, block.key)">
-                        </div>
-
-                        <div class="progress media-block__progress"
-                          *ngIf="progress[block.key] !== undefined && !downloadUrls[block.key]">
-                          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                            [style.width.%]="progress[block.key]"
-                            [attr.aria-valuenow]="progress[block.key]" aria-valuemin="0" aria-valuemax="100">
-                            {{ progress[block.key] }}%
-                          </div>
-                        </div>
-                        <p class="media-block__success" *ngIf="downloadUrls[block.key]">
-                          <i class="ri-checkbox-circle-fill"></i>
-                          Fichier envoyé.
-                        </p>
-
-                      </div>
-                    </ng-container>
-
-                    <hr>
-                    <h5>Image de la chanson</h5>
-                    <hr>
-
-                    <div class="media-block">
-                      <div class="media-block__row">
-                        <div class="media-block__icon" *ngIf="!downloadUrls['image']">
-                          <i class="ri-image-line"></i>
-                        </div>
-                        <img class="media-block__thumb" *ngIf="downloadUrls['image']" [src]="downloadUrls['image']"
-                          alt="Aperçu de l'image">
-                        <div class="media-block__infos">
-                          <div class="media-block__title">Image de couverture</div>
-                          <div class="media-block__filename" *ngIf="fileNames['image']" [title]="fileNames['image']">
-                            {{ fileNames['image'] }}
-                          </div>
-                          <div class="media-block__filename media-block__filename--empty" *ngIf="!fileNames['image']">
-                            Aucune image — une image par défaut sera utilisée
-                          </div>
-                        </div>
-                        <div class="media-block__actions">
-                          <button type="button" class="btn btn-sm btn-custom"
-                            (click)="generateContentWithIA('image')">
-                            ✨ Générer avec l'IA
-                          </button>
-                        </div>
-                      </div>
-
-                      <div class="media-block__upload">
-                        <label class="form-label" for="img">Choisir une image</label>
-                        <input type="file" id="img" class="form-control form-control-sm" accept="image/*"
-                          (change)="onFileSelected($event, 'image')">
-                      </div>
-
-                      <div class="progress media-block__progress"
-                        *ngIf="progress['image'] !== undefined && !downloadUrls['image']">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                          [style.width.%]="progress['image']"
-                          [attr.aria-valuenow]="progress['image']" aria-valuemin="0" aria-valuemax="100">
-                          {{ progress['image'] }}%
-                        </div>
-                      </div>
-                      <p class="media-block__success" *ngIf="downloadUrls['image']">
-                        <i class="ri-checkbox-circle-fill"></i>
-                        Image envoyée.
-                      </p>
-                    </div>
-
-                    <hr>
-                    <h5>Liens externes</h5>
-                    <hr>
-
-                    <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value === 'oui'">
-                      <label class="form-label">Identifiant YouTube</label>
-                      <input type="text" class="form-control" formControlName="youtubeURL"
-                        placeholder="Ex : Aq1NJxJZo6E">
-                      <div class="form-text">
-                        Pour https://www.youtube.com/watch?v=<strong>Aq1NJxJZo6E</strong>, saisir uniquement
-                        <strong>Aq1NJxJZo6E</strong>.
-                      </div>
-                    </div>
-
-                    <div class="col-sm-12 mb-4">
-                      <label class="form-label">Lien d'intégration Spotify</label>
-                      <input type="text" class="form-control" formControlName="spotifyURL"
-                        placeholder="https://open.spotify.com/embed/track/…">
-                      <div class="form-text">
-                        Clic droit sur le titre Spotify → Partager → Intégrer le titre → taille compacte →
-                        copier uniquement l'URL contenue dans <code>src=""</code>.
-                        <button type="button" (click)="openModal()" class="btn btn-sm btn-outline-secondary ms-2">
-                          Voir l'exemple
-                        </button>
-                      </div>
-                    </div>
-
-                    <hr>
-                    <h5>Contenus</h5>
-                    <hr>
-
-                    <div class="col-12 mb-4">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <label class="form-label mb-0">Description *</label>
-
-                        <button type="button" class="btn btn-sm btn-custom"
-                          (click)="generateContentWithIA('description')">
-                          ✨ Générer avec l'IA
-                        </button>
-                      </div>
-
-                      <textarea name="description" id="description" formControlName="description" rows="4"
-                        class="form-control mt-2" placeholder="Description"></textarea>
-                    </div>
-
-                    <div class="col-12 mb-4"
-                      [hidden]="musicForm.get('category')?.value === 'instrumentaux' || musicForm.get('category')?.value === 'musique-de-contenus'">
-                      <div class="d-flex justify-content-between align-items-center">
-
-                        <label class="form-label">Lyrics</label>
-                        <button type="button" class="btn btn-sm btn-custom mb-2"
-                          (click)="generateContentWithIA('lyrics')">
-                          ✨ Générer avec l'IA
-                        </button>
-                      </div>
-
-                      <ck-editor [config]="{ versionCheck: false }" formControlName="lyrics" skin="moono-lisa"
-                        language="fr" [fullPage]="false"></ck-editor>
-                    </div>
-
-                    <div class="col-12 mb-4" [hidden]="musicForm.get('exclu')?.value === 'non'">
-                      <label class="form-label">Message</label>
-                      <ck-editor [config]="{ versionCheck: false }" formControlName="message" skin="moono-lisa"
-                        language="fr" [fullPage]="false"></ck-editor>
-                    </div>
-
-
-                    <div [hidden]="musicForm.get('exclu')?.value === 'oui' && 
-                      (musicForm.get('category')?.value === 'chansons-a-chanter' || 
-                       musicForm.get('category')?.value === 'chansons-cherche-auteur')">
-
-                      <hr>
-                      <h5>Prix Chanson</h5>
-                      <hr>
-
-                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value === 'oui'">
-                        <label class="form-label">Afficher licence de base - <span style="color: green">chanson</span>
-                        </label>
-                        <select class="form-select" formControlName="isLicenceBase" aria-label="Select licence base">
-                          <option value="non">Non</option>
-                          <option value="oui">Oui</option>
-                        </select>
-                      </div>
-
-                      <div class="col-sm-12 mb-4"
-                        [hidden]="musicForm.get('isLicenceBase')?.value === 'non' && musicForm.get('exclu')?.value === 'oui'">
-                        <label class="form-label">Prix licence de base (0 si gratuit)</label>
-                        <div class="input-group">
-                          <span class="input-group-text">
-                            <i class="ri-money-euro-circle-line"></i>
-                          </span>
-                          <input type="number" formControlName="price_base" class="form-control"
-                            placeholder="Prix licence basique - chanson">
-                        </div>
-                      </div>
-
-                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('exclu')?.value === 'oui'">
-                        <label class="form-label">Afficher licence premium - <span
-                            style="color: green">chanson</span></label>
-                        <select class="form-select" formControlName="isPremium" aria-label="Select licence premium">
-                          <option value="non">Non</option>
-                          <option value="oui">Oui</option>
-                        </select>
-                      </div>
-
-                      <div class="col-sm-12 mb-4"
-                        [hidden]="musicForm.get('isPremium')?.value === 'non' && musicForm.get('exclu')?.value === 'oui'">
-                        <label class="form-label">Prix licence premium</label>
-                        <div class="input-group">
-                          <span class="input-group-text">
-                            <i class="ri-money-euro-circle-line"></i>
-                          </span>
-                          <input type="number" formControlName="price_premium" class="form-control"
-                            placeholder="Prix licence premium - chanson">
-                        </div>
-                      </div>
-                    </div>
-
-                    <div
-                      [hidden]="musicForm.get('category')?.value === 'instrumentaux' || musicForm.get('category')?.value === 'musique-de-contenus' || musicForm.get('category')?.value === 'virgules-sonores'">
-
-                      <hr>
-                      <h5>Prix créatoké</h5>
-                      <hr>
-
-                      <div class="col-sm-12 mb-4">
-                        <label class="form-label">Afficher licence de base <span
-                            style="color: red">créatoké</span></label>
-                        <select class="form-select" formControlName="isLicenceBaseCreatoke"
-                          aria-label="Select licence base">
-                          <option value="non">Non</option>
-                          <option value="oui">Oui</option>
-                        </select>
-                      </div>
-
-                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isLicenceBaseCreatoke')?.value === 'non'">
-                        <label class="form-label">Prix licence de base (0 si gratuit)</label>
-                        <div class="input-group">
-                          <span class="input-group-text">
-                            <i class="ri-money-euro-circle-line"></i>
-                          </span>
-                          <input type="number" formControlName="price_base_creatoke" class="form-control"
-                            placeholder="Prix licence basique - créatoké">
-                        </div>
-                      </div>
-
-                      <div class="col-sm-12 mb-4">
-                        <label class="form-label">Afficher licence premium - <span
-                            style="color: red">créatoké</span></label>
-                        <select class="form-select" formControlName="isPremiumCreatoke"
-                          aria-label="Select licence premium">
-                          <option value="non">Non</option>
-                          <option value="oui">Oui</option>
-                        </select>
-                      </div>
-
-                      <div class="col-sm-12 mb-4" [hidden]="musicForm.get('isPremiumCreatoke')?.value === 'non'">
-                        <label class="form-label">Prix licence premium (0 si gratuit)</label>
-                        <div class="input-group">
-                          <span class="input-group-text">
-                            <i class="ri-money-euro-circle-line"></i>
-                          </span>
-                          <input type="number" formControlName="price_premium_creatoke" class="form-control"
-                            placeholder="Prix licence premium créatoké">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-sm-12 mb-4">
-                    <button class="btn btn-custom" style="min-width: 140px;" type="submit"
-                      [disabled]="!musicForm.valid || isLoading || activeUploads > 0">
-                      {{ activeUploads > 0 ? 'Envoi des fichiers…' : (isLoading ? 'Enregistrement…' : 'Enregistrer') }}
-                    </button>
-                    <a routerLink="/manage" class="btn btn-outline-secondary ms-2">Annuler</a>
-                    <div class="form-text mt-2" *ngIf="activeUploads > 0">
-                      Merci de patienter : l'envoi des fichiers doit se terminer avant l'enregistrement.
-                    </div>
-                  </div>
-                </form>
+          <!-- ================================================================ -->
+          <!-- Étape 2 : informations                                            -->
+          <!-- ================================================================ -->
+          <section class="card step" id="step-info" [class.step--done]="stepInfoDone">
+            <div class="step__head">
+              <span class="step__num">
+                <i class="ri-check-line" *ngIf="stepInfoDone"></i><ng-container *ngIf="!stepInfoDone">2</ng-container>
+              </span>
+              <div>
+                <h2 class="step__title">Présentez la chanson</h2>
+                <p class="step__help">Le titre et l'artiste s'affichent sur la fiche de la chanson.</p>
               </div>
             </div>
-          </div>
+
+            <div class="row g-4">
+              <div class="col-md-6">
+                <label class="form-label field-label" for="song_title">Titre de la chanson
+                  <span class="add-song__req">obligatoire</span></label>
+                <input type="text" id="song_title" formControlName="title" class="form-control form-control-lg"
+                  placeholder="Ex : Un rendez-vous à Paris" autocomplete="off">
+                <div class="form-text">Écrivez-le normalement : il sera mis en MAJUSCULES automatiquement.
+                  Deux chansons ne doivent pas avoir le même titre.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label field-label" for="song_artist">Artiste
+                  <span class="add-song__req">obligatoire</span></label>
+                <input type="text" id="song_artist" formControlName="artist" class="form-control form-control-lg"
+                  placeholder="Ex : Samantha" autocomplete="off">
+                <div class="form-text">Le nom affiché comme « Interprète » sur la fiche.</div>
+              </div>
+            </div>
+
+            <div class="question">
+              <p class="question__label">La chanson est-elle une exclusivité ?</p>
+              <p class="question__help">Répondez <strong>Oui</strong> seulement si la chanson est sous contrat avec un
+                distributeur (Spotify, Deezer…) : la chanson n'est alors pas vendue sur Créatoké, seul son
+                créatoké l'est. Dans le doute, laissez <strong>Non</strong>.</p>
+              <div class="yes-no" role="radiogroup" aria-label="Exclusivité">
+                <button type="button" role="radio" [attr.aria-checked]="!isExclu" [class.active]="!isExclu"
+                  (click)="setValue('exclu', 'non')"><i class="ri-close-line"></i> Non</button>
+                <button type="button" role="radio" [attr.aria-checked]="isExclu" [class.active]="isExclu"
+                  (click)="setValue('exclu', 'oui')"><i class="ri-check-line"></i> Oui</button>
+              </div>
+            </div>
+
+            <div class="question">
+              <p class="question__label">La mettre en avant comme « coup de cœur » ?</p>
+              <p class="question__help">Oui : elle apparaît dans le carrousel « Nos coups de cœur » de la page
+                d'accueil.</p>
+              <div class="yes-no" role="radiogroup" aria-label="Coup de cœur">
+                <button type="button" role="radio" [attr.aria-checked]="value('isHeartStroke') !== 'oui'"
+                  [class.active]="value('isHeartStroke') !== 'oui'" (click)="setValue('isHeartStroke', 'non')">
+                  <i class="ri-close-line"></i> Non</button>
+                <button type="button" role="radio" [attr.aria-checked]="value('isHeartStroke') === 'oui'"
+                  [class.active]="value('isHeartStroke') === 'oui'" (click)="setValue('isHeartStroke', 'oui')">
+                  <i class="ri-heart-3-fill"></i> Oui</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- ================================================================ -->
+          <!-- Étape 3 : fichiers audio                                          -->
+          <!-- ================================================================ -->
+          <section class="card step" id="step-files" [class.step--done]="stepFilesDone">
+            <div class="step__head">
+              <span class="step__num">
+                <i class="ri-check-line" *ngIf="stepFilesDone"></i><ng-container *ngIf="!stepFilesDone">3</ng-container>
+              </span>
+              <div>
+                <h2 class="step__title">Ajoutez les fichiers audio</h2>
+                <p class="step__help">Cliquez sur une case pour choisir le fichier sur votre ordinateur, ou faites-le
+                  glisser dessus. L'envoi démarre tout seul : attendez la <strong class="text-success">coche
+                    verte</strong>, puis cliquez sur « Écouter » pour vérifier que c'est le bon.</p>
+              </div>
+            </div>
+
+            <div class="callout">
+              <i class="ri-information-line"></i>
+              <div><strong>MP3 ou WAV ?</strong> Le nom du format est indiqué sur chaque case et à la fin du nom de
+                votre fichier (ex. « ma-chanson.<strong>mp3</strong> »). Le MP3 est léger, le WAV est la version
+                haute qualité.</div>
+            </div>
+
+            <ng-container *ngFor="let group of ['chanson', 'creatoke']">
+              <div class="file-group" *ngIf="blocksOf($any(group)).length">
+                <h3 class="file-group__title">
+                  <i [class]="group === 'chanson' ? 'ri-mic-line' : 'ri-music-2-line'"></i>
+                  {{ group === 'chanson' ? 'La chanson' : 'Le créatoké' }}
+                  <small *ngIf="group === 'creatoke'">la version sans la voix principale, pour chanter dessus</small>
+                </h3>
+
+                <div class="file-grid">
+                  <div class="file-card" *ngFor="let block of blocksOf($any(group)); trackBy: trackByBlock"
+                    [class.file-card--done]="downloadUrls[block.key]">
+                    <div class="file-card__top">
+                      <span class="file-card__label">{{ block.label }}</span>
+                      <span class="file-card__format">{{ block.format }}</span>
+                    </div>
+                    <p class="file-card__hint">{{ block.hint }}</p>
+
+                    <label class="drop" [class.drop--busy]="progress[block.key] !== undefined && !downloadUrls[block.key]">
+                      <input type="file" [attr.accept]="block.accept" (change)="onFileSelected($event, block.key)"
+                        [attr.aria-label]="block.label + ' (' + block.format + ')'">
+                      <ng-container *ngIf="!fileNames[block.key]">
+                        <i class="ri-upload-cloud-2-line"></i>
+                        <span>Choisir le fichier <strong>{{ block.format }}</strong></span>
+                      </ng-container>
+                      <ng-container *ngIf="fileNames[block.key]">
+                        <i [class]="downloadUrls[block.key] ? 'ri-checkbox-circle-fill text-success' : 'ri-loader-4-line spin'"></i>
+                        <span class="drop__name" [title]="fileNames[block.key]">{{ fileNames[block.key] }}</span>
+                        <small>Cliquez pour changer de fichier</small>
+                      </ng-container>
+                    </label>
+
+                    <app-progress-bar class="file-card__progress" label="Envoi en cours…"
+                      *ngIf="progress[block.key] !== undefined && !downloadUrls[block.key]"
+                      [value]="progress[block.key]"></app-progress-bar>
+
+                    <div class="file-card__ok" *ngIf="downloadUrls[block.key]">
+                      <span><i class="ri-checkbox-circle-fill"></i> Fichier envoyé</span>
+                      <button type="button" class="btn btn-sm"
+                        [class.btn-primary]="!playingMap[block.key]" [class.btn-danger]="playingMap[block.key]"
+                        (click)="togglePlay(block.key)">
+                        <i [class]="playingMap[block.key] ? 'ri-stop-fill' : 'ri-play-fill'"></i>
+                        {{ playingMap[block.key] ? 'Arrêter' : 'Écouter' }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </section>
+
+          <!-- ================================================================ -->
+          <!-- Étape 4 : image                                                   -->
+          <!-- ================================================================ -->
+          <section class="card step" id="step-image" [class.step--done]="!!downloadUrls['image']">
+            <div class="step__head">
+              <span class="step__num">
+                <i class="ri-check-line" *ngIf="downloadUrls['image']"></i><ng-container *ngIf="!downloadUrls['image']">4</ng-container>
+              </span>
+              <div>
+                <h2 class="step__title">Choisissez la pochette <span class="add-song__opt">facultatif</span></h2>
+                <p class="step__help">L'image affichée avec la chanson. Une image <strong>carrée</strong> rend le
+                  mieux. Sans image, une image générique est utilisée.</p>
+              </div>
+            </div>
+
+            <div class="image-row">
+              <div class="image-row__preview">
+                <img *ngIf="downloadUrls['image']" [src]="downloadUrls['image']" alt="Pochette choisie">
+                <i *ngIf="!downloadUrls['image']" class="ri-image-line"></i>
+              </div>
+
+              <div class="image-row__actions">
+                <label class="drop drop--inline"
+                  [class.drop--busy]="progress['image'] !== undefined && !downloadUrls['image']">
+                  <input type="file" accept="image/*" (change)="onFileSelected($event, 'image')"
+                    aria-label="Choisir une image sur l'ordinateur">
+                  <i [class]="downloadUrls['image'] ? 'ri-checkbox-circle-fill text-success' : 'ri-image-add-line'"></i>
+                  <span *ngIf="!fileNames['image']">Choisir une image sur l'ordinateur</span>
+                  <span *ngIf="fileNames['image']" class="drop__name" [title]="fileNames['image']">{{ fileNames['image'] }}</span>
+                </label>
+
+                <app-progress-bar class="file-card__progress" label="Envoi de l'image…"
+                  *ngIf="progress['image'] !== undefined && !downloadUrls['image']"
+                  [value]="progress['image']"></app-progress-bar>
+
+                <div class="ia-line">
+                  <span class="ia-line__or">ou</span>
+                  <button type="button" class="btn btn-custom" (click)="generateContentWithIA('image')"
+                    [disabled]="!hasAudio">✨ Créer une image avec l'IA</button>
+                </div>
+                <p class="form-text mb-0" *ngIf="!hasAudio">
+                  <i class="ri-information-line"></i> Pour utiliser l'IA, ajoutez d'abord un fichier audio à l'étape 3 :
+                  elle s'en sert pour imaginer l'image.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ================================================================ -->
+          <!-- Étape 5 : textes                                                  -->
+          <!-- ================================================================ -->
+          <section class="card step" id="step-texts" [class.step--done]="stepTextsDone">
+            <div class="step__head">
+              <span class="step__num">
+                <i class="ri-check-line" *ngIf="stepTextsDone"></i><ng-container *ngIf="!stepTextsDone">5</ng-container>
+              </span>
+              <div>
+                <h2 class="step__title">Écrivez les textes</h2>
+                <p class="step__help">Vous pouvez les écrire vous-même, ou laisser l'IA les proposer à partir du
+                  fichier audio. <strong>Relisez toujours</strong> ce que propose l'IA : elle remplace ce qui était
+                  déjà écrit dans la case.</p>
+              </div>
+            </div>
+
+            <div class="callout callout--warn" *ngIf="!hasAudio">
+              <i class="ri-information-line"></i>
+              <div>Les boutons « ✨ IA » s'activent dès qu'un fichier audio est ajouté à l'étape 3.</div>
+            </div>
+
+            <div class="text-field">
+              <div class="text-field__head">
+                <label class="form-label field-label mb-0" for="description">Description
+                  <span class="add-song__req">obligatoire</span></label>
+                <button type="button" class="btn btn-sm btn-custom" (click)="generateContentWithIA('description')"
+                  [disabled]="!hasAudio">✨ Écrire avec l'IA</button>
+              </div>
+              <p class="form-text mt-0">Quelques phrases qui donnent envie d'écouter : le style, l'ambiance, le
+                sujet de la chanson.</p>
+              <textarea id="description" formControlName="description" rows="5" class="form-control"
+                placeholder="Ex : Une ballade douce et lumineuse sur les retrouvailles…"></textarea>
+            </div>
+
+            <div class="text-field" [hidden]="!hasLyrics">
+              <div class="text-field__head">
+                <span class="form-label field-label mb-0">Paroles <span class="add-song__opt">facultatif</span></span>
+                <button type="button" class="btn btn-sm btn-custom" (click)="generateContentWithIA('lyrics')"
+                  [disabled]="!hasAudio">✨ Retrouver les paroles avec l'IA</button>
+              </div>
+              <p class="form-text mt-0">Affichées avec le bouton « Voir les paroles » sur la fiche.</p>
+              <app-rich-editor formControlName="lyrics" placeholder="Écrivez ou collez les paroles ici…"
+                [minHeight]="220"></app-rich-editor>
+            </div>
+
+            <div class="text-field" [hidden]="!isExclu">
+              <div class="text-field__head">
+                <span class="form-label field-label mb-0">Message pour les visiteurs
+                  <span class="add-song__req">à remplir pour une exclusivité</span></span>
+              </div>
+              <p class="form-text mt-0">Comme la chanson est une exclusivité, ce texte remplace ses offres sur la
+                fiche. Exemple : « Cette chanson est disponible sur les plateformes ; vous pouvez acheter son
+                créatoké ci-dessous. »</p>
+              <app-rich-editor formControlName="message" [minHeight]="120"
+                placeholder="Ex : Cette chanson est disponible sur les plateformes…"></app-rich-editor>
+            </div>
+          </section>
+
+          <!-- ================================================================ -->
+          <!-- Étape 6 : liens                                                   -->
+          <!-- ================================================================ -->
+          <section class="card step" id="step-links"
+            [class.step--done]="!!youtubePreviewId || spotifyLinkOk">
+            <div class="step__head">
+              <span class="step__num">
+                <i class="ri-check-line" *ngIf="youtubePreviewId || spotifyLinkOk"></i>
+                <ng-container *ngIf="!youtubePreviewId && !spotifyLinkOk">6</ng-container>
+              </span>
+              <div>
+                <h2 class="step__title">Ajoutez la vidéo ou le titre Spotify <span class="add-song__opt">facultatif</span></h2>
+                <p class="step__help">Copiez le lien depuis YouTube ou Spotify et collez-le simplement ici
+                  (clic droit → Coller). Le site s'occupe du reste.</p>
+              </div>
+            </div>
+
+            <div class="row g-4">
+              <div class="col-md-6" [hidden]="isExclu">
+                <label class="form-label field-label" for="youtube"><i class="ri-youtube-fill yt"></i> Lien de la vidéo
+                  YouTube</label>
+                <input type="text" id="youtube" class="form-control" formControlName="youtubeURL"
+                  placeholder="https://www.youtube.com/watch?v=…" autocomplete="off">
+                <div class="form-text">Sur YouTube : bouton <strong>Partager</strong> sous la vidéo →
+                  <strong>Copier</strong>.</div>
+                <div class="link-ok" *ngIf="youtubePreviewId">
+                  <img [src]="'https://img.youtube.com/vi/' + youtubePreviewId + '/mqdefault.jpg'"
+                    alt="Aperçu de la vidéo">
+                  <span><i class="ri-checkbox-circle-fill"></i> Vidéo reconnue</span>
+                </div>
+                <div class="link-ko" *ngIf="filled('youtubeURL') && !youtubePreviewId">
+                  <i class="ri-error-warning-line"></i> Ce lien ne ressemble pas à un lien YouTube. Vérifiez-le.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label field-label" for="spotify"><i class="ri-spotify-fill sp"></i> Lien du titre
+                  Spotify</label>
+                <input type="text" id="spotify" class="form-control" formControlName="spotifyURL"
+                  placeholder="https://open.spotify.com/track/…" autocomplete="off">
+                <div class="form-text">Sur Spotify : clic droit sur le titre → <strong>Partager</strong> →
+                  <strong>Copier le lien du titre</strong>.
+                  <button type="button" (click)="openModal()" class="btn btn-link btn-sm p-0 align-baseline">Voir
+                    comment faire</button>
+                </div>
+                <div class="link-ok" *ngIf="spotifyLinkOk">
+                  <span><i class="ri-checkbox-circle-fill"></i> Titre Spotify reconnu</span>
+                </div>
+                <div class="link-ko" *ngIf="filled('spotifyURL') && !spotifyLinkOk">
+                  <i class="ri-error-warning-line"></i> Ce lien ne ressemble pas à un lien Spotify. Vérifiez-le.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ================================================================ -->
+          <!-- Étape 7 : prix                                                    -->
+          <!-- ================================================================ -->
+          <section class="card step" id="step-prices" *ngIf="showSongPrices || hasCreatoke">
+            <div class="step__head">
+              <span class="step__num">7</span>
+              <div>
+                <h2 class="step__title">Fixez les prix</h2>
+                <p class="step__help">Pour chaque offre, choisissez d'abord si elle est <strong>proposée à la
+                    vente</strong>, puis écrivez son prix en euros. Écrivez <strong>0</strong> pour un
+                  téléchargement gratuit.</p>
+              </div>
+            </div>
+
+            <div class="callout callout--warn">
+              <i class="ri-error-warning-line"></i>
+              <div>Chaque offre proposée doit avoir son fichier à l'étape 3, sinon le client paie mais ne reçoit
+                rien.</div>
+            </div>
+
+            <ng-container *ngFor="let section of [
+                { show: showSongPrices, title: 'La chanson', icon: 'ri-mic-line', offers: songOffers },
+                { show: hasCreatoke, title: 'Le créatoké', icon: 'ri-music-2-line', offers: creatokeOffers }
+              ]">
+              <div class="price-group" *ngIf="section.show">
+                <h3 class="file-group__title"><i [class]="section.icon"></i> {{ section.title }}</h3>
+                <div class="price-grid">
+                  <div class="price-card" *ngFor="let offer of section.offers"
+                    [class.price-card--on]="value(offer.show) === 'oui'">
+                    <p class="price-card__label">{{ offer.label }}</p>
+                    <p class="question__help mb-2">Proposer cette offre ?</p>
+                    <div class="yes-no yes-no--sm" role="radiogroup" [attr.aria-label]="section.title + ' — ' + offer.label">
+                      <button type="button" role="radio" [attr.aria-checked]="value(offer.show) !== 'oui'"
+                        [class.active]="value(offer.show) !== 'oui'" (click)="setValue(offer.show, 'non')">Non</button>
+                      <button type="button" role="radio" [attr.aria-checked]="value(offer.show) === 'oui'"
+                        [class.active]="value(offer.show) === 'oui'" (click)="setValue(offer.show, 'oui')">Oui</button>
+                    </div>
+
+                    <div class="price-card__price" *ngIf="value(offer.show) === 'oui'">
+                      <label class="form-label" [for]="offer.price">Prix</label>
+                      <div class="input-group">
+                        <input type="number" min="0" step="0.5" class="form-control" [id]="offer.price"
+                          [formControlName]="offer.price" placeholder="Ex : 4">
+                        <span class="input-group-text">€</span>
+                      </div>
+                      <div class="form-text" *ngIf="value(offer.price) === '0'">Gratuit : le client télécharge
+                        directement, sans payer.</div>
+                      <div class="link-ko" *ngIf="!downloadUrls[offer.file]">
+                        <i class="ri-error-warning-line"></i> Il manque {{ offer.fileLabel }} (étape 3).
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </section>
         </div>
-      </div>
+
+        <!-- ================================================================== -->
+        <!-- Vérification et publication                                        -->
+        <!-- ================================================================== -->
+        <section class="card step step--final">
+          <div class="step__head">
+            <span class="step__num"><i class="ri-send-plane-fill"></i></span>
+            <div>
+              <h2 class="step__title">Vérifier et publier</h2>
+              <p class="step__help" *ngIf="missing.length">Il reste quelques informations obligatoires avant de
+                pouvoir publier. Cliquez sur une ligne pour y aller :</p>
+              <p class="step__help" *ngIf="!missing.length">Tout ce qui est obligatoire est rempli.
+                <ng-container *ngIf="categoryLabel">La chanson sera publiée dans
+                  <strong>« {{ categoryLabel }} »</strong>.</ng-container></p>
+            </div>
+          </div>
+
+          <ul class="checklist" *ngIf="missing.length">
+            <li *ngFor="let m of missing">
+              <button type="button" (click)="scrollTo(m.step)">
+                <i class="ri-close-circle-line"></i> {{ m.label }}
+              </button>
+            </li>
+          </ul>
+
+          <div class="callout callout--warn" *ngIf="offersMissingFile.length">
+            <i class="ri-error-warning-line"></i>
+            <div>
+              <strong>Attention :</strong> une offre est proposée à la vente sans son fichier :
+              <ul class="mb-0">
+                <li *ngFor="let o of offersMissingFile">il manque {{ o.fileLabel }}</li>
+              </ul>
+              Vous pouvez publier quand même et l'ajouter plus tard avec « Modifier », mais personne ne doit
+              l'acheter d'ici là.
+            </div>
+          </div>
+
+          <div class="callout callout--warn" *ngIf="isExclu && !filled('message')">
+            <i class="ri-error-warning-line"></i>
+            <div>La chanson est une exclusivité : pensez à écrire le <strong>message pour les visiteurs</strong>
+              (étape 5).</div>
+          </div>
+
+          <div class="publish">
+            <button class="btn btn-custom btn-lg publish__btn" type="submit"
+              [disabled]="!musicForm.valid || isLoading || activeUploads > 0">
+              <i class="ri-send-plane-fill"></i>
+              {{ activeUploads > 0 ? 'Envoi des fichiers en cours…' : (isLoading ? 'Publication…' : 'Publier la chanson') }}
+            </button>
+            <a routerLink="/manage" class="btn btn-outline-secondary btn-lg">Annuler</a>
+          </div>
+          <p class="form-text mt-3 mb-0" *ngIf="activeUploads > 0">
+            <i class="ri-time-line"></i> Merci de patienter : un fichier est encore en cours d'envoi. Le bouton
+            redeviendra cliquable tout seul.
+          </p>
+          <p class="form-text mt-3 mb-0" *ngIf="!activeUploads && !missing.length">
+            Après la publication, vous arrivez sur la liste des chansons. Ouvrez ensuite la fiche pour vérifier
+            l'écoute et les prix.
+          </p>
+        </section>
+      </form>
     </div>
   </div>
 </div>
 
+<!-- Aide Spotify -->
 <div class="modal help-modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}"
   (click)="onCloseHandled()">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document" (click)="$event.stopPropagation()">
     <div class="modal-content help-modal__content">
       <div class="modal-header">
-        <h4 class="modal-title"><i class="ri-spotify-fill"></i> Intégrer un titre Spotify</h4>
+        <h4 class="modal-title"><i class="ri-spotify-fill"></i> Copier le lien d'un titre Spotify</h4>
         <button type="button" class="help-modal__close" aria-label="Fermer" (click)="onCloseHandled()">&times;</button>
       </div>
       <div class="modal-body">
         <ol class="help-modal__steps">
-          <li>Sur Spotify, faites un <strong>clic droit</strong> sur le titre → <strong>Partager</strong> →
-            <strong>Intégrer le titre</strong>.</li>
-          <li>Choisissez la taille <strong>compacte</strong>.</li>
-          <li>Copiez <strong>uniquement l'URL</strong> contenue dans <code>src="…"</code>, sans les guillemets.</li>
-          <li>Collez-la dans le champ « Lien d'intégration Spotify ».</li>
+          <li>Sur Spotify, faites un <strong>clic droit</strong> sur le titre (ou cliquez sur les
+            <strong>trois petits points</strong> à côté).</li>
+          <li>Choisissez <strong>Partager</strong>, puis <strong>Copier le lien du titre</strong>.</li>
+          <li>Revenez ici, faites un clic droit dans la case « Lien du titre Spotify » et choisissez
+            <strong>Coller</strong>.</li>
+          <li>Le message vert <strong>« Titre Spotify reconnu »</strong> apparaît : c'est bon !</li>
         </ol>
-        <figure class="help-modal__figure">
-          <img src="./assets/images/spotify.png" alt="Exemple : l'URL à copier dans le code d'intégration Spotify">
-          <figcaption>L'URL à copier se trouve entre les guillemets de <code>src="…"</code></figcaption>
-        </figure>
+        <p class="mb-0 small opacity-75">Le code d'intégration (« Intégrer le titre ») fonctionne aussi : vous pouvez
+          coller tout le code, le site garde seulement ce qu'il faut.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-custom" (click)="onCloseHandled()">J'ai compris</button>
@@ -398,42 +502,34 @@
   </div>
 </div>
 
+<!-- Prévisualisation de l'image générée par l'IA -->
 <div class="modal fade show" tabindex="-1" *ngIf="showImageModal"
   [ngStyle]="{'display': 'block', 'background': 'rgba(0,0,0,0.5)'}">
-
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-
       <div class="modal-header">
-        <h5 class="modal-title">Prévisualisation de l'image</h5>
-        <button type="button" class="btn-close" (click)="closeImageModal()"></button>
+        <h5 class="modal-title">L'image proposée par l'IA</h5>
+        <button type="button" class="btn-close" aria-label="Fermer" (click)="rejectImage()"></button>
       </div>
-
       <div class="modal-body text-center">
-        <img *ngIf="generatedImagePreview" [src]="generatedImagePreview" alt="Preview" class="img-fluid rounded"
+        <img *ngIf="generatedImagePreview" [src]="generatedImagePreview" alt="Image proposée" class="img-fluid rounded"
           style="max-height: 300px; object-fit: contain;">
+        <p class="small opacity-75 mt-3 mb-0">Elle vous plaît ? Utilisez-la. Sinon, demandez-en une autre.</p>
       </div>
-
       <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-custom" (click)="acceptImage()">
-          ✓ Utiliser cette image
-        </button>
+        <button type="button" class="btn btn-custom" (click)="acceptImage()">✓ Utiliser cette image</button>
         <button type="button" class="btn btn-outline-secondary" (click)="generateContentWithIA('image')">
-          ↻ Générer une autre
+          ↻ En proposer une autre
         </button>
       </div>
-
     </div>
   </div>
 </div>
 
 <div class="fullscreen-loader" *ngIf="isLoading">
   <div class="ai-loader">
-    <p>Traitement en cours…</p>
-    <div class="dots">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+    <p>Un instant, c'est en cours…</p>
+    <p class="small opacity-75">Cela peut prendre jusqu'à une minute. Ne fermez pas la page.</p>
+    <app-progress-bar></app-progress-bar>
   </div>
 </div>

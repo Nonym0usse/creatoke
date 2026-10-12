@@ -32,14 +32,9 @@
                                         <input type="file" class="form-control" (change)="onFileSelected($event, 'picture')">
                                     </div>
                                     <div class="card-footer text-center">
-                                        <div class="progress" [hidden]="progress['picture'] === undefined">
-                                            <div class="progress-bar" role="progressbar"
-                                                [style.width.%]="progress['picture']"
-                                                [attr.aria-valuenow]="progress['picture']" aria-valuemin="0"
-                                                aria-valuemax="100">
-                                                {{ progress['picture'] }}%
-                                            </div>
-                                        </div>
+                                        <app-progress-bar class="mb-3" label="Envoi de l'image…"
+                                            *ngIf="progress['picture'] !== undefined && !downloadUrls['picture']"
+                                            [value]="progress['picture']"></app-progress-bar>
                                         <button class="btn btn-custom" style="min-width: 140px;" (click)="modifyImage()"
                                             [disabled]="!imageForm.valid">Ajouter image</button>
                                         <button class="btn btn-outline-secondary ms-2">Cancel</button>

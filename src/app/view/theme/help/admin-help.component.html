@@ -98,29 +98,31 @@
                             <span class="legal__icon"><i class="ri-upload-cloud-line"></i></span>
                             <h2>Ajouter une chanson</h2>
                         </div>
-                        <p>Menu <strong>Admin → Catalogue → « Ajouter une musique »</strong>. Les champs marqués d'un
-                            <strong>*</strong> sont obligatoires.</p>
+                        <p>Menu <strong>Admin → Catalogue → « Ajouter une musique »</strong>. La page se remplit de
+                            haut en bas, en étapes numérotées ; le numéro d'une étape devient une <strong>coche
+                                verte</strong> quand elle est complète. Les champs marqués <strong>obligatoire</strong>
+                            doivent être remplis, les autres peuvent attendre « Modifier ». Rien n'est publié avant le
+                            bouton <strong>« Publier la chanson »</strong>, tout en bas.</p>
 
-                        <h3>1. Informations</h3>
+                        <h3>1. Où publier la chanson ?</h3>
+                        <p>Cliquez sur la case de la catégorie. Les étapes suivantes n'apparaissent qu'après ce choix,
+                            et elles s'adaptent à la catégorie (pas de créatoké pour les instrumentaux, la musique de
+                            contenus et les virgules sonores, pas de paroles pour les instrumentaux et la musique de
+                            contenus).</p>
+
+                        <h3>2. Présentez la chanson</h3>
                         <ol class="legal__steps">
-                            <li>Choisissez d'abord <strong>« Dans quelle catégorie ? »</strong> : le reste du formulaire
-                                n'apparaît qu'après ce choix, et les champs proposés dépendent de la catégorie.</li>
                             <li><strong>« Titre de la chanson »</strong> : il sera enregistré en MAJUSCULES et sert à
                                 fabriquer l'adresse de la fiche (ex. « Ma chanson » → <code>/song/…/ma-chanson</code>).
                             </li>
                             <li><strong>« Artiste »</strong> : affiché comme « Interprète » sur la fiche.</li>
-                            <li><strong>« Votre chanson est une exclusivité »</strong> : choisissez
-                                <strong>toujours</strong> « Non » ou « Oui » (voir l'encadré ci-dessous).</li>
-                            <li><strong>« Est-elle un coup de coeur ? »</strong> : « Oui » l'affiche dans le carrousel
-                                « Nos coups de coeur » de l'accueil.</li>
+                            <li><strong>« La chanson est-elle une exclusivité ? »</strong> : « Non » est choisi
+                                d'office. « Oui » signifie que la chanson est sous contrat avec un distributeur : elle
+                                n'est pas vendue sur Créatoké, seul son créatoké l'est, et un message explique pourquoi
+                                aux visiteurs (étape 5).</li>
+                            <li><strong>« La mettre en avant comme coup de cœur ? »</strong> : « Oui » l'affiche dans le
+                                carrousel « Nos coups de cœur » de l'accueil.</li>
                         </ol>
-                        <div class="legal__callout legal__callout--warn">
-                            <i class="ri-error-warning-line"></i>
-                            <div><strong>Exclusivité : ne laissez jamais ce champ vide.</strong> S'il n'est pas choisi,
-                                la fiche publique masque les offres et affiche le mot « vide ». « Oui » signifie que la
-                                chanson est sous contrat avec un distributeur : elle n'est pas vendue sur Créatoké, seul
-                                son créatoké l'est, et le champ « Message » explique pourquoi aux visiteurs.</div>
-                        </div>
                         <div class="legal__callout">
                             <i class="ri-lightbulb-line"></i>
                             <div>Deux chansons ne doivent pas avoir le même titre : elles auraient la même adresse, et
@@ -128,83 +130,83 @@
                                 l'adresse de la fiche.</div>
                         </div>
 
-                        <h3>2. Fichiers audio</h3>
-                        <p>Chaque fichier s'envoie <strong>dès qu'il est choisi</strong> (barre de progression, puis
-                            « Fichier envoyé. » et un bouton « Écouter » pour vérifier). Jusqu'à 500 Mo par fichier.
-                        </p>
+                        <h3>3. Ajoutez les fichiers audio</h3>
+                        <p>Les fichiers sont rangés en deux groupes, <strong>« La chanson »</strong> et <strong>« Le
+                                créatoké »</strong>. Cliquez sur une case (ou faites-y glisser le fichier) : l'envoi
+                            démarre aussitôt, avec une barre de progression, puis une coche verte et un bouton
+                            « Écouter » pour vérifier. Le format attendu (MP3 ou WAV) est écrit sur chaque case.
+                            Jusqu'à 500 Mo par fichier.</p>
                         <div class="legal__table-wrap">
                             <table class="legal__table">
                                 <thead>
-                                    <tr><th>Bloc</th><th>Format</th><th>Sert à</th><th>Absent si…</th></tr>
+                                    <tr><th>Case</th><th>Format</th><th>Sert à</th><th>Absente si…</th></tr>
                                 </thead>
                                 <tbody>
-                                    <tr><td>Chanson (player client web)</td><td>MP3</td><td>l'écoute sur le site
-                                            (« Écouter la chanson », lecteur du bas)</td><td>exclusivité = Oui</td></tr>
-                                    <tr><td>Creatoke (player client web)</td><td>MP3</td><td>l'écoute du créatoké sur
-                                            la fiche</td><td>instrumentaux, musique de contenus, virgules sonores</td>
+                                    <tr><td>La chanson — Pour l'écouter sur le site</td><td>MP3</td><td>l'écoute sur le
+                                            site (« Écouter la chanson », lecteur du bas)</td><td>exclusivité = Oui</td>
                                     </tr>
-                                    <tr><td>Chanson au format .mp3 (téléchargement)</td><td>MP3</td><td>le fichier livré
-                                            avec la licence de base</td><td>exclusivité = Oui</td></tr>
-                                    <tr><td>Chanson au format .wav (téléchargement)</td><td>WAV</td><td>le fichier livré
-                                            avec la licence premium</td><td>—</td></tr>
-                                    <tr><td>Creatoke au format .mp3 (téléchargement)</td><td>MP3</td><td>le fichier livré
-                                            avec la licence de base créatoké</td><td>instrumentaux, musique de
+                                    <tr><td>La chanson — Fichier vendu, licence de base</td><td>MP3</td><td>le fichier
+                                            livré avec la licence de base</td><td>exclusivité = Oui</td></tr>
+                                    <tr><td>La chanson — Fichier vendu, licence premium</td><td>WAV</td><td>le fichier
+                                            livré avec la licence premium</td><td>—</td></tr>
+                                    <tr><td>Le créatoké — Pour l'écouter sur le site</td><td>MP3</td><td>l'écoute du
+                                            créatoké sur la fiche</td><td>instrumentaux, musique de contenus, virgules
+                                            sonores</td></tr>
+                                    <tr><td>Le créatoké — Fichier vendu, licence de base</td><td>MP3</td><td>le fichier
+                                            livré avec la licence de base créatoké</td><td>instrumentaux, musique de
                                             contenus, virgules sonores</td></tr>
-                                    <tr><td>Creatoke au format .wav (téléchargement)</td><td>WAV</td><td>le fichier livré
-                                            avec la licence premium créatoké</td><td>instrumentaux, musique de
+                                    <tr><td>Le créatoké — Fichier vendu, licence premium</td><td>WAV</td><td>le fichier
+                                            livré avec la licence premium créatoké</td><td>instrumentaux, musique de
                                             contenus, virgules sonores</td></tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="legal__callout legal__callout--warn">
-                            <i class="ri-error-warning-line"></i>
-                            <div><strong>Chaque licence affichée doit avoir son fichier de téléchargement.</strong> Si,
-                                par exemple, la licence premium est affichée sans fichier WAV, le client paie mais reçoit
-                                un lien qui ne fonctionne pas.</div>
-                        </div>
 
-                        <h3>3. Image de la chanson</h3>
-                        <p>« Choisir une image » : l'image est réduite automatiquement (800 × 600 px maximum) puis
-                            envoyée. Sans image, une image générique est utilisée. Préférez une image
+                        <h3>4. Choisissez la pochette</h3>
+                        <p>« Choisir une image sur l'ordinateur » : l'image est réduite automatiquement (800 × 600 px
+                            maximum) puis envoyée. Sans image, une image générique est utilisée. Préférez une image
                             <strong>carrée</strong>, c'est le format des pochettes du site.</p>
 
-                        <h3>4. Liens externes</h3>
-                        <ul class="legal__bullets">
-                            <li><strong>Identifiant YouTube</strong> : seulement la fin de l'adresse. Pour
-                                <code>https://www.youtube.com/watch?v=Aq1NJxJZo6E</code>, saisissez
-                                <code>Aq1NJxJZo6E</code>.</li>
-                            <li><strong>Lien d'intégration Spotify</strong> : sur Spotify, clic droit sur le titre →
-                                Partager → Intégrer le titre → taille compacte, puis copiez uniquement l'adresse entre
-                                les guillemets de <code>src="…"</code>. Le bouton « Voir l'exemple » le montre en image.
-                            </li>
-                        </ul>
-
-                        <h3>5. Contenus</h3>
+                        <h3>5. Écrivez les textes</h3>
                         <ul class="legal__bullets">
                             <li><strong>Description</strong> (obligatoire) : le texte de présentation sous le titre.</li>
-                            <li><strong>Lyrics</strong> : les paroles (bouton « Voir les paroles » sur la fiche). Absent
-                                pour les instrumentaux et la musique de contenus.</li>
-                            <li><strong>Message</strong> : pour une exclusivité, le texte affiché à la place des offres de
-                                la chanson (ex. « Cette chanson est disponible sur les plateformes ; vous pouvez acheter
-                                son créatoké ci-dessous »). À remplir obligatoirement si exclusivité = Oui.</li>
+                            <li><strong>Paroles</strong> : affichées par le bouton « Voir les paroles » sur la fiche.</li>
+                            <li><strong>Message pour les visiteurs</strong> : seulement pour une exclusivité, le texte
+                                affiché à la place des offres de la chanson (ex. « Cette chanson est disponible sur les
+                                plateformes ; vous pouvez acheter son créatoké ci-dessous »). À remplir obligatoirement
+                                dans ce cas.</li>
                         </ul>
-                        <h3>Générer avec l'IA</h3>
-                        <p>Les boutons <strong>« ✨ Générer avec l'IA »</strong> (description, paroles, image) analysent
-                            le <strong>dernier fichier audio choisi</strong> : ajoutez donc un fichier audio avant. Le
-                            texte généré <strong>remplace</strong> le contenu du champ : relisez-le toujours. Pour
-                            l'image, une prévisualisation propose « ✓ Utiliser cette image » ou « ↻ Générer une autre ».
-                            L'IA n'est disponible que sur cette page, pas dans « Modifier ».</p>
-
-                        <h3>6. Prix</h3>
-                        <p>Voir la section <a role="button" (click)="scrollTo('prix')">Prix et licences affichées</a>.
+                        <h3>L'IA</h3>
+                        <p>Les boutons <strong>« ✨ … avec l'IA »</strong> (description, paroles, pochette) analysent le
+                            <strong>dernier fichier audio ajouté</strong> : ils restent grisés tant qu'aucun fichier
+                            audio n'est ajouté. Le texte proposé <strong>remplace</strong> le contenu du champ : relisez-le
+                            toujours. Pour la pochette, une prévisualisation propose « ✓ Utiliser cette image » ou
+                            « ↻ En proposer une autre ». L'IA n'est disponible que sur cette page, pas dans « Modifier ».
                         </p>
 
-                        <h3>7. Enregistrer</h3>
+                        <h3>6. Vidéo YouTube et titre Spotify</h3>
+                        <p>Collez simplement le lien copié depuis YouTube (bouton <strong>Partager → Copier</strong>) ou
+                            Spotify (<strong>Partager → Copier le lien du titre</strong>) : le site garde lui-même ce
+                            qu'il faut. « Vidéo reconnue » / « Titre Spotify reconnu » confirme que le lien est bon.</p>
+
+                        <h3>7. Fixez les prix</h3>
+                        <p>Pour chaque offre, répondez à <strong>« Proposer cette offre ? »</strong>, puis écrivez le
+                            prix. Si le fichier de l'offre manque à l'étape 3, un avertissement le signale. Voir aussi
+                            <a role="button" (click)="scrollTo('prix')">Prix et licences affichées</a>.</p>
+                        <div class="legal__callout legal__callout--warn">
+                            <i class="ri-error-warning-line"></i>
+                            <div><strong>Chaque licence proposée doit avoir son fichier.</strong> Si, par exemple, la
+                                licence premium est proposée sans fichier WAV, le client paie mais reçoit un lien qui ne
+                                fonctionne pas.</div>
+                        </div>
+
+                        <h3>Vérifier et publier</h3>
                         <ol class="legal__steps">
-                            <li>Attendez la fin de tous les envois : le bouton affiche « Envoi des fichiers… » et reste
-                                bloqué tant qu'un fichier est en cours.</li>
-                            <li>Cliquez sur <strong>« Enregistrer »</strong> : « Chanson enregistrée avec succès. » puis
-                                retour à la liste des chansons.</li>
+                            <li>La dernière carte liste ce qui manque encore ; cliquez sur une ligne pour y aller.</li>
+                            <li>Le bouton <strong>« Publier la chanson »</strong> reste grisé tant qu'il manque une
+                                information obligatoire ou qu'un fichier est encore en cours d'envoi.</li>
+                            <li>Après la publication, un message « Chanson publiée » s'affiche en bas à droite et vous
+                                arrivez sur la liste des chansons.</li>
                             <li>Ouvrez la fiche publique pour vérifier : écoute, prix, boutons d'achat.</li>
                         </ol>
                     </section>
@@ -225,7 +227,7 @@
                                 qu'après <strong>« Enregistrer »</strong>.</li>
                             <li>L'<strong>image de couverture ne peut pas être changée</strong> depuis cette page.</li>
                             <li>Le <strong>message</strong> d'une chanson exclusive n'est pas modifiable ici.</li>
-                            <li>« Enregistrer » → « Chanson modifiée avec succès. »</li>
+                            <li>« Enregistrer » → message « Chanson modifiée » en bas à droite.</li>
                         </ul>
                         <div class="legal__callout legal__callout--warn">
                             <i class="ri-error-warning-line"></i>
@@ -297,7 +299,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <p>Cliquez sur <strong>« Enregistrer »</strong> en bas de page (message « Licences modifiées »).
+                        <p>Cliquez sur <strong>« Enregistrer »</strong> en bas de page (un message de confirmation s'affiche en bas à droite).
                             Seuls les onglets que vous avez modifiés sont enregistrés. Ces textes sont communs à
                             toutes les chansons. Les visiteurs voient le nouveau texte au bout d'une minute environ.
                         </p>
@@ -312,9 +314,10 @@
                         <h3>Texte d'accueil</h3>
                         <ol class="legal__steps">
                             <li>Menu <strong>Admin → Site → « Texte d'accueil »</strong>.</li>
-                            <li><strong>Attendez que le texte actuel apparaisse</strong> dans l'éditeur (environ une
-                                seconde) avant de le modifier, sinon vous risquez d'enregistrer un texte vide.</li>
-                            <li>Modifiez puis cliquez sur <strong>« Enregistrer »</strong> (« Texte modifié »).</li>
+                            <li>Le texte actuel s'affiche dans l'éditeur ; la barre d'outils permet de mettre en gras,
+                                d'ajouter un titre, un lien ou une liste.</li>
+                            <li>Modifiez puis cliquez sur <strong>« Enregistrer »</strong> (un message de confirmation
+                                s'affiche en bas à droite).</li>
                         </ol>
                         <p>Il s'affiche sur l'accueil, dans la section « A propos de Creatoke ».</p>
                         <h3>Image de fond</h3>
@@ -506,12 +509,13 @@
                                 de la fiche ou le fichier par email.</div>
                         </details>
                         <details class="legal__faq">
-                            <summary>« Enregistrer » reste grisé.</summary>
-                            <div>Un champ obligatoire (*) est vide, ou un fichier est encore en cours d'envoi
-                                (« Envoi des fichiers… »). Attendez la fin des barres de progression.</div>
+                            <summary>« Publier la chanson » ou « Enregistrer » reste grisé.</summary>
+                            <div>Un champ obligatoire est vide, ou un fichier est encore en cours d'envoi. Sur la page
+                                d'ajout, la carte « Vérifier et publier » dit ce qui manque. Attendez la fin des barres
+                                de progression.</div>
                         </details>
                         <details class="legal__faq">
-                            <summary>« L'envoi du fichier a échoué. »</summary>
+                            <summary>Un message rouge dit que l'envoi d'un fichier a échoué.</summary>
                             <div>Vérifiez la connexion internet et le format (audio ou image), puis réessayez. Sur la page
                                 « Modifier », un fichier est limité à 80 Mo.</div>
                         </details>

@@ -9,6 +9,7 @@ import { PaypalService } from "../../../../core/services/api/paypal.service";
 import { DomSanitizer, SafeResourceUrl, SafeUrl, Title } from '@angular/platform-browser';
 import { CategoryService } from "../../../../core/services/api/category.service";
 import { Song } from 'src/app/core/models/song.model';
+import { NotifyService } from 'src/app/core/services/global/notify.service';
 
 declare global {
   interface Window {
@@ -71,8 +72,17 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
     private paypalService: PaypalService,
     private sanitizer: DomSanitizer,
     private categoryService: CategoryService,
-    private title: Title
+    private title: Title,
+    private notify: NotifyService
   ) {
+  }
+
+  // Paiement encaissé mais lien de téléchargement absent : le message reste affiché.
+  private notifyPaidButNoDownload(): void {
+    this.notify.warning(
+      'Un problème technique empêche de préparer votre téléchargement. Écrivez-nous à contact@creatoke.fr en indiquant votre email PayPal : nous vous enverrons votre musique au plus vite.',
+      { title: 'Votre paiement a bien été reçu', duration: 0 }
+    );
   }
 
   ngOnInit(): void {
@@ -284,12 +294,12 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
                 this.router.navigate(['/confirm-purchase'], { state: { songUrlDownload: response.data.songUrlDownload, songName: this.song.title } });
               } else {
                 console.error('songUrlDownload is undefined!');
-                alert('Votre paiement a bien été reçu, mais un problème technique est survenu lors de la préparation de votre téléchargement. Contactez-nous à contact@creatoke.fr en indiquant votre email PayPal : nous vous enverrons votre musique au plus vite.');
+                this.notifyPaidButNoDownload();
               }
             })
             .catch((error) => {
               console.error('PayPal Sale Error:', error);
-              alert('Votre paiement a bien été reçu, mais un problème technique est survenu lors de la préparation de votre téléchargement. Contactez-nous à contact@creatoke.fr en indiquant votre email PayPal : nous vous enverrons votre musique au plus vite.');
+              this.notifyPaidButNoDownload();
             })
             .finally(() => {
               this.paymentProcessing = false;
@@ -303,8 +313,8 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
         // Achat annulé par l'utilisateur.
       },
       onError: () => {
-        alert("Une erreur s'est produite. Veuillez réessayer votre achat.")
-        window.location.reload();
+        this.notify.error("Votre paiement n'a pas abouti et rien n'a été débité. La page va se recharger : vous pourrez réessayer.", { title: 'Paiement interrompu', duration: 6000 });
+        setTimeout(() => window.location.reload(), 6000);
       },
       onClick: () => {
         // Clic sur le bouton PayPal.

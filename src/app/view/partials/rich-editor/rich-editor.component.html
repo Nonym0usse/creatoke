@@ -1,0 +1,13 @@
+<div class="rich-editor" [style.--rich-editor-min-height.px]="minHeight">
+  <ckeditor *ngIf="Editor" [editor]="Editor" [config]="config" [ngModel]="value" (ngModelChange)="onInput($event)"
+    [ngModelOptions]="{ standalone: true }" [disabled]="disabled" (blur)="onBlur()"></ckeditor>
+
+  <!-- Le temps du chargement : une zone de même taille, pour que la page ne saute pas -->
+  <div class="rich-editor__loading" *ngIf="!Editor && !failed" [style.min-height.px]="minHeight + 40">
+    <app-progress-bar label="Chargement de l'éditeur…"></app-progress-bar>
+  </div>
+
+  <!-- Repli si l'éditeur ne charge pas : une simple zone de texte -->
+  <textarea *ngIf="failed" class="form-control" rows="8" [value]="value" [disabled]="disabled"
+    [placeholder]="placeholder" (input)="onInput($any($event.target).value)" (blur)="onBlur()"></textarea>
+</div>

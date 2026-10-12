@@ -1,108 +1,754 @@
-// --- Blocs fichiers (audio + image), même design que la page Modifier ---
-.media-block {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 16px;
-  margin-bottom: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  transition: border-color 0.15s ease;
+// --- Page « Ajouter une chanson » : étapes guidées ---
+$brand: #5438d1;
+$brand-2: #8938d1;
+$ok: #2ecc71;
+$warn: #f3c848;
+$line: rgba(255, 255, 255, 0.1);
 
-  &:hover {
-    border-color: rgba(255, 255, 255, 0.22);
-  }
+.add-song {
+  max-width: 1040px;
+  margin: 0 auto;
 
-  &__row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  &__intro {
+    position: relative;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    overflow: hidden;
 
-  &__icon {
-    flex: 0 0 auto;
-    width: 42px;
-    height: 42px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.08);
-
-    i {
-      font-size: 20px;
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 4px;
+      background: linear-gradient(90deg, $brand, $brand-2 60%);
     }
   }
 
-  &__thumb {
-    flex: 0 0 auto;
-    width: 56px;
-    height: 56px;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-
-  &__infos {
-    flex: 1 1 auto;
-    min-width: 0; // permet l'ellipsis
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
   }
 
   &__title {
-    font-weight: 600;
+    margin: 6px 0 10px;
+    font-size: 30px;
+    font-weight: 700;
   }
 
-  &__filename {
+  &__lead {
+    font-size: 17px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  &__tips {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+    opacity: 0.85;
+
+    li {
+      display: flex;
+      gap: 10px;
+      padding: 4px 0;
+    }
+
+    i {
+      color: $brand-2;
+      font-size: 18px;
+      line-height: 1.3;
+    }
+  }
+
+  &__req,
+  &__opt {
     display: inline-block;
-    max-width: 100%;
-    margin-top: 5px;
-    padding: 3px 12px;
+    margin-left: 6px;
+    padding: 1px 9px;
     border-radius: 20px;
-    background: rgba(108, 92, 231, 0.22);
-    border: 1px solid rgba(108, 92, 231, 0.45);
-    color: #fff;
-    font-size: 13.5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 12px;
+    font-weight: 600;
+    vertical-align: 2px;
+    text-transform: none;
+    letter-spacing: 0;
   }
 
-  &__filename--empty {
-    font-style: italic;
-    background: transparent;
-    border-color: rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.45);
+  &__req {
+    background: rgba($brand-2, 0.22);
+    border: 1px solid rgba($brand-2, 0.5);
+    color: #e2d0ff;
   }
 
-  &__actions {
+  &__opt {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+  }
+}
+
+// --- Une étape = une carte numérotée ---
+.step {
+  padding: 26px 32px 30px;
+  margin-bottom: 20px;
+  scroll-margin-top: 90px;
+  border: 1px solid transparent;
+  transition: border-color 0.2s ease;
+
+  &__head {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  &__num {
     flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, $brand, $brand-2);
+    transition: background 0.2s ease;
+  }
 
-    .btn {
-      min-width: 100px;
+  &__title {
+    font-size: 21px;
+    font-weight: 700;
+    margin: 6px 0 6px;
+  }
+
+  &__help {
+    font-size: 15.5px;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  &--done {
+    border-color: rgba($ok, 0.35);
+
+    .step__num {
+      background: $ok;
     }
   }
 
-  &__upload {
-    margin-top: 12px;
+  &--final {
+    border-color: rgba($brand-2, 0.45);
+  }
+}
 
-    .form-label {
-      font-size: 13px;
-      margin-bottom: 4px;
-      opacity: 0.7;
+.step-locked {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 32px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 2px dashed $line;
+  background: transparent;
+  opacity: 0.8;
+
+  i {
+    font-size: 22px;
+    color: $brand-2;
+  }
+}
+
+.field-label {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.form-text {
+  font-size: 14px;
+}
+
+// --- Choix de catégorie : grandes cases cliquables ---
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.choice {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 18px;
+  text-align: left;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid $line;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+
+  &:hover {
+    border-color: rgba($brand-2, 0.6);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba($brand-2, 0.6);
+    outline-offset: 2px;
+  }
+
+  &__icon {
+    font-size: 26px;
+    color: $brand-2;
+    margin-bottom: 4px;
+  }
+
+  &__label {
+    font-size: 16.5px;
+    font-weight: 700;
+  }
+
+  &__hint {
+    font-size: 14px;
+    opacity: 0.7;
+    line-height: 1.45;
+  }
+
+  &__check {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 24px;
+    color: $ok;
+  }
+
+  &--active {
+    border-color: $brand-2;
+    background: rgba($brand-2, 0.16);
+  }
+}
+
+// --- Questions Oui / Non ---
+.question {
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid $line;
+
+  &__label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  &__help {
+    font-size: 14.5px;
+    line-height: 1.55;
+    opacity: 0.75;
+    margin-bottom: 12px;
+  }
+}
+
+.yes-no {
+  display: inline-flex;
+  gap: 8px;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 110px;
+    padding: 10px 18px;
+    line-height: 1.2;
+    font-size: 16px;
+    font-weight: 600;
+    color: inherit;
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px solid $line;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+      border-color: rgba($brand-2, 0.6);
     }
+
+    &:focus-visible {
+      outline: 3px solid rgba($brand-2, 0.6);
+      outline-offset: 2px;
+    }
+
+    i {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    &.active {
+      color: #fff;
+      border-color: $brand-2;
+      background: linear-gradient(135deg, $brand, $brand-2);
+    }
+  }
+
+  &--sm button {
+    min-width: 80px;
+    padding: 7px 14px;
+    font-size: 15px;
+  }
+}
+
+// --- Encadrés d'explication ---
+.callout {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  border-radius: 10px;
+  background: rgba($brand-2, 0.1);
+  border-left: 4px solid $brand-2;
+
+  > i {
+    font-size: 20px;
+    line-height: 1.2;
+    color: $brand-2;
+  }
+
+  ul {
+    padding-left: 18px;
+    margin-top: 4px;
+  }
+
+  &--warn {
+    background: rgba($warn, 0.08);
+    border-left-color: $warn;
+
+    > i {
+      color: $warn;
+    }
+  }
+}
+
+// --- Fichiers ---
+.file-group {
+  & + & {
+    margin-top: 26px;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 12px;
+
+    i {
+      color: $brand-2;
+    }
+
+    small {
+      font-size: 14px;
+      font-weight: 400;
+      opacity: 0.65;
+    }
+  }
+}
+
+.file-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.file-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid $line;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  &__label {
+    font-weight: 700;
+    font-size: 15.5px;
+  }
+
+  &__format {
+    flex: 0 0 auto;
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &__hint {
+    font-size: 13.5px;
+    opacity: 0.7;
+    margin: 6px 0 12px;
+    line-height: 1.45;
+    flex: 1 1 auto;
   }
 
   &__progress {
-    margin-top: 10px;
-    height: 10px;
+    margin-top: 12px;
   }
 
-  &__success {
-    margin: 10px 0 0;
-    font-size: 13px;
-    color: #2ecc71;
+  &__ok {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: $ok;
+    font-weight: 600;
+
+    > span,
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn {
+      justify-content: center;
+      min-width: 100px;
+    }
 
     i {
-      margin-right: 4px;
-      vertical-align: -1px;
+      font-size: 17px;
+      line-height: 1;
     }
+  }
+
+  &--done {
+    border-color: rgba($ok, 0.45);
+  }
+}
+
+// Zone de dépôt : l'input fichier, invisible, couvre toute la zone
+// (clic pour choisir, ou glisser-déposer un fichier dessus).
+.drop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 96px;
+  padding: 14px;
+  text-align: center;
+  font-size: 15px;
+  border: 2px dashed rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+
+  input[type='file'] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  > i {
+    font-size: 28px;
+    color: $brand-2;
+  }
+
+  small {
+    opacity: 0.6;
+    font-size: 12.5px;
+  }
+
+  &:hover,
+  &:focus-within {
+    border-color: $brand-2;
+    background: rgba($brand-2, 0.08);
+  }
+
+  &__name {
+    max-width: 100%;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &--inline {
+    flex-direction: row;
+    min-height: 64px;
+    gap: 10px;
+
+    > i {
+      font-size: 24px;
+    }
+  }
+}
+
+.spin {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// --- Image ---
+.image-row {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+
+  &__preview {
+    flex: 0 0 auto;
+    width: 160px;
+    height: 160px;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid $line;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    i {
+      font-size: 48px;
+      opacity: 0.35;
+    }
+  }
+
+  &__actions {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  @media (max-width: 575.98px) {
+    flex-direction: column;
+
+    &__preview {
+      width: 120px;
+      height: 120px;
+    }
+
+    &__actions {
+      width: 100%;
+    }
+  }
+}
+
+.ia-line {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 14px 0 8px;
+
+  &__or {
+    opacity: 0.6;
+    font-size: 14px;
+  }
+}
+
+// --- Textes ---
+.text-field {
+  & + & {
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px solid $line;
+  }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+// --- Liens ---
+.field-label i {
+  font-size: 18px;
+  vertical-align: -3px;
+  margin-right: 2px;
+}
+
+.yt {
+  color: #ff0033;
+}
+
+.sp {
+  color: #1db954;
+}
+
+.link-ok {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  color: $ok;
+  font-size: 14px;
+  font-weight: 600;
+
+  img {
+    width: 120px;
+    border-radius: 8px;
+  }
+}
+
+.link-ko {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 8px;
+  color: $warn;
+  font-size: 14px;
+
+  i {
+    line-height: 1.4;
+  }
+}
+
+.link-ok span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+// --- Prix ---
+.price-group + .price-group {
+  margin-top: 26px;
+}
+
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.price-card {
+  padding: 16px;
+  border: 1px solid $line;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+
+  &__label {
+    font-weight: 700;
+    font-size: 15.5px;
+    margin-bottom: 2px;
+  }
+
+  &__price {
+    margin-top: 14px;
+
+    .form-control {
+      font-size: 17px;
+    }
+  }
+
+  &--on {
+    border-color: rgba($brand-2, 0.55);
+  }
+}
+
+// --- Vérification finale ---
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    font-size: 15px;
+    text-align: left;
+    color: inherit;
+    background: rgba(231, 36, 18, 0.08);
+    border: 1px solid rgba(231, 36, 18, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(231, 36, 18, 0.14);
+    }
+
+    i {
+      font-size: 18px;
+      color: #ff6b5b;
+    }
+  }
+}
+
+.publish {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.2;
+    gap: 8px;
+    min-width: 240px;
+    justify-content: center;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .add-song__intro,
+  .step,
+  .step-locked {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .step__head {
+    gap: 12px;
+  }
+
+  .publish__btn {
+    width: 100%;
   }
 }
 
@@ -118,45 +764,14 @@
 }
 
 .ai-loader {
+  width: min(360px, calc(100vw - 32px));
   text-align: center;
   color: white;
   font-size: 18px;
   font-weight: 500;
 }
 
-.dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  gap: 6px;
-}
-
-.dots span {
-  width: 10px;
-  height: 10px;
-  background: white;
-  border-radius: 50%;
-  animation: bounce 1.4s infinite ease-in-out;
-}
-
-.dots span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.dots span:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes bounce {
-  0%, 80%, 100% {
-    transform: scale(0.6);
-    opacity: 0.5;
-  }
-  40% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}// --- Modale d'aide Spotify ---
+// --- Modale d'aide Spotify ---
 .help-modal {
   background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(3px);

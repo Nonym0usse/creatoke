@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CommentService} from "../../../core/services/api/comment.service";
 import {CategoryService} from "../../../core/services/api/category.service";
 import { Title } from '@angular/platform-browser';
+import { NotifyService } from "../../../core/services/global/notify.service";
 
 @Component({
   selector: 'app-comments-admin',
@@ -10,7 +11,8 @@ import { Title } from '@angular/platform-browser';
 })
 export class CommentsAdminComponent implements OnInit {
 
-  constructor(private commentService: CommentService, private categoryService: CategoryService, private title: Title) { }
+  constructor(private commentService: CommentService, private categoryService: CategoryService, private title: Title,
+    private notify: NotifyService) { }
   comms: any = [];
   picturebackground: any;
 
@@ -20,13 +22,20 @@ export class CommentsAdminComponent implements OnInit {
     this.title.setTitle('Créatoke | Gestion des commentaires');
   }
 
-  delete(id){
-    if (!confirm('Supprimer définitivement ce commentaire ?')) return;
+  async delete(id){
+    const ok = await this.notify.confirm({
+      title: 'Supprimer ce commentaire ?',
+      message: 'Il disparaîtra du site. Cette action est définitive.',
+      confirmLabel: 'Supprimer',
+      danger: true,
+    });
+    if (!ok) return;
     this.commentService.deleteComment(id)
       .then(() => {
         this.comms = this.comms.filter((comment: any) => comment.id !== id);
+        this.notify.success('Le commentaire a été supprimé.');
       })
-      .catch(() => alert('Erreur lors de la suppression du commentaire.'));
+      .catch(() => this.notify.error('Le commentaire n\'a pas pu être supprimé. Réessayez dans un instant.'));
   }
 
   // Inside your component class

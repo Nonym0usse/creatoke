@@ -3,8 +3,14 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    // TypeScript 4.6 ignore le champ "exports" de ckeditor5 : on lui indique où sont les traductions.
+    "paths": {
+      "ckeditor5/translations/*": ["node_modules/ckeditor5/dist/translations/*"]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
+    // Les déclarations de CKEditor 5 visent un TypeScript plus récent que le nôtre (4.6).
+    "skipLibCheck": true,
     "strict": true,
     "noImplicitAny": false,
     "noImplicitOverride": true,

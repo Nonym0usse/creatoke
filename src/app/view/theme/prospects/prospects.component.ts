@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ProspectService } from 'src/app/core/services/api/prospect.service';
 import { SongService } from 'src/app/core/services/api/song.service';
 import { CategoryService } from 'src/app/core/services/api/category.service';
+import { NotifyService } from 'src/app/core/services/global/notify.service';
 
 @Component({
     selector: 'app-prospects',
@@ -49,7 +50,8 @@ export class ProspectsComponent implements OnInit {
         private prospectService: ProspectService,
         private songService: SongService,
         private categoryService: CategoryService,
-        private title: Title
+        private title: Title,
+        private notify: NotifyService
     ) { }
 
     ngOnInit(): void {
@@ -114,7 +116,7 @@ export class ProspectsComponent implements OnInit {
 
     submit() {
         if (!this.form.email || (!this.form.nom && !this.form.prenom)) {
-            alert('Veuillez renseigner au minimum un nom/prénom et un email.');
+            this.notify.warning('Renseignez au minimum un nom ou un prénom, et une adresse email.');
             return;
         }
         this.loading = true;
@@ -125,35 +127,61 @@ export class ProspectsComponent implements OnInit {
 
         request
             .then(() => {
+                this.notify.success(this.editingId ? 'Le contact est mis à jour.' : 'Le contact est ajouté.');
                 this.showForm = false;
                 this.editingId = null;
                 this.loadProspects();
             })
-            .catch(() => alert('Erreur lors de l\'enregistrement du contact.'))
+            .catch(() => this.notify.error('Le contact n\'a pas pu être enregistré. Réessayez dans un instant.'))
             .finally(() => this.loading = false);
     }
 
-    sendPresentation(prospect: any) {
-        if (!confirm(`Envoyer l'email de présentation à ${prospect.prenom} ${prospect.nom} (${prospect.email}) ?\nLa séquence de relances automatiques (J+10, J+30, J+60) démarrera.`)) return;
+    async sendPresentation(prospect: any) {
+        const ok = await this.notify.confirm({
+            title: `Envoyer l'email de présentation à ${prospect.prenom} ${prospect.nom} ?`,
+            message: `Il partira à ${prospect.email}.\nLes relances automatiques (J+10, J+30, J+60) démarreront ensuite.`,
+            confirmLabel: 'Envoyer',
+        });
+        if (!ok) return;
         this.loading = true;
         this.prospectService.sendPresentation(prospect.id)
-            .then(() => this.loadProspects())
-            .catch(() => alert('Erreur lors de l\'envoi de la présentation.'))
+            .then(() => {
+                this.notify.success(`L'email de présentation est parti à ${prospect.email}.`);
+                this.loadProspects();
+            })
+            .catch(() => this.notify.error('L\'email n\'a pas pu être envoyé. Réessayez dans un instant.'))
             .finally(() => this.loading = false);
     }
 
-    markReplied(prospect: any) {
-        if (!confirm(`Marquer ${prospect.prenom} ${prospect.nom} comme « A répondu » ?\nLes relances automatiques seront stoppées.`)) return;
+    async markReplied(prospect: any) {
+        const ok = await this.notify.confirm({
+            title: `${prospect.prenom} ${prospect.nom} a répondu ?`,
+            message: 'Les relances automatiques seront arrêtées pour ce contact.',
+            confirmLabel: 'Oui, a répondu',
+        });
+        if (!ok) return;
         this.prospectService.markReplied(prospect.id)
-            .then(() => this.loadProspects())
-            .catch(() => alert('Erreur.'));
+            .then(() => {
+                this.notify.success('Contact marqué « A répondu » : les relances sont arrêtées.');
+                this.loadProspects();
+            })
+            .catch(() => this.notify.error('Le contact n\'a pas pu être mis à jour. Réessayez dans un instant.'));
     }
 
-    delete(prospect: any) {
-        if (!confirm(`Supprimer le contact ${prospect.prenom} ${prospect.nom} ?`)) return;
+    async delete(prospect: any) {
+        const ok = await this.notify.confirm({
+            title: `Supprimer ${prospect.prenom} ${prospect.nom} ?`,
+            message: 'Le contact et son historique seront supprimés. Cette action est définitive.',
+            confirmLabel: 'Supprimer',
+            danger: true,
+        });
+        if (!ok) return;
         this.prospectService.deleteProspect(prospect.id)
-            .then(() => this.loadProspects())
-            .catch(() => alert('Erreur lors de la suppression.'));
+            .then(() => {
+                this.notify.success('Le contact a été supprimé.');
+                this.loadProspects();
+            })
+            .catch(() => this.notify.error('Le contact n\'a pas pu être supprimé. Réessayez dans un instant.'));
     }
 
     toggleTemplates() {
@@ -169,7 +197,7 @@ export class ProspectsComponent implements OnInit {
                 this.showTemplates = true;
                 this.selectTemplate(this.selectedTemplateKey || this.templates[0]?.key);
             })
-            .catch(() => alert('Erreur lors du chargement des modèles d\'emails.'))
+            .catch(() => this.notify.error('Les modèles d\'emails n\'ont pas pu être chargés. Réessayez dans un instant.'))
             .finally(() => this.templateLoading = false);
     }
 
@@ -186,7 +214,7 @@ export class ProspectsComponent implements OnInit {
 
     saveTemplate() {
         if (!this.templateForm.subject.trim() || !this.templateForm.body.trim()) {
-            alert('Le sujet et le contenu ne peuvent pas être vides.');
+            this.notify.warning('Le sujet et le contenu de l\'email doivent être remplis.');
             return;
         }
         this.templateLoading = true;
@@ -201,16 +229,22 @@ export class ProspectsComponent implements OnInit {
                     template.body = this.templateForm.body.trim();
                     template.custom = true;
                 }
-                alert('Modèle enregistré. Les prochains envois utiliseront ce texte.');
+                this.notify.success('Les prochains envois utiliseront ce texte.', { title: 'Modèle enregistré' });
             })
-            .catch(() => alert('Erreur lors de l\'enregistrement du modèle.'))
+            .catch(() => this.notify.error('Le modèle n\'a pas pu être enregistré. Réessayez dans un instant.'))
             .finally(() => this.templateLoading = false);
     }
 
-    resetTemplate() {
+    async resetTemplate() {
         const template = this.selectedTemplate;
         if (!template) return;
-        if (!confirm(`Rétablir le texte par défaut pour « ${template.label} » ?\nVotre version personnalisée sera supprimée.`)) return;
+        const ok = await this.notify.confirm({
+            title: `Rétablir le texte par défaut pour « ${template.label} » ?`,
+            message: 'Votre version personnalisée sera supprimée.',
+            confirmLabel: 'Rétablir',
+            danger: true,
+        });
+        if (!ok) return;
         this.templateLoading = true;
         this.prospectService.resetTemplate(this.selectedTemplateKey)
             .then(r => {
@@ -218,8 +252,9 @@ export class ProspectsComponent implements OnInit {
                 template.body = r.data.body;
                 template.custom = false;
                 this.templateForm = { subject: r.data.subject, body: r.data.body };
+                this.notify.success('Le texte par défaut est rétabli.');
             })
-            .catch(() => alert('Erreur lors de la réinitialisation du modèle.'))
+            .catch(() => this.notify.error('Le modèle n\'a pas pu être rétabli. Réessayez dans un instant.'))
             .finally(() => this.templateLoading = false);
     }
 

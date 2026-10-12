@@ -1,0 +1,79 @@
+// Thème sombre de CKEditor 5, aux couleurs du site. Les variables sont posées
+// sur l'éditeur et sur .ck-body-wrapper (bulles de lien ajoutées dans <body>).
+.rich-editor,
+.ck-body-wrapper {
+  --ck-color-base-foreground: #24252b;
+  --ck-color-base-background: #1a1b1f;
+  --ck-color-base-border: rgba(255, 255, 255, 0.16);
+  --ck-color-base-text: #e9e9ef;
+  --ck-color-text: #e9e9ef;
+  --ck-color-base-active: #8938d1;
+  --ck-color-base-active-focus: #7a2fc0;
+  --ck-color-focus-border: #8938d1;
+  --ck-color-focus-outer-shadow: rgba(137, 56, 209, 0.35);
+  --ck-color-shadow-drop: rgba(0, 0, 0, 0.4);
+  --ck-color-shadow-inner: rgba(0, 0, 0, 0.2);
+  --ck-color-toolbar-background: #24252b;
+  --ck-color-toolbar-border: rgba(255, 255, 255, 0.16);
+  --ck-color-button-default-hover-background: rgba(255, 255, 255, 0.08);
+  --ck-color-button-default-active-background: rgba(255, 255, 255, 0.12);
+  --ck-color-button-on-background: rgba(137, 56, 209, 0.28);
+  --ck-color-button-on-hover-background: rgba(137, 56, 209, 0.38);
+  --ck-color-button-on-color: #fff;
+  --ck-color-button-action-background: #5438d1;
+  --ck-color-button-action-hover-background: #6447e0;
+  --ck-color-dropdown-panel-background: #24252b;
+  --ck-color-dropdown-panel-border: rgba(255, 255, 255, 0.16);
+  --ck-color-panel-background: #24252b;
+  --ck-color-panel-border: rgba(255, 255, 255, 0.16);
+  --ck-color-input-background: #1a1b1f;
+  --ck-color-input-border: rgba(255, 255, 255, 0.2);
+  --ck-color-input-text: #fff;
+  --ck-color-labeled-field-label-background: #24252b;
+  --ck-color-list-background: #24252b;
+  --ck-color-list-button-hover-background: rgba(255, 255, 255, 0.08);
+  --ck-color-list-button-on-background: #5438d1;
+  --ck-color-list-button-on-text: #fff;
+  --ck-color-tooltip-background: #000;
+  --ck-color-tooltip-text: #fff;
+  --ck-color-engine-placeholder-text: rgba(255, 255, 255, 0.4);
+  --ck-color-link-default: #b98cff;
+  --ck-border-radius: 8px;
+  --ck-font-size-base: 14px;
+  --ck-font-face: inherit;
+}
+
+.rich-editor {
+  .ck.ck-editor__editable_inline {
+    min-height: var(--rich-editor-min-height, 180px);
+    padding: 0 16px;
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #f2f2f6;
+  }
+
+  .ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+
+  .ck.ck-toolbar .ck.ck-button {
+    cursor: pointer;
+  }
+
+  .ck-content a {
+    color: #b98cff;
+  }
+
+  &__loading {
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+
+    app-progress-bar {
+      width: 100%;
+    }
+  }
+}

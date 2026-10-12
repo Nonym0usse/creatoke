@@ -97,19 +97,14 @@
                         placeholder="Description"></textarea>
                     </div>
 
-                    <!-- CKEditor (keep in DOM, use [hidden] to avoid CKEditor duplicate globals) -->
                     <div class="col-12 mb-4" [hidden]="!showLyrics">
-                      <label class="form-label">Lyrics</label>
-                      <ck-editor [config]="{ versionCheck: false }" formControlName="lyrics" skin="moono-lisa"
-                        language="fr" [fullPage]="false">
-                      </ck-editor>
+                      <label class="form-label">Paroles</label>
+                      <app-rich-editor formControlName="lyrics" [minHeight]="220"></app-rich-editor>
                     </div>
 
                     <div class="col-12 mb-4" [hidden]="!showMessage">
-                      <label class="form-label">Message</label>
-                      <ck-editor [config]="{ versionCheck: false }" formControlName="message" skin="moono-lisa"
-                        language="fr" [fullPage]="false">
-                      </ck-editor>
+                      <label class="form-label">Message pour les visiteurs</label>
+                      <app-rich-editor formControlName="message" [minHeight]="120"></app-rich-editor>
                     </div>
 
                     <div [hidden]="!showSongPrices">
@@ -238,14 +233,9 @@
                           [attr.accept]="block.accept" (change)="onFileSelected($event, block.key)">
                       </div>
 
-                      <div class="progress media-block__progress"
-                        *ngIf="progress[block.key] !== undefined && !downloadUrls[block.key]">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                          [style.width.%]="progress[block.key]"
-                          [attr.aria-valuenow]="progress[block.key]" aria-valuemin="0" aria-valuemax="100">
-                          {{ progress[block.key] }}%
-                        </div>
-                      </div>
+                      <app-progress-bar class="media-block__progress" label="Envoi en cours…"
+                        *ngIf="progress[block.key] !== undefined && !downloadUrls[block.key]"
+                        [value]="progress[block.key]"></app-progress-bar>
                       <p class="media-block__success" *ngIf="downloadUrls[block.key]">
                         <i class="ri-checkbox-circle-fill"></i>
                         Nouveau fichier envoyé — il sera pris en compte à l'enregistrement.

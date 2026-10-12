@@ -18,7 +18,6 @@ import { ContactComponent } from './contact/contact.component';
 import { ManageComponent } from './music/manage/manage.component';
 import { ModifyComponent } from './music/modify/modify.component';
 import { RecaptchaModule } from "ng-recaptcha";
-import { CKEditorModule } from 'ngx-ckeditor';
 import { NgxPayPalModule } from "ngx-paypal";
 import { LicenceComponent } from "./licence/licence.component";
 import { AuthGuard } from "../../core/services/global/auth-guard.service";
@@ -167,7 +166,6 @@ const routes: Routes = [
     // Import router module
     RouterModule.forChild(routes),
     RecaptchaModule,
-    CKEditorModule,
     NgxPayPalModule,
   ],
   exports: [

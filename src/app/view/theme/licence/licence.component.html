@@ -48,7 +48,8 @@
                    tabindex="0">
                 <form action="#" class="row">
                   <div class="col-12 mb-4">
-                    <ckeditor [editor]="Editor" [data]="data?.basic" [config]="config" (change)="onChange($event)"></ckeditor>
+                    <app-rich-editor preset="complet" [ngModel]="editorData ?? data?.basic" (ngModelChange)="editorData = $event"
+                      [ngModelOptions]="{ standalone: true }" [minHeight]="420"></app-rich-editor>
                   </div>
 
                 </form>
@@ -56,7 +57,8 @@
               <div class="tab-pane fade" id="licence_deux" role="tabpanel" aria-labelledby="licence2" tabindex="0">
                <form action="#" class="row">
                   <div class="col-12 mb-4">
-                    <ckeditor [editor]="Editor2" [data]="data?.base_plus" [config]="config" (change)="onChange2($event)"></ckeditor>
+                    <app-rich-editor preset="complet" [ngModel]="editorData2 ?? data?.base_plus" (ngModelChange)="editorData2 = $event"
+                      [ngModelOptions]="{ standalone: true }" [minHeight]="420"></app-rich-editor>
                   </div>
 
                 </form>
@@ -64,7 +66,8 @@
               <div class="tab-pane fade" id="licence_trois" role="tabpanel" aria-labelledby="licence3" tabindex="0">
                 <form action="#" class="row">
                   <div class="col-12 mb-4">
-                    <ckeditor [editor]="Editor3" [data]="data?.premium" [config]="config" (change)="onChange3($event)"></ckeditor>
+                    <app-rich-editor preset="complet" [ngModel]="editorData3 ?? data?.premium" (ngModelChange)="editorData3 = $event"
+                      [ngModelOptions]="{ standalone: true }" [minHeight]="420"></app-rich-editor>
                   </div>
 
                 </form>
@@ -72,7 +75,8 @@
               <div class="tab-pane fade" id="licence_quatre" role="tabpanel" aria-labelledby="licence4" tabindex="0">
                 <form action="#" class="row">
                   <div class="col-12 mb-4">
-                    <ckeditor [editor]="Editor4" [data]="data?.contract_mp3" [config]="config" (change)="onChange4($event)"></ckeditor>
+                    <app-rich-editor preset="complet" [ngModel]="editorData4 ?? data?.contract_mp3" (ngModelChange)="editorData4 = $event"
+                      [ngModelOptions]="{ standalone: true }" [minHeight]="420"></app-rich-editor>
                   </div>
 
                 </form>
@@ -80,7 +84,8 @@
               <div class="tab-pane fade" id="licence_cinq" role="tabpanel" aria-labelledby="licence5" tabindex="0">
                 <form action="#" class="row">
                   <div class="col-12 mb-4">
-                    <ckeditor [editor]="Editor5" [data]="data?.contract_wav" [config]="config" (change)="onChange5($event)"></ckeditor>
+                    <app-rich-editor preset="complet" [ngModel]="editorData5 ?? data?.contract_wav" (ngModelChange)="editorData5 = $event"
+                      [ngModelOptions]="{ standalone: true }" [minHeight]="420"></app-rich-editor>
                   </div>
 
                 </form>

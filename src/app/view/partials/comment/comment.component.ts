@@ -2,6 +2,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CommentService} from "../../../core/services/api/comment.service";
+import { NotifyService } from "../../../core/services/global/notify.service";
 
 
 @Component({
@@ -24,7 +25,8 @@ export class CommentComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private notify: NotifyService
   ) {
     this.buildForm();
   }
@@ -55,12 +57,12 @@ export class CommentComponent implements OnInit {
     this.form.patchValue({created_at: this.getCurrentFormattedDate(), music_id: this.data.id})
     this.commentService.createComment(this.form.value)
       .then(() => {
-        alert('Commentaire ajouté.');
+        this.notify.success('Merci ! Votre commentaire a été publié.');
         this.form.reset();
         // Recharge la liste pour afficher le nouveau commentaire.
         return this.commentService.listComment(this.data?.id).then((data) => this.comments = data.data);
       })
-      .catch(() => alert('Erreur lors de l\'ajout du commentaire. Merci de réessayer.'));
+      .catch(() => this.notify.error('Votre commentaire n\'a pas pu être publié. Merci de réessayer.'));
   }
 
    getCurrentFormattedDate() {

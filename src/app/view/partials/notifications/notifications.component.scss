@@ -1,0 +1,213 @@
+$brand: #5438d1;
+$brand-2: #8938d1;
+$colors: (
+  success: #2ecc71,
+  error: #ff5b4d,
+  warning: #f3c848,
+  info: $brand-2,
+);
+
+// --- Toasts ---
+.toasts {
+  position: fixed;
+  right: 20px;
+  bottom: 110px; // au-dessus du lecteur audio
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(400px, calc(100vw - 32px));
+  pointer-events: none;
+}
+
+.toast-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 14px 16px 16px;
+  overflow: hidden;
+  color: #fff;
+  background: #24252b;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-left-width: 4px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  pointer-events: auto;
+  animation: toast-in 0.25s ease-out;
+
+  &__icon {
+    font-size: 22px;
+    line-height: 1.1;
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 15px;
+    line-height: 1.5;
+
+    strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__close {
+    flex: 0 0 auto;
+    padding: 0 4px;
+    font-size: 24px;
+    line-height: 1;
+    color: #fff;
+    background: none;
+    border: none;
+    opacity: 0.6;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  // Petite barre qui montre le temps restant avant disparition.
+  &__timer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    transform-origin: left;
+    animation: toast-timer linear forwards;
+    opacity: 0.7;
+  }
+
+  @each $kind, $color in $colors {
+    &--#{$kind} {
+      border-left-color: $color;
+
+      .toast-item__icon {
+        color: $color;
+      }
+
+      .toast-item__timer {
+        background: $color;
+      }
+    }
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes toast-timer {
+  to {
+    transform: scaleX(0);
+  }
+}
+
+// --- Fenêtre de confirmation ---
+.confirm {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
+  animation: fade-in 0.15s ease-out;
+
+  &__box {
+    position: relative;
+    width: min(460px, 100%);
+    padding: 28px 28px 24px;
+    text-align: center;
+    color: #fff;
+    background: #1d1e22;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 4px;
+      background: linear-gradient(90deg, $brand, $brand-2 60%);
+    }
+
+    h3 {
+      font-size: 19px;
+      font-weight: 700;
+      margin: 14px 0 8px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.55;
+      opacity: 0.8;
+      white-space: pre-line;
+    }
+  }
+
+  &__icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    background: rgba($brand-2, 0.2);
+    color: $brand-2;
+
+    &--danger {
+      background: rgba(#ff5b4d, 0.15);
+      color: #ff5b4d;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 22px;
+
+    .btn {
+      min-width: 130px;
+    }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .toasts {
+    right: 16px;
+    left: 16px;
+    width: auto;
+  }
+
+  .confirm__actions {
+    flex-direction: column-reverse;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}

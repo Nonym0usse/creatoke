@@ -43,7 +43,12 @@
               "src/favicon.ico",
               "src/.htaccess",
               "src/app/core/_data",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "ckeditor5.css",
+                "input": "node_modules/ckeditor5/dist",
+                "output": "assets/vendors/ckeditor5"
+              }
             ],
             "styles": [
               "node_modules/swiper/swiper-bundle.min.css",
@@ -64,8 +69,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "8kb",
+                  "maximumError": "16kb"
                 }
               ],
               "fileReplacements": [
@@ -125,9 +130,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [
-              "node_modules/ckeditor/ckeditor.js"
-            ]
+            "scripts": []
           }
         },
         "lint": {
