@@ -12,6 +12,7 @@ import { CategoryService } from "../../../../core/services/api/category.service"
 import { Song } from 'src/app/core/models/song.model';
 import { SectionService } from 'src/app/core/services/api/section.service';
 import { NotifyService } from 'src/app/core/services/global/notify.service';
+import { SeoService } from 'src/app/core/services/global/seo.service';
 
 declare global {
   interface Window {
@@ -69,7 +70,8 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
     private categoryService: CategoryService,
     private title: Title,
     private notify: NotifyService,
-    private sectionService: SectionService
+    private sectionService: SectionService,
+    private seo: SeoService
   ) {
   }
 
@@ -177,10 +179,18 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
 
   // Libellés de la rubrique (table sections) : nom et fin du titre « Acheter … ».
   private applySection(): void {
-    if (!this.song) return;
+    if (!this.song || this.loadError || Object.keys(this.song).length === 0) return;
     const section = this.sectionService.find(this.song.category);
     this.categoryName = ' ' + (section?.item_label ?? 'la chanson');
     this.categoryLabel = section?.label ?? (this.song.category || '');
+
+    // Description pour les moteurs de recherche : « Titre », artiste, rubrique
+    const songTitle = (this.song.title ?? '').trim();
+    const artist = (this.song.artist ?? '').trim();
+    const where = this.categoryLabel ? `${this.categoryLabel} sur Créatoké` : 'Sur Créatoké';
+    this.seo.setDescription(
+      `${songTitle ? `« ${songTitle} »${artist ? `, ${artist}` : ''} — ` : ''}${where}. ${section?.description ?? ''}`
+    );
   }
 
   getCurrentFormattedDate(): string {
@@ -352,6 +362,9 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
       this.song = response.data;
       if (!this.song || Object.keys(this.song).length === 0) {
         this.loadError = true;
+        this.title.setTitle('Chanson introuvable | Creatoke');
+        this.seo.setDescription();
+        this.seo.noindex();
         return;
       }
       this.applySection();

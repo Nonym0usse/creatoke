@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 // Services
 import { LoaderService } from './core/services/design/loader.service';
+import { SeoService } from './core/services/global/seo.service';
 
 // Constant classes
 import { Constant } from './core/constants/constant';
@@ -20,9 +21,11 @@ export class AppComponent implements AfterViewInit {
   themeSubscription: Subscription | undefined;
 
   constructor(
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    seoService: SeoService
   ) { 
     this.loaderService.startLoading();
+    seoService.init();
   }
 
   ngAfterViewInit(): void {

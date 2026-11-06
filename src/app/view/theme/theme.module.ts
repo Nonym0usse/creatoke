@@ -45,90 +45,108 @@ const routes: Routes = [
         path: '',
         component: HomeComponent
       },
-      { path: "song/:category", component: MusicComponent },
-      { path: "song/:category/:slug", component: MusicViewComponent },
+      { path: "song/:category", component: MusicComponent, data: { seo: { dynamic: true } } },
+      { path: "song/:category/:slug", component: MusicViewComponent, data: { seo: { dynamic: true } } },
       {
         path: 'confirm-purchase',
-        component: ConfirmPurchaseComponent
+        component: ConfirmPurchaseComponent,
+        data: { seo: { noindex: true } }
       },
       {
         path: 'add-song',
         component: AddSongComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { seo: { noindex: true } }
       },
       {
         path: 'analytics',
         component: AnalyticsComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { seo: { noindex: true } }
       },
       {
         path: 'licence',
         component: LicenceComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { seo: { noindex: true } }
       },
       {
         path: 'comments',
         component: CommentsAdminComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { seo: { noindex: true } }
       },
       {
         path: 'contact',
-        component: ContactComponent
+        component: ContactComponent,
+        data: { seo: { description: "Une question, un projet musical ou une demande de licence ? Écrivez à l'équipe Créatoké depuis le formulaire de contact." } }
       },
       {
         path: 'about',
-        component: AboutComponent
+        component: AboutComponent,
+        data: { seo: { description: 'Mentions légales du site Créatoké : éditeur, hébergement, propriété intellectuelle, données personnelles et cookies.' } }
       },
       {
         path: 'rgpd',
-        component: RgpdComponent
+        component: RgpdComponent,
+        data: { seo: { description: 'Politique de confidentialité de Créatoké : données collectées, finalités, destinataires, durée de conservation et vos droits.' } }
       },
       {
         path: 'contrats-licence',
-        component: LicenceContractsComponent
+        component: LicenceContractsComponent,
+        data: { seo: { description: "Contrats de licence Créatoké pour les formats MP3 et WAV : droits accordés, usages autorisés et conditions d'utilisation des musiques." } }
       },
       {
         path: 'aide',
-        component: HelpComponent
+        component: HelpComponent,
+        data: { seo: { description: 'Comment utiliser Créatoké : découvrir le catalogue, écouter, choisir une licence, acheter et télécharger vos musiques.' } }
       },
       {
         path: 'aide-admin',
         component: AdminHelpComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { seo: { noindex: true } }
       },
       {
         path: 'manage',
         component: ManageComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { seo: { noindex: true } }
       },
       {
         path: 'modify-song/:slug',
         component: ModifyComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { seo: { noindex: true } }
       },
       {
         path: 'login',
         component: LoginComponent,
+        data: { seo: { noindex: true } }
       },
       {
         path: 'image-background',
         component: BackgroundimageComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { seo: { noindex: true } }
       },
       {
         path: 'text-accueil',
         component: EditextComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { seo: { noindex: true } }
       },
       {
         path: 'publish-video',
         component: PublishVideoComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { seo: { noindex: true } }
       },
       {
         path: 'prospects',
         component: ProspectsComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { seo: { noindex: true } }
       }
     ]
   }

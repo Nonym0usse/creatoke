@@ -8,6 +8,7 @@ import { SongService } from "../../../core/services/api/song.service";
 import { CategoryService } from "../../../core/services/api/category.service";
 import type { Song } from "src/app/core/models/song.model";
 import { SectionService, type Section } from "../../../core/services/api/section.service";
+import { SeoService } from "../../../core/services/global/seo.service";
 
 interface CategoryInfo {
   label: string;
@@ -48,7 +49,8 @@ export class MusicComponent implements OnInit, OnDestroy {
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private docTitle: Title,
-    private sectionService: SectionService
+    private sectionService: SectionService,
+    private seo: SeoService
   ) {}
 
   ngOnInit(): void {
@@ -93,6 +95,8 @@ export class MusicComponent implements OnInit, OnDestroy {
     this.category = section ? { label: section.label, icon: section.icon, description: section.description } : DEFAULT_CATEGORY;
     this.title = this.category.label;
     this.docTitle.setTitle(`${this.category.label} | Creatoke`);
+    const about = this.category.description;
+    this.seo.setDescription(about && `${this.category.label} sur Créatoké : ${about.charAt(0).toLowerCase()}${about.slice(1)}`);
     this.otherCategories = this.sections
       .filter((s) => s.slug !== this.categoryKey)
       .map((s) => ({ key: s.slug, label: s.label, icon: s.icon, description: s.description }));
