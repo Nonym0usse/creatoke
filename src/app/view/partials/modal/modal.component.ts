@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
+import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from "@angular/core";
 
 @Component({
   selector: "app-modal",
@@ -18,6 +18,10 @@ export class ModalComponent {
   @Input() cancelText = "Annuler";
   @Input() loading = false;
   @Input() disableConfirm = false;
+
+  // L'entrée « title » se retrouvait aussi en attribut HTML sur <app-modal> : le navigateur
+  // l'affichait en infobulle grise au survol, par-dessus le titre. On retire l'attribut.
+  @HostBinding("attr.title") readonly hostTitle = null;
 
   @Output() openChange = new EventEmitter<boolean>();
   @Output() closed = new EventEmitter<void>();

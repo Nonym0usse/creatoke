@@ -46,6 +46,8 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
   videoUrl: SafeResourceUrl | undefined;
   imgLoading = true;
   isModalOpen = false;
+  // Récapitulatif affiché dans la fenêtre de paiement
+  checkout: { licence: string; version: string; format: string; price: string } | null = null;
   copied = false;
   pageLoading = true;
   loadError = false;
@@ -208,6 +210,13 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
 
   openPaypalModal(price, licence_name, title) {
     this.isModalOpen = true;
+    const premium = String(licence_name).includes('premium');
+    this.checkout = {
+      licence: premium ? 'Licence premium' : 'Licence de base',
+      version: String(licence_name).endsWith('_creatoke') ? 'Version créatoké' : 'La chanson',
+      format: premium ? 'WAV' : 'MP3',
+      price: new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(Number(price) || 0),
+    };
 
     let songUrlDownload = "";
     switch (licence_name) {

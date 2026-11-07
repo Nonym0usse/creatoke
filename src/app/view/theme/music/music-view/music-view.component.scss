@@ -12,19 +12,79 @@
   color: transparent;
 }
 
-.payment-reassurance {
-  margin: 15px 0 0;
-  font-size: 13px;
-  opacity: 0.75;
+// Fenêtre de paiement (récapitulatif, boutons PayPal, garanties)
+.checkout {
+  display: grid;
+  gap: 1rem;
 
-  i {
-    margin-right: 4px;
-    vertical-align: -1px;
+  &__summary {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem;
+    border-radius: 14px;
+    border: 1px solid rgba(84, 56, 209, 0.3);
+    background: rgba(84, 56, 209, 0.08);
   }
-}
 
-.payment-processing {
-  p {
-    font-size: 14px;
+  &__cover { flex: none; width: 3.5rem; height: 3.5rem; border-radius: 10px; object-fit: cover; }
+
+  &__item {
+    flex: 1;
+    min-width: 0;
+    strong { display: block; font-size: 1rem; color: var(--cr-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    span { display: block; font-size: 0.88rem; font-weight: 600; color: var(--cr-link); }
+    small { display: block; font-size: 0.78rem; color: rgba(var(--cr-ink-rgb), 0.6); }
+  }
+
+  &__price { flex: none; font-size: 1.5rem; font-weight: 700; color: var(--cr-ink); font-variant-numeric: tabular-nums; }
+
+  &__label { margin: 0 0 0.5rem; font-size: 0.8rem; font-weight: 600; color: rgba(var(--cr-ink-rgb), 0.65); }
+
+  // Les boutons PayPal sont dans un cadre (iframe) au fond blanc : on l'assume avec un panneau clair.
+  // color-scheme: light évite que le navigateur force un fond opaque différent en mode sombre.
+  &__paypal {
+    padding: 14px 14px 6px;
+    border-radius: 14px;
+    background: #fff;
+    color-scheme: light;
+    min-height: 120px;
+  }
+
+  &__trust {
+    display: grid;
+    gap: 0.4rem;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.82rem;
+    color: rgba(var(--cr-ink-rgb), 0.7);
+
+    li { display: flex; align-items: center; gap: 0.5rem; }
+    i { font-size: 1rem; color: var(--cr-ok); }
+  }
+
+  &__processing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 1rem 0 0.5rem;
+    text-align: center;
+
+    strong { font-size: 1.05rem; color: var(--cr-ink); }
+    p { margin: 0 0 0.5rem; font-size: 0.88rem; color: rgba(var(--cr-ink-rgb), 0.7); }
+  }
+
+  &__check {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    margin-bottom: 0.35rem;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    color: #fff;
+    background: var(--cr-ok);
   }
 }

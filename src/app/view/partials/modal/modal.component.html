@@ -1,5 +1,5 @@
 <div class="modal-backdrop" *ngIf="open" (click)="onBackdropClick()">
-  <div class="modal-card" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+  <div class="modal-card" role="dialog" aria-modal="true" [attr.aria-label]="title || null" (click)="$event.stopPropagation()">
     <div class="modal-head">
       <div class="modal-title" *ngIf="title">{{ title }}</div>
 
@@ -10,7 +10,7 @@
         aria-label="Fermer"
         (click)="close()"
       >
-        ×
+        <i class="ri-close-line"></i>
       </button>
     </div>
 
