@@ -7,6 +7,10 @@
         <h1>Administration</h1>
         <p class="login__intro">Connectez-vous pour gérer le site.</p>
 
+        <div class="login__success" *ngIf="passwordChanged && !message" role="status">
+            <i class="ri-checkbox-circle-line"></i><span>Votre mot de passe a été modifié. Connectez-vous avec le nouveau.</span>
+        </div>
+
         <div class="login__error" *ngIf="message" role="alert">
             <i class="ri-error-warning-line"></i><span>{{ message }}</span>
         </div>
@@ -36,13 +40,14 @@
                 <p class="login__field-error" *ngIf="showError('password')">Saisissez votre mot de passe.</p>
             </div>
 
+            <p class="login__forgot"><a routerLink="/mot-de-passe-oublie" class="login__link">Mot de passe oublié ?</a></p>
+
             <button type="submit" class="login__submit" [disabled]="form.invalid || loading">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 {{ loading ? 'Connexion…' : 'Se connecter' }}
             </button>
         </form>
 
-        <p class="login__hint">Mot de passe oublié ? Contactez la personne qui gère l'hébergement.</p>
     </div>
 
     <a routerLink="/" class="login__back"><i class="ri-arrow-left-line"></i> Retour au site</a>

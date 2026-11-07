@@ -144,6 +144,55 @@ $muted: rgba(255, 255, 255, 0.6);
 
   &__hint { margin: 1.25rem 0 0; font-size: 0.78rem; color: rgba(255, 255, 255, 0.45); }
 
+  // Lien discret (« Mot de passe oublié ? », « Retour à la connexion »), lien ou bouton
+  &__link {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: #b3a6f5;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+
+    &:hover { color: #fff; }
+  }
+
+  &__forgot { margin: -0.25rem 0.25rem 0 0; text-align: right; font-size: 0.8rem; }
+
+  &__success {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.7rem 0.85rem;
+    margin-bottom: 1rem;
+    border-radius: 0.6rem;
+    text-align: left;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: #b8f0c8;
+    background: rgba(40, 167, 69, 0.15);
+
+    i { margin-top: 0.1rem; }
+    strong { color: #fff; word-break: break-all; }
+  }
+
+  &__intro strong { color: #fff; word-break: break-all; }
+
+  // Règle du mot de passe, cochée dès qu'elle est respectée
+  &__rule {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0 0 0 1rem;
+    font-size: 0.78rem;
+    color: $muted;
+
+    &.is-ok { color: #8fe0a6; }
+  }
+
+  &__submit--link { width: 100%; text-decoration: none; }
+
   &__back {
     display: inline-flex;
     align-items: center;

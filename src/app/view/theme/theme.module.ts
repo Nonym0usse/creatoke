@@ -22,6 +22,8 @@ import { NgxPayPalModule } from "ngx-paypal";
 import { LicenceComponent } from "./licence/licence.component";
 import { AuthGuard } from "../../core/services/global/auth-guard.service";
 import { LoginComponent } from "../pages/auth/login/login.component";
+import { ForgotPasswordComponent } from "../pages/auth/forgot-password/forgot-password.component";
+import { ResetPasswordComponent } from "../pages/auth/reset-password/reset-password.component";
 import { EditextComponent } from './editext/editext.component';
 import { CommentsAdminComponent } from "./comments-admin/comments-admin.component";
 import { BackgroundimageComponent } from "./backgroundimage/backgroundimage.component";
@@ -125,6 +127,16 @@ const routes: Routes = [
         data: { seo: { noindex: true } }
       },
       {
+        path: 'mot-de-passe-oublie',
+        component: ForgotPasswordComponent,
+        data: { seo: { title: 'Mot de passe oublié | Creatoke', noindex: true } }
+      },
+      {
+        path: 'nouveau-mot-de-passe',
+        component: ResetPasswordComponent,
+        data: { seo: { title: 'Nouveau mot de passe | Creatoke', noindex: true } }
+      },
+      {
         path: 'image-background',
         component: BackgroundimageComponent,
         canActivate: [AuthGuard],
@@ -160,6 +172,8 @@ const routes: Routes = [
     ConfirmPurchaseComponent,
     AnalyticsComponent,
     LoginComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
     AddSongComponent,
     MusicComponent,
     AboutComponent,

@@ -53,6 +53,41 @@ export class AuthenticationService {
     }
   }
 
+  // ---- Mot de passe oublié ----
+
+  // Envoie le lien de réinitialisation (réponse identique que l'adresse existe ou non).
+  async requestPasswordReset(email: string): Promise<void> {
+    try {
+      await axios.post(ApiConstant.API + '/auth/forgot-password', { email });
+    } catch (error: any) {
+      if (error?.response?.data?.error === 'INVALID_EMAIL') throw new Error('Adresse e-mail invalide.');
+      throw new Error('La demande n\'a pas pu être envoyée. Réessayez plus tard.');
+    }
+  }
+
+  // Adresse du compte si le lien est encore valable, sinon null.
+  async checkResetToken(token: string): Promise<string | null> {
+    try {
+      const res = await axios.post<{ email: string }>(ApiConstant.API + '/auth/reset-password/check', { token });
+      return res.data.email;
+    } catch (error: any) {
+      if (error?.response?.data?.error === 'INVALID_TOKEN') return null;
+      throw new Error('Vérification du lien impossible. Réessayez plus tard.');
+    }
+  }
+
+  async resetPassword(token: string, password: string): Promise<void> {
+    try {
+      await axios.post(ApiConstant.API + '/auth/reset-password', { token, password });
+      await this.logOut(); // les sessions ouvertes avant le changement ne sont plus valables
+    } catch (error: any) {
+      const code = error?.response?.data?.error;
+      if (code === 'INVALID_TOKEN') throw new Error('Ce lien n\'est plus valable : il a expiré ou a déjà servi. Faites une nouvelle demande.');
+      if (code === 'WEAK_PASSWORD') throw new Error('Le mot de passe doit contenir au moins 10 caractères.');
+      throw new Error('Le mot de passe n\'a pas pu être modifié. Réessayez plus tard.');
+    }
+  }
+
   // Sign out
   logOut(): Promise<void> {
     this.clearToken();

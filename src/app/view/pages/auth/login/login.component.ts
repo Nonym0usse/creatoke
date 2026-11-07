@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 // Services
 import { AuthenticationService } from './../../../../core/services/global/authentication.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { CategoryService } from './../../../../core/services/api/category.service';
 
@@ -24,9 +24,12 @@ export class LoginComponent implements OnInit {
     showPassword = false;
     // Image de fond du site, floutée derrière la carte
     picturebackground = '';
+    // Arrivée depuis « Nouveau mot de passe » : confirmation affichée
+    passwordChanged = false;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
+        private route: ActivatedRoute,
         private authService: AuthenticationService,
         private categoryService: CategoryService,
         private title: Title
@@ -36,6 +39,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
         this.title.setTitle('Créatoke | Connexion admin');
+        this.passwordChanged = this.route.snapshot.queryParamMap.get('reset') === '1';
         this.categoryService.getBackgroundImg().then(r => { this.picturebackground = r.data[0]?.picture ?? ''; });
     }
 
