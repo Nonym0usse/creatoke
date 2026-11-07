@@ -25,6 +25,13 @@ export class Constant {
       icon: '<i class="ri-question-line fs-5"></i>',
       link: '/aide',
     },
+    // Visible seulement par un administrateur connecté
+    {
+      name: 'ChatGPT',
+      icon: '<i class="ri-robot-line fs-5"></i>',
+      link: '/chatgpt',
+      adminOnly: true,
+    },
   ];
 
   // Liens légaux : petits liens en pied de barre latérale.

@@ -1,65 +1,143 @@
-<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
-<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="under-hero container">
-
-    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
-    <div class="section">
-        <div class="mb-5 fs-6">
-            <h3>Bonjour, <span class="text-custom">bienvenue sur votre espace admin</span> 💰</h3>
+  <div class="section">
+    <!-- En-tête : styles partagés scss/framework/_legal.scss -->
+    <div class="legal">
+      <header class="card legal__header">
+        <span class="legal__eyebrow"><i class="ri-bar-chart-2-line"></i> Outils</span>
+        <div class="an-head">
+          <div>
+            <h1 class="legal__title">Statistiques <span class="text-primary">des ventes</span></h1>
+            <p class="legal__intro">Chiffre d'affaires, chansons les plus vendues et détail de chaque vente, année par
+              année.</p>
+          </div>
+          <label class="an-year">
+            <span>Année</span>
+            <select class="form-select" [ngModel]="year" (ngModelChange)="setYear($event)" [ngModelOptions]="{ standalone: true }">
+              <option *ngFor="let y of years" [ngValue]="y">{{ y }}</option>
+            </select>
+          </label>
         </div>
-        <div class="row g-4">
-            <div class="col-xl-6">
-                <div class="card bg-custom text-white">
-                    <div class="card-body fs-6">
-                        <div class="d-flex align-items-center mb-2">
-                            <h4 class="text-white mb-0">Chiffre d'affaire année en cours</h4>
-                            <button type="button" class="btn btn-icon text-white ms-auto">
-                                <i class="ri-settings-fill"></i>
-                            </button>
-                        </div>
-                        <span class="display-4 d-block mb-3">{{turnover}}€</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6">
-                <div class="row h-100">
-                    <div class="col-sm-12">
-                        <app-total-users></app-total-users>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-md-12">
-                <app-statistics></app-statistics>
-            </div>
-            <div class="col-md-12">
-                <div class="col-xl-12 col-md-12 mx-auto">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Montant</th>
-                                <th scope="col">Email client</th>
-                                <th scope="col">Titre chanson</th>
-                                <th scope="col">Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let sales of turnOverData">
-                                <td>{{sales.price}}€</td>
-                                <td>{{sales.email_client}}</td>
-                                <td>{{sales.titre_chanson}}</td>
-                                <td>{{sales.date ?? "Inconnu"}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
+      </header>
     </div>
-    <!-- End:: section -->
 
+    <div class="an-error card" *ngIf="loadError">
+      <i class="ri-error-warning-line"></i> Les ventes n'ont pas pu être chargées. Rechargez la page.
+    </div>
+
+    <!-- Indicateurs -->
+    <div class="an-kpis">
+      <div class="card an-kpi an-kpi--main">
+        <span class="an-kpi__label">Chiffre d'affaires {{ year }}</span>
+        <strong class="an-kpi__value">{{ loading ? '…' : money(revenue) }}</strong>
+        <span class="an-kpi__note" *ngIf="!loading">
+          <ng-container *ngIf="evolution !== null; else noPrev">
+            <i [class]="evolution >= 0 ? 'ri-arrow-up-line' : 'ri-arrow-down-line'"></i>
+            {{ evolution >= 0 ? '+' : '' }}{{ evolution }} % par rapport à {{ year - 1 }} ({{ money(previousRevenue) }})
+          </ng-container>
+          <ng-template #noPrev>Aucune vente en {{ year - 1 }} pour comparer</ng-template>
+        </span>
+      </div>
+      <div class="card an-kpi">
+        <span class="an-kpi__label"><i class="ri-shopping-bag-3-line"></i> Ventes</span>
+        <strong class="an-kpi__value">{{ loading ? '…' : yearSales.length }}</strong>
+        <span class="an-kpi__note">licences vendues en {{ year }}</span>
+      </div>
+      <div class="card an-kpi" title="Un visiteur compté une fois par jour, sans cookie. Robots et navigateurs des administrateurs exclus.">
+        <span class="an-kpi__label"><i class="ri-user-line"></i> {{ visitsLabel || 'Visites' }}</span>
+        <strong class="an-kpi__value">{{ visits ? visitsValue.toLocaleString('fr-FR') : '—' }}</strong>
+        <span class="an-kpi__note">{{ visitsNote || '…' }}</span>
+      </div>
+      <div class="card an-kpi">
+        <span class="an-kpi__label"><i class="ri-trophy-line"></i> Meilleur mois</span>
+        <strong class="an-kpi__value an-kpi__value--text">{{ loading ? '…' : (bestMonth ?? '—') }}</strong>
+        <span class="an-kpi__note">en chiffre d'affaires</span>
+      </div>
+    </div>
+
+    <div class="an-grid">
+      <!-- Chiffre d'affaires par mois -->
+      <section class="card an-card">
+        <h2 class="an-card__title">Chiffre d'affaires par mois <small>{{ year }}</small></h2>
+        <p class="an-card__hint">Passez la souris sur un mois pour voir le montant, le nombre de ventes et les visites.</p>
+        <div class="an-chart">
+          <canvas #monthChart role="img"
+            [attr.aria-label]="'Chiffre d\'affaires par mois en ' + year + ', détail dans le tableau des ventes'"></canvas>
+        </div>
+      </section>
+
+      <!-- Classement des chansons -->
+      <section class="card an-card">
+        <h2 class="an-card__title">Chansons les plus vendues <small>{{ year }}</small></h2>
+        <ol class="an-top" *ngIf="topSongs.length; else noTop">
+          <li *ngFor="let song of topSongs; let i = index">
+            <span class="an-top__rank">{{ i + 1 }}</span>
+            <div class="an-top__body">
+              <div class="an-top__line">
+                <strong>{{ song.title }}</strong>
+                <span>{{ money(song.revenue) }}</span>
+              </div>
+              <div class="an-top__bar"><span [style.width.%]="song.share * 100"></span></div>
+              <small>{{ song.count }} vente{{ song.count > 1 ? 's' : '' }}</small>
+            </div>
+          </li>
+        </ol>
+        <ng-template #noTop>
+          <p class="an-empty"><i class="ri-music-2-line"></i> Aucune vente en {{ year }}.</p>
+        </ng-template>
+      </section>
+    </div>
+
+    <!-- Détail des ventes -->
+    <section class="card an-card an-sales">
+      <div class="an-sales__head">
+        <h2 class="an-card__title">Détail des ventes <small>{{ year }}</small></h2>
+        <div class="an-search">
+          <i class="ri-search-line"></i>
+          <input type="search" class="form-control" placeholder="Chanson, client, licence…" [value]="query"
+            (input)="setQuery($any($event.target).value)" aria-label="Rechercher une vente" />
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table an-table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Chanson</th>
+              <th scope="col">Licence</th>
+              <th scope="col">Client</th>
+              <th scope="col" class="text-end">Montant</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sale of tableSales">
+              <td class="an-table__date">{{ sale.date || 'Inconnue' }}</td>
+              <td><strong>{{ sale.titre_chanson || '—' }}</strong></td>
+              <td><span class="an-pill" *ngIf="sale.licence_name; else noLicence">{{ licence(sale) }}</span>
+                <ng-template #noLicence><span class="an-muted">Non précisée</span></ng-template></td>
+              <td>
+                <span class="d-block">{{ sale.nom_client || '—' }}</span>
+                <small class="an-muted">{{ sale.email_client }}</small>
+              </td>
+              <td class="text-end"><strong>{{ money(sale.price) }}</strong></td>
+            </tr>
+            <tr *ngIf="!loading && !tableSales.length">
+              <td colspan="5" class="an-empty">
+                {{ query ? 'Aucune vente ne correspond à « ' + query + ' ».' : 'Aucune vente en ' + year + '.' }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot *ngIf="tableSales.length > 1">
+            <tr>
+              <td colspan="4">Total ({{ tableSales.length }} ventes)</td>
+              <td class="text-end">{{ money(tableTotal) }}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <p class="an-card__hint mb-0"><i class="ri-information-line"></i> Une facture PDF est créée et envoyée au client à
+        chaque vente. Le bilan du mois précédent part aussi par e-mail le 1er de chaque mois.</p>
+    </section>
+  </div>
 </div>
-<!-- End:: under hero -->

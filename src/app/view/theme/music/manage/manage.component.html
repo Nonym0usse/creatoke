@@ -1,38 +1,111 @@
-<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
-<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="under-hero container">
-
-    <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
-    <div class="section">
-        <div class="col-xl-12 col-md-12 mx-auto">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Pochette</th>
-                        <th scope="col">Titre</th>
-                        <th scope="col">Catégorie</th>
-                        <th scope="col">Modifier</th>
-                        <th scope="col">Supprimer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let song of songs">
-                        <td>
-                            <img *ngIf="song.image" class="song-thumb" [src]="song.image" [alt]="song.title" loading="lazy">
-                            <span *ngIf="!song.image" class="song-thumb song-thumb--empty">—</span>
-                        </td>
-                        <td>{{song.title}}</td>
-                        <td>{{song.category}}</td>
-                      <td><button class="btn btn-light-primary" (click)="modify(song.slug)">Modifier</button></td>
-                        <td><button class="btn btn-light-danger" (click)="delete(song.id, song.title)">Supprimer</button></td>
-                    </tr>
-                    <tr *ngIf="!songs.length">
-                        <td colspan="5" class="text-center">Aucune chanson pour le moment.</td>
-                    </tr>
-                </tbody>
-            </table>
+  <div class="section">
+    <!-- En-tête : styles partagés scss/framework/_legal.scss -->
+    <div class="legal">
+      <header class="card legal__header">
+        <span class="legal__eyebrow"><i class="ri-disc-line"></i> Catalogue</span>
+        <div class="mg-head">
+          <div>
+            <h1 class="legal__title">Mes <span class="text-primary">chansons</span></h1>
+            <p class="legal__intro">Toutes les chansons du site : retrouvez-en une, ouvrez sa fiche, modifiez ses
+              fichiers et ses prix, ou supprimez-la.</p>
+          </div>
+          <a class="btn btn-custom mg-add" routerLink="/add-song"><i class="ri-add-circle-line"></i> Ajouter une
+            chanson</a>
         </div>
+      </header>
     </div>
+
+    <!-- Alerte fichiers manquants -->
+    <div class="mg-alert" *ngIf="missingCount">
+      <i class="ri-error-warning-line"></i>
+      <span><strong>{{ missingCount }} chanson{{ missingCount > 1 ? 's proposent' : ' propose' }} une offre sans son
+          fichier</strong> : un acheteur ne pourrait pas télécharger. Repérez le badge « Fichier manquant » et ouvrez
+        « Modifier » pour ajouter le fichier ou retirer l'offre.</span>
+    </div>
+
+    <!-- Recherche, filtres, tri -->
+    <div class="card mg-toolbar">
+      <div class="mg-toolbar__row">
+        <div class="mg-search">
+          <i class="ri-search-line"></i>
+          <input type="search" class="form-control" placeholder="Titre ou interprète…" [value]="query"
+            (input)="setQuery($any($event.target).value)" aria-label="Rechercher une chanson" />
+        </div>
+        <label class="mg-sort">
+          <span>Trier</span>
+          <select class="form-select" [value]="sort" (change)="setSort($any($event.target).value)">
+            <option value="recent">Les plus récentes</option>
+            <option value="title">Titre (A → Z)</option>
+          </select>
+        </label>
+      </div>
+      <div class="mg-chips" role="group" aria-label="Filtrer par rubrique">
+        <button type="button" class="mg-chip" [class.is-on]="!sectionFilter" (click)="setSection('')">
+          Toutes <span>{{ counts[''] || 0 }}</span></button>
+        <ng-container *ngFor="let s of sections">
+          <button type="button" class="mg-chip" *ngIf="counts[s.slug]" [class.is-on]="sectionFilter === s.slug"
+            (click)="setSection(s.slug)"><i [class]="s.icon"></i> {{ s.label }} <span>{{ counts[s.slug] }}</span></button>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Liste -->
+    <div class="mg-list">
+      <div class="mg-loading card" *ngIf="loading">
+        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Chargement des chansons…
+      </div>
+
+      <article class="card mg-song" *ngFor="let row of visible">
+        <a class="mg-song__cover" [routerLink]="['/song', row.song.category, row.song.slug]" target="_blank"
+          [attr.aria-label]="'Voir la fiche de ' + row.song.title">
+          <img *ngIf="row.song.image; else noCover" [src]="row.song.image" alt="" loading="lazy" />
+          <ng-template #noCover><span class="mg-song__nocover"><i class="ri-music-2-line"></i></span></ng-template>
+        </a>
+
+        <div class="mg-song__main">
+          <h2 class="mg-song__title">{{ row.song.title }}</h2>
+          <p class="mg-song__artist">{{ row.song.artist || '—' }}</p>
+          <div class="mg-song__tags">
+            <span class="mg-tag mg-tag--section"><i [class]="row.section?.icon || 'ri-folder-music-line'"></i>
+              {{ row.section?.label || row.song.category }}</span>
+            <span class="mg-tag mg-tag--heart" *ngIf="row.song.isHeartStroke === 'oui'"><i class="ri-heart-3-fill"></i> Coup
+              de cœur</span>
+            <span class="mg-tag mg-tag--exclu" *ngIf="row.song.exclu === 'oui'"><i class="ri-vip-diamond-line"></i>
+              Exclusivité</span>
+            <span class="mg-tag mg-tag--warn" *ngIf="row.missing.length" [title]="missingTitle(row)"><i
+                class="ri-error-warning-line"></i> Fichier manquant</span>
+          </div>
+        </div>
+
+        <div class="mg-song__meta">
+          <span class="mg-song__price" *ngFor="let p of row.prices"><strong>{{ p.label }}</strong> {{ p.value }}</span>
+          <span class="mg-song__date" *ngIf="row.added">Ajoutée le {{ addedLabel(row) }}</span>
+        </div>
+
+        <div class="mg-song__actions">
+          <a class="btn btn-icon mg-icon" [routerLink]="['/song', row.song.category, row.song.slug]" target="_blank"
+            title="Voir la fiche sur le site" aria-label="Voir la fiche sur le site"><i class="ri-external-link-line"></i></a>
+          <button type="button" class="btn mg-edit" (click)="modify(row.song.slug)"><i class="ri-edit-line"></i>
+            Modifier</button>
+          <button type="button" class="btn btn-icon mg-icon mg-icon--danger" (click)="delete(row)"
+            title="Supprimer la chanson" aria-label="Supprimer la chanson"><i class="ri-delete-bin-line"></i></button>
+        </div>
+      </article>
+
+      <div class="card mg-empty" *ngIf="!loading && !visible.length">
+        <i class="ri-disc-line"></i>
+        <ng-container *ngIf="total; else noSong">
+          <strong>Aucune chanson ne correspond</strong>
+          <span>Changez la recherche ou choisissez « Toutes ».</span>
+        </ng-container>
+        <ng-template #noSong>
+          <strong>Aucune chanson pour le moment</strong>
+          <span>Cliquez sur « Ajouter une chanson » pour publier la première.</span>
+        </ng-template>
+      </div>
+    </div>
+  </div>
 </div>

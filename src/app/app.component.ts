@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 // Services
 import { LoaderService } from './core/services/design/loader.service';
 import { SeoService } from './core/services/global/seo.service';
+import { VisitService } from './core/services/global/visit.service';
 
 // Constant classes
 import { Constant } from './core/constants/constant';
@@ -22,7 +23,8 @@ export class AppComponent implements AfterViewInit {
 
   constructor(
     private loaderService: LoaderService,
-    seoService: SeoService
+    seoService: SeoService,
+    private visitService: VisitService
   ) { 
     this.loaderService.startLoading();
     seoService.init();
@@ -32,6 +34,8 @@ export class AppComponent implements AfterViewInit {
     setTimeout(() => {
       this.loaderService.stopLoading();
     }, 200);
+    // Compteur de visites (un signal par chargement, sans cookie)
+    this.visitService.ping();
   }
   
 }

@@ -1,3 +1,122 @@
-.ck-editor__editable {
-  min-height: 500px;
+// Textes des licences : liste à gauche, éditeur à droite (couleurs du thème clair / sombre)
+$primary: #5438d1;
+$muted: rgba(var(--cr-ink-rgb), 0.6);
+$line: 1px solid rgba(var(--cr-ink-rgb), 0.1);
+
+.lic-layout {
+  display: grid;
+  grid-template-columns: 18rem minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  margin-top: 1.5rem;
+
+  @media (max-width: 991.98px) { grid-template-columns: minmax(0, 1fr); }
+}
+
+.lic-nav { display: grid; gap: 1rem; position: sticky; top: 6rem; @media (max-width: 991.98px) { position: static; } }
+
+.lic-group {
+  padding: 1rem;
+  border: $line;
+
+  &__title { margin: 0; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cr-link); }
+  &__hint { margin: 0.2rem 0 0.75rem; font-size: 0.78rem; color: $muted; }
+}
+
+.lic-doc {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.55rem 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 0.6rem;
+  text-align: left;
+  color: var(--cr-ink);
+  background: transparent;
+  transition: background-color 0.15s, border-color 0.15s;
+
+  & + & { margin-top: 0.25rem; }
+
+  &__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--cr-link);
+    background: rgba(84, 56, 209, 0.12);
+  }
+
+  &__text {
+    flex: 1;
+    min-width: 0;
+    strong { display: block; font-size: 0.88rem; font-weight: 600; }
+    small { display: block; font-size: 0.75rem; color: $muted; }
+  }
+
+  &__state {
+    flex: none;
+    font-size: 0.7rem;
+    &.is-dirty { font-size: 1.1rem; color: var(--cr-warn); }
+    &.is-empty { padding: 0.1rem 0.45rem; border-radius: 999px; color: var(--cr-danger); background: rgba(var(--cr-ink-rgb), 0.06); }
+  }
+
+  &:hover { background: rgba(var(--cr-ink-rgb), 0.05); }
+
+  &.is-active {
+    border-color: rgba(84, 56, 209, 0.5);
+    background: rgba(84, 56, 209, 0.1);
+    .lic-doc__icon { color: #fff; background: $primary; }
+  }
+}
+
+.lic-editor {
+  padding: 1.5rem 1.75rem;
+  border: $line;
+
+  &__head {
+    margin-bottom: 1.1rem;
+    h2 { margin: 0 0 0.35rem; font-size: 1.35rem; }
+    p { margin: 0; font-size: 0.85rem; color: $muted; i { color: var(--cr-link); } }
+    a { margin-left: 0.35rem; white-space: nowrap; color: var(--cr-link); }
+  }
+
+  &__loading { display: flex; align-items: center; gap: 0.5rem; padding: 3rem 0; justify-content: center; color: $muted; }
+}
+
+.lic-save {
+  position: sticky;
+  bottom: 5.5rem; // au-dessus du lecteur audio
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  border: $line;
+  border-radius: 0.75rem;
+  background: var(--cr-surface);
+  box-shadow: 0 8px 24px var(--cr-shadow);
+
+  &__state { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: $muted; }
+  &.is-dirty { border-color: rgba(243, 200, 72, 0.6); .lic-save__state { color: var(--cr-warn); font-weight: 600; } }
+
+  &__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 9rem;
+    justify-content: center;
+    color: #fff;
+    background: $primary;
+    &:hover:not(:disabled) { color: #fff; background: #6448e0; }
+    &:disabled { color: #fff; opacity: 0.45; }
+  }
 }

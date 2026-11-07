@@ -65,6 +65,45 @@
                 </div>
 
                 <div class="pv-field">
+                    <label for="pv_song" class="form-label">Joindre une chanson <span class="pv-optional">(facultatif)</span></label>
+
+                    <!-- Chanson choisie -->
+                    <div class="pv-song pv-song--chosen" *ngIf="selectedSong; else songSearch">
+                        <img *ngIf="selectedSong.image" [src]="selectedSong.image" alt="" />
+                        <span class="pv-song__text"><strong>{{ selectedSong.title }}</strong>
+                            <small>{{ selectedSong.artist }}</small></span>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" (click)="clearSong()"
+                            [disabled]="isLoading">Retirer</button>
+                    </div>
+
+                    <!-- Recherche -->
+                    <ng-template #songSearch>
+                        <div class="pv-song-search">
+                            <i class="ri-search-line"></i>
+                            <input id="pv_song" type="text" class="form-control" autocomplete="off"
+                                placeholder="Tapez le titre de la chanson…" [value]="songQuery" [disabled]="isLoading"
+                                (focus)="songListOpen = true"
+                                (input)="songQuery = $any($event.target).value; songListOpen = true" (blur)="closeSongList()"
+                                (keydown.enter)="$event.preventDefault(); songMatches[0] && selectSong(songMatches[0])"
+                                (keydown.escape)="songListOpen = false" />
+                            <ul class="pv-song-list" *ngIf="songListOpen">
+                                <li *ngFor="let song of songMatches">
+                                    <button type="button" class="pv-song" (mousedown)="$event.preventDefault()"
+                                        (click)="selectSong(song)">
+                                        <img *ngIf="song.image" [src]="song.image" alt="" />
+                                        <span class="pv-song__text"><strong>{{ song.title }}</strong>
+                                            <small>{{ song.artist }}</small></span>
+                                    </button>
+                                </li>
+                                <li class="pv-song-list__empty" *ngIf="!songMatches.length">Aucune chanson trouvée.</li>
+                            </ul>
+                        </div>
+                    </ng-template>
+                    <p class="pv-hint">Le lien de la chanson est ajouté à la fin du texte sur chaque réseau : il ouvre
+                        sa fiche et la prise de rendez-vous Calendly.</p>
+                </div>
+
+                <div class="pv-field">
                     <span class="form-label d-block">Vidéo *</span>
 
                     <!-- Zone de dépôt -->
@@ -77,7 +116,7 @@
 
                     <!-- Aperçu -->
                     <div class="pv-preview" *ngIf="previewUrl">
-                        <video [src]="previewUrl" controls playsinline></video>
+                        <video [src]="previewSafeUrl" controls playsinline></video>
                         <div class="pv-preview__info">
                             <i class="ri-film-line"></i>
                             <span class="pv-preview__name">{{ fileName }}</span>

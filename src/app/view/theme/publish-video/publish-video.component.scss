@@ -1,8 +1,10 @@
 // Publier une vidéo : formulaire à gauche, informations à droite
+// Couleurs liées au thème clair / sombre (variables --cr-* de framework/_theme-vars.scss)
 $primary: #5438d1;
-$light: #8f7be4;
-$muted: rgba(255, 255, 255, 0.55);
-$line: 1px solid rgba(255, 255, 255, 0.08);
+$light: var(--cr-link);
+$ink: var(--cr-ink);
+$muted: rgba(var(--cr-ink-rgb), 0.6);
+$line: 1px solid rgba(var(--cr-ink-rgb), 0.1);
 
 .pv-layout {
   display: grid;
@@ -22,7 +24,7 @@ $line: 1px solid rgba(255, 255, 255, 0.08);
   .form-label { font-weight: 600; font-size: 0.875rem; }
 }
 
-.pv-error { margin: 0.35rem 0 0; font-size: 0.8rem; color: #ff8f8f; }
+.pv-error { margin: 0.35rem 0 0; font-size: 0.8rem; color: var(--cr-danger); }
 
 .pv-counter {
   display: flex;
@@ -40,14 +42,14 @@ $line: 1px solid rgba(255, 255, 255, 0.08);
   align-items: center;
   gap: 0.35rem;
   padding: 2rem 1rem;
-  border: 2px dashed rgba(255, 255, 255, 0.15);
+  border: 2px dashed rgba(var(--cr-ink-rgb), 0.15);
   border-radius: 0.75rem;
   text-align: center;
   cursor: pointer;
   transition: border-color 0.15s, background-color 0.15s;
 
   i { font-size: 2.25rem; color: $light; }
-  strong { color: #fff; }
+  strong { color: $ink; }
   span { font-size: 0.8rem; color: $muted; }
 
   &:hover { border-color: $primary; background: rgba(84, 56, 209, 0.08); }
@@ -69,7 +71,7 @@ $line: 1px solid rgba(255, 255, 255, 0.08);
     i { color: $light; }
   }
 
-  &__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #fff; }
+  &__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: $ink; }
   &__size { font-size: 0.8rem; color: $muted; white-space: nowrap; }
 }
 
@@ -101,14 +103,14 @@ $line: 1px solid rgba(255, 255, 255, 0.08);
   margin-top: 1.5rem;
   padding: 0.85rem 1rem;
   border-radius: 0.6rem;
-  color: #b8f0c9;
+  color: var(--cr-ok);
   background: rgba(46, 204, 113, 0.12);
   border: 1px solid rgba(46, 204, 113, 0.35);
 
   &__head { display: flex; align-items: center; gap: 0.6rem; > i { font-size: 1.2rem; } > span { flex: 1; } }
 
-  &--error { color: #ffb4b4; background: rgba(220, 53, 69, 0.12); border-color: rgba(220, 53, 69, 0.35); }
-  &--partial { color: #ffe0a3; background: rgba(255, 193, 7, 0.1); border-color: rgba(255, 193, 7, 0.35); }
+  &--error { color: var(--cr-danger); background: rgba(220, 53, 69, 0.12); border-color: rgba(220, 53, 69, 0.35); }
+  &--partial { color: var(--cr-warn); background: rgba(255, 193, 7, 0.1); border-color: rgba(255, 193, 7, 0.35); }
 
   &__close { border: 0; background: none; color: inherit; opacity: 0.7; }
 }
@@ -119,7 +121,7 @@ $line: 1px solid rgba(255, 255, 255, 0.08);
   padding: 1.25rem 1.4rem;
   border: $line;
 
-  h2 { font-size: 1rem; color: #fff; margin-bottom: 0.85rem; }
+  h2 { font-size: 1rem; color: $ink; margin-bottom: 0.85rem; }
 }
 
 .pv-platforms {
@@ -152,15 +154,15 @@ $line: 1px solid rgba(255, 255, 255, 0.08);
   list-style: none;
   margin: 0.75rem 0 0;
   padding: 0.75rem 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(var(--cr-ink-rgb), 0.1);
   display: grid;
   gap: 0.4rem;
   font-size: 0.85rem;
 
-  &__item { display: flex; align-items: baseline; gap: 0.5rem; color: rgba(255, 255, 255, 0.8); }
+  &__item { display: flex; align-items: baseline; gap: 0.5rem; color: rgba(var(--cr-ink-rgb), 0.8); }
   &__msg { flex: 1; min-width: 0; color: $muted; }
   .is-ok > i { color: #6fdc98; }
-  .is-error > i, .is-error .pv-results__msg { color: #ff8f8f; }
+  .is-error > i, .is-error .pv-results__msg { color: var(--cr-danger); }
   .is-skipped { opacity: 0.6; }
   a { white-space: nowrap; color: $light; }
 }
@@ -174,7 +176,7 @@ $line: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 999px;
   font-size: 0.7rem;
   white-space: nowrap;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(var(--cr-ink-rgb), 0.08);
 }
 
 // Choix des réseaux
@@ -185,16 +187,74 @@ $line: 1px solid rgba(255, 255, 255, 0.08);
   align-items: center;
   gap: 0.4rem;
   padding: 0.4rem 0.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(var(--cr-ink-rgb), 0.15);
   border-radius: 999px;
   font-size: 0.85rem;
   color: $muted;
   background: transparent;
   transition: border-color 0.15s, background-color 0.15s, color 0.15s;
 
-  &.is-on { color: #fff; border-color: $primary; background: rgba(84, 56, 209, 0.16); i:first-child { color: $light; } }
+  &.is-on { color: $ink; border-color: $primary; background: rgba(84, 56, 209, 0.16); i:first-child { color: $light; } }
   &:hover:not(:disabled) { border-color: $light; }
   &:disabled { opacity: 0.6; cursor: not-allowed; }
 }
 
 .pv-account { display: block; font-size: 0.75rem; color: $muted; }
+
+.pv-optional { font-weight: 400; color: $muted; }
+.pv-hint { margin: 0.35rem 0 0; font-size: 0.8rem; color: $muted; }
+
+// Chanson jointe : recherche et chanson choisie
+.pv-song-search {
+  position: relative;
+
+  > i { position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); color: $muted; pointer-events: none; }
+  .form-control { padding-left: 2.5rem !important; }
+}
+
+.pv-song-list {
+  position: absolute;
+  z-index: 20;
+  left: 0;
+  right: 0;
+  top: calc(100% + 0.25rem);
+  max-height: 20rem;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  border: $line;
+  border-radius: 0.75rem;
+  background: var(--cr-surface);
+  box-shadow: 0 12px 32px var(--cr-shadow);
+
+  &__empty { padding: 0.6rem 0.75rem; font-size: 0.85rem; color: $muted; }
+}
+
+.pv-song {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  border: 0;
+  border-radius: 0.5rem;
+  text-align: left;
+  color: inherit;
+  background: transparent;
+
+  img { flex: none; width: 2.5rem; height: 2.5rem; border-radius: 0.4rem; object-fit: cover; }
+
+  &__text {
+    flex: 1;
+    min-width: 0;
+    strong, small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    strong { color: $ink; font-size: 0.9rem; }
+    small { color: $muted; font-size: 0.75rem; }
+  }
+
+
+  &--chosen { border: 1px solid $primary; background: rgba(84, 56, 209, 0.1); padding: 0.6rem 0.75rem; }
+}
+
+button.pv-song:hover { background: rgba(84, 56, 209, 0.16); }

@@ -1,11 +1,14 @@
 // Angular
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { NavigationEnd, Router } from '@angular/router';
 
 // Services
 import { TogglerService } from './../../../core/services/design/toggler.service';
 import { ThemeService } from './../../../core/services/design/theme.service';
 import { Section, SectionService } from './../../../core/services/api/section.service';
+import { AuthenticationService } from './../../../core/services/global/authentication.service';
 
 // Constant classes
 import { Constant } from './../../../core/constants/constant';
@@ -34,11 +37,18 @@ export class SidebarComponent implements OnInit, OnDestroy {
   // Sidebar theme subscription
   sidebarSubscription: Subscription | undefined;
   private sectionsSubscription: Subscription | undefined;
+  private authSubscription: Subscription | undefined;
+  private routerSubscription: Subscription | undefined;
+
+  // Administrateur connecté : affiche les liens réservés (adminOnly)
+  isAdmin = false;
 
   constructor(
     private togglerService: TogglerService,
     private themeService: ThemeService,
     private sectionService: SectionService,
+    private authenticationService: AuthenticationService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -48,6 +58,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.sectionsSubscription = this.sectionService.sections$.subscribe((sections) => {
       this.navbar = this.withSections(sections);
     });
+    this.authSubscription = this.authenticationService.isAuthenticated().subscribe((isAuth) => this.isAdmin = isAuth);
+    // Mobile : le menu se ferme dès qu'on change de page
+    this.routerSubscription = this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => this.togglerService.closeOnMobile());
   }
 
   /** Menu public : les rubriques du catalogue s'insèrent après l'intitulé « Catalogue ». */
@@ -67,6 +82,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.sidebarSubscription?.unsubscribe();
     this.sectionsSubscription?.unsubscribe();
+    this.authSubscription?.unsubscribe();
+    this.routerSubscription?.unsubscribe();
   }
 
   /**
@@ -74,6 +91,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
    */
   toggler(): void {
     this.togglerService.toggler();
+  }
+
+  /** Mobile : ferme le menu au clic sur un lien (même celui de la page déjà ouverte) */
+  closeOnMobile(): void {
+    this.togglerService.closeOnMobile();
   }
 
 

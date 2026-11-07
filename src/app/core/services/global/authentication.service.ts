@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 import { ApiConstant } from '../../constants/api-constant';
 
 export const AUTH_TOKEN_KEY = 'authToken';
+// Navigateur où un administrateur s'est déjà connecté : jamais compté dans les visites (même déconnecté)
+export const ADMIN_DEVICE_KEY = 'creatoke-admin-device';
 
 // Le token est renouvelé quand il lui reste moins de 3 jours (validité : 7 jours).
 const REFRESH_BEFORE_MS = 3 * 24 * 60 * 60 * 1000;
@@ -154,6 +156,7 @@ export class AuthenticationService {
   private storeToken(token: string): void {
     try {
       localStorage.setItem(AUTH_TOKEN_KEY, token);
+      localStorage.setItem(ADMIN_DEVICE_KEY, '1');
     } catch {
       // stockage indisponible (navigation privée) : la session ne survivra pas au rechargement
     }

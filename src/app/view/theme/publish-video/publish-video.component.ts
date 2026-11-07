@@ -1,12 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl, Title } from '@angular/platform-browser';
 import { CategoryService } from 'src/app/core/services/api/category.service';
+import { SongService } from 'src/app/core/services/api/song.service';
 import { NetworkId, PublishResult, VideoPostStatus, VideoPublishService } from 'src/app/core/services/api/video-publish.service';
 
 // Limites appliquées par l'API (routes/admin/videoPublish.ts) : 512 Mo, description tronquée à 280 caractères.
 const MAX_VIDEO_BYTES = 512 * 1024 * 1024;
 const MAX_DESCRIPTION = 280;
+// Lien facultatif d'une chanson : fiche du site + prise de rendez-vous Calendly (?promote=1)
+const SITE_URL = 'https://creatoke.com';
+
+interface SongOption { slug: string; title: string; artist: string; category: string; image: string; search: string; }
+
+// Recherche sans tenir compte des accents ni des majuscules
+const normalize = (text: string) => (text ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 // Suivi de la publication (faite en arrière-plan par l'API via Upload-Post)
 const POLL_INTERVAL_MS = 5000;
 const POLL_MAX_MS = 45 * 60 * 1000;
@@ -36,6 +44,12 @@ export class PublishVideoComponent implements OnInit, OnDestroy {
     { id: 'bluesky', name: 'Bluesky', icon: 'ri-cloud-line', detail: '', configured: null, selected: true },
   ];
   networksError = '';
+
+  // Chanson jointe (facultatif) : recherche dans le catalogue
+  songs: SongOption[] = [];
+  songQuery = '';
+  songListOpen = false;
+  selectedSong: SongOption | null = null;
   private pollTimer: ReturnType<typeof setTimeout> | null = null;
 
   // Détail par réseau de la dernière publication
@@ -45,13 +59,16 @@ export class PublishVideoComponent implements OnInit, OnDestroy {
   fileName = '';
   fileSize = '';
   previewUrl: string | null = null;
+  // Angular 13 bloque les adresses blob: (« unsafe:blob:… ») : celle-ci vient du fichier choisi, on la déclare sûre
+  previewSafeUrl: SafeUrl | null = null;
   fileError = '';
 
   // Résultat de la dernière publication, affiché dans la page
   status: 'idle' | 'success' | 'partial' | 'error' = 'idle';
   statusMessage = '';
 
-  constructor(private categoryService: CategoryService, private fb: FormBuilder, private videoPublishService: VideoPublishService, private title: Title
+  constructor(private categoryService: CategoryService, private fb: FormBuilder, private videoPublishService: VideoPublishService, private title: Title,
+    private sanitizer: DomSanitizer, private songService: SongService
   ) {
     this.videoForm = this.fb.group({
       title: ['', Validators.required],
@@ -63,6 +80,7 @@ export class PublishVideoComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getBackground();
     this.getNetworks();
+    this.getSongs();
     this.title.setTitle('Créatoke | Publier une vidéo sur les plateformes');
   }
 
@@ -91,6 +109,47 @@ export class PublishVideoComponent implements OnInit, OnDestroy {
       console.error(e);
       this.networksError = 'Impossible de lire les réseaux connectés.';
     }
+  }
+
+  async getSongs() {
+    try {
+      const res = await this.songService.getAllSongs();
+      this.songs = (res?.data ?? [])
+        .filter((s: any) => s?.slug && s?.category)
+        .map((s: any) => ({
+          slug: s.slug, title: s.title ?? '', artist: s.artist ?? '', category: s.category, image: s.image ?? '',
+          search: normalize(`${s.title} ${s.artist}`),
+        }))
+        .sort((a: SongOption, b: SongOption) => a.title.localeCompare(b.title, 'fr'));
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /** Chansons correspondant à la recherche (toutes si le champ est vide) */
+  get songMatches(): SongOption[] {
+    const words = normalize(this.songQuery).split(/\s+/).filter(Boolean);
+    return this.songs.filter(s => words.every(w => s.search.includes(w))).slice(0, 8);
+  }
+
+  selectSong(song: SongOption) {
+    this.selectedSong = song;
+    this.songQuery = '';
+    this.songListOpen = false;
+  }
+
+  clearSong() {
+    this.selectedSong = null;
+  }
+
+  // Laisse le temps au clic sur une chanson d'être pris en compte avant de fermer la liste
+  closeSongList() {
+    setTimeout(() => this.songListOpen = false, 150);
+  }
+
+  private get songLink(): string | null {
+    const s = this.selectedSong;
+    return s ? `${SITE_URL}/song/${s.category}/${s.slug}?promote=1` : null;
   }
 
   /** Réseaux connectés */
@@ -146,12 +205,14 @@ export class PublishVideoComponent implements OnInit, OnDestroy {
       this.fileName = file.name;
       this.fileSize = this.formatSize(file.size);
       this.previewUrl = URL.createObjectURL(file);
+      this.previewSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.previewUrl);
     }
   }
 
   private clearPreview() {
     if (this.previewUrl) URL.revokeObjectURL(this.previewUrl);
     this.previewUrl = null;
+    this.previewSafeUrl = null;
     this.fileName = '';
     this.fileSize = '';
   }
@@ -162,6 +223,7 @@ export class PublishVideoComponent implements OnInit, OnDestroy {
 
   reset() {
     this.videoForm.reset();
+    this.selectedSong = null;
     this.clearPreview();
     this.fileError = '';
     this.status = 'idle';
@@ -176,9 +238,11 @@ export class PublishVideoComponent implements OnInit, OnDestroy {
     this.results = [];
 
     const { title, description, video } = this.videoForm.value as any;
+    const link = this.songLink;
     const form = new FormData();
     form.append('title', title);
     form.append('description', description);
+    if (link) form.append('link', link);
     form.append('networks', this.selectedNetworks.join(','));
     form.append('video', video);
 
@@ -247,6 +311,7 @@ export class PublishVideoComponent implements OnInit, OnDestroy {
     }
     if (published) {
       this.videoForm.reset();
+      this.selectedSong = null;
       this.clearPreview();
     }
   }

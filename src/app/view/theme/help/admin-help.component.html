@@ -229,8 +229,17 @@
                             <span class="legal__icon"><i class="ri-edit-line"></i></span>
                             <h2>Modifier ou supprimer une chanson</h2>
                         </div>
-                        <p>Menu <strong>Admin → Catalogue → « Chansons »</strong> : la liste de tous les titres (pochette,
-                            titre, catégorie) avec les boutons « Modifier » et « Supprimer ».</p>
+                        <p>Menu <strong>Admin → Catalogue → « Chansons »</strong> (page « Mes chansons ») : tous les titres,
+                            avec leur pochette, leur rubrique, les prix des offres proposées et la date d'ajout.</p>
+                        <ul class="legal__bullets">
+                            <li><strong>Rechercher</strong> par titre ou interprète, <strong>filtrer</strong> par rubrique
+                                (le nombre de chansons est indiqué) et <strong>trier</strong> par date ou par titre.</li>
+                            <li>Badges : « Coup de cœur », « Exclusivité », et <strong>« Fichier manquant »</strong> quand
+                                une offre est proposée sans son fichier (un acheteur ne pourrait pas télécharger) : passez la
+                                souris dessus pour savoir lequel. Un bandeau en haut de la page compte ces chansons.</li>
+                            <li>Boutons de chaque ligne : la flèche ouvre la fiche publique, <strong>« Modifier »</strong>,
+                                et la corbeille pour supprimer.</li>
+                        </ul>
                         <h3>Modifier</h3>
                         <ul class="legal__bullets">
                             <li>La page reprend les mêmes rubriques qu'à l'ajout, déjà remplies : changez seulement ce
@@ -249,7 +258,7 @@
                                 « Chanson modifiée » s'affiche en bas à droite.</li>
                         </ul>
                         <h3>Supprimer</h3>
-                        <p>Depuis la liste des chansons (bouton « Supprimer ») ou en bas de la page « Modifier »
+                        <p>Depuis la liste des chansons (bouton corbeille) ou en bas de la page « Modifier »
                             (carte « Supprimer la chanson »). Une confirmation est demandée, puis la chanson est effacée <strong>avec ses
                                 fichiers</strong> (audio et image) du serveur, sauf ceux qu'une autre chanson utilise.
                             <strong>C'est définitif.</strong> Les commentaires de la chanson ne sont pas supprimés.</p>
@@ -295,12 +304,13 @@
                             <span class="legal__icon"><i class="ri-file-list-3-line"></i></span>
                             <h2>Textes des licences et contrats</h2>
                         </div>
-                        <p>Menu <strong>Admin → Catalogue → « Licences »</strong> : cinq onglets, chacun avec un éditeur
-                            de texte.</p>
+                        <p>Menu <strong>Admin → Catalogue → « Licences »</strong> : la liste de gauche regroupe les trois
+                            licences et les deux contrats ; cliquez sur un texte pour l'ouvrir dans l'éditeur. Un texte
+                            vide est signalé « Vide ».</p>
                         <div class="legal__table-wrap">
                             <table class="legal__table">
                                 <thead>
-                                    <tr><th>Onglet</th><th>Où le texte apparaît</th></tr>
+                                    <tr><th>Texte</th><th>Où le texte apparaît</th></tr>
                                 </thead>
                                 <tbody>
                                     <tr><td>Licence de base</td><td>« Ce qui est inclus » des offres Licence de base
@@ -313,8 +323,10 @@
                                 </tbody>
                             </table>
                         </div>
-                        <p>Cliquez sur <strong>« Enregistrer »</strong> en bas de page (un message de confirmation s'affiche en bas à droite).
-                            Seuls les onglets que vous avez modifiés sont enregistrés. Ces textes sont communs à
+                        <p>Un texte modifié est marqué d'une pastille orange et la barre du bas indique « modifié, non
+                            enregistré ». Cliquez sur <strong>« Enregistrer »</strong> (un message de confirmation
+                            s'affiche en bas à droite), ou sur <strong>« Annuler les modifications »</strong> pour revenir
+                            aux textes enregistrés. Seuls les textes modifiés sont enregistrés. Ces textes sont communs à
                             toutes les chansons. Les visiteurs voient le nouveau texte au bout d'une minute environ.
                         </p>
                     </section>
@@ -464,15 +476,23 @@
                             <span class="legal__icon"><i class="ri-bar-chart-2-line"></i></span>
                             <h2>Statistiques</h2>
                         </div>
-                        <p>Menu <strong>Admin → Outils → « Statistiques »</strong> :</p>
+                        <p>Menu <strong>Admin → Outils → « Statistiques »</strong>. Choisissez l'<strong>année</strong> en
+                            haut à droite : toute la page s'y rapporte.</p>
                         <ul class="legal__bullets">
-                            <li><strong>Chiffre d'affaire année en cours</strong> : total des ventes depuis le 1er janvier.
-                            </li>
-                            <li><strong>Ventes de l'année</strong> : nombre de ventes, avec leur évolution mois par mois.
-                            </li>
-                            <li><strong>Total des ventes</strong> : graphique du chiffre d'affaires par mois.</li>
-                            <li>Le <strong>tableau des ventes</strong> : montant, email du client, titre, date (les plus
-                                récentes en premier).</li>
+                            <li><strong>Chiffre d'affaires</strong> de l'année, comparé à l'année précédente quand elle a
+                                eu des ventes.</li>
+                            <li><strong>Ventes</strong> (nombre de licences vendues) et <strong>meilleur mois</strong>.</li>
+                            <li><strong>Visites</strong> : nombre de visites du site ce mois-ci (ou sur toute l'année pour
+                                une année passée). Un visiteur est compté une fois par jour. Les robots ne sont
+                                pas comptés, ni vos propres visites : un navigateur où vous vous êtes connecté une fois en
+                                administrateur n'est plus jamais compté, même après déconnexion. Le détail mois par mois apparaît en passant
+                                la souris sur le graphique. Le compteur fonctionne depuis sa mise en service (novembre 2026),
+                                sans cookie.</li>
+                            <li><strong>Chiffre d'affaires par mois</strong> : passez la souris sur un mois pour voir le
+                                montant et le nombre de ventes.</li>
+                            <li><strong>Chansons les plus vendues</strong> : classement par chiffre d'affaires.</li>
+                            <li><strong>Détail des ventes</strong> : date, chanson, licence, client et montant, les plus
+                                récentes en premier. Le champ de recherche filtre par chanson, client ou licence.</li>
                         </ul>
                         <p>Les téléchargements gratuits (prix 0) n'apparaissent pas dans ces chiffres.</p>
                     </section>
@@ -489,6 +509,10 @@
                                 maximum, un compteur l'indique).</li>
                             <li>Glissez la <strong>vidéo</strong> dans la zone prévue, ou cliquez pour la choisir (512 Mo
                                 maximum) : un aperçu permet de vérifier que c'est la bonne.</li>
+                            <li>Facultatif : dans <strong>« Joindre une chanson »</strong>, tapez quelques lettres du
+                                titre puis cliquez sur la chanson. Son lien est ajouté à la fin du texte sur chaque réseau
+                                et ouvre sa fiche avec la prise de rendez-vous Calendly. Laissez vide pour publier sans
+                                lien.</li>
                             <li>Sous <strong>« Publier sur »</strong>, décochez les réseaux à ne pas utiliser : tous les
                                 réseaux connectés sont cochés par défaut (<strong>Instagram</strong> en Reel,
                                 <strong>TikTok</strong>, <strong>YouTube</strong>, <strong>Facebook</strong>,

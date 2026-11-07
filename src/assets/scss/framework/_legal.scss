@@ -29,6 +29,15 @@ $legal-line: 1px solid rgba(var(--cr-ink-rgb), 0.07);
 
   &__eyebrow, &__icon, &__checklist i, &__rights i, &__note a { color: $legal-light; }
 
+  // Icône centrée sur le texte du libellé (elle était posée sur la ligne de base, plus grande que le texte)
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+
+    i { font-size: 1.5em; line-height: 1; }
+  }
+
   &__title { font-size: clamp(1.75rem, 3vw, 2.5rem); margin: 0; }
   &__intro { max-width: 52rem; font-size: 1rem; }
 

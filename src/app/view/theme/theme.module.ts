@@ -35,6 +35,7 @@ import { PublishVideoComponent } from './publish-video/publish-video.component';
 import { ModalComponent } from '../partials/modal/modal.component';
 import { HelpComponent } from './help/help.component';
 import { AdminHelpComponent } from './help/admin-help.component';
+import { ChatgptComponent } from './chatgpt/chatgpt.component';
 
 //
 // Theme routes
@@ -106,6 +107,12 @@ const routes: Routes = [
       {
         path: 'aide-admin',
         component: AdminHelpComponent,
+        canActivate: [AuthGuard],
+        data: { seo: { noindex: true } }
+      },
+      {
+        path: 'chatgpt',
+        component: ChatgptComponent,
         canActivate: [AuthGuard],
         data: { seo: { noindex: true } }
       },
@@ -187,6 +194,7 @@ const routes: Routes = [
     ModalComponent,
     HelpComponent,
     AdminHelpComponent,
+    ChatgptComponent,
   ],
   imports: [
     // Angular

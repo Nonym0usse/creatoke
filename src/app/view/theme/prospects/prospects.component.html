@@ -8,22 +8,86 @@
     <div class="section">
         <div class="col-xl-12 col-md-12 mx-auto">
 
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4 class="mb-0">Contacts éditeurs</h4>
-                <div>
-                    <button class="btn btn-outline-secondary me-2" [disabled]="templateLoading" (click)="toggleTemplates()">Modifier les emails</button>
-                    <button class="btn btn-custom" (click)="openCreate()">Ajouter un contact</button>
+            <!-- En-tête : styles partagés scss/framework/_legal.scss -->
+            <div class="legal mb-4">
+                <header class="card legal__header">
+                    <span class="legal__eyebrow"><i class="ri-user-search-line"></i> Relations</span>
+                    <h1 class="legal__title">Contacts <span class="text-primary">éditeurs</span></h1>
+                    <p class="legal__intro">Présentez vos chansons à des éditeurs musicaux : vous envoyez un premier
+                        e-mail avec le lien de la musique, puis le site relance automatiquement les éditeurs qui ne
+                        répondent pas.</p>
+                    <div class="pr-head-actions">
+                        <button class="btn btn-custom" (click)="openCreate()"><i class="ri-user-add-line"></i> Ajouter
+                            un contact</button>
+                        <button class="btn btn-outline-secondary" [disabled]="templateLoading" (click)="toggleTemplates()">
+                            <i class="ri-mail-settings-line"></i> Modifier les e-mails</button>
+                    </div>
+                </header>
+            </div>
+
+            <!-- Comment ça marche -->
+            <div class="card pr-how mb-4">
+                <button type="button" class="pr-how__toggle" (click)="showHow = !showHow" [attr.aria-expanded]="showHow">
+                    <span><i class="ri-route-line"></i> Comment ça marche</span>
+                    <i [class]="showHow ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'"></i>
+                </button>
+                <div *ngIf="showHow">
+                    <ol class="pr-steps">
+                        <li>
+                            <span class="pr-steps__num">1</span>
+                            <div><strong>Ajoutez le contact</strong>
+                                <p>Nom, e-mail, maison d'édition et la <strong>musique à lui présenter</strong> (obligatoire
+                                    pour envoyer). Rien n'est envoyé à cette étape : le contact est en « Brouillon ».</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="pr-steps__num">2</span>
+                            <div><strong>Envoyez la présentation (J0)</strong>
+                                <p>Bouton <strong>« Envoyer présentation »</strong> sur sa ligne : il reçoit le premier
+                                    e-mail avec le lien vers la fiche de la musique. La séquence démarre.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="pr-steps__num">3</span>
+                            <div><strong>Relances automatiques</strong>
+                                <p>Sans réponse de sa part, le site le relance tout seul, chaque jour à 9 h :
+                                    <strong>J+10</strong>, <strong>J+30</strong> puis <strong>J+60</strong>. Le dossier est
+                                    clôturé à <strong>J+90</strong>, sans nouvel e-mail.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="pr-steps__num">4</span>
+                            <div><strong>Il vous répond ?</strong>
+                                <p>Cliquez aussitôt sur <strong>« A répondu »</strong> : ses relances s'arrêtent. Le site ne
+                                    voit pas les réponses, c'est à vous de le signaler.</p>
+                            </div>
+                        </li>
+                    </ol>
+                    <div class="pr-legend">
+                        <span class="pr-legend__title">Statuts :</span>
+                        <span><span class="badge bg-secondary">Brouillon</span> présentation pas encore envoyée</span>
+                        <span><span class="badge bg-primary">Séquence en cours</span> relances programmées</span>
+                        <span><span class="badge bg-success">A répondu</span> relances arrêtées</span>
+                        <span><span class="badge bg-warning">En attente (J+90)</span> plus de relance, dossier en
+                            attente</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Édition des emails de la séquence -->
             <div class="card mb-4" *ngIf="showTemplates">
                 <div class="card-body">
-                    <h5>Emails de la séquence</h5>
+                    <h5>E-mails de la séquence</h5>
+                    <p class="text-muted small mb-2">
+                        Ces 4 e-mails sont envoyés à tous les contacts : la présentation (J0), puis les relances à J+10,
+                        J+30 et J+60. Personnalisez le sujet et le texte de chacun ; un e-mail modifié est marqué
+                        « personnalisé » et peut revenir au texte par défaut.
+                    </p>
                     <p class="text-muted small mb-3">
-                        Personnalisez le sujet et le texte de chaque email. Les variables suivantes seront
-                        remplacées automatiquement à l'envoi par les informations du contact :
-                        <code *ngFor="let p of placeholders" class="me-1">{{ p }}</code>
+                        Ces mots entre accolades sont remplacés à l'envoi par les informations du contact :
+                        <code>{{ '{prenom}' }}</code> prénom, <code>{{ '{nom}' }}</code> nom,
+                        <code>{{ '{societe}' }}</code> maison d'édition, <code>{{ '{titre}' }}</code> titre de la
+                        musique, <code>{{ '{lien}' }}</code> lien vers sa fiche.
                     </p>
                     <div class="row">
                         <div class="col-md-4 mb-3">
@@ -57,6 +121,8 @@
             <div class="card mb-4" *ngIf="showForm">
                 <div class="card-body">
                     <h5>{{ editingId ? 'Modifier le contact' : 'Nouveau contact' }}</h5>
+                    <p class="text-muted small mb-3">Rien n'est envoyé en enregistrant : la présentation part seulement
+                        quand vous cliquez sur « Envoyer présentation » dans la liste.</p>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Prénom</label>
@@ -76,6 +142,8 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Musique à présenter</label>
+                            <small class="d-block text-muted mb-1">Son lien est inséré dans les e-mails. Obligatoire
+                                pour envoyer la présentation.</small>
                             <select class="form-select" [(ngModel)]="form.id_song" name="id_song">
                                 <option value="">— Choisir une musique —</option>
                                 <option *ngFor="let song of songs" [value]="song.id">{{ song.title }}</option>
@@ -83,6 +151,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Notes</label>
+                            <small class="d-block text-muted mb-1">Pour vous seulement, jamais envoyées.</small>
                             <textarea class="form-control" rows="2" [(ngModel)]="form.notes" name="notes"></textarea>
                         </div>
                     </div>
@@ -152,15 +221,20 @@
                         </tr>
                     </ng-container>
                     <tr *ngIf="!prospects.length">
-                        <td colspan="8" class="text-center">Aucun contact pour le moment.</td>
+                        <td colspan="8" class="pr-empty">
+                            <i class="ri-user-search-line"></i>
+                            <strong>Aucun contact pour le moment</strong>
+                            <span>Ajoutez un premier éditeur avec « Ajouter un contact », puis envoyez-lui la
+                                présentation.</span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
 
             <p class="text-muted small">
-                Les relances sont envoyées automatiquement chaque jour à 9h depuis contact&#64;creatoke.com :
-                1er rappel à J+10, 2e à J+30, dernier à J+60, clôture du dossier à J+90.
-                Cliquez sur « A répondu » dès qu'un éditeur vous répond pour stopper sa séquence.
+                <i class="ri-information-line"></i> « Historique » montre les e-mails déjà envoyés à un contact.
+                « Supprimer » efface le contact et arrête ses relances. Un contact déjà présenté ne peut pas recevoir
+                une deuxième fois la présentation.
             </p>
         </div>
     </div>

@@ -13,6 +13,7 @@ import { Song } from 'src/app/core/models/song.model';
 import { SectionService } from 'src/app/core/services/api/section.service';
 import { NotifyService } from 'src/app/core/services/global/notify.service';
 import { SeoService } from 'src/app/core/services/global/seo.service';
+import { AuthenticationService } from 'src/app/core/services/global/authentication.service';
 
 declare global {
   interface Window {
@@ -58,6 +59,8 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
 
   private destroy$ = new Subject<void>();
   private promoTriggeredForUrl = new Set<string>();
+  // Administrateur connecté : message de confirmation au partage
+  private isAdmin = false;
 
   constructor(
     private router: Router,
@@ -71,7 +74,8 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
     private title: Title,
     private notify: NotifyService,
     private sectionService: SectionService,
-    private seo: SeoService
+    private seo: SeoService,
+    private authenticationService: AuthenticationService
   ) {
   }
 
@@ -86,6 +90,7 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     // Rubriques relues dans l'API : libellés mis à jour dès qu'elles arrivent.
     this.sectionService.sections$.pipe(takeUntil(this.destroy$)).subscribe(() => this.applySection());
+    this.authenticationService.isAuthenticated().pipe(takeUntil(this.destroy$)).subscribe(isAuth => this.isAdmin = isAuth);
     this.routerSubscription = this.activatedRoute.paramMap.subscribe(pm => {
       const slug = pm.get("slug") || "";
       this.getSongs(slug);
@@ -416,6 +421,13 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
   private onCopySuccess() {
     this.copied = true;
     setTimeout(() => this.copied = false, 2000);
+    // Admin : rappel que le lien copié ouvre la prise de rendez-vous Calendly (?promote=1)
+    if (this.isAdmin) {
+      const title = (this.song?.title ?? '').trim();
+      this.notify.success(
+        `Le lien de ${title ? `« ${title} »` : 'la chanson'} a été copié dans le presse-papiers, avec la prise de rendez-vous Calendly.`
+      );
+    }
   }
 
   /**

@@ -1,105 +1,81 @@
-<!-- Hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
 
-<!-- Start:: under hero [[ Find at scss/framework/hero.scss ]] -->
 <div class="under-hero container">
-
-  <!-- Start:: section [[ Find at scss/framework/section.scss ]] -->
   <div class="section">
-    <div class="row">
-      <div class="col-xl-12 col-md-10 mx-auto">
-        <div class="card">
-          <div class="card-header pb-0">
-            <!-- Start:: mat tabs [[ Find at scss/components/nav.scss ]] -->
-            <div class="mat-tabs" appTabs>
-              <ul class="nav nav-tabs" id="add_music" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="licence1" data-bs-toggle="tab" data-bs-target="#licence_un"
-                          type="button" role="tab" aria-controls="licence_un" aria-selected="true">Licence de base</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="licence2" data-bs-toggle="tab" data-bs-target="#licence_deux" type="button"
-                          role="tab" aria-controls="licence_deux" aria-selected="false">Licence premium
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="licence3" data-bs-toggle="tab" data-bs-target="#licence_trois" type="button"
-                          role="tab" aria-controls="licence_trois" aria-selected="false">Licence pro et exclusivité
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="licence4" data-bs-toggle="tab" data-bs-target="#licence_quatre" type="button"
-                          role="tab" aria-controls="licence_quatre" aria-selected="false">Contrat MP3
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="licence5" data-bs-toggle="tab" data-bs-target="#licence_cinq" type="button"
-                          role="tab" aria-controls="licence_cinq" aria-selected="false">Contrat WAV
-                  </button>
-                </li>
+    <!-- En-tête : styles partagés scss/framework/_legal.scss -->
+    <div class="legal">
+      <header class="card legal__header">
+        <span class="legal__eyebrow"><i class="ri-money-euro-circle-line"></i> Catalogue</span>
+        <h1 class="legal__title">Textes des <span class="text-primary">licences</span></h1>
+        <p class="legal__intro">Les textes des trois licences proposées sur les fiches chansons, et les contrats
+          complets MP3 et WAV. Un changement s'applique à toutes les chansons.</p>
+      </header>
+    </div>
 
-              </ul>
-            </div>
-            <!-- End:: mat tabs -->
+    <div class="lic-layout">
+      <!-- Liste des textes -->
+      <nav class="lic-nav" aria-label="Textes des licences">
+        <div class="card lic-group" *ngFor="let group of groups">
+          <p class="lic-group__title">{{ group.title }}</p>
+          <p class="lic-group__hint">{{ group.hint }}</p>
+          <button type="button" *ngFor="let doc of group.docs" class="lic-doc" [class.is-active]="doc.key === selected"
+            [attr.aria-current]="doc.key === selected" (click)="select(doc.key)">
+            <span class="lic-doc__icon"><i [class]="doc.icon"></i></span>
+            <span class="lic-doc__text">
+              <strong>{{ doc.label }}</strong>
+              <small>{{ doc.format }}</small>
+            </span>
+            <span class="lic-doc__state is-dirty" *ngIf="isDirty(doc.key)" title="Modifié, non enregistré">
+              <i class="ri-edit-circle-fill"></i></span>
+            <span class="lic-doc__state is-empty" *ngIf="!loading && !isDirty(doc.key) && isEmpty(doc.key)"
+              title="Texte vide">Vide</span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Éditeur -->
+      <div class="card lic-editor">
+        <div class="lic-editor__head">
+          <div>
+            <h2>{{ current.label }}</h2>
+            <p><i class="ri-map-pin-line"></i> {{ current.where }}
+              <a *ngIf="current.link" [routerLink]="current.link.url" target="_blank">{{ current.link.label }}
+                <i class="ri-external-link-line"></i></a></p>
           </div>
-          <div class="card-body">
-            <div class="tab-content" id="add_music_content">
-              <div class="tab-pane fade show active" id="licence_un" role="tabpanel" aria-labelledby="licence1"
-                   tabindex="0">
-                <form action="#" class="row">
-                  <div class="col-12 mb-4">
-                    <app-rich-editor preset="complet" [ngModel]="editorData ?? data?.basic" (ngModelChange)="editorData = $event"
-                      [ngModelOptions]="{ standalone: true }" [minHeight]="420"></app-rich-editor>
-                  </div>
+        </div>
 
-                </form>
-              </div>
-              <div class="tab-pane fade" id="licence_deux" role="tabpanel" aria-labelledby="licence2" tabindex="0">
-               <form action="#" class="row">
-                  <div class="col-12 mb-4">
-                    <app-rich-editor preset="complet" [ngModel]="editorData2 ?? data?.base_plus" (ngModelChange)="editorData2 = $event"
-                      [ngModelOptions]="{ standalone: true }" [minHeight]="420"></app-rich-editor>
-                  </div>
+        <div class="lic-editor__loading" *ngIf="loading">
+          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Chargement des textes…
+        </div>
 
-                </form>
-              </div>
-              <div class="tab-pane fade" id="licence_trois" role="tabpanel" aria-labelledby="licence3" tabindex="0">
-                <form action="#" class="row">
-                  <div class="col-12 mb-4">
-                    <app-rich-editor preset="complet" [ngModel]="editorData3 ?? data?.premium" (ngModelChange)="editorData3 = $event"
-                      [ngModelOptions]="{ standalone: true }" [minHeight]="420"></app-rich-editor>
-                  </div>
-
-                </form>
-              </div>
-              <div class="tab-pane fade" id="licence_quatre" role="tabpanel" aria-labelledby="licence4" tabindex="0">
-                <form action="#" class="row">
-                  <div class="col-12 mb-4">
-                    <app-rich-editor preset="complet" [ngModel]="editorData4 ?? data?.contract_mp3" (ngModelChange)="editorData4 = $event"
-                      [ngModelOptions]="{ standalone: true }" [minHeight]="420"></app-rich-editor>
-                  </div>
-
-                </form>
-              </div>
-              <div class="tab-pane fade" id="licence_cinq" role="tabpanel" aria-labelledby="licence5" tabindex="0">
-                <form action="#" class="row">
-                  <div class="col-12 mb-4">
-                    <app-rich-editor preset="complet" [ngModel]="editorData5 ?? data?.contract_wav" (ngModelChange)="editorData5 = $event"
-                      [ngModelOptions]="{ standalone: true }" [minHeight]="420"></app-rich-editor>
-                  </div>
-
-                </form>
-              </div>
-            </div>
+        <!-- Un éditeur par texte, gardé en mémoire pour passer de l'un à l'autre sans perdre la saisie -->
+        <ng-container *ngIf="!loading">
+          <div *ngFor="let doc of docs" [hidden]="doc.key !== selected">
+            <app-rich-editor preset="complet" [ngModel]="valueOf(doc.key)" (ngModelChange)="onEdit(doc.key, $event)"
+              [ngModelOptions]="{ standalone: true }" [minHeight]="420"></app-rich-editor>
           </div>
-          <div class="card-footer text-center">
-            <button class="btn btn-custom" style="min-width: 140px;" (click)="submit()">Enregistrer</button>
+        </ng-container>
+
+        <!-- Barre d'enregistrement -->
+        <div class="lic-save" [class.is-dirty]="dirtyDocs.length">
+          <span class="lic-save__state" *ngIf="dirtyDocs.length; else allSaved">
+            <i class="ri-error-warning-line"></i>
+            {{ dirtyDocs.length > 1 ? dirtyDocs.length + ' textes modifiés' : '« ' + dirtyDocs[0].label + ' » modifiée' }},
+            non enregistré{{ dirtyDocs.length > 1 ? 's' : '' }}
+          </span>
+          <ng-template #allSaved>
+            <span class="lic-save__state"><i class="ri-checkbox-circle-line"></i> Tout est enregistré</span>
+          </ng-template>
+          <div class="lic-save__actions">
+            <button type="button" class="btn btn-outline-secondary" (click)="discard()"
+              [disabled]="!dirtyDocs.length || saving">Annuler les modifications</button>
+            <button type="button" class="btn lic-save__btn" (click)="submit()" [disabled]="!dirtyDocs.length || saving">
+              <span *ngIf="saving" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+              <i *ngIf="!saving" class="ri-save-3-line"></i> Enregistrer
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- End:: section -->
-
 </div>
-<!-- End:: under hero -->

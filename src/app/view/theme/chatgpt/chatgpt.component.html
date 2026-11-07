@@ -1,0 +1,141 @@
+<div class="hero" [style.background-image]="'url(' + picturebackground + ')'"></div>
+
+<div class="under-hero container">
+    <div class="section">
+        <!-- Styles partagés : scss/framework/_legal.scss -->
+        <div class="legal">
+
+            <header class="card legal__header">
+                <span class="legal__eyebrow"><i class="ri-robot-line"></i> Assistant IA</span>
+                <h1 class="legal__title">ChatGPT <span class="text-primary">et Créatoké</span></h1>
+                <p class="legal__intro">
+                    Gérez le site en écrivant à ChatGPT comme à un collaborateur : chercher une chanson, publier une
+                    vidéo, suivre les ventes, relancer les éditeurs… Voici tout ce qu'il sait faire, avec des exemples
+                    de demandes.
+                </p>
+            </header>
+
+            <div class="legal__layout">
+
+                <nav class="legal__toc" aria-label="Sommaire">
+                    <p class="legal__toc-title">Sommaire</p>
+                    <button type="button" *ngFor="let entry of toc" class="legal__toc-link" (click)="scrollTo(entry.id)">
+                        <i [class]="entry.icon"></i><span>{{ entry.label }}</span>
+                    </button>
+                </nav>
+
+                <div class="legal__content">
+
+                    <section class="card legal__section" id="principe">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-lightbulb-line"></i></span>
+                            <h2>Le principe</h2>
+                        </div>
+                        <p>Un <strong>connecteur</strong> (on parle de « MCP ») relie le site Créatoké à ChatGPT. Vous
+                            écrivez une demande en français courant ; ChatGPT consulte ou agit directement sur le site,
+                            puis vous répond.</p>
+                        <div class="legal__callout">
+                            <i class="ri-chat-smile-2-line"></i>
+                            <div>Exemple : « Publie cette vidéo sur YouTube et Instagram avec une description qui donne
+                                envie et trois hashtags, et joins le lien de MUITA. »</div>
+                        </div>
+                        <ul class="gpt-legend">
+                            <li><span class="gpt-kind gpt-kind--read"><i class="ri-eye-line"></i> Consultation</span>
+                                lit les informations, ne modifie rien.</li>
+                            <li><span class="gpt-kind gpt-kind--action"><i class="ri-flashlight-line"></i> Action</span>
+                                modifie le site, publie ou envoie un e-mail : <strong>ChatGPT vous demande votre accord
+                                    avant</strong>.</li>
+                        </ul>
+                    </section>
+
+                    <section class="card legal__section" id="connexion">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-plug-line"></i></span>
+                            <h2>Connecter ChatGPT</h2>
+                        </div>
+                        <p>À faire une seule fois. Adresse du connecteur :</p>
+                        <div class="gpt-url">
+                            <code>{{ mcpUrl }}</code>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="copyUrl()">
+                                <i class="ri-file-copy-line"></i> Copier</button>
+                        </div>
+                        <ol class="legal__steps">
+                            <li>Dans ChatGPT, ouvrez <strong>Paramètres → Applications et connecteurs</strong>, puis
+                                ajoutez un <strong>connecteur personnalisé</strong> (il faut parfois activer le
+                                « mode développeur » dans les paramètres avancés).</li>
+                            <li>Nommez-le <strong>Créatoké</strong>, collez l'adresse ci-dessus et choisissez
+                                l'authentification <strong>OAuth</strong>.</li>
+                            <li>ChatGPT ouvre la page de connexion de Créatoké : saisissez l'<strong>e-mail et le mot de
+                                    passe de votre compte administrateur</strong>.</li>
+                            <li>Dans une conversation, activez le connecteur Créatoké (bouton <strong>+</strong> de la
+                                zone de saisie), puis écrivez votre demande.</li>
+                        </ol>
+                        <div class="legal__callout legal__callout--warn">
+                            <i class="ri-error-warning-line"></i>
+                            <div>Les intitulés des menus peuvent varier selon votre version de ChatGPT. Après un
+                                changement de mot de passe, ou quand une nouvelle fonction arrive sur le site,
+                                <strong>actualisez</strong> ou reconnectez le connecteur. Le même connecteur fonctionne
+                                aussi avec Claude.</div>
+                        </div>
+                    </section>
+
+                    <section class="card legal__section" *ngFor="let topic of topics" [id]="topic.id">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i [class]="topic.icon"></i></span>
+                            <h2>{{ topic.label }}</h2>
+                        </div>
+                        <ul class="gpt-list">
+                            <li *ngFor="let item of topic.items" class="gpt-item">
+                                <div class="gpt-item__what">
+                                    <strong>{{ item.label }}</strong>
+                                    <small *ngIf="item.detail">{{ item.detail }}</small>
+                                </div>
+                                <q class="gpt-item__example">{{ item.example }}</q>
+                                <span class="gpt-kind" [class.gpt-kind--read]="item.kind === 'read'"
+                                    [class.gpt-kind--action]="item.kind === 'action'">
+                                    <i [class]="item.kind === 'read' ? 'ri-eye-line' : 'ri-flashlight-line'"></i>
+                                    {{ item.kind === 'read' ? 'Consultation' : 'Action' }}</span>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="card legal__section" id="limites">
+                        <div class="legal__section-head">
+                            <span class="legal__icon"><i class="ri-shield-check-line"></i></span>
+                            <h2>Bon à savoir</h2>
+                        </div>
+                        <div class="gpt-columns">
+                            <div>
+                                <h3>Garde-fous</h3>
+                                <ul class="legal__checklist">
+                                    <li><i class="ri-check-line"></i> Toute action qui modifie le site, publie ou envoie
+                                        un e-mail demande votre accord.</li>
+                                    <li><i class="ri-check-line"></i> Accès réservé aux comptes administrateurs, avec
+                                        connexion sécurisée.</li>
+                                    <li><i class="ri-check-line"></i> Chaque action de l'assistant est enregistrée.</li>
+                                    <li><i class="ri-check-line"></i> Une seule suppression à la fois.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3>Ce que l'assistant ne fera pas</h3>
+                                <ul class="legal__checklist gpt-no">
+                                    <li><i class="ri-close-line"></i> Encaisser, rembourser ou modifier un paiement.</li>
+                                    <li><i class="ri-close-line"></i> Modifier les mots de passe ou les comptes
+                                        administrateurs.</li>
+                                    <li><i class="ri-close-line"></i> Programmer une publication à une date donnée, ni
+                                        supprimer une publication déjà faite (pas encore disponible).</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="legal__callout">
+                            <i class="ri-lightbulb-line"></i>
+                            <div>Relisez toujours ce que ChatGPT propose avant de valider une action : il vous montre
+                                les textes, les prix ou les destinataires avant de les envoyer.</div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

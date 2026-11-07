@@ -23,6 +23,9 @@ export class ProspectsComponent implements OnInit {
 
     expandedId: string | null = null;
 
+    // Encadré « Comment ça marche » : ouvert par défaut tant qu'il n'y a aucun contact
+    showHow = true;
+
     // Édition des emails de la séquence (sujet + corps texte).
     showTemplates = false;
     templates: any[] = [];
@@ -74,7 +77,10 @@ export class ProspectsComponent implements OnInit {
 
     loadProspects() {
         this.prospectService.listProspects()
-            .then(r => this.prospects = r.data)
+            .then(r => {
+                this.prospects = r.data;
+                if (this.prospects?.length) this.showHow = false;
+            })
             .catch((err) => console.error(err));
     }
 

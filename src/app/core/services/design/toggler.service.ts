@@ -29,4 +29,12 @@ export class TogglerService {
     });
     this.toggled ? _body.setAttribute(Constant.SIDEBAR_TOGGLE, 'true') : _body.removeAttribute(Constant.SIDEBAR_TOGGLE);
   }
+
+  /**
+   * Ferme le menu ouvert sur mobile (après un changement de page).
+   * Sur ordinateur, « toggled » veut dire menu réduit : on n'y touche pas.
+   */
+  closeOnMobile(): void {
+    if (this.toggled && window.innerWidth < 992) this.toggler();
+  }
 }

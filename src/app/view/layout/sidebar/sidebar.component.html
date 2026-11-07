@@ -15,7 +15,8 @@
   <perfect-scrollbar class="sidebar-body">
     <nav class="navbar d-block p-0">
       <ul class="navbar-nav">
-        <li [ngClass]="nav.head ? 'nav-item nav-item--head' : 'nav-item'" *ngFor="let nav of navbar">
+        <ng-container *ngFor="let nav of navbar">
+        <li [ngClass]="nav.head ? 'nav-item nav-item--head' : 'nav-item'" *ngIf="!nav.adminOnly || isAdmin">
           <ng-container *ngIf="nav.head; else navLink">
             <span class="nav-item--head__text">{{nav.head}}</span>
             <span class="nav-item--head__dots">...</span>
@@ -23,15 +24,16 @@
           <ng-template #navLink>
             <a [routerLink]="nav.link" routerLinkActive="active"
               [routerLinkActiveOptions]="nav.link === '/' ? { exact: true } : { exact: false }"
-              class="nav-link d-flex align-items-center" [innerHTML]="navLinkHTML(nav)"></a>
+              class="nav-link d-flex align-items-center" [innerHTML]="navLinkHTML(nav)" (click)="closeOnMobile()"></a>
           </ng-template>
         </li>
+        </ng-container>
       </ul>
     </nav>
   </perfect-scrollbar>
 
   <div class="sidebar-foot sidebar-legal">
-    <a *ngFor="let link of legalLinks" [routerLink]="link.link" routerLinkActive="active">{{ link.name }}</a>
+    <a *ngFor="let link of legalLinks" [routerLink]="link.link" routerLinkActive="active" (click)="closeOnMobile()">{{ link.name }}</a>
   </div>
 </aside>
 <!-- End:: sidebar -->
