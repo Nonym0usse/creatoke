@@ -8,8 +8,8 @@
             <header class="card legal__header">
                 <span class="legal__eyebrow"><i class="ri-video-upload-line"></i> Outils</span>
                 <h1 class="legal__title">Publier une <span class="text-primary">vidéo</span></h1>
-                <p class="legal__intro">Publiez une vidéo sur tous vos réseaux en une seule fois : Instagram, Facebook,
-                    YouTube, Bluesky, LinkedIn et X (Twitter).</p>
+                <p class="legal__intro">Publiez une vidéo sur tous vos réseaux en une seule fois : Instagram, TikTok,
+                    YouTube, Facebook, LinkedIn, X (Twitter), Threads et Bluesky.</p>
             </header>
         </div>
 
@@ -89,8 +89,26 @@
                     <p class="pv-error" *ngIf="fileError">{{ fileError }}</p>
                 </div>
 
+                <div class="pv-field">
+                    <span class="form-label d-block">Publier sur *</span>
+                    <div class="pv-targets" *ngIf="availablePlatforms.length; else noNetwork">
+                        <button type="button" *ngFor="let p of availablePlatforms" class="pv-target"
+                            [class.is-on]="p.selected" [attr.aria-pressed]="p.selected" [disabled]="isLoading"
+                            (click)="togglePlatform(p.id)">
+                            <i [class]="p.selected ? 'ri-checkbox-circle-fill' : 'ri-checkbox-blank-circle-line'"></i>
+                            <i [class]="p.icon"></i> {{ p.name }}
+                        </button>
+                    </div>
+                    <ng-template #noNetwork>
+                        <p class="pv-error" *ngIf="networksError || platforms[0].configured === false">
+                            {{ networksError || 'Aucun réseau n\'est connecté sur Upload-Post.' }}</p>
+                    </ng-template>
+                    <p class="pv-error" *ngIf="availablePlatforms.length && !selectedNetworks.length">Choisissez au moins
+                        un réseau.</p>
+                </div>
+
                 <div class="pv-actions">
-                    <button class="btn pv-submit" type="submit" [disabled]="videoForm.invalid || isLoading">
+                    <button class="btn pv-submit" type="submit" [disabled]="videoForm.invalid || isLoading || !selectedNetworks.length">
                         <span *ngIf="isLoading" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                         <i *ngIf="!isLoading" class="ri-send-plane-fill"></i>
                         {{ isLoading ? 'Publication en cours…' : 'Publier la vidéo' }}
@@ -99,8 +117,8 @@
                         [disabled]="isLoading">Annuler</button>
                 </div>
                 <p class="pv-wait" *ngIf="isLoading">
-                    <i class="ri-time-line"></i> Compression puis publication : cela peut prendre plusieurs minutes. Ne
-                    quittez pas la page.
+                    <i class="ri-time-line"></i> Compression puis publication : cela peut prendre plusieurs minutes.
+                    Restez sur la page pour voir le résultat ; si vous la quittez, la publication continue quand même.
                 </p>
             </form>
 
@@ -110,8 +128,9 @@
                     <ul class="pv-platforms">
                         <li *ngFor="let p of platforms" [class.is-off]="p.configured === false">
                             <i [class]="p.icon"></i>
-                            <span><strong>{{ p.name }}</strong> {{ p.detail }}</span>
-                            <span class="pv-badge" *ngIf="p.configured === false">Non configuré</span>
+                            <span><strong>{{ p.name }}</strong> {{ p.detail }}
+                                <small class="pv-account" *ngIf="p.account">{{ p.account }}</small></span>
+                            <span class="pv-badge" *ngIf="p.configured === false">{{ p.reauth ? 'À reconnecter' : 'Non connecté' }}</span>
                         </li>
                     </ul>
                 </div>
@@ -119,12 +138,12 @@
                     <h2>Comment ça marche</h2>
                     <ol class="pv-steps">
                         <li>La vidéo est compressée (HD 1080p maximum).</li>
-                        <li>Elle est envoyée en même temps sur Instagram, Facebook, YouTube et Bluesky.</li>
-                        <li>LinkedIn et X partagent ensuite le lien de la vidéo YouTube.</li>
-                        <li>Seuls les 280 premiers caractères de la description sont publiés.</li>
+                        <li>Elle est envoyée à Upload-Post, qui la publie en même temps sur chaque réseau coché.</li>
+                        <li>Seuls les 280 premiers caractères de la description sont publiés (raccourcie si besoin
+                            pour X, Threads et Bluesky).</li>
                     </ol>
                     <p class="pv-note">Si un réseau échoue, les autres sont quand même publiés : le résultat de chaque
-                        réseau s'affiche en haut de la page.</p>
+                        réseau s'affiche en haut de la page. Les réseaux se connectent depuis app.upload-post.com.</p>
                 </div>
             </aside>
         </div>

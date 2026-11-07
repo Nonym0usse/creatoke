@@ -176,3 +176,25 @@ $line: 1px solid rgba(255, 255, 255, 0.08);
   white-space: nowrap;
   background: rgba(255, 255, 255, 0.08);
 }
+
+// Choix des réseaux
+.pv-targets { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.pv-target {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: $muted;
+  background: transparent;
+  transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+
+  &.is-on { color: #fff; border-color: $primary; background: rgba(84, 56, 209, 0.16); i:first-child { color: $light; } }
+  &:hover:not(:disabled) { border-color: $light; }
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+}
+
+.pv-account { display: block; font-size: 0.75rem; color: $muted; }
