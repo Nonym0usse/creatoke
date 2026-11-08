@@ -33,15 +33,15 @@ export class PublishVideoComponent implements OnInit, OnDestroy {
 
   // Réseaux de publication (via Upload-Post), dans l'ordre de l'API.
   // configured : null tant que l'API n'a pas répondu ; selected : coché pour cette publication
-  platforms: { id: NetworkId; name: string; icon: string; detail: string; configured: boolean | null; reauth?: boolean; account?: string; selected: boolean }[] = [
-    { id: 'instagram', name: 'Instagram', icon: 'ri-instagram-line', detail: 'en Reel', configured: null, selected: true },
-    { id: 'tiktok', name: 'TikTok', icon: 'ri-music-2-line', detail: '', configured: null, selected: true },
-    { id: 'youtube', name: 'YouTube', icon: 'ri-youtube-line', detail: 'catégorie Musique', configured: null, selected: true },
-    { id: 'facebook', name: 'Facebook', icon: 'ri-facebook-circle-line', detail: 'sur la Page', configured: null, selected: true },
-    { id: 'linkedin', name: 'LinkedIn', icon: 'ri-linkedin-box-line', detail: '', configured: null, selected: true },
-    { id: 'twitter', name: 'X (Twitter)', icon: 'ri-twitter-line', detail: '', configured: null, selected: true },
-    { id: 'threads', name: 'Threads', icon: 'ri-at-line', detail: '', configured: null, selected: true },
-    { id: 'bluesky', name: 'Bluesky', icon: 'ri-cloud-line', detail: '', configured: null, selected: true },
+  platforms: { id: NetworkId; name: string; icon: string; configured: boolean | null; selected: boolean }[] = [
+    { id: 'instagram', name: 'Instagram', icon: 'ri-instagram-line', configured: null, selected: true },
+    { id: 'tiktok', name: 'TikTok', icon: 'ri-music-2-line', configured: null, selected: true },
+    { id: 'youtube', name: 'YouTube', icon: 'ri-youtube-line', configured: null, selected: true },
+    { id: 'facebook', name: 'Facebook', icon: 'ri-facebook-circle-line', configured: null, selected: true },
+    { id: 'linkedin', name: 'LinkedIn', icon: 'ri-linkedin-box-line', configured: null, selected: true },
+    { id: 'twitter', name: 'X (Twitter)', icon: 'ri-twitter-line', configured: null, selected: true },
+    { id: 'threads', name: 'Threads', icon: 'ri-at-line', configured: null, selected: true },
+    { id: 'bluesky', name: 'Bluesky', icon: 'ri-cloud-line', configured: null, selected: true },
   ];
   networksError = '';
 
@@ -101,8 +101,6 @@ export class PublishVideoComponent implements OnInit, OnDestroy {
         const platform = this.platforms.find(p => p.id === n.id);
         if (!platform) continue;
         platform.configured = n.configured;
-        platform.reauth = n.reauthRequired;
-        platform.account = n.account;
         platform.selected = n.configured;
       }
     } catch (e) {
@@ -160,6 +158,22 @@ export class PublishVideoComponent implements OnInit, OnDestroy {
   /** Réseaux cochés pour cette publication */
   get selectedNetworks(): NetworkId[] {
     return this.platforms.filter(p => p.configured && p.selected).map(p => p.id);
+  }
+
+  /** Réseaux non connectés (ou à reconnecter) */
+  get unavailableNames(): string[] {
+    return this.platforms.filter(p => p.configured === false).map(p => p.name);
+  }
+
+  /** Ce qu'il manque pour que le bouton « Publier la vidéo » s'active */
+  get missing(): string[] {
+    const invalid = (name: string) => this.videoForm.get(name)?.invalid;
+    return [
+      invalid('video') ? 'la vidéo (étape 1)' : '',
+      invalid('title') ? 'le titre (étape 2)' : '',
+      invalid('description') ? 'le texte (étape 3)' : '',
+      !this.selectedNetworks.length ? 'un réseau (étape 5)' : '',
+    ].filter(Boolean);
   }
 
   togglePlatform(id: NetworkId) {
@@ -276,7 +290,7 @@ export class PublishVideoComponent implements OnInit, OnDestroy {
       } else if (Date.now() - started > POLL_MAX_MS) {
         this.isLoading = false;
         this.status = 'partial';
-        this.statusMessage = 'La publication est toujours en cours chez Upload-Post : le résultat de chaque réseau sera visible sur app.upload-post.com.';
+        this.statusMessage = 'La publication prend plus de temps que prévu. Elle continue toute seule : vérifiez sur vos réseaux dans un moment, sans la relancer.';
       } else {
         this.waitForPost(id, title, started);
       }
