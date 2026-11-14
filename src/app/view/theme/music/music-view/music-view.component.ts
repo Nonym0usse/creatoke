@@ -116,7 +116,7 @@ export class MusicViewComponent implements OnInit, OnDestroy, OnChanges {
     this.promoTriggeredForUrl.add(key);
 
     setTimeout(() => {
-      const base = "https://calendly.com/jeanarnaque13/creatoke";
+      const base = "https://calendly.com/contact-creatoke/creatoke";
       const url =
         `${base}` +
         `?a1=${encodeURIComponent(songTitle)}` +
